@@ -1,4 +1,4 @@
-WORKSHOP_TITLE
+Machine learning with scikit-learn in Python
 ================
 
 ### posit::conf(2025)
