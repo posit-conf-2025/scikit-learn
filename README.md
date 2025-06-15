@@ -3,7 +3,7 @@ WORKSHOP_TITLE
 
 ### posit::conf(2025)
 
-by Joe Cheng, and Garrick Aden-Buie
+by Tiffany Timbers and Katie Burak
 
 -----
 
