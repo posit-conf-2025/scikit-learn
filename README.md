@@ -1,3 +1,6 @@
+
+![](materials/slides/img/frontmatter/ds-a-first-intro-graphic.jpg)
+
 Machine learning with scikit-learn in Python
 ================
 
@@ -7,28 +10,12 @@ by Tiffany Timbers and Katie Burak
 
 -----
 
-INSTRUCTIONS FOR INSTRUCTORS: Please insert information about your workshop below. Then, add workshop content in the materials folder and link to each session’s materials from the schedule below. You are welcomed to add more rows to the schedule. We just ask that you take breaks at the specified times. Once you are done adding information, you can remove these instructions from the README.
-
-Alternatively, you can completely redo the organization of this repo  as a Quarto website or some other format you prefer to host your workshop materials. The only requirement is that your workshop materials are hosted here.
-
------
-
-:spiral_calendar: September 16, 2025  
-:alarm_clock:     09:00 - 17:00  
-:hotel:           ROOM TBD  
-:writing_hand:    [pos.it/conf](http://pos.it/conf)
+🗓️ September 16, 2025 <br>
+⏰ 09:00 - 17:00<br>
+🏨 ROOM TBD<br>
+✍️ [pos.it/conf](http://pos.it/conf)<br>
 
 -----
-
-## Description
-
-ADD WORKSHOP DESCRIPTION.
-
-## Setup
-
-ADD INFORMATION YOU WANT LEARNERS TO HAVE / STEPS THEY WANT THEM TO COMPLETE PRIOR TO THE WORKSHOP. THIS COULD BE A LINK TO A THREAD ON POSIT COMMUNITY, PACKAGE INSTALL INSTRUCTIONS, HOW TO GET AN POSIT CLOUD ACCOUNT, ETC.
-
-## Schedule
 
 | Time          | Activity         |
 | :------------ | :--------------- |
@@ -39,10 +26,6 @@ ADD INFORMATION YOU WANT LEARNERS TO HAVE / STEPS THEY WANT THEM TO COMPLETE PRI
 | 13:30 - 15:00 | Session 3        |
 | 15:00 - 15:30 | *Coffee break*   |
 | 15:30 - 17:00 | Session 4        |
-
-## Instructor(s)
-
-ADD INSTRUCTOR(S) INFO.
 
 -----
 
