@@ -1,6 +1,6 @@
 ---
 title: "Regression"
-subtitle: "K-NN and Linear Regression"
+subtitle: "K-NN Regression, Linear Regression and L1 regularization"
 format:
   revealjs:
     slide-number: true
@@ -23,25 +23,15 @@ import pandas as pd
 pd.set_option('display.max_rows', 5)
 ```
 
-## Session learning objectives: KNN
+## Session learning objectives
 
 - Recognize situations where a regression analysis would be appropriate for making predictions.
 - Explain the K-nearest neighbors (K-NN) regression algorithm and describe how it differs from K-NN classification.
-- Interpret the output of a K-NN regression.
-- In a data set with two or more variables, perform K-nearest neighbors regression in Python.
-- Evaluate K-NN regression prediction quality in Python using the root mean squared prediction error (RMSPE).
-- Estimate the RMSPE in Python using cross-validation or a test set.
-- Choose the number of neighbors in K-nearest neighbors regression by minimizing estimated cross-validation RMSPE.
-- Describe underfitting and overfitting, and relate it to the number of neighbors in K-nearest neighbors regression.
-- Describe the advantages and disadvantages of K-nearest neighbors regression.
-
-
-## Session learning objective: Linear Regression
-
-- Use Python to fit simple and multivariable linear regression models on training data.
+- Use Python to fit linear regression models on training data.
 - Evaluate the linear regression model on test data.
-- Compare and contrast predictions obtained from K-nearest neighbors regression to those obtained using linear regression from the same data set.
 - Describe how linear regression is affected by outliers and multicollinearity.
+- Describe the advantages and disadvantages of K-nearest neighbors and linear regression.
+
 
 ## The regression problem
 
@@ -58,8 +48,9 @@ Examples:
 
 In this workshop:
 
-- K-nearest neighbors
+- K-nearest neighbors (brief overview)
 - Linear regression
+- L1 regularization
 
 ### Classification similarities to regression
 
@@ -119,7 +110,7 @@ scatter
 
 ```
 
-## K-nearest neighbors regression
+## Sample of data
 
 ```{python}
 # look at a small sample of data
@@ -129,7 +120,7 @@ small_sacramento = sacramento.sample(n=30)
 print(small_sacramento)
 ```
 
-### Sample: Example
+### Sample: K-NN Example
 
 ::: {.columns}
 ::: {.column}
@@ -204,33 +195,23 @@ nn_plot
 ```
 
 :::
-:::
 
-### Sample: Predict
-
-5 closest points
+::: {.column}
+Make prediction:
 
 ```{python}
 small_sacramento['dist'] = (2000 - small_sacramento['sqft']).abs()
 nearest_neighbors = small_sacramento.nsmallest(5, 'dist')
-print(nearest_neighbors)
-```
-
-Average of nearest points
-
-```{python}
 prediction = nearest_neighbors['price'].mean()
 print(prediction)
 ```
+:::
 
-### Sample: Visualize new prediction
-
-
-::: {.columns}
 ::: {.column}
+Visualize prediction 
 
 ```{python}
-#| echo: false
+# | echo: false
 
 nn_plot_pred = nn_plot + alt.Chart(
     pd.DataFrame({"sqft": [2000], "price": [prediction]})
@@ -238,20 +219,25 @@ nn_plot_pred = nn_plot + alt.Chart(
 
 nn_plot_pred
 ```
-
-:::
-
-::: {.column}
-
-```{python}
-print(prediction)
-```
-
 :::
 :::
 
-## Training, evaluating, and tuning the model
+## K-NN regression in `scikit-learn`
 
+We won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:
+
+| Feature               | K-NN Classification               | K-NN Regression                          |
+|-----------------------|-----------------------------------|-------------------------------------------|
+| **Target Type**       | Categorical (e.g., 'A', 'B')      | Continuous (e.g., 3.5, 27.0)              |
+| **Prediction Logic**  | Majority vote                     | Mean (or weighted average)                |
+| **scikit-learn Class**| `KNeighborsClassifier`            | `KNeighborsRegressor`                     |
+| **Output**            | Class label                       | Numeric value                             |
+| **Use Case**          | Classification problems           | Regression problems                       |
+| **Metrics**           | Accuracy, Precision, Recall etc.                | RMS(P)E (details to follow)   
+
+
+## Splitting the data
+ 
 ```{python}
 np.random.seed(1)
 
@@ -354,12 +340,13 @@ Root Mean Square (Prediction) Error
 This notation is a statistics distinction,
 you will most likely see RMSPE written as RMSE.
 
-### Pick the best k: `GridSearchCV()`
+### Choosing $k$
 
-We'll use cross validation to try out many different values of `k`
+As we did previously, we can use cross-validation and select the value of $k$ that yields the lowest RMSE to choose the best model.
 
 ```{python}
-# import the K-NN regression model
+# | echo: false
+
 from sklearn.neighbors import KNeighborsRegressor
 
 # preprocess the data, make the pipeline
@@ -377,16 +364,13 @@ sacr_gridsearch = GridSearchCV(
 	scoring='neg_root_mean_squared_error',  # we will deal with this later
 )
 
-```
-
-### Pick the best k: fit the CV models
-
-```{python}
 # fit the GridSearchCV object
 sacr_gridsearch.fit(
 	sacramento_train[['sqft']],  # A single-column data frame
 	sacramento_train['price'],  # A series
 )
+
+# sacr_gridsearch.best_params_
 
 # Retrieve the CV scores
 sacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)
@@ -398,99 +382,10 @@ sacr_results = sacr_results[
 		'sem_test_score',
 	]
 ].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})
-print(sacr_results)
-```
 
-### Look at the CV Results
 
-```{python}
-print(sacr_results)
-```
-
-- `n_neighbors`: values of $K$
-- `mean_test_score`: RMSPE estimated via cross-validation (it's negative!)
-- `sem_test_score`: standard error of our cross-validation RMSPE estimate
-  (how uncertain we are in the mean value)
-
-```{python}
-sacr_results['mean_test_score'] = -sacr_results['mean_test_score']
-print(sacr_results)
-```
-
-### Best k
-
-take the *minimum* RMSPE to find the best setting for the number of neighbors
-
-```{python}
 best_k_sacr = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin()]
 best_cv_RMSPE = min(sacr_results["mean_test_score"])
-```
-
-Best k:
-
-::: {.columns}
-::: {.column}
-
-```{python}
-best_k_sacr
-```
-:::
-
-::: {.column}
-
-```{python}
-best_cv_RMSPE
-```
-
-:::
-:::
-
-### Best k: Visualize
-
-```{python}
-# | echo: false
-
-sacr_tunek_plot = (
-	alt.Chart(sacr_results)
-	.mark_line(point=True)
-	.encode(
-		x=alt.X('n_neighbors:Q', title='Neighbors'),
-		y=alt.Y(
-			'mean_test_score',
-			scale=alt.Scale(zero=False),
-			title='Cross-Validation RMSPE Estimate',
-		),
-	)
-)
-
-sacr_tunek_plot
-
-```
-
-```{python}
-sacr_gridsearch.best_params_
-
-```
-
-## Underfitting and overfitting
-
-::: {.columns}
-::: {.column}
-
-```{python}
-sacr_tunek_plot
-```
-:::
-
-::: {.column}
-The RMSPE values start to get higher after a certain k value
-:::
-:::
-
-### Visualizing different values of k
-
-```{python}
-# | echo: false
 
 gridvals = [
 	1,
@@ -541,11 +436,11 @@ for i in range(len(gridvals)):
 (plots[0] | plots[1] | plots[2]) & (plots[3] | plots[4] | plots[5])
 ```
 
+
 ## Evaluating on the test set
 
-RMSPE on the test data
 
-- Retrain the K-NN regression model on the entire training data set using best k
+- Then we retrain the K-NN regression model on the entire training data set using best $k$.
 
 ```{python}
 from sklearn.metrics import mean_squared_error
@@ -557,6 +452,8 @@ RMSPE = mean_squared_error(
 
 RMSPE
 ```
+
+> *The code for running cross-validation to get `sacr_gridsearch` is included at the end of the slides for reference.*
 
 ### Final best K model
 
@@ -592,143 +489,9 @@ sacr_preds_plot = base_plot + alt.Chart(
 sacr_preds_plot
 ```
 
-## Multivariable K-NN regression
-
-We can use multiple predictors in K-NN regression
-
-### Multivariable K-NN regression: Preprocessor
-
-```{python}
-sacr_preprocessor = make_column_transformer(
-	(StandardScaler(), ['sqft', 'beds'])
-)
-sacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())
-```
-
-### Multivariable K-NN regression: CV
-
-```{python}
-# create the 5-fold GridSearchCV object
-param_grid = {
-	'kneighborsregressor__n_neighbors': range(1, 50),
-}
-
-sacr_gridsearch = GridSearchCV(
-	estimator=sacr_pipeline,
-	param_grid=param_grid,
-	cv=5,
-	scoring='neg_root_mean_squared_error',
-)
-
-sacr_gridsearch.fit(
-	sacramento_train[['sqft', 'beds']], sacramento_train['price']
-)
-```
-
-### Multivariable K-NN regression: Best K
-
-```{python}
-# retrieve the CV scores
-sacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)
-sacr_results['sem_test_score'] = sacr_results['std_test_score'] / 5 ** (1 / 2)
-sacr_results['mean_test_score'] = -sacr_results['mean_test_score']
-sacr_results = sacr_results[
-	[
-		'param_kneighborsregressor__n_neighbors',
-		'mean_test_score',
-		'sem_test_score',
-	]
-].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})
-
-# show only the row of minimum RMSPE
-sacr_results.nsmallest(1, 'mean_test_score')
-```
-
-### Multivariable K-NN regression: Best model
-
-```{python}
-best_k_sacr_multi = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin()]
-min_rmspe_sacr_multi = min(sacr_results["mean_test_score"])
-```
-
-Best K
-
-```{python}
-best_k_sacr_multi
-```
-
-Best RMSPE
-
-```{python}
-min_rmspe_sacr_multi
-```
-
-### Multivariable K-NN regression: Test data
-
-```{python}
-sacramento_test["predicted"] = sacr_gridsearch.predict(sacramento_test)
-RMSPE_mult = mean_squared_error(
-    y_true=sacramento_test["price"],
-    y_pred=sacramento_test["predicted"]
-)**(1/2)
-
-RMSPE_mult
-```
-
-### Multivariable K-NN regression: Visualize
-
-```{python}
-# | echo: false
-
-# create a prediction pt grid
-xvals = np.linspace(
-	sacramento_train['sqft'].min(), sacramento_train['sqft'].max(), 50
-)
-yvals = np.linspace(
-	sacramento_train['beds'].min(), sacramento_train['beds'].max(), 50
-)
-xygrid = np.array(np.meshgrid(xvals, yvals)).reshape(2, -1).T
-xygrid = pd.DataFrame(xygrid, columns=['sqft', 'beds'])
-
-# add prediction
-knnPredGrid = sacr_gridsearch.predict(xygrid)
-
-fig = px.scatter_3d(
-	sacramento_train,
-	x='sqft',
-	y='beds',
-	z='price',
-	opacity=0.4,
-	labels={
-		'sqft': 'Size (sq ft)',
-		'beds': 'Bedrooms',
-		'price': 'Price (USD)',
-	},
-)
-
-fig.update_traces(marker={'size': 2, 'color': 'red'})
-
-fig.add_trace(
-	go.Surface(
-		x=xvals,
-		y=yvals,
-		z=knnPredGrid.reshape(50, -1),
-		name='Predictions',
-		colorscale='viridis',
-		colorbar={'title': 'Price (USD)'},
-	)
-)
-
-fig.update_layout(
-	margin=dict(l=0, r=0, b=0, t=1),
-	template='plotly_white',
-)
-
-fig
-```
+> *K-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.*
 
 ## Strengths and limitations of K-NN regression
-
 
 Strengths:
 
@@ -1468,3 +1231,183 @@ lm_plot_multicol_1
 Thomas Cover and Peter Hart. Nearest neighbor pattern classification. IEEE Transactions on Information Theory, 13(1):21–27, 1967.
 
 Evelyn Fix and Joseph Hodges. Discriminatory analysis. nonparametric discrimination: consistency properties. Technical Report, USAF School of Aviation Medicine, Randolph Field, Texas, 1951.
+
+## Code for CV in K-NN regression
+
+```{python}
+from sklearn.neighbors import KNeighborsRegressor
+
+# preprocess the data, make the pipeline
+sacr_preprocessor = make_column_transformer((StandardScaler(), ['sqft']))
+sacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())
+
+# create the 5-fold GridSearchCV object
+param_grid = {
+	'kneighborsregressor__n_neighbors': range(1, 201, 3),
+}
+sacr_gridsearch = GridSearchCV(
+	estimator=sacr_pipeline,
+	param_grid=param_grid,
+	cv=5,
+	scoring='neg_root_mean_squared_error'
+)
+
+# fit the GridSearchCV object
+sacr_gridsearch.fit(
+	sacramento_train[['sqft']],  # A single-column data frame
+	sacramento_train['price'],  # A series
+)
+
+sacr_gridsearch.best_params_
+
+# Retrieve the CV scores
+sacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)
+sacr_results['sem_test_score'] = sacr_results['std_test_score'] / 5 ** (1 / 2)
+sacr_results = sacr_results[
+	[
+		'param_kneighborsregressor__n_neighbors',
+		'mean_test_score',
+		'sem_test_score',
+	]
+].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})
+
+
+best_k_sacr = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin()]
+best_cv_RMSPE = min(sacr_results["mean_test_score"])
+```
+
+### Multivariable K-NN regression: Preprocessor
+
+```{python}
+sacr_preprocessor = make_column_transformer(
+    (StandardScaler(), ['sqft', 'beds'])
+)
+sacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())
+```
+
+### Multivariable K-NN regression: CV
+
+```{python}
+# create the 5-fold GridSearchCV object
+param_grid = {
+    'kneighborsregressor__n_neighbors': range(1, 50),
+}
+
+sacr_gridsearch = GridSearchCV(
+    estimator=sacr_pipeline,
+    param_grid=param_grid,
+    cv=5,
+    scoring='neg_root_mean_squared_error',
+)
+
+sacr_gridsearch.fit(
+    sacramento_train[['sqft', 'beds']], sacramento_train['price']
+)
+```
+
+### Multivariable K-NN regression: Best K
+
+```{python}
+# retrieve the CV scores
+sacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)
+sacr_results['sem_test_score'] = sacr_results['std_test_score'] / 5 ** (1 / 2)
+sacr_results['mean_test_score'] = -sacr_results['mean_test_score']
+sacr_results = sacr_results[
+    [
+        'param_kneighborsregressor__n_neighbors',
+        'mean_test_score',
+        'sem_test_score',
+    ]
+].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})
+
+# show only the row of minimum RMSPE
+sacr_results.nsmallest(1, 'mean_test_score')
+```
+
+### Multivariable K-NN regression: Best model
+
+```{python}
+best_k_sacr_multi = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin()]
+min_rmspe_sacr_multi = min(sacr_results["mean_test_score"])
+```
+
+Best K
+
+```{python}
+best_k_sacr_multi
+```
+
+Best RMSPE
+
+```{python}
+min_rmspe_sacr_multi
+```
+
+
+
+### Multivariable K-NN regression: Test data
+
+```{python}
+sacramento_test["predicted"] = sacr_gridsearch.predict(sacramento_test)
+RMSPE_mult = mean_squared_error(
+    y_true=sacramento_test["price"],
+    y_pred=sacramento_test["predicted"]
+)**(1/2)
+
+RMSPE_mult
+```
+
+
+
+### Multivariable K-NN regression: Visualize
+
+```{python}
+# | echo: false
+
+# create a prediction pt grid
+xvals = np.linspace(
+    sacramento_train['sqft'].min(), sacramento_train['sqft'].max(), 50
+)
+yvals = np.linspace(
+    sacramento_train['beds'].min(), sacramento_train['beds'].max(), 50
+)
+xygrid = np.array(np.meshgrid(xvals, yvals)).reshape(2, -1).T
+xygrid = pd.DataFrame(xygrid, columns=['sqft', 'beds'])
+
+# add prediction
+knnPredGrid = sacr_gridsearch.predict(xygrid)
+
+fig = px.scatter_3d(
+    sacramento_train,
+    x='sqft',
+    y='beds',
+    z='price',
+    opacity=0.4,
+    labels={
+        'sqft': 'Size (sq ft)',
+        'beds': 'Bedrooms',
+        'price': 'Price (USD)',
+    },
+)
+
+fig.update_traces(marker={'size': 2, 'color': 'red'})
+
+fig.add_trace(
+    go.Surface(
+        x=xvals,
+        y=yvals,
+        z=knnPredGrid.reshape(50, -1),
+        name='Predictions',
+        colorscale='viridis',
+        colorbar={'title': 'Price (USD)'},
+    )
+)
+
+fig.update_layout(
+    margin=dict(l=0, r=0, b=0, t=1),
+    template='plotly_white',
+)
+
+fig
+```
+
