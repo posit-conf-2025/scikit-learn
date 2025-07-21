@@ -27,10 +27,12 @@ pd.set_option('display.max_rows', 5)
 
 - Recognize situations where a regression analysis would be appropriate for making predictions.
 - Explain the K-nearest neighbors (K-NN) regression algorithm and describe how it differs from K-NN classification.
+- Describe the advantages and disadvantages of K-nearest neighbors and linear regression.
 - Use Python to fit linear regression models on training data.
 - Evaluate the linear regression model on test data.
 - Describe how linear regression is affected by outliers and multicollinearity.
-- Describe the advantages and disadvantages of K-nearest neighbors and linear regression.
+- Learn how to apply LASSO regression (L1 regularization) for feature selection and regularization to improve model performance.
+
 
 
 ## The regression problem
@@ -508,10 +510,10 @@ Weaknesses:
 ## Linear Regression
 
 - Addresses the limitations from KNN regression
-- provides an interpretable mathematical equation that describes
+- Provides an interpretable mathematical equation that describes
 the relationship between the predictor and response variables
 
-- Create a straight line of best fit through the training data
+- Creates a straight line of best fit through the training data
 
 :::{.callout-note}
 Logistic regression is the linear model we can use for binary classification
@@ -604,7 +606,7 @@ small_plot
 :::
 ::: {.column}
 
-The equation for the straight line is:
+The equation for the line is:
 
 $$\text{house sale price} = \beta_0 + \beta_1 \cdot (\text{house size}),$$
 where
@@ -662,10 +664,8 @@ small_plot_2000_pred
 
 ```
 
-### What makes the best line?
+### Estimating a line
 
-::: {.columns}
-::: {.column}
 
 ```{python}
 #| echo: false
@@ -681,8 +681,22 @@ several_lines_plot
 
 ```
 
-:::
-::: {.column}
+
+### What makes the best line?
+
+To define the **best line** we need to know how to measure the distance of the points to the line! 
+    
+**Which of the following criteria would you choose to define "distance of a point to the line"?** 
+
+![](img/regression/dist.png)
+
+> Figure by Dr. Joel Ostblom
+
+### Least squares
+
+Least Squares method minimizes the sum of the squares of the residuals. The **residuals** are the difference between the observed value of the response ($y_i$) and the predicted value of the response ($\hat{y}_i$):
+
+$$r_i = y_i-\hat{y}_i$$
 
 ```{python}
 # | echo: false
@@ -711,8 +725,15 @@ error_plot
 
 ```
 
-:::
-:::
+> The residuals are the vertical distances of each point to the estimated line
+
+## Sum of squared errors
+
+When estimating the regression equation, we minimize the sum of squared errors (SSE), defined
+as
+
+$$SSE = \sum_{i=1}^n (y_i-\hat{y_i})^2=\sum_{i=1}^n r_i^2.$$
+
 
 ## Linear regression in Python
 
@@ -937,9 +958,12 @@ lm_plot_final = (
 
 More predictor variables!
 
+- 
 - More does not always mean better
-- We will not cover variable selection in this workshop
-- Will talk about categorical predictors later in the workshop
+
+
+
+> *Note: We will talk about categorical predictors later in the workshop*
 
 ### Sacramento real estate: 2 predictors
 
@@ -1163,7 +1187,11 @@ lm_plot_outlier_large
 
 ### Multicollinearity
 
-plane of best fit has regression coefficients that are very sensitive to the exact values in the data
+- Multicollinearity means that some (or all) of the *explanatory* variables are linearly related! 
+
+- When this happens, the coefficient estimates are very "unstable" and the contribution of one variable gets mixed with that of another variable correlated with it.
+
+- Essentially, the plane of best fit has regression coefficients that are very sensitive to the exact values in the data.
 
 ```{python}
 # | echo: false
@@ -1205,6 +1233,130 @@ lm_plot_multicol_1 = (
 )
 
 lm_plot_multicol_1
+```
+
+## Feature selection
+
+- In modern datasets, we often have many features (sometimes more than the number of observations).
+- Not all features are informative or relevant.
+- Including irrelevant predictors can lead to:
+  - Overfitting
+  - Multicollinearity
+  - Poor generalization to new data
+- We need methods that can automatically select features while fitting the model...
+
+## L1-regularization 
+
+- L1-regularization, often referred to as LASSO (Least Absolute Shrinkage and Selection Operator), adds an L1 penalty to the least squares loss:
+
+$$
+\hat{\boldsymbol{\beta}} = \arg\min_{\boldsymbol{\beta}} \left\{
+\sum_{i=1}^n (y_i - \mathbf{x}_i^\top \boldsymbol{\beta})^2 + \lambda \sum_{j=1}^p |\beta_j|
+\right\}
+$$
+
+- $\lambda \geq 0$ is a tuning parameter that controls the strength of the penalty
+- With the L1 penalty, many coefficients get set equal to zero. 
+- Thus, LASSO performs variable selection *and* regularization.
+
+:::{.callout-note}
+Standardization is necessary in penalized regression because penalty terms are scale-sensitive.
+:::
+
+## L1-regularization in `scikit-learn`
+
+```{python}
+
+from sklearn.linear_model import Lasso
+
+# Example: Use only numeric columns for X 
+features = ['beds', 'baths', 'sqft']
+
+X = sacramento_train[features]
+y = sacramento_train['price']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2025)
+
+sacr_preprocessor = make_column_transformer(
+    (StandardScaler(), features),
+    remainder= 'drop'
+)
+
+sacr_pipeline = make_pipeline(
+    sacr_preprocessor,
+    Lasso(alpha=2000.0, max_iter=10000) # fixing alpha for now
+)
+
+# Fit the pipeline on training data
+sacr_pipeline.fit(X_train, y_train)
+
+lasso_model = sacr_pipeline.named_steps['lasso']
+
+coefs = lasso_model.coef_
+
+# Count non-zero coefficients
+num_selected = np.sum(coefs != 0)
+print(f"Number of features selected by Lasso: {num_selected}")
+
+# List selected features
+selected_features = [feature for feature, coef in zip(features, coefs) if coef != 0]
+print("Selected features:", selected_features)
+```
+
+## Choosing the shrinkage parameter 
+
+- The $\alpha$ parameter controls the strength of the L1 penalty:
+  - Larger $\alpha$ → stronger regularization → more coefficients shrunk to zero
+  - Smaller $\alpha$ → less regularization → more complex model
+
+- Proper selection of $\alpha$ is critical for balancing **bias** and **variance**.
+
+### Tuning $\alpha$ with cross-validation
+
+- Just like tuning $k$ in KNN, we can select $\alpha$ by evaluating performance on validation sets.
+
+- Example workflow with **GridSearchCV**:
+
+
+```{python}
+pipeline = make_pipeline(
+    sacr_preprocessor,
+    Lasso(max_iter=10000)
+)
+
+param_grid = {
+    'lasso__alpha': np.arange(1, 3000, 10.0)
+}
+
+grid_search = GridSearchCV(
+    estimator=pipeline,
+    param_grid=param_grid,
+    cv=5,
+    scoring='neg_root_mean_squared_error'
+)
+
+grid_search.fit(X_train, y_train)
+
+print("Best alpha:", grid_search.best_params_['lasso__alpha'])
+print("Coefficients:", coefs)
+```
+
+## 
+
+```{python}
+best_model = grid_search.best_estimator_
+
+# Predict on test set
+y_pred = best_model.predict(X_test)
+
+# Show first 5 predictions
+print("First 5 predictions:", y_pred[:5])
+
+# Evaluate model
+mse = mean_squared_error(y_test, y_pred)
+rmse = mse ** (1/2)
+
+print(f"Test RMSE: {rmse:.2f}")
 ```
 
 ## Additional Resources
@@ -1254,8 +1406,8 @@ sacr_gridsearch = GridSearchCV(
 
 # fit the GridSearchCV object
 sacr_gridsearch.fit(
-	sacramento_train[['sqft']],  # A single-column data frame
-	sacramento_train['price'],  # A series
+	sacramento_train[['sqft']],  
+	sacramento_train['price']
 )
 
 sacr_gridsearch.best_params_
