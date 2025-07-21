@@ -1,8 +1,11 @@
 project:
   type: website
+  output-dir: _site
 
 website:
   title: "Machine learning with scikit-learn in Python"
+  site-url: https://posit-conf-2025.github.io/scikit-learn/
+
   navbar:
     left:
       - href: index.qmd
@@ -24,7 +27,9 @@ format:
     theme: cosmo
     css: styles.scss
     toc: true
+    self-contained: true
 
 execute:
   cache: true
-  freeze: auto  # re-render only when source changes
+  freeze: auto
+
