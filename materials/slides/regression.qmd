@@ -197,9 +197,9 @@ nn_plot
 ```
 
 :::
+:::
 
-::: {.column}
-Make prediction:
+## Make and visualize prediction
 
 ```{python}
 small_sacramento['dist'] = (2000 - small_sacramento['sqft']).abs()
@@ -207,10 +207,7 @@ nearest_neighbors = small_sacramento.nsmallest(5, 'dist')
 prediction = nearest_neighbors['price'].mean()
 print(prediction)
 ```
-:::
 
-::: {.column}
-Visualize prediction 
 
 ```{python}
 # | echo: false
@@ -221,8 +218,7 @@ nn_plot_pred = nn_plot + alt.Chart(
 
 nn_plot_pred
 ```
-:::
-:::
+
 
 ## K-NN regression in `scikit-learn`
 
@@ -608,11 +604,12 @@ small_plot
 
 The equation for the line is:
 
-$$\text{house sale price} = \beta_0 + \beta_1 \cdot (\text{house size}),$$
+$$\text{house sale price} = \beta_0 + \beta_1 \cdot (\text{house size})+\varepsilon,$$
 where
 
 - $\beta_0$ is the *vertical intercept* of the line (the price when house size is 0)
 - $\beta_1$ is the *slope* of the line (how quickly the price increases as you increase house size)
+- $\varepsilon$ is the random error term
 
 
 :::
@@ -831,12 +828,9 @@ sacr_preds_plot
 ### Standarization
 
 - We did not need to standarize like we did for KNN.
-
-- In KNN standarization is mandatory,
 - In linear regression, if we standarize, we convert all the units to unit-less standard deviations
-
 - Standarization in linear regression does not change the fit of the model
-    - It will change the coefficients
+    - It will, however, change the coefficients!
 
 ## Comparing simple linear and K-NN regression
 
@@ -954,14 +948,10 @@ lm_plot_final = (
 (lm_plot_final | knn_plot_final)
 ```
 
-## Multivariable linear regression
+## Multiple linear regression
 
-More predictor variables!
-
-- 
-- More does not always mean better
-
-
+- More predictor variables! (More does not always mean better...)
+- When $p$, the number of variables, is greater than 1, we have *multiple* linear regression.
 
 > *Note: We will talk about categorical predictors later in the workshop*
 
@@ -976,24 +966,22 @@ sacramento_test['predicted'] = mlm.predict(sacramento_test[['sqft', 'beds']])
 
 ### Sacramento real estate: Coefficients
 
-Coefficients
-
 ```{python}
 mlm.coef_
 ```
-
-Intercept
 
 ```{python}
 mlm.intercept_
 ```
 
-$$\text{house sale price} = \beta_0 + \beta_1\cdot(\text{house size}) + \beta_2\cdot(\text{number of bedrooms}),$$
+$$\text{house sale price} = 53180.27 + 154.59\cdot(\text{house size}) -20333.43\cdot(\text{bedrooms}),$$
 where:
 
-- $\beta_0$ is the *vertical intercept* of the hyperplane (the price when both house size and number of bedrooms are 0)
-- $\beta_1$ is the *slope* for the first predictor (how quickly the price increases as you increase house size)
-- $\beta_2$ is the *slope* for the second predictor (how quickly the price increases as you increase the number of bedrooms)
+- Intercept ($\hat{\beta}_0=53180.27$): Predicted sale price when house size = 0 and bedrooms = 0 (not meaningful in reality, but needed for the equation).
+
+- House size ($\hat{\beta}_1=154.59$): Holding bedrooms constant, each extra unit of size (e.g., square foot) increases the price by $154.59 on average.
+
+- Number of bedrooms ($\hat{\beta}_2=-20333.43$): Holding size constant, each additional bedroom reduces price by about $20,333.
 
 ### More variables make it harder to visualize
 
