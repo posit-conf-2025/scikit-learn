@@ -1347,6 +1347,12 @@ rmse = mse ** (1/2)
 print(f"Test RMSE: {rmse:.2f}")
 ```
 
+## Clicker questions
+
+- [https://www.menti.com/algmf2xzfs8g9](https://www.menti.com/algmf2xzfs8g)
+
+- Alternatively, go to [menti.com](menti.com) and use code 1668 5101
+
 ## Additional Resources
 
 - The [Regression I: K-nearest neighbors](https://python.datasciencebook.ca/regression1.html)

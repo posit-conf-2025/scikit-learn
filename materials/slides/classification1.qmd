@@ -23,6 +23,13 @@ import pandas as pd
 pd.set_option("display.max_rows", 7)
 ```
 
+## Helpful resources
+
+- Workshop material: [https://posit-conf-2025.github.io/scikit-learn/](https://posit-conf-2025.github.io/scikit-learn/)
+- [https://python.datasciencebook.ca/](https://python.datasciencebook.ca/)
+- [`scikit-learn` docs](https://scikit-learn.org/stable/)
+- [KCDS ML course](https://ubc-mds.github.io/introduction-machine-learning/modules/index.html)
+
 ## Session learning objectives
 
 By the end of the session, learners will be able to do the following:
@@ -39,7 +46,6 @@ By the end of the session, learners will be able to do the following:
 
 > predicting a categorical class (sometimes called a *label*) for an observation given its
 other variables (sometimes called *features*)
-
 
 - Diagnose a patient as healthy or sick
 - Tag an email as "spam" or "not spam"
@@ -1348,6 +1354,12 @@ prediction
 
 :::
 :::
+
+## Clicker questions
+
+- [https://www.menti.com/alpi9oanfsf9](https://www.menti.com/alpi9oanfsf9)
+
+- Alternatively, go to [menti.com](menti.com) and use code 8481 0955
 
 ## Additional resources
 
