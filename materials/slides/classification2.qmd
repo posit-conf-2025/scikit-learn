@@ -66,8 +66,6 @@ labels for new observations without known class labels.
 
 ## Prediction accuracy
 
-$$\mathrm{accuracy} = \frac{\mathrm{number \; of  \; correct  \; predictions}}{\mathrm{total \;  number \;  of  \; predictions}}$$
-
 ![](img/classification2/ML-paradigm-test.png){fig-align="center"}
 
 ## Is knowing accuracy enough?
