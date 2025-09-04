@@ -270,27 +270,17 @@ cancer_train, cancer_test = train_test_split(
 ## Checking the splits
 
 ::: {.nonincremental}
-- We can use `.info()` to look at the splits
-
-- Let's look at the training split (in practice you look at both)
-:::
-
-```{pyodide}
-cancer_train.info()
-```
-
-## Checking the splits
-
-::: {.nonincremental}
-- We can use the `value_counts` method with the `normalize` argument set to `True`
-to find the percentage of malignant and benign classes
-in `cancer_train`.
+- Let's look at the training and test splits (in practice you look at both)
 
 - We can see our class proportions were roughly preserved when we split the data.
 :::
 
 ```{pyodide}
 cancer_train["Class"].value_counts(normalize=True)
+```
+
+```{pyodide}
+cancer_test["Class"].value_counts(normalize=True)
 ```
 
 ## Preprocessing with data splitting
@@ -315,12 +305,14 @@ we can then apply it separately to both the training and test data sets.
 analysis steps in a `Pipeline`.
 
 - Specifically, we construct and prepare
-the preprocessor using `make_column_transformer`:
+the preprocessor using `make_column_transformer`,
+specifying the type of tranformation we want to apply, 
+as well as which columns to apply it to:
 :::
 
 ```{pyodide}
 from sklearn.preprocessing import StandardScaler
-from sklearn.compose import make_column_transformer, make_column_selector
+from sklearn.compose import make_column_transformer
 
 cancer_preprocessor = make_column_transformer(
     (StandardScaler(), ["Smoothness", "Concavity"]),
@@ -329,8 +321,6 @@ cancer_preprocessor = make_column_transformer(
 
 ## Train the classifier
 
-:::: {.columns}
-::: {.column width="50%"}
 ::: {.nonincremental}
 - Now we can create our K-nearest neighbors classifier 
 with only the training set.
@@ -338,9 +328,9 @@ with only the training set.
 - For simplicity, we will just choose $K$ = 3, 
 and use only the concavity and smoothness predictors.
 :::
-:::
 
-::: {.column width="50%"}
+---
+
 ```{pyodide}
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import make_pipeline
@@ -355,8 +345,6 @@ knn_pipeline.fit(X, y)
 
 knn_pipeline
 ```
-::: 
-::::
 
 ## Predict the labels in the test set
 
@@ -365,7 +353,7 @@ predict the class labels for our test set:
 
 ```{pyodide}
 cancer_test["predicted"] = knn_pipeline.predict(cancer_test[["Smoothness", "Concavity"]])
-print(cancer_test[["ID", "Class", "predicted"]])
+cancer_test[["ID", "Class", "predicted"]]
 ```
 
 ## Evaluate performance
@@ -385,7 +373,7 @@ All of these together,
 will help us develop a fuller picture of how the model is performing, 
 as opposed to only evaluating the model based on a single metric or table.
 
-## Accuracy, precision and recall
+## Accuracy
 
 ```{pyodide}
 knn_pipeline.score(
@@ -393,6 +381,8 @@ knn_pipeline.score(
     cancer_test["Class"]
 )
 ```
+
+# Precision
 
 ```{pyodide}
 from sklearn.metrics import recall_score, precision_score
@@ -403,6 +393,8 @@ precision_score(
     pos_label="Malignant"
 )
 ```
+
+# Recall
 
 ```{pyodide}
 recall_score(
@@ -415,10 +407,7 @@ recall_score(
 ## Confusion matrix
 
 ::: {.nonincremental}
-- We can look at the *confusion matrix* for the classifier
-using the `crosstab` function from `pandas`.
-
-- The `crosstab` function takes two
+- The Pandas `crosstab` function takes two
 arguments: the actual labels first, then the predicted labels second. 
 
 - Note that `crosstab` orders its columns alphabetically, 
@@ -444,17 +433,19 @@ In the case of classification, this would be the majority classifier
 
 - For the breast cancer training data, 
 the baseline classifier's accuracy would be 63%
+:::
 
 ```{pyodide}
 cancer_train["Class"].value_counts(normalize=True)
 ```
+
+## Critically analyze performance (cont'd)
 
 - So we do see that our model is doing a LOT better than the baseline,
 which is great, but considering our application domain is in cancer diagnosis, 
 we still have a ways to go... 
 
 - Analyzing model performance really depends on your application!
-:::
 
 ## Tuning the classifier
 
@@ -484,6 +475,11 @@ we can fit on the training set, and evaluate on the validation set.
 we can refit the model with the best parameter on the entire training set 
 and then evaluate our model on the test set.
 
+
+## Validation set
+
+![](img/classification2/training-validation-test-set.png)
+
 ## Can we do better?
 
 - Depending on how we split the data into the training and validation sets,
@@ -493,18 +489,14 @@ that doesn't give us a good estimate of the model's true accuracy.
 - In many cases, we can do better by making many splits, 
 and averaging the accuracy scores to get a better estimate.
 
-- We call this cross-validation.
+- We call this **cross-validation**.
 
-## Cross-validation
-
-An example of 5-fold cross-validation:
+## Cross-validation with five folds
 
 ![](img/classification2/cv.png){fig-align="center"}
 
 ## Cross-validation in `scikit-learn`
 
-:::: {.columns}
-::: {.column width="40%"}
 ::: {.nonincremental}
 - Use the `scikit-learn` `cross_validate` function. 
 
@@ -517,9 +509,9 @@ An example of 5-fold cross-validation:
 - Note that the `cross_validate` function handles stratifying the classes in
 each train and validate fold automatically.
 :::
-:::
 
-::: {.column width="60%"}
+## Cross-validation in `scikit-learn` (cont'd)
+
 ```{pyodide}
 from sklearn.model_selection import cross_validate
 
@@ -539,18 +531,18 @@ cv_10_df = pd.DataFrame(
 print(cv_10_df)
 ```
 
+## Cross-validation in `scikit-learn` (cont'd)
+
 ```{pyodide}
 cv_10_metrics = cv_10_df.agg(["mean", "sem"])
 cv_10_metrics['test_score']
 ```
-:::
-::::
 
 ## Parameter value selection
 
 - Since cross-validation helps us evaluate the accuracy of our
 classifier, we can use cross-validation to calculate an accuracy for each value
-of our parameter, here $K$, in a reasonable range, 
+of our parameter, here $K$, in a reasonable range.
 
 - Then we pick the value of $K$ that gives us the
 best accuracy, and refit the model with our parameter on the training data, 
@@ -580,23 +572,17 @@ cancer_tune_grid = GridSearchCV(
 
 ## Parameter value selection
 
-:::: {.columns}
-::: {.column width="50%"}
 Now we use the fit method on the `GridSearchCV` object 
 to begin the tuning process.
-:::
 
-::: {.column width="50%"}
 ```{pyodide}
 cancer_tune_grid.fit(
     cancer_train[["Smoothness", "Concavity"]],
     cancer_train["Class"]
 )
 accuracies_grid = pd.DataFrame(cancer_tune_grid.cv_results_)
-accuracies_grid.info()
+accuracies_grid.head()
 ```
-:::
-::::
 
 ## Parameter value selection
 
@@ -811,8 +797,6 @@ panel_plot
 
 ## Evaluating on the test set
 
-:::: {.columns}
-::: {.column width="50%"}
 ::: {.nonincremental}
 - Before we evaluate on the test set, 
 we need to refit the model using the best parameter(s) 
@@ -823,30 +807,34 @@ on the entire training set
 - To make predictions and assess the estimated accuracy of the best model on the test data, we can use the
 `score` and `predict` methods of the fit `GridSearchCV` object.
 :::
-:::
 
-::: {.column width="50%"}
 ```{pyodide}
 cancer_test["predicted"] = cancer_tune_grid.predict(
     cancer_test[["Smoothness", "Concavity"]]
 )
+
+cancer_test[["Class", "predicted"]]
 ```
-:::
-::::
 
 ## Evaluating on the test set
 
-We can then pass those predictions to
-the `precision`, `recall`, and `crosstab` functions to assess the estimated precision and recall, and print a confusion matrix.
+How well might our classifier do on unseen data?
 
-:::: {.columns}
-::: {.column width="50%"}
+To find out we can then pass those predictions to
+the `precision`, `recall`, and `crosstab` functions 
+to assess the estimated precision and recall, and print a confusion matrix.
+
+
+## Accuracy
+
 ```{pyodide}
 cancer_tune_grid.score(
     cancer_test[["Smoothness", "Concavity"]],
     cancer_test["Class"]
 )
 ```
+
+## Precision
 
 ```{pyodide}
 precision_score(
@@ -856,6 +844,8 @@ precision_score(
 )
 ```
 
+## Recall
+
 ```{pyodide}
 recall_score(
     y_true=cancer_test["Class"],
@@ -863,9 +853,9 @@ recall_score(
     pos_label='Malignant'
 )
 ```
-:::
 
-::: {.column width="50%"}
+## Confusion matrix
+
 ```{pyodide}
 conf_matrix = pd.crosstab(
     cancer_test["Class"],
@@ -873,8 +863,6 @@ conf_matrix = pd.crosstab(
 )
 print(conf_matrix)
 ```
-:::
-::::
 
 ## Summary
 
@@ -911,7 +899,7 @@ print(conf_matrix)
   packages in the past two chapters. Aside from that, it also offers many
   useful [tutorials](https://scikit-learn.org/stable/tutorial/index.html)
   to get you started. 
-- [*An Introduction to Statistical Learning*](https://www.statlearning.com/) {cite:p}`james2013introduction` provides
+- [*An Introduction to Statistical Learning*](https://www.statlearning.com/) provides
   a great next stop in the process of
   learning about classification. Chapter 4 discusses additional basic techniques
   for classification that we do not cover, such as logistic regression, linear
