@@ -1,12 +1,14 @@
 ---
 title: "Classification II: evaluation & tuning"
 format: 
-  revealjs:
+  live-revealjs:
     slide-number: true
     slide-level: 4
     smaller: true
     theme: [default, styles.scss]
     incremental: true
+resources:
+  - data
 jupyter: python3
 execute:
   echo: true
@@ -141,7 +143,7 @@ but we want it to be reproducible.
 
 . . .
 
-```{python} 
+```{pyodide} 
 import numpy as np
 import pandas as pd
 
@@ -153,45 +155,54 @@ random_numbers1 = nums_0_to_9.sample(n=10).to_list()
 random_numbers1
 ```
 
+## Setting the seed in Python (cont'd)
+
+Reminder of the list of numbers we just generated:
+
+```{pyodide}
+random_numbers1
+```
+
 . . .
 
-You can see that `random_numbers1` is a list of 10 numbers
-from 0 to 9 that, from all appearances, looks random. If
-we run the `sample` method again,
+If we run the `sample` method again,
 we will get a fresh batch of 10 numbers that also look random.
 
 . . .
 
-```{python}
+```{pyodide}
 random_numbers2 = nums_0_to_9.sample(n=10).to_list()
 random_numbers2
 ```
 
 ## Setting the seed in Python (cont'd)
 
+Let's regenerate original set of 10 random numbers by setting the seed to 1:
+
+```{pyodide}
+np.random.seed(1)
+random_numbers1_again = nums_0_to_9.sample(n=10).to_list()
+random_numbers1_again
+```
+
+. . .
+
 If we choose a different value for the seed---say, 4235---we
 obtain a different sequence of random numbers:
 
 . . .
 
-```{python}
-# seed was 1 on the last slide when we generated this list
-random_numbers1
-```
-
-. . .
-
-```{python}
+```{pyodide}
 np.random.seed(4235)
 random_numbers1_different = nums_0_to_9.sample(n=10).to_list()
-
-random_numbers1
 random_numbers1_different
 ```
 
 ## Back to the breast cancer data set example
 
-```{python}
+Load packages and set seed:
+
+```{pyodide}
 # load packages
 import altair as alt
 import pandas as pd
@@ -202,7 +213,13 @@ set_config(transform_output="pandas")
 
 # set the seed
 np.random.seed(3)
+```
 
+---
+
+Load the data and look at class distribution:
+
+```{pyodide}
 # load data
 cancer = pd.read_csv("data/wdbc_unscaled.csv")
 # re-label Class "M" as "Malignant", and Class "B" as "Benign"
@@ -210,28 +227,13 @@ cancer["Class"] = cancer["Class"].replace({
     "M" : "Malignant",
     "B" : "Benign"
 })
+
+cancer["Class"].value_counts()
 ```
 
-## Breast cancer data
+. . .
 
-:::: {.columns}
-::: {.column width="50%"}
-```{python}
-perim_concav = alt.Chart(cancer).mark_circle().encode(
-    x=alt.X("Smoothness").scale(zero=False),
-    y="Concavity",
-    color=alt.Color("Class").title("Diagnosis")
-)
-```
-:::
-
-::: {.column width="50%"}
-```{python}
-#| echo: false
-perim_concav
-```
-:::
-::::
+Setting `normalize=True` allows us to view the proportions.
 
 ## Create the train / test split
 
@@ -257,7 +259,7 @@ and testing sets.
 - Split is stratified on the `Class` variable
 :::
 
-```{python}
+```{pyodide}
 from sklearn.model_selection import train_test_split
 
 cancer_train, cancer_test = train_test_split(
@@ -273,7 +275,7 @@ cancer_train, cancer_test = train_test_split(
 - Let's look at the training split (in practice you look at both)
 :::
 
-```{python}
+```{pyodide}
 cancer_train.info()
 ```
 
@@ -287,7 +289,7 @@ in `cancer_train`.
 - We can see our class proportions were roughly preserved when we split the data.
 :::
 
-```{python}
+```{pyodide}
 cancer_train["Class"].value_counts(normalize=True)
 ```
 
@@ -316,7 +318,7 @@ analysis steps in a `Pipeline`.
 the preprocessor using `make_column_transformer`:
 :::
 
-```{python}
+```{pyodide}
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import make_column_transformer, make_column_selector
 
@@ -339,7 +341,7 @@ and use only the concavity and smoothness predictors.
 :::
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import make_pipeline
 
@@ -361,7 +363,7 @@ knn_pipeline
 Now that we have a K-nearest neighbors classifier object, we can use it to
 predict the class labels for our test set:
 
-```{python}
+```{pyodide}
 cancer_test["predicted"] = knn_pipeline.predict(cancer_test[["Smoothness", "Concavity"]])
 print(cancer_test[["ID", "Class", "predicted"]])
 ```
@@ -385,14 +387,14 @@ as opposed to only evaluating the model based on a single metric or table.
 
 ## Accuracy, precision and recall
 
-```{python}
+```{pyodide}
 knn_pipeline.score(
     cancer_test[["Smoothness", "Concavity"]],
     cancer_test["Class"]
 )
 ```
 
-```{python}
+```{pyodide}
 from sklearn.metrics import recall_score, precision_score
 
 precision_score(
@@ -402,7 +404,7 @@ precision_score(
 )
 ```
 
-```{python}
+```{pyodide}
 recall_score(
     y_true=cancer_test["Class"],
     y_pred=cancer_test["predicted"],
@@ -424,7 +426,7 @@ but the positive label is still `Malignant`,
 even if it is not in the top left corner as in the table shown earlier.
 :::
 
-```{python}
+```{pyodide}
 pd.crosstab(
     cancer_test["Class"],
     cancer_test["predicted"]
@@ -443,7 +445,7 @@ In the case of classification, this would be the majority classifier
 - For the breast cancer training data, 
 the baseline classifier's accuracy would be 63%
 
-```{python}
+```{pyodide}
 cancer_train["Class"].value_counts(normalize=True)
 ```
 
@@ -518,7 +520,7 @@ each train and validate fold automatically.
 :::
 
 ::: {.column width="60%"}
-```{python}
+```{pyodide}
 from sklearn.model_selection import cross_validate
 
 knn = KNeighborsClassifier(n_neighbors=3)
@@ -537,7 +539,7 @@ cv_10_df = pd.DataFrame(
 print(cv_10_df)
 ```
 
-```{python}
+```{pyodide}
 cv_10_metrics = cv_10_df.agg(["mean", "sem"])
 cv_10_metrics['test_score']
 ```
@@ -559,7 +561,7 @@ functionality, named `GridSearchCV`, to automatically handle the details for us.
 
 ## Parameter value selection
 
-```{python}
+```{pyodide}
 knn = KNeighborsClassifier() #don't specify the number of neighbours
 cancer_tune_pipe = make_pipeline(cancer_preprocessor, knn)
 
@@ -585,7 +587,7 @@ to begin the tuning process.
 :::
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 cancer_tune_grid.fit(
     cancer_train[["Smoothness", "Concavity"]],
     cancer_train["Class"]
@@ -598,7 +600,7 @@ accuracies_grid.info()
 
 ## Parameter value selection
 
-```{python}
+```{pyodide}
 accuracies_grid["sem_test_score"] = accuracies_grid["std_test_score"] / 10**(1/2)
 accuracies_grid = (
     accuracies_grid[[
@@ -615,7 +617,7 @@ print(accuracies_grid)
 
 :::: {.columns}
 ::: {.column width="60%"}
-```{python}
+```{pyodide}
 accuracy_vs_k = (
     alt.Chart(accuracies_grid)
     .mark_line(point=True)
@@ -631,7 +633,7 @@ accuracy_vs_k = (
 :::
 
 ::: {.column width="40%"}
-```{python}
+```{pyodide}
 #| echo: false
 accuracy_vs_k
 ```
@@ -644,7 +646,7 @@ We can also obtain the number of neighbours with the highest accuracy
 programmatically by accessing the `best_params_` attribute 
 of the fit `GridSearchCV` object.
 
-```{python}
+```{pyodide}
 cancer_tune_grid.best_params_
 ```
 
@@ -664,7 +666,7 @@ Generally, when selecting a parameters, we are looking for a value where:
 :::
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 #| echo: false
 accuracy_vs_k
 ```
@@ -678,7 +680,7 @@ accuracy_vs_k
 - The cross-validation accuracy estimate actually starts to decrease!
 :::
 
-```{python}
+```{pyodide}
 #| echo: false
 large_param_grid = {
     "kneighborsclassifier__n_neighbors": range(1, 385, 10),
@@ -709,7 +711,7 @@ large_accuracy_vs_k
 
 ---
 
-```{python}
+```{pyodide}
 #| echo: false
 #| fig-align: center
 alt.data_transformers.disable_max_rows()
@@ -824,7 +826,7 @@ on the entire training set
 :::
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 cancer_test["predicted"] = cancer_tune_grid.predict(
     cancer_test[["Smoothness", "Concavity"]]
 )
@@ -839,14 +841,14 @@ the `precision`, `recall`, and `crosstab` functions to assess the estimated prec
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 cancer_tune_grid.score(
     cancer_test[["Smoothness", "Concavity"]],
     cancer_test["Class"]
 )
 ```
 
-```{python}
+```{pyodide}
 precision_score(
     y_true=cancer_test["Class"],
     y_pred=cancer_test["predicted"],
@@ -854,7 +856,7 @@ precision_score(
 )
 ```
 
-```{python}
+```{pyodide}
 recall_score(
     y_true=cancer_test["Class"],
     y_pred=cancer_test["predicted"],
@@ -864,7 +866,7 @@ recall_score(
 :::
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 conf_matrix = pd.crosstab(
     cancer_test["Class"],
     cancer_test["predicted"]
