@@ -1,1 +1,0 @@
-Sitemap: https://posit-conf-2025.github.io/scikit-learn/sitemap.xml
