@@ -3,10 +3,9 @@ title: "Classification II: evaluation & tuning"
 format: 
   live-revealjs:
     slide-number: true
-    slide-level: 4
-    smaller: true
     theme: [default, styles.scss]
     incremental: true
+    scrollable: true
 resources:
   - data
 jupyter: python3
@@ -84,7 +83,7 @@ mistakes the classifier makes.
 - The **confusion matrix** tells a more complete story.
 :::
 
-## Example confusion matrix for the breast cancer data:
+## Example confusion matrix for the breast cancer data: {.smaller}
 
 |                        | **Predicted Malignant** | **Predicted Benign** |
 |------------------------|-------------------------|----------------------|
@@ -109,7 +108,7 @@ identified as positive.
 $$\mathrm{recall} = \frac{\mathrm{number \; of  \; correct  \; positive \; predictions}}{\mathrm{total \;  number \;  of  \; positive \; test \; set \; observations}}$$
 :::
 
-## Precision and recall for the breast cancer data set example
+## Precision and recall for the breast cancer data set example {.smaller}
 
 |                        | **Predicted Malignant** | **Predicted Benign** |
 |------------------------|-------------------------|----------------------|
@@ -205,6 +204,7 @@ Load packages and set seed:
 ```{pyodide}
 # load packages
 import altair as alt
+import numpy as np
 import pandas as pd
 from sklearn import set_config
 
@@ -251,7 +251,7 @@ of splitting the data for us.
 to ensure the same proportion of each class ends up in both the training 
 and testing sets.
 
-## Splitting the breast cancer data set
+## Splitting the breast cancer data set {.smaller}
 
 ::: {.nonincremental}
 - Split the data so 75% are in the training set, and 25% in the test set
@@ -346,7 +346,7 @@ knn_pipeline.fit(X, y)
 knn_pipeline
 ```
 
-## Predict the labels in the test set
+## Predict the labels in the test set {.smaller}
 
 Now that we have a K-nearest neighbors classifier object, we can use it to
 predict the class labels for our test set:
@@ -382,7 +382,7 @@ knn_pipeline.score(
 )
 ```
 
-# Precision
+## Precision
 
 ```{pyodide}
 from sklearn.metrics import recall_score, precision_score
@@ -394,7 +394,7 @@ precision_score(
 )
 ```
 
-# Recall
+## Recall
 
 ```{pyodide}
 recall_score(
@@ -404,7 +404,7 @@ recall_score(
 )
 ```
 
-## Confusion matrix
+## Confusion matrix {.smaller}
 
 ::: {.nonincremental}
 - The Pandas `crosstab` function takes two
@@ -510,7 +510,7 @@ and averaging the accuracy scores to get a better estimate.
 each train and validate fold automatically.
 :::
 
-## Cross-validation in `scikit-learn` (cont'd)
+## Cross-validation in `scikit-learn` (cont'd) {.smaller}
 
 ```{pyodide}
 from sklearn.model_selection import cross_validate
@@ -528,14 +528,14 @@ cv_10_df = pd.DataFrame(
     )
 )
 
-print(cv_10_df)
+cv_10_df
 ```
 
-## Cross-validation in `scikit-learn` (cont'd)
+## Cross-validation in `scikit-learn` (cont'd)  {.smaller}
 
 ```{pyodide}
-cv_10_metrics = cv_10_df.agg(["mean", "sem"])
-cv_10_metrics['test_score']
+cv_10_metrics = cv_10_df.agg(["mean"])
+cv_10_metrics[['test_score']]
 ```
 
 ## Parameter value selection
@@ -568,10 +568,12 @@ cancer_tune_grid = GridSearchCV(
     param_grid=parameter_grid,
     cv=10
 )
+
+cancer_tune_grid
 ```
 
-## Parameter value selection
-
+## Parameter value selection {.smaller}
+ 
 Now we use the fit method on the `GridSearchCV` object 
 to begin the tuning process.
 
@@ -584,7 +586,7 @@ accuracies_grid = pd.DataFrame(cancer_tune_grid.cv_results_)
 accuracies_grid.head()
 ```
 
-## Parameter value selection
+## Parameter value selection {.smaller}
 
 ```{pyodide}
 accuracies_grid["sem_test_score"] = accuracies_grid["std_test_score"] / 10**(1/2)
@@ -596,14 +598,13 @@ accuracies_grid = (
     ]]
     .rename(columns={"param_kneighborsclassifier__n_neighbors": "n_neighbors"})
 )
-print(accuracies_grid)
+accuracies_grid
 ```
 
 ## Visualize paramter value selection
 
-:::: {.columns}
-::: {.column width="60%"}
-```{pyodide}
+```{python}
+#| eval: false
 accuracy_vs_k = (
     alt.Chart(accuracies_grid)
     .mark_line(point=True)
@@ -616,15 +617,10 @@ accuracy_vs_k = (
     )
 )
 ```
-:::
 
-::: {.column width="40%"}
-```{pyodide}
-#| echo: false
-accuracy_vs_k
-```
-:::
-::::
+## Visualize paramter value selection
+
+![](img/classification2/accuracy-vs-k.png)
 
 ## Best parameter value
 
@@ -638,8 +634,6 @@ cancer_tune_grid.best_params_
 
 ## Best parameter value
 
-:::: {.columns}
-::: {.column width="50%"}
 Do we use $K$ = 36? 
 
 Generally, when selecting a parameters, we are looking for a value where:
@@ -649,15 +643,10 @@ Generally, when selecting a parameters, we are looking for a value where:
 - changing the value to a nearby one doesn’t change the accuracy too much
 - the cost of training the model is not prohibitive
 :::
-:::
 
-::: {.column width="50%"}
-```{pyodide}
-#| echo: false
-accuracy_vs_k
-```
-:::
-::::
+## Best parameter value
+
+![](img/classification2/accuracy-vs-k.png)
 
 ## Under/Overfitting
 
@@ -666,136 +655,13 @@ accuracy_vs_k
 - The cross-validation accuracy estimate actually starts to decrease!
 :::
 
-```{pyodide}
-#| echo: false
-large_param_grid = {
-    "kneighborsclassifier__n_neighbors": range(1, 385, 10),
-}
-
-large_cancer_tune_grid = GridSearchCV(
-    estimator=cancer_tune_pipe,
-    param_grid=large_param_grid,
-    cv=10
-)
-
-large_cancer_tune_grid.fit(
-    cancer_train[["Smoothness", "Concavity"]],
-    cancer_train["Class"]
-)
-
-large_accuracies_grid = pd.DataFrame(large_cancer_tune_grid.cv_results_)
-
-large_accuracy_vs_k = alt.Chart(large_accuracies_grid).mark_line(point=True).encode(
-    x=alt.X("param_kneighborsclassifier__n_neighbors").title("Neighbors"),
-    y=alt.Y("mean_test_score")
-        .scale(zero=False)
-        .title("Accuracy estimate")
-)
-
-large_accuracy_vs_k
-```
+![](img/classification2/over-under1.png)
 
 ---
 
-```{pyodide}
-#| echo: false
-#| fig-align: center
-alt.data_transformers.disable_max_rows()
+![](img/classification2/over-under2.png)
 
-cancer_plot = (
-    alt.Chart(
-        cancer_train,
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X(
-            "Smoothness",
-            scale=alt.Scale(
-                domain=(
-                    cancer_train["Smoothness"].min() * 0.95,
-                    cancer_train["Smoothness"].max() * 1.05,
-                )
-            ),
-        ),
-        y=alt.Y(
-            "Concavity",
-            scale=alt.Scale(
-                domain=(
-                    cancer_train["Concavity"].min() -0.025,
-                    cancer_train["Concavity"].max() * 1.05,
-                )
-            ),
-        ),
-        color=alt.Color("Class", title="Diagnosis"),
-    )
-)
-
-X = cancer_train[["Smoothness", "Concavity"]]
-y = cancer_train["Class"]
-
-# create a prediction pt grid
-smo_grid = np.linspace(
-    cancer_train["Smoothness"].min() * 0.95, cancer_train["Smoothness"].max() * 1.05, 100
-)
-con_grid = np.linspace(
-    cancer_train["Concavity"].min() - 0.025, cancer_train["Concavity"].max() * 1.05, 100
-)
-scgrid = np.array(np.meshgrid(smo_grid, con_grid)).reshape(2, -1).T
-scgrid = pd.DataFrame(scgrid, columns=["Smoothness", "Concavity"])
-
-plot_list = []
-for k in [1, 7, 20, 300]:
-    cancer_pipe = make_pipeline(cancer_preprocessor, KNeighborsClassifier(n_neighbors=k))
-    cancer_pipe.fit(X, y)
-
-    knnPredGrid = cancer_pipe.predict(scgrid)
-    prediction_table = scgrid.copy()
-    prediction_table["Class"] = knnPredGrid
-
-    # add a prediction layer
-    prediction_plot = (
-        alt.Chart(
-            prediction_table,
-            title=f"K = {k}"
-        )
-        .mark_point(opacity=0.2, filled=True, size=20)
-        .encode(
-            x=alt.X(
-                "Smoothness",
-                scale=alt.Scale(
-                    domain=(
-                        cancer_train["Smoothness"].min() * 0.95,
-                        cancer_train["Smoothness"].max() * 1.05
-                    ),
-                    nice=False
-                )
-            ),
-            y=alt.Y(
-                "Concavity",
-                scale=alt.Scale(
-                    domain=(
-                        cancer_train["Concavity"].min() -0.025,
-                        cancer_train["Concavity"].max() * 1.05
-                    ),
-                    nice=False
-                )
-            ),
-            color=alt.Color("Class", title="Diagnosis"),
-        )
-    )
-    plot_list.append(cancer_plot + prediction_plot)
-
-# Concatenate the plots in a 2x2 grid
-panel_plot = alt.vconcat(
-    alt.hconcat(plot_list[0], plot_list[1]),
-    alt.hconcat(plot_list[2], plot_list[3])
-)
-
-# Display the plot
-panel_plot
-```
-
-## Evaluating on the test set
+## Evaluating on the test set {.smaller}
 
 ::: {.nonincremental}
 - Before we evaluate on the test set, 
@@ -854,14 +720,14 @@ recall_score(
 )
 ```
 
-## Confusion matrix
+## Confusion matrix {.smaller}
 
 ```{pyodide}
 conf_matrix = pd.crosstab(
     cancer_test["Class"],
     cancer_test["predicted"]
 )
-print(conf_matrix)
+conf_matrix
 ```
 
 ## Summary
