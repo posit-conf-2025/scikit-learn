@@ -3,7 +3,6 @@ title: "Classification I: training & predicting"
 format:
   revealjs:
     slide-number: true
-    slide-level: 4
     smaller: true
     theme: [default, styles.scss]
 jupyter: python3
@@ -16,6 +15,7 @@ editor:
   render-on-save: true
 ---
 
+
 ```{python}
 # | include: false
 import pandas as pd
@@ -23,12 +23,53 @@ import pandas as pd
 pd.set_option("display.max_rows", 7)
 ```
 
+## 
+
+<!-- Top row: two profile intros -->
+::: {style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start;"}
+
+<!-- Tiffany -->
+::: {style="text-align: center; flex: 0 0 auto;"}
+<img src="https://canssiontario.utoronto.ca/wp-content/uploads/2021/03/Timbers-Tiffany_5x7.png" 
+     alt="Tiffany Timbers" 
+     style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"/>
+
+**Tiffany Timbers**  
+Associate Prof. of Teaching, 
+Dept. of Statistics, UBC
+:::
+
+<!-- Katie -->
+::: {style="text-align: center; flex: 0 0 auto;"}
+<img src="https://katieburak.github.io/profile.png" 
+     alt="Katie Burak" 
+     style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"/>
+
+**Katie Burak**  
+Assistant Prof. of Teaching, 
+Dept. of Statistics, UBC
+:::
+
+:::
+
+<!-- Bottom row: UBC photo -->
+::: {style="margin-top: 2rem; text-align: center;"}
+
+<img src="https://visit.ubc.ca/wp-content/uploads/2019/04/plantrip_header-2800x1000_2x.jpg" 
+     alt="UBC Campus" 
+     style="max-width: 60%; height: auto; border-radius: 8px;"/>
+
+*Source: [https://visit.ubc.ca/plan-your-trip/](https://visit.ubc.ca/plan-your-trip/)*
+:::
+
+
 ## Helpful resources
 
 - Workshop material: [https://posit-conf-2025.github.io/scikit-learn/](https://posit-conf-2025.github.io/scikit-learn/)
 - [https://python.datasciencebook.ca/](https://python.datasciencebook.ca/)
 - [`scikit-learn` docs](https://scikit-learn.org/stable/)
 - [KCDS ML course](https://ubc-mds.github.io/introduction-machine-learning/modules/index.html)
+
 
 ## Session learning objectives
 
@@ -51,7 +92,7 @@ other variables (sometimes called *features*)
 - Tag an email as "spam" or "not spam"
 - Predict whether a purchase is fraudulent
 
-### Training set
+## Training set
 
 > Observations with known classes that we use as a basis for prediction
 
@@ -63,7 +104,7 @@ How?
 - By similar it is to other observations for which we do know the class
     - (e.g., previous patients with known diseases and symptoms)
 
-### K-nearest neighbors
+## K-nearest neighbors
 
 - One of many possible classification methods
     - KNN, decision trees, support vector machines (SVMs),
@@ -89,7 +130,7 @@ created by Dr. William H. Wolberg, W. Nick Street, and Olvi L. Mangasarian
 > Can we use the tumor image measurements available to us to predict whether a future tumor image
 (with unknown diagnosis) shows a benign or malignant tumor?
 
-### Loading the cancer data
+## Loading the cancer data 
 
 ```{python}
 import pandas as pd
@@ -101,7 +142,7 @@ print(cancer)
 
 > these values have been *standardized (centered and scaled)*
 
-### Describing the variables in the cancer data set
+## Describing the variables in the cancer data set 
 
 1. ID: identification number
 2. Class: the diagnosis (M = malignant or B = benign)
@@ -116,20 +157,20 @@ print(cancer)
 11. Symmetry: how similar the nucleus is when mirrored
 12. Fractal Dimension: a measurement of how "rough" the perimeter is
 
-### DataFrame; info
+## DataFrame; info
 
 ```{python}
 cancer.info()
 ```
 
-### Series; unique
+## Series; unique
 
 ```{python}
 cancer["Class"].unique()
 ```
 
 
-### Series; replace
+## Series; replace
 
 ```{python}
 cancer["Class"] = cancer["Class"].replace({
@@ -140,7 +181,7 @@ cancer["Class"] = cancer["Class"].replace({
 cancer["Class"].unique()
 ```
 
-### Exploring the cancer data
+## Exploring the cancer data
 
 :::: {.columns}
 
@@ -163,7 +204,7 @@ cancer["Class"].value_counts(normalize=True)
 
 ::::
 
-### Visualization; scatter
+## Visualization; scatter
 
 ```{python}
 perim_concav = alt.Chart(cancer).mark_circle().encode(
@@ -200,7 +241,7 @@ from sklearn.metrics.pairwise import euclidean_distances
 my_distances = euclidean_distances(perim_concav_with_new_point_df[attrs])[len(cancer)][:-1]
 ```
 
-### Distances (`euclidean_distances()`)
+## Distances (`euclidean_distances()`)
 
 ```{python}
 len(my_distances)
@@ -212,12 +253,12 @@ my_distances
 ```
 
 
-### K-nearest neighbors; classification
+## K-nearest neighbors; classification
 
 1. find the $K$ "nearest" or "most similar" observations in our training set
 2. predict new observation based on closest points
 
-### KNN Example: new point
+## KNN Example: new point
 
 ```{python}
 perim_concav_with_new_point = (
@@ -236,7 +277,7 @@ perim_concav_with_new_point = (
 perim_concav_with_new_point
 ```
 
-### KNN example: closest point
+## KNN example: closest point
 
 > if a point is close to another in the scatter plot,
 > then the perimeter and concavity values are similar,
@@ -263,7 +304,7 @@ line = (
 
 
 
-### KNN Example: another new point
+## KNN Example: another new point
 
 ```{python}
 #| echo: false
@@ -313,7 +354,7 @@ line2 = alt.Chart(near_neighbor_df2).mark_line().encode(
 (perim_concav_with_new_point2 + line2)
 ```
 
-### KNN: improve the prediction with `k`
+## KNN: improve the prediction with `k`
 
 we can consider several neighboring points, `k=3`
 
@@ -345,11 +386,11 @@ line4 = alt.Chart(near_neighbor_df4).mark_line().encode(
 (perim_concav_with_new_point2 + line2 + line3 + line4)
 ```
 
-### Distance between points
+## Distance between points
 
 $$\mathrm{Distance} = \sqrt{(a_x -b_x)^2 + (a_y - b_y)^2}$$
 
-### Distance between points: `k=5`
+## Distance between points: `k=5`
 
 >  3 of the 5 nearest neighbors to our new observation are malignant
 
@@ -397,14 +438,14 @@ circle = alt.Chart(circle_path_df.reset_index()).mark_line(color="black").encode
 (perim_concav_with_new_point3 + circle)
 ```
 
-### More than two explanatory variables: distance formula
+## More than two explanatory variables: distance formula
 
 The distance formula becomes
 
 $$\mathrm{Distance} = \sqrt{(a_{1} -b_{1})^2 + (a_{2} - b_{2})^2 + \dots + (a_{m} - b_{m})^2}.$$
 
 
-### More than two explanatory variables: visualize
+## More than two explanatory variables: visualize
 
 ```{python}
 #| echo: false
@@ -506,7 +547,7 @@ fig.update_layout(margin=dict(l=0, r=0, b=0, t=1), template="plotly_white")
 
 ```
 
-### Summary of K-nearest neighbors algorithm
+## Summary of K-nearest neighbors algorithm
 
 The K-nearest neighbors algorithm works as follows:
 
@@ -531,14 +572,14 @@ Now we can get started with `sklearn` and `KNeighborsClassifier()`
 from sklearn.neighbors import KNeighborsClassifier
 ```
 
-### Review cancer data
+## Review cancer data
 
 ```{python}
 cancer_train = cancer[["Class", "Perimeter", "Concavity"]]
 print(cancer_train)
 ```
 
-### `scikit-learn`: Create Model Object
+## `scikit-learn`: Create Model Object
 
 ```{python}
 from sklearn.neighbors import KNeighborsClassifier
@@ -547,7 +588,7 @@ knn = KNeighborsClassifier(n_neighbors=5)
 knn
 ```
 
-### `scikit-learn`: Fit the model
+## `scikit-learn`: Fit the model
 
 ```{python}
 knn.fit(
@@ -562,7 +603,7 @@ knn.fit(
    This comes from matrix notation.
 :::
 
-### `scikit-learn`: Predict
+## `scikit-learn`: Predict
 
 ```{python}
 new_obs = pd.DataFrame({"Perimeter": [0], "Concavity": [3.5]})
@@ -587,7 +628,7 @@ Compare these 2 scenarios:
 
 All have a distance of 2
 
-### Data preprocessing: Centering
+## Data preprocessing: Centering
 
 Many other models:
 
@@ -600,7 +641,7 @@ Many other models:
 
 Difference in weight is in the 10s, difference in height is fractions of a foot.
 
-### Data preprocessing: Standardization
+## Data preprocessing: Standardization
 
 - The mean is used to center, the standard deviation is used to scale
 - Standardization: transform the data such that the mean is 0, and a standard deviation is 1
@@ -614,7 +655,7 @@ unscaled_cancer["Class"] = unscaled_cancer["Class"].replace({
 unscaled_cancer
 ```
 
-### `scikit-learn`: `ColumnTransformer`
+## `scikit-learn`: `ColumnTransformer`
 
 - `scikit-learn` has a [`preprocessing` module](https://scikit-learn.org/stable/modules/preprocessing.html)
   - `StandardScaler()`: scale our data
@@ -632,7 +673,7 @@ preprocessor = make_column_transformer(
 preprocessor
 ```
 
-### `scikit-learn`: Select numeric columns
+## `scikit-learn`: Select numeric columns
 
 ```{python}
 from sklearn.compose import make_column_selector
@@ -643,7 +684,7 @@ preprocessor = make_column_transformer(
 preprocessor
 ```
 
-### `scikit-learn`: transform
+## `scikit-learn`: transform
 
 Scale the data
 
@@ -671,7 +712,7 @@ print(scaled_cancer)
 
 ::::
 
-### Visualize unstandarized vs standarized data
+## Visualize unstandarized vs standarized data
 
 :::: {.columns}
 
@@ -836,14 +877,14 @@ area_smoothness_new_point_scaled
 
 ::::
 
-### Why `scikit-learn` pipelines?
+## Why `scikit-learn` pipelines?
 
 - Manually standarizing is error prone
 - Does not automatically account for new data
 - Prevent data leakage by processing on training data to use on test data (later)
 - Need same mean and standarization from training to use on test / new data
 
-### Balancing + class imbalance
+## Balancing + class imbalance
 
 What if we have class imbalance? i.e., if the response variable has a big difference
 in frequency counts between classes?
@@ -856,7 +897,7 @@ rare_cancer = pd.concat((
 print(rare_cancer)
 ```
 
-### Visualizing class imbalance
+## Visualizing class imbalance
 
 ```{python}
 rare_cancer["Class"].value_counts()
@@ -873,7 +914,7 @@ rare_plot = alt.Chart(rare_cancer).mark_circle().encode(
 rare_plot
 ```
 
-### Predicting with class imbalance
+## Predicting with class imbalance
 
 :::: {.columns}
 
@@ -1017,7 +1058,7 @@ prediction_plot = (
 
 ::::
 
-### Upsampling
+## Upsampling
 
 Rebalance the data by *oversampling* the rare class
 
@@ -1026,7 +1067,7 @@ Rebalance the data by *oversampling* the rare class
     - Sample with replacement so the classes are the same size
 3. Use the `.value_counts()` method to see that our classes are now balanced
 
-### Upsampling: code
+## Upsampling: code
 
 Set seed
 ```{python}
@@ -1048,7 +1089,7 @@ upsampled_cancer["Class"].value_counts()
 
 ```
 
-### Upsampling: Re-train KNN `k=7`
+## Upsampling: Re-train KNN `k=7`
 
 ::: {.columns}
 ::: {.column}
@@ -1136,7 +1177,7 @@ missing_cancer["Class"] = missing_cancer["Class"].replace(
 print(missing_cancer)
 ```
 
-### Missing data: `.dropna()`
+## Missing data: `.dropna()`
 
 KNN computes distances across all the features, it needs complete observations
 
@@ -1146,7 +1187,7 @@ no_missing_cancer = missing_cancer.dropna()
 print(no_missing_cancer)
 ```
 
-### Missing data: `SimpleImputer()`
+## Missing data: `SimpleImputer()`
 
 We can impute missing data (with the mean) if there's too many missing values
 
@@ -1160,7 +1201,7 @@ preprocessor = make_column_transformer(
 preprocessor
 ```
 
-### Imputed data
+## Imputed data
 
 ```{python}
 preprocessor.fit(missing_cancer)
@@ -1205,7 +1246,7 @@ preprocessor = make_column_transformer(
 
 ```
 
-### Put it all together: Pipeline
+## Put it all together: Pipeline
 
 ```{python}
 from sklearn.pipeline import make_pipeline
@@ -1218,7 +1259,7 @@ knn_pipeline.fit(
 knn_pipeline
 ```
 
-### Put it all together: Predict
+## Put it all together: Predict
 
 ```{python}
 new_observation = pd.DataFrame(
@@ -1228,7 +1269,7 @@ prediction = knn_pipeline.predict(new_observation)
 prediction
 ```
 
-### Prediction Area
+## Prediction Area
 
 Model prediction area.
 

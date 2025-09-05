@@ -4,7 +4,6 @@ subtitle: "K-NN Regression, Linear Regression and L1 regularization"
 format:
   revealjs:
     slide-number: true
-    slide-level: 4
     smaller: true
     theme: [default, styles.scss]
 jupyter: python3
