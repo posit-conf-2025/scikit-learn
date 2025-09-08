@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.34">
 
   <title>Machine learning with scikit-learn in Python – Tree-based and ensemble models</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,8 +28,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -40,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -93,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-f6dc10e34b3163c435e0797ff478aa20.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-70dee700f540618a3696fe2d24597c76.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -212,11 +213,9 @@
 
 <section id="decision-trees" class="title-slide slide level2 center">
 <h2>Decision trees</h2>
-<div>
 <ul>
 <li><a href="https://mlu-explain.github.io/decision-tree/">Decision Trees</a> by Jared Wilber &amp; Lucía Santamaría</li>
 </ul>
-</div>
 </section>
 
 <section id="classification-decision-trees" class="title-slide slide level2 center">
@@ -234,14 +233,12 @@
 <h2>Example: the heart data set</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div>
 <ul>
 <li><p>Let’s consider a situation where we’d like to be able to predict the presence of heart disease (<code>AHD</code>) in patients, based off 13 measured characteristics.</p></li>
 <li><p>The <a href="https://www.statlearning.com/s/Heart.csv">heart data set</a> contains a binary outcome for heart disease for patients who presented with chest pain.</p></li>
 </ul>
-</div>
 </div><div class="column" style="width:50%;">
-<div id="515a4f55" class="cell" data-execution_count="2">
+<div id="847cf0d7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a></a>heart <span class="op">=</span> pd.read_csv(<span class="st">"data/Heart.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb1-3"><a></a>heart.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -275,7 +272,7 @@ memory usage: 35.5+ KB</code></pre>
 <section id="example-the-heart-data-set-1" class="title-slide slide level2 center">
 <h2>Example: the heart data set</h2>
 <p>An angiographic test was performed and a label for <code>AHD</code> of Yes was labelled to indicate the presence of heart disease, otherwise the label was No.</p>
-<div id="3abf26c1" class="cell" data-execution_count="3">
+<div id="76349cd9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -410,7 +407,7 @@ memory usage: 35.5+ KB</code></pre>
 <section id="do-we-have-a-class-imbalance" class="title-slide slide level2 center">
 <h2>Do we have a class imbalance?</h2>
 <p>It’s always important to check this, as it may impact your splitting and/or modeling decisions.</p>
-<div id="0447f69d" class="cell" data-execution_count="4">
+<div id="b3b64602" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>heart[<span class="st">'AHD'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>AHD
@@ -425,7 +422,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="data-splitting" class="title-slide slide level2 center">
 <h2>Data splitting</h2>
 <p>Let’s split the data into training and test sets:</p>
-<div id="3ab391ea" class="cell" data-execution_count="5">
+<div id="2f7db420" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb6-3"><a></a></span>
@@ -446,12 +443,10 @@ Name: proportion, dtype: float64</code></pre>
 <h2>Categorical variables</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
-<div>
 <ul>
 <li><p>This is our first case of seeing categorical predictor variables, can we treat them the same as numerical ones? <strong>No!</strong></p></li>
 <li><p>In <code>scikit-learn</code> we must perform <strong>one-hot encoding</strong></p></li>
 </ul>
-</div>
 </div><div class="column" style="width:65%;">
 <p><img data-src="img/ensembles/onehot1-1-1.png"></p>
 <p><em>Source: <a href="https://scales.arabpsychology.com/stats/how-can-i-perform-one-hot-encoding-in-r/" class="uri">https://scales.arabpsychology.com/stats/how-can-i-perform-one-hot-encoding-in-r/</a></em></p>
@@ -462,7 +457,7 @@ Name: proportion, dtype: float64</code></pre>
 <h2>Look at the data again</h2>
 <p>Which columns do we need to standardize?</p>
 <p>Which do we need to one-hot encode?</p>
-<div id="f52d6bcd" class="cell" data-execution_count="6">
+<div id="d9e6abfa" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -596,7 +591,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="one-hot-encoding-pre-processing" class="title-slide slide level2 center">
 <h2>One hot encoding &amp; pre-processing</h2>
-<div id="62cf0a72" class="cell" data-execution_count="7">
+<div id="edfdde94" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
 <span id="cb8-2"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer, make_column_selector</span>
 <span id="cb8-3"><a></a></span>
@@ -617,7 +612,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="fitting-a-dummy-classifier" class="title-slide slide level2 center">
 <h2>Fitting a dummy classifier</h2>
-<div id="faa049b1" class="cell" data-execution_count="8">
+<div id="db6681f7" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb9-2"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb9-3"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
@@ -678,7 +673,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="fitting-a-decision-tree" class="title-slide slide level2 center">
 <h2>Fitting a decision tree</h2>
-<div id="bc1d2c1b" class="cell" data-execution_count="9">
+<div id="5b5621fc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb10-2"><a></a></span>
 <span id="cb10-3"><a></a>decision_tree <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -764,23 +759,21 @@ Name: proportion, dtype: float64</code></pre>
 <h2>Random forest in <code>scikit-learn</code> &amp; missing values</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
-<div>
 <ul>
 <li><p>Does not accept missing values, we need to deal with these somehow…</p></li>
 <li><p>We can either drop the observations with missing values, or we can somehow impute them.</p></li>
 <li><p>For the purposes of this demo we will drop them, but if you are interested in imputation, see the imputation tutorial in <a href="https://scikit-learn.org/stable/modules/impute.html"><code>scikit-learn</code></a></p></li>
 </ul>
-</div>
 </div><div class="column" style="width:50%;">
 <p>How many rows have missing observations:</p>
-<div id="2b49ea53" class="cell" data-execution_count="10">
+<div id="c045476a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>heart.isna().<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>6</code></pre>
+<pre><code>np.int64(6)</code></pre>
 </div>
 </div>
 <p>Drop rows with missing observations:</p>
-<div id="740c33d5" class="cell" data-execution_count="11">
+<div id="b407d070" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>heart_train_drop_na <span class="op">=</span> heart_train.dropna()</span>
 <span id="cb13-2"><a></a></span>
 <span id="cb13-3"><a></a>X_train_drop_na <span class="op">=</span> heart_train_drop_na.drop(</span>
@@ -793,7 +786,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="random-forest-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Random forest in <code>scikit-learn</code></h2>
-<div id="528c73e0" class="cell" data-execution_count="12">
+<div id="299416dd" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
 <span id="cb14-2"><a></a></span>
 <span id="cb14-3"><a></a>random_forest <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -877,7 +870,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="tuning-random-forest-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Tuning random forest in <code>scikit-learn</code></h2>
-<div id="709c8c0a" class="cell" data-execution_count="13">
+<div id="53838ab4" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb15-2"><a></a></span>
 <span id="cb15-3"><a></a>rf_param_grid <span class="op">=</span> {<span class="st">'randomforestclassifier__n_estimators'</span>: [<span class="dv">200</span>],</span>
@@ -907,7 +900,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="random-forest-results" class="title-slide slide level2 center">
 <h2>Random Forest results</h2>
 <p>How did the Random Forest compare against the other models we tried?</p>
-<div id="dfad8a4d" class="cell" data-execution_count="14">
+<div id="c031bb94" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
@@ -987,7 +980,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="tuning-gradientboostingclassifier-with-scikit-learn-1" class="title-slide slide level2 center">
 <h2>Tuning <code>GradientBoostingClassifier</code> with <code>scikit-learn</code></h2>
-<div id="016c024a" class="cell" data-execution_count="15">
+<div id="89ecb755" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
 <span id="cb17-2"><a></a></span>
 <span id="cb17-3"><a></a>gradient_boosted_classifier <span class="op">=</span> GradientBoostingClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -1018,7 +1011,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="gradientboostingclassifier-results" class="title-slide slide level2 center">
 <h2><code>GradientBoostingClassifier</code> results</h2>
 <p>How did the <code>GradientBoostingClassifier</code> compare against the other models we tried?</p>
-<div id="8c9d3431" class="cell" data-execution_count="16">
+<div id="d36c09e7" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -1090,7 +1083,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="precision-and-recall-on-the-tuned-random-forest-model" class="title-slide slide level2 center">
 <h2>Precision and recall on the tuned random forest model</h2>
-<div id="ee3495e5" class="cell" data-execution_count="17">
+<div id="a789b432" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> make_scorer, precision_score, recall_score</span>
 <span id="cb19-2"><a></a></span>
 <span id="cb19-3"><a></a>scoring <span class="op">=</span> {</span>
@@ -1290,9 +1283,7 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-1 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
+  display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -1318,9 +1309,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
 
 #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1525,6 +1516,70 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=10,
              estimator=Pipeline(steps=[('columntransformer',
                                         ColumnTransformer(transformers=[('standardscaler',
@@ -1554,60 +1609,352 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
              refit='accuracy',
              scoring={'accuracy': 'accuracy',
                       'precision': make_scorer(precision_score, response_method='predict', pos_label=Yes),
-                      'recall': make_scorer(recall_score, response_method='predict', pos_label=Yes)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GridSearchCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.GridSearchCV.html">?<span>Documentation for GridSearchCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GridSearchCV(cv=10,
-             estimator=Pipeline(steps=[('columntransformer',
-                                        ColumnTransformer(transformers=[('standardscaler',
-                                                                         StandardScaler(),
-                                                                         ['Age',
-                                                                          'RestBP',
-                                                                          'Chol',
-                                                                          'RestECG',
-                                                                          'MaxHR',
-                                                                          'Oldpeak',
-                                                                          'Slope',
-                                                                          'Ca']),
-                                                                        ('passthrough',
-                                                                         'passthrough',
-                                                                         ['Sex',
-                                                                          'Fbs',
-                                                                          'ExAng']),
-                                                                        ('onehotencoder',
-                                                                         OneHotEncoder(handle_unknown='ignore'),
-                                                                         ['ChestPain',
-                                                                          'Thal'])])),
-                                       ('randomforestclas...
-             param_grid={'randomforestclassifier__max_depth': [1, 3, 5, 7, 9],
-                         'randomforestclassifier__max_features': [1, 2, 3, 4, 5,
-                                                                  6, 7],
-                         'randomforestclassifier__n_estimators': [200]},
-             refit='accuracy',
-             scoring={'accuracy': 'accuracy',
-                      'precision': make_scorer(precision_score, response_method='predict', pos_label=Yes),
-                      'recall': make_scorer(recall_score, response_method='predict', pos_label=Yes)})</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: Pipeline</div></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[('columntransformer',
-                 ColumnTransformer(transformers=[('standardscaler',
-                                                  StandardScaler(),
-                                                  ['Age', 'RestBP', 'Chol',
-                                                   'RestECG', 'MaxHR',
-                                                   'Oldpeak', 'Slope', 'Ca']),
-                                                 ('passthrough', 'passthrough',
-                                                  ['Sex', 'Fbs', 'ExAng']),
-                                                 ('onehotencoder',
-                                                  OneHotEncoder(handle_unknown='ignore'),
-                                                  ['ChestPain', 'Thal'])])),
-                ('randomforestclassifier',
-                 RandomForestClassifier(max_depth=1, max_features=2,
-                                        n_estimators=200, random_state=2026))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[('standardscaler', StandardScaler(),
-                                 ['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR',
-                                  'Oldpeak', 'Slope', 'Ca']),
-                                ('passthrough', 'passthrough',
-                                 ['Sex', 'Fbs', 'ExAng']),
-                                ('onehotencoder',
-                                 OneHotEncoder(handle_unknown='ignore'),
-                                 ['ChestPain', 'Thal'])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>standardscaler</div></div></label><div class="sk-toggleable__content fitted"><pre>['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak', 'Slope', 'Ca']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted"><pre>['Sex', 'Fbs', 'ExAng']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted"><pre>passthrough</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>onehotencoder</div></div></label><div class="sk-toggleable__content fitted"><pre>['ChestPain', 'Thal']</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(handle_unknown='ignore')</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(max_depth=1, max_features=2, n_estimators=200,
-                       random_state=2026)</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
+                      'recall': make_scorer(recall_score, response_method='predict', pos_label=Yes)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GridSearchCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.model_selection.GridSearchCV.html">?<span>Documentation for GridSearchCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">estimator&nbsp;</td>
+<td class="value">Pipeline(step...state=2026))])</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">param_grid&nbsp;</td>
+<td class="value">{'randomforestclassifier__max_depth': [1, 3, ...], 'randomforestclassifier__max_features': [1, 2, ...], 'randomforestclassifier__n_estimators': [200]}</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">scoring&nbsp;</td>
+<td class="value">{'accuracy': 'accuracy', 'precision': make_scorer(p...pos_label=Yes), 'recall': make_scorer(r...pos_label=Yes)}</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">-1</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">refit&nbsp;</td>
+<td class="value">'accuracy'</td>
+</tr>
+<tr class="user-set even">
+<td><em></em></td>
+<td class="param">cv&nbsp;</td>
+<td class="value">10</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">pre_dispatch&nbsp;</td>
+<td class="value">'2*n_jobs'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">error_score&nbsp;</td>
+<td class="value">nan</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">return_train_score&nbsp;</td>
+<td class="value">False</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: Pipeline</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___"></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">transformers&nbsp;</td>
+<td class="value">[('standardscaler', ...), ('passthrough', ...), ...]</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">remainder&nbsp;</td>
+<td class="value">'drop'</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">sparse_threshold&nbsp;</td>
+<td class="value">0.3</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">transformer_weights&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">verbose_feature_names_out&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">force_int_remainder_cols&nbsp;</td>
+<td class="value">'deprecated'</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>standardscaler</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__standardscaler__"><pre>['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak', 'Slope', 'Ca']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__standardscaler__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">copy&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">with_mean&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">with_std&nbsp;</td>
+<td class="value">True</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__passthrough__"><pre>['Sex', 'Fbs', 'ExAng']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__passthrough__"><pre>passthrough</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>onehotencoder</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__onehotencoder__"><pre>['ChestPain', 'Thal']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__onehotencoder__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">categories&nbsp;</td>
+<td class="value">'auto'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">drop&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">sparse_output&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">dtype&nbsp;</td>
+<td class="value">&lt;class 'numpy.float64'&gt;</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">handle_unknown&nbsp;</td>
+<td class="value">'ignore'</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">min_frequency&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">max_categories&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">feature_name_combiner&nbsp;</td>
+<td class="value">'concat'</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___randomforestclassifier__">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                
+<table class="parameters-table caption-top" data-quarto-postprocess="true">
+<tbody>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">n_estimators&nbsp;</td>
+<td class="value">200</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">criterion&nbsp;</td>
+<td class="value">'gini'</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">max_depth&nbsp;</td>
+<td class="value">1</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">min_samples_split&nbsp;</td>
+<td class="value">2</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">min_samples_leaf&nbsp;</td>
+<td class="value">1</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">min_weight_fraction_leaf&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">max_features&nbsp;</td>
+<td class="value">2</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">max_leaf_nodes&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">min_impurity_decrease&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">bootstrap&nbsp;</td>
+<td class="value">True</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">oob_score&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">n_jobs&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="user-set odd">
+<td><em></em></td>
+<td class="param">random_state&nbsp;</td>
+<td class="value">2026</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">verbose&nbsp;</td>
+<td class="value">0</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">warm_start&nbsp;</td>
+<td class="value">False</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">class_weight&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">ccp_alpha&nbsp;</td>
+<td class="value">0.0</td>
+</tr>
+<tr class="default even">
+<td><em></em></td>
+<td class="param">max_samples&nbsp;</td>
+<td class="value">None</td>
+</tr>
+<tr class="default odd">
+<td><em></em></td>
+<td class="param">monotonic_cst&nbsp;</td>
+<td class="value">None</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+        </div>
+    </div></div></div></div></div></div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script>
 </div>
 </div>
-</section>
+</div></section>
 
 <section id="precision-and-recall-contd" class="title-slide slide level2 center">
 <h2>Precision and recall cont’d</h2>
@@ -1615,7 +1962,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li class="fragment"><p>What do we think? Is this model ready for production in a diagnostic setting?</p></li>
 <li class="fragment"><p>How could we improve it further?</p></li>
 </ul>
-<div id="f303c0a2" class="cell" data-execution_count="18">
+<div id="2f749c64" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a></a>cv_results <span class="op">=</span> pd.DataFrame(rf_tune_grid.cv_results_)</span>
 <span id="cb20-2"><a></a></span>
 <span id="cb20-3"><a></a>mean_precision <span class="op">=</span> cv_results[<span class="st">'mean_test_precision'</span>].iloc[rf_tune_grid.best_index_]</span>
@@ -1700,7 +2047,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 <section id="feature-importances-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Feature importances in <code>scikit-learn</code></h2>
-<div id="d09f5f02" class="cell" data-execution_count="19">
+<div id="0534c7bf" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a><span class="co"># Access the best pipeline</span></span>
 <span id="cb21-2"><a></a>best_pipeline <span class="op">=</span> rf_tune_grid.best_estimator_</span>
 <span id="cb21-3"><a></a></span>
@@ -1732,28 +2079,29 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 <section id="visualizing-the-results" class="title-slide slide level2 center">
 <h2>Visualizing the results</h2>
-<div id="8f4d85bf" class="cell" data-execution_count="20">
+<div id="4f9b159a" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display" data-execution_count="20">
 
 <style>
-  #altair-viz-5036d8c969d14491af67d01200d43360.vega-embed {
+  #altair-viz-e81607d953cb41e09ade7a8bcd947ac4.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-5036d8c969d14491af67d01200d43360.vega-embed details,
-  #altair-viz-5036d8c969d14491af67d01200d43360.vega-embed details summary {
+  #altair-viz-e81607d953cb41e09ade7a8bcd947ac4.vega-embed details,
+  #altair-viz-e81607d953cb41e09ade7a8bcd947ac4.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-5036d8c969d14491af67d01200d43360"></div>
+<div id="altair-viz-e81607d953cb41e09ade7a8bcd947ac4"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-5036d8c969d14491af67d01200d43360") {
-      outputDiv = document.getElementById("altair-viz-5036d8c969d14491af67d01200d43360");
+    if (outputDiv.id !== "altair-viz-e81607d953cb41e09ade7a8bcd947ac4") {
+      outputDiv = document.getElementById("altair-viz-e81607d953cb41e09ade7a8bcd947ac4");
     }
+
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
@@ -1790,7 +2138,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
-      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
     } else {
       maybeLoadScript("vega", "5")
         .then(() => maybeLoadScript("vega-lite", "5.20.1"))
@@ -1798,7 +2147,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-b7063293ee1f462303d75897ee88f27a"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "Feature", "type": "nominal"}, {"field": "Importance", "type": "quantitative"}], "x": {"field": "Importance", "title": "Feature Importance", "type": "quantitative"}, "y": {"field": "Feature", "sort": "-x", "title": "Feature", "type": "nominal"}}, "height": 400, "title": "Feature Importances from Random Forest Model", "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-b7063293ee1f462303d75897ee88f27a": [{"Feature": "ChestPain_asymptomatic", "Importance": 0.14}, {"Feature": "ExAng", "Importance": 0.11}, {"Feature": "Ca", "Importance": 0.105}, {"Feature": "MaxHR", "Importance": 0.09}, {"Feature": "Thal_normal", "Importance": 0.085}, {"Feature": "Thal_reversable", "Importance": 0.075}, {"Feature": "Oldpeak", "Importance": 0.065}, {"Feature": "Slope", "Importance": 0.065}, {"Feature": "ChestPain_nontypical", "Importance": 0.06}, {"Feature": "Age", "Importance": 0.045}, {"Feature": "Chol", "Importance": 0.04}, {"Feature": "RestBP", "Importance": 0.035}, {"Feature": "Sex", "Importance": 0.035}, {"Feature": "ChestPain_nonanginal", "Importance": 0.02}, {"Feature": "RestECG", "Importance": 0.015}, {"Feature": "ChestPain_typical", "Importance": 0.015}, {"Feature": "Thal_fixed", "Importance": 0.0}, {"Feature": "Fbs", "Importance": 0.0}]}}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-7005ae860b862694fb01f227f5e98385"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "Feature", "type": "nominal"}, {"field": "Importance", "type": "quantitative"}], "x": {"field": "Importance", "title": "Feature Importance", "type": "quantitative"}, "y": {"field": "Feature", "sort": "-x", "title": "Feature", "type": "nominal"}}, "height": 400, "title": "Feature Importances from Random Forest Model", "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-7005ae860b862694fb01f227f5e98385": [{"Feature": "ChestPain_asymptomatic", "Importance": 0.14}, {"Feature": "ExAng", "Importance": 0.11}, {"Feature": "Ca", "Importance": 0.105}, {"Feature": "MaxHR", "Importance": 0.09}, {"Feature": "Thal_normal", "Importance": 0.085}, {"Feature": "Thal_reversable", "Importance": 0.075}, {"Feature": "Slope", "Importance": 0.065}, {"Feature": "Oldpeak", "Importance": 0.065}, {"Feature": "ChestPain_nontypical", "Importance": 0.06}, {"Feature": "Age", "Importance": 0.045}, {"Feature": "Chol", "Importance": 0.04}, {"Feature": "RestBP", "Importance": 0.035}, {"Feature": "Sex", "Importance": 0.035}, {"Feature": "ChestPain_nonanginal", "Importance": 0.02}, {"Feature": "ChestPain_typical", "Importance": 0.015}, {"Feature": "RestECG", "Importance": 0.015}, {"Feature": "Fbs", "Importance": 0.0}, {"Feature": "Thal_fixed", "Importance": 0.0}]}}, {"mode": "vega-lite"});
 </script>
 </div>
 </div>
@@ -1807,7 +2156,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="evaluating-on-the-test-set" class="title-slide slide level2 center">
 <h2>Evaluating on the test set</h2>
 <p>Predict on the test set:</p>
-<div id="0d504714" class="cell" data-execution_count="21">
+<div id="57d4d87e" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a></a>heart_test_drop_na <span class="op">=</span> heart_test.dropna()</span>
 <span id="cb22-2"><a></a>X_test_drop_na <span class="op">=</span> heart_test_drop_na.drop(columns<span class="op">=</span>[<span class="st">'AHD'</span>])</span>
 <span id="cb22-3"><a></a>y_test_drop_na <span class="op">=</span> heart_test_drop_na[<span class="st">'AHD'</span>]</span>
@@ -1823,7 +2172,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Examine accuracy, precision and recall:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="45cbf256" class="cell" data-execution_count="22">
+<div id="805539ca" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>rf_tune_grid.score(</span>
 <span id="cb23-2"><a></a>    X_test_drop_na,</span>
 <span id="cb23-3"><a></a>    y_test_drop_na</span>
@@ -1832,7 +2181,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <pre><code>0.7868852459016393</code></pre>
 </div>
 </div>
-<div id="682f03bd" class="cell" data-execution_count="23">
+<div id="3b183a72" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>precision_score(</span>
 <span id="cb25-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb25-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
@@ -1842,7 +2191,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <pre><code>0.8</code></pre>
 </div>
 </div>
-<div id="560f2264" class="cell" data-execution_count="24">
+<div id="a98ed69d" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a></a>recall_score(</span>
 <span id="cb27-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb27-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
@@ -1853,7 +2202,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="6da78125" class="cell" data-execution_count="25">
+<div id="092a24db" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>conf_matrix <span class="op">=</span> pd.crosstab(</span>
 <span id="cb29-2"><a></a>    heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb29-3"><a></a>    heart_test_drop_na[<span class="st">"predicted"</span>]</span>
@@ -1871,7 +2220,6 @@ Yes         8   20</code></pre>
 
 <section id="other-boosting-models" class="title-slide slide level2 center">
 <h2>Other boosting models:</h2>
-<div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><a href="https://lightgbm.readthedocs.io/">XGBoost</a></p>
@@ -1896,7 +2244,6 @@ Yes         8   20</code></pre>
 <li>Usually better scores but slower compared to XGBoost and LightGBM</li>
 </ul>
 </div></div>
-</div>
 </section>
 
 <section id="keep-learning" class="title-slide slide level2 center">
@@ -2150,190 +2497,172 @@ Yes         8   20</code></pre>
       });
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/posit-conf-2025\.github\.io\/scikit-learn\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/posit-conf-2025\.github\.io\/scikit-learn\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>
