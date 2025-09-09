@@ -299,7 +299,7 @@
     "href": "materials/slides/ensembles.html#tree-based-methods",
     "title": "Tree-based and ensemble models",
     "section": "Tree-based methods",
-    "text": "Tree-based methods\n\nAlgorithms that stratifying or segmenting the predictor space into a number of simple regions.\nWe call these algorithms decision-tree methods because the decisions used to segment the predictor space can be summarized in a tree.\nDecision trees on their own, are very explainable and intuitive, but not very powerful at predicting.\nHowever, there are extensions of decision trees, such as random forest and boosted trees, which are very powerful at predicting. We will demonstrate two of these in this session.",
+    "text": "Tree-based methods\n\n\n\n\n\n\n\nAlgorithms that stratifying or segmenting the predictor space into a number of simple regions.\nWe call these algorithms decision-tree methods because the decisions used to segment the predictor space can be summarized in a tree.\nDecision trees on their own, are very explainable and intuitive, but not very powerful at predicting.\nHowever, there are extensions of decision trees, such as random forest and boosted trees, which are very powerful at predicting. We will demonstrate two of these in this session.",
     "crumbs": [
       "Home",
       "Slides",
@@ -335,7 +335,7 @@
     "href": "materials/slides/ensembles.html#example-the-heart-data-set",
     "title": "Tree-based and ensemble models",
     "section": "Example: the heart data set",
-    "text": "Example: the heart data set\n\n\n\nLet’s consider a situation where we’d like to be able to predict the presence of heart disease (AHD) in patients, based off 13 measured characteristics.\nThe heart data set contains a binary outcome for heart disease for patients who presented with chest pain.\n\n\n\nimport pandas as pd\nheart = pd.read_csv(\"data/Heart.csv\", index_col=0)\nheart.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nIndex: 303 entries, 1 to 303\nData columns (total 14 columns):\n #   Column     Non-Null Count  Dtype  \n---  ------     --------------  -----  \n 0   Age        303 non-null    int64  \n 1   Sex        303 non-null    int64  \n 2   ChestPain  303 non-null    object \n 3   RestBP     303 non-null    int64  \n 4   Chol       303 non-null    int64  \n 5   Fbs        303 non-null    int64  \n 6   RestECG    303 non-null    int64  \n 7   MaxHR      303 non-null    int64  \n 8   ExAng      303 non-null    int64  \n 9   Oldpeak    303 non-null    float64\n 10  Slope      303 non-null    int64  \n 11  Ca         299 non-null    float64\n 12  Thal       301 non-null    object \n 13  AHD        303 non-null    object \ndtypes: float64(2), int64(9), object(3)\nmemory usage: 35.5+ KB",
+    "text": "Example: the heart data set\n\nLet’s consider a situation where we’d like to be able to predict the presence of heart disease (AHD) in patients, based off 13 measured characteristics.\nThe heart data set contains a binary outcome for heart disease for patients who presented with chest pain.",
     "crumbs": [
       "Home",
       "Slides",
@@ -343,11 +343,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#example-the-heart-data-set-1",
-    "href": "materials/slides/ensembles.html#example-the-heart-data-set-1",
+    "objectID": "materials/slides/ensembles.html#example-the-heart-data-set-contd",
+    "href": "materials/slides/ensembles.html#example-the-heart-data-set-contd",
     "title": "Tree-based and ensemble models",
-    "section": "Example: the heart data set",
-    "text": "Example: the heart data set\nAn angiographic test was performed and a label for AHD of Yes was labelled to indicate the presence of heart disease, otherwise the label was No.\n\nheart.head()\n\n\n\n\n\n\n\n\nAge\nSex\nChestPain\nRestBP\nChol\nFbs\nRestECG\nMaxHR\nExAng\nOldpeak\nSlope\nCa\nThal\nAHD\n\n\n\n\n1\n63\n1\ntypical\n145\n233\n1\n2\n150\n0\n2.3\n3\n0.0\nfixed\nNo\n\n\n2\n67\n1\nasymptomatic\n160\n286\n0\n2\n108\n1\n1.5\n2\n3.0\nnormal\nYes\n\n\n3\n67\n1\nasymptomatic\n120\n229\n0\n2\n129\n1\n2.6\n2\n2.0\nreversable\nYes\n\n\n4\n37\n1\nnonanginal\n130\n250\n0\n0\n187\n0\n3.5\n3\n0.0\nnormal\nNo\n\n\n5\n41\n0\nnontypical\n130\n204\n0\n2\n172\n0\n1.4\n1\n0.0\nnormal\nNo",
+    "section": "Example: the heart data set (cont’d)",
+    "text": "Example: the heart data set (cont’d)\nAn angiographic test was performed and a label for AHD of Yes was labelled to indicate the presence of heart disease, otherwise the label was No.",
     "crumbs": [
       "Home",
       "Slides",
@@ -359,7 +359,7 @@
     "href": "materials/slides/ensembles.html#do-we-have-a-class-imbalance",
     "title": "Tree-based and ensemble models",
     "section": "Do we have a class imbalance?",
-    "text": "Do we have a class imbalance?\nIt’s always important to check this, as it may impact your splitting and/or modeling decisions.\n\nheart['AHD'].value_counts(normalize=True)\n\nAHD\nNo     0.541254\nYes    0.458746\nName: proportion, dtype: float64\n\n\nThis looks pretty good! We can move forward this time without doing much more about this.",
+    "text": "Do we have a class imbalance?\nIt’s always important to check this, as it may impact your splitting and/or modeling decisions.",
     "crumbs": [
       "Home",
       "Slides",
@@ -371,7 +371,7 @@
     "href": "materials/slides/ensembles.html#data-splitting",
     "title": "Tree-based and ensemble models",
     "section": "Data splitting",
-    "text": "Data splitting\nLet’s split the data into training and test sets:\n\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\n\nnp.random.seed(2024)\n\nheart_train, heart_test = train_test_split(\n    heart, train_size=0.8, stratify=heart[\"AHD\"]\n)\n\nX_train = heart_train.drop(columns=['AHD'])\ny_train = heart_train['AHD']\nX_test = heart_test.drop(columns=['AHD'])\ny_test = heart_test['AHD']",
+    "text": "Data splitting\nLet’s split the data into training and test sets:",
     "crumbs": [
       "Home",
       "Slides",
@@ -395,7 +395,7 @@
     "href": "materials/slides/ensembles.html#look-at-the-data-again",
     "title": "Tree-based and ensemble models",
     "section": "Look at the data again",
-    "text": "Look at the data again\nWhich columns do we need to standardize?\nWhich do we need to one-hot encode?\n\nheart.head()\n\n\n\n\n\n\n\n\nAge\nSex\nChestPain\nRestBP\nChol\nFbs\nRestECG\nMaxHR\nExAng\nOldpeak\nSlope\nCa\nThal\nAHD\n\n\n\n\n1\n63\n1\ntypical\n145\n233\n1\n2\n150\n0\n2.3\n3\n0.0\nfixed\nNo\n\n\n2\n67\n1\nasymptomatic\n160\n286\n0\n2\n108\n1\n1.5\n2\n3.0\nnormal\nYes\n\n\n3\n67\n1\nasymptomatic\n120\n229\n0\n2\n129\n1\n2.6\n2\n2.0\nreversable\nYes\n\n\n4\n37\n1\nnonanginal\n130\n250\n0\n0\n187\n0\n3.5\n3\n0.0\nnormal\nNo\n\n\n5\n41\n0\nnontypical\n130\n204\n0\n2\n172\n0\n1.4\n1\n0.0\nnormal\nNo",
+    "text": "Look at the data again\nWhich columns do we need to standardize?\nWhich do we need to one-hot encode?",
     "crumbs": [
       "Home",
       "Slides",
@@ -407,7 +407,7 @@
     "href": "materials/slides/ensembles.html#one-hot-encoding-pre-processing",
     "title": "Tree-based and ensemble models",
     "section": "One hot encoding & pre-processing",
-    "text": "One hot encoding & pre-processing\n\nfrom sklearn.preprocessing import StandardScaler, OneHotEncoder\nfrom sklearn.compose import make_column_transformer, make_column_selector\n\nnumeric_feats = ['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak','Slope', 'Ca']\npassthrough_feats = ['Sex', 'Fbs', 'ExAng']\ncategorical_feats = ['ChestPain', 'Thal']\n\nheart_preprocessor = make_column_transformer(\n    (StandardScaler(), numeric_feats),\n    (\"passthrough\", passthrough_feats),\n    (OneHotEncoder(handle_unknown = \"ignore\"), categorical_feats),\n)\n\n\nhandle_unknown = \"ignore\" handles the case where categories exist in the test data, which were missing in the training set. Specifically, it sets the value for those to 0 for all cases of the category.",
+    "text": "One hot encoding & pre-processing\n\n\n\n\n\n\n\nhandle_unknown = \"ignore\" handles the case where categories exist in the test data, which were missing in the training set. Specifically, it sets the value for those to 0 for all cases of the category.",
     "crumbs": [
       "Home",
       "Slides",
@@ -419,7 +419,19 @@
     "href": "materials/slides/ensembles.html#fitting-a-dummy-classifier",
     "title": "Tree-based and ensemble models",
     "section": "Fitting a dummy classifier",
-    "text": "Fitting a dummy classifier\n\nfrom sklearn.dummy import DummyClassifier\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.model_selection import cross_validate\n\ndummy = DummyClassifier()\ndummy_pipeline = make_pipeline(heart_preprocessor, dummy)\ncv_10_dummy = pd.DataFrame(\n    cross_validate(\n        estimator=dummy_pipeline,\n        cv=10,\n        X=X_train,\n        y=y_train\n    )\n)\ncv_10_dummy_metrics = cv_10_dummy.agg([\"mean\", \"sem\"])\nresults = pd.DataFrame({'mean' : [cv_10_dummy_metrics.test_score.iloc[0]],\n  'sem' : [cv_10_dummy_metrics.test_score.iloc[1]]},\n  index = ['Dummy classifier']\n)\nresults\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\nDummy classifier\n0.541333\n0.00299",
+    "text": "Fitting a dummy classifier",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#put-the-mean-cross-validated-error-in-a-data-frame",
+    "href": "materials/slides/ensembles.html#put-the-mean-cross-validated-error-in-a-data-frame",
+    "title": "Tree-based and ensemble models",
+    "section": "Put the mean cross-validated error in a data frame",
+    "text": "Put the mean cross-validated error in a data frame",
     "crumbs": [
       "Home",
       "Slides",
@@ -431,7 +443,19 @@
     "href": "materials/slides/ensembles.html#fitting-a-decision-tree",
     "title": "Tree-based and ensemble models",
     "section": "Fitting a decision tree",
-    "text": "Fitting a decision tree\n\nfrom sklearn.tree import DecisionTreeClassifier\n\ndecision_tree = DecisionTreeClassifier(random_state=2026)\n\ndt_pipeline = make_pipeline(heart_preprocessor, decision_tree)\ncv_10_dt = pd.DataFrame(\n    cross_validate(\n        estimator=dt_pipeline,\n        cv=10,\n        X=X_train,\n        y=y_train\n    )\n)\ncv_10_dt_metrics = cv_10_dt.agg([\"mean\", \"sem\"])\nresults_dt = pd.DataFrame({'mean' : [cv_10_dt_metrics.test_score.iloc[0]],\n  'sem' : [cv_10_dt_metrics.test_score.iloc[1]]},\n  index = ['Decision tree']\n)\nresults = pd.concat([results, results_dt])\nresults\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\nDummy classifier\n0.541333\n0.00299\n\n\nDecision tree\n0.769167\n0.02632",
+    "text": "Fitting a decision tree",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#add-the-mean-cross-validated-error-to-our-results-data-frame",
+    "href": "materials/slides/ensembles.html#add-the-mean-cross-validated-error-to-our-results-data-frame",
+    "title": "Tree-based and ensemble models",
+    "section": "Add the mean cross-validated error to our results data frame",
+    "text": "Add the mean cross-validated error to our results data frame",
     "crumbs": [
       "Home",
       "Slides",
@@ -463,11 +487,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#random-forest-in-scikit-learn-missing-values",
-    "href": "materials/slides/ensembles.html#random-forest-in-scikit-learn-missing-values",
+    "objectID": "materials/slides/ensembles.html#random-forest-in-scikit-learn",
+    "href": "materials/slides/ensembles.html#random-forest-in-scikit-learn",
     "title": "Tree-based and ensemble models",
-    "section": "Random forest in scikit-learn & missing values",
-    "text": "Random forest in scikit-learn & missing values\n\n\n\nDoes not accept missing values, we need to deal with these somehow…\nWe can either drop the observations with missing values, or we can somehow impute them.\nFor the purposes of this demo we will drop them, but if you are interested in imputation, see the imputation tutorial in scikit-learn\n\n\nHow many rows have missing observations:\n\nheart.isna().any(axis=1).sum()\n\nnp.int64(6)\n\n\nDrop rows with missing observations:\n\nheart_train_drop_na = heart_train.dropna()\n\nX_train_drop_na = heart_train_drop_na.drop(\n    columns=['AHD']\n)\ny_train_drop_na = heart_train_drop_na['AHD']",
+    "section": "Random forest in scikit-learn",
+    "text": "Random forest in scikit-learn",
     "crumbs": [
       "Home",
       "Slides",
@@ -475,11 +499,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#random-forest-in-scikit-learn",
-    "href": "materials/slides/ensembles.html#random-forest-in-scikit-learn",
+    "objectID": "materials/slides/ensembles.html#add-the-mean-cross-validated-error-to-our-results-data-frame-1",
+    "href": "materials/slides/ensembles.html#add-the-mean-cross-validated-error-to-our-results-data-frame-1",
     "title": "Tree-based and ensemble models",
-    "section": "Random forest in scikit-learn",
-    "text": "Random forest in scikit-learn\n\nfrom sklearn.ensemble import RandomForestClassifier\n\nrandom_forest = RandomForestClassifier(random_state=2026)\nrf_pipeline = make_pipeline(heart_preprocessor, random_forest)\ncv_10_rf = pd.DataFrame(\n    cross_validate(\n        estimator=rf_pipeline,\n        cv=10,\n        X=X_train_drop_na,\n        y=y_train_drop_na\n    )\n)\n\ncv_10_rf_metrics = cv_10_rf.agg([\"mean\", \"sem\"])\nresults_rf = pd.DataFrame({'mean' : [cv_10_rf_metrics.test_score.iloc[0]],\n  'sem' : [cv_10_rf_metrics.test_score.iloc[1]]},\n  index = ['Random forest']\n)\nresults = pd.concat([results, results_rf])\nresults\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\nDummy classifier\n0.541333\n0.002990\n\n\nDecision tree\n0.769167\n0.026320\n\n\nRandom forest\n0.818297\n0.017362",
+    "section": "Add the mean cross-validated error to our results data frame",
+    "text": "Add the mean cross-validated error to our results data frame",
     "crumbs": [
       "Home",
       "Slides",
@@ -503,7 +527,7 @@
     "href": "materials/slides/ensembles.html#tuning-random-forest-in-scikit-learn",
     "title": "Tree-based and ensemble models",
     "section": "Tuning random forest in scikit-learn",
-    "text": "Tuning random forest in scikit-learn\n\nfrom sklearn.model_selection import GridSearchCV\n\nrf_param_grid = {'randomforestclassifier__n_estimators': [200],\n              'randomforestclassifier__max_depth': [1, 3, 5, 7, 9],\n              'randomforestclassifier__max_features': [1, 2, 3, 4, 5, 6, 7]}\n\nrf_tune_grid = GridSearchCV(\n    estimator=rf_pipeline,\n    param_grid=rf_param_grid,\n    cv=10,\n    n_jobs=-1 # tells computer to use all available CPUs\n)\nrf_tune_grid.fit(\n    X_train_drop_na,\n    y_train_drop_na\n)\n\ncv_10_rf_tuned_metrics = pd.DataFrame(rf_tune_grid.cv_results_)\nresults_rf_tuned = pd.DataFrame({'mean' : rf_tune_grid.best_score_,\n  'sem' : pd.DataFrame(rf_tune_grid.cv_results_)['std_test_score'][6] / 10**(1/2)},\n  index = ['Random forest tuned']\n)\nresults = pd.concat([results, results_rf_tuned])",
+    "text": "Tuning random forest in scikit-learn",
     "crumbs": [
       "Home",
       "Slides",
@@ -511,11 +535,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#random-forest-results",
-    "href": "materials/slides/ensembles.html#random-forest-results",
+    "objectID": "materials/slides/ensembles.html#comparing-to-our-other-models",
+    "href": "materials/slides/ensembles.html#comparing-to-our-other-models",
     "title": "Tree-based and ensemble models",
-    "section": "Random Forest results",
-    "text": "Random Forest results\nHow did the Random Forest compare against the other models we tried?\n\nresults\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\nDummy classifier\n0.541333\n0.002990\n\n\nDecision tree\n0.769167\n0.026320\n\n\nRandom forest\n0.818297\n0.017362\n\n\nRandom forest tuned\n0.860688\n0.022223",
+    "section": "Comparing to our other models",
+    "text": "Comparing to our other models\nHow did the tuned Random Forest compare against the other models we tried?",
     "crumbs": [
       "Home",
       "Slides",
@@ -535,11 +559,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#tuning-gradientboostingclassifier-with-scikit-learn",
-    "href": "materials/slides/ensembles.html#tuning-gradientboostingclassifier-with-scikit-learn",
+    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn",
+    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn",
     "title": "Tree-based and ensemble models",
-    "section": "Tuning GradientBoostingClassifier with scikit-learn",
-    "text": "Tuning GradientBoostingClassifier with scikit-learn\n\nGradientBoostingClassifier can be tuned a several important parameters, including:\n\nn_estimators: number of decision trees (higher = more complexity)\nmax_depth: max depth of each decision tree (higher = more complexity)\nlearning_rate: the shrinkage parameter which controls the rate at which boosting learns. Values between 0.01 or 0.001 are typical.\n\nWe can use GridSearchCV to search for the optimal parameters for these, as we did for the parameters in Random Forest.",
+    "section": "Tuning Boosted Classifiers with scikit-learn",
+    "text": "Tuning Boosted Classifiers with scikit-learn\n\nHistGradientBoostingClassifier can be tuned a several important parameters, including:\n\nmax_iter: number of decision trees (higher = more complexity)\nmax_depth: max depth of each decision tree (higher = more complexity)\nlearning_rate: the shrinkage parameter which controls the rate at which boosting learns. Values between 0.01 or 0.001 are typical.\n\nWe can use GridSearchCV to search for the optimal parameters for these, as we did for the parameters in Random Forest.",
     "crumbs": [
       "Home",
       "Slides",
@@ -547,11 +571,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#tuning-gradientboostingclassifier-with-scikit-learn-1",
-    "href": "materials/slides/ensembles.html#tuning-gradientboostingclassifier-with-scikit-learn-1",
+    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn-contd",
+    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn-contd",
     "title": "Tree-based and ensemble models",
-    "section": "Tuning GradientBoostingClassifier with scikit-learn",
-    "text": "Tuning GradientBoostingClassifier with scikit-learn\n\nfrom sklearn.ensemble import GradientBoostingClassifier\n\ngradient_boosted_classifier = GradientBoostingClassifier(random_state=2026)\ngb_pipeline = make_pipeline(heart_preprocessor, gradient_boosted_classifier)\ngb_param_grid = {'gradientboostingclassifier__n_estimators': [200],\n              'gradientboostingclassifier__max_depth': [1, 3, 5, 7, 9],\n              'gradientboostingclassifier__learning_rate': [0.001, 0.005, 0.01]}\ngb_tune_grid = GridSearchCV(\n    estimator=gb_pipeline,\n    param_grid=gb_param_grid,\n    cv=10,\n    n_jobs=-1 # tells computer to use all available CPUs\n)\ngb_tune_grid.fit(\n    X_train_drop_na,\n    y_train_drop_na\n)\n\ncv_10_gb_tuned_metrics = pd.DataFrame(gb_tune_grid.cv_results_)\nresults_gb_tuned = pd.DataFrame({'mean' : gb_tune_grid.best_score_,\n  'sem' : pd.DataFrame(gb_tune_grid.cv_results_)['std_test_score'][6] / 10**(1/2)},\n  index = ['Gradient boosted classifier tuned']\n)\nresults = pd.concat([results, results_gb_tuned])",
+    "section": "Tuning Boosted Classifiers with scikit-learn (cont’d)",
+    "text": "Tuning Boosted Classifiers with scikit-learn (cont’d)",
     "crumbs": [
       "Home",
       "Slides",
@@ -559,11 +583,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#gradientboostingclassifier-results",
-    "href": "materials/slides/ensembles.html#gradientboostingclassifier-results",
+    "objectID": "materials/slides/ensembles.html#histgradientboostingclassifier-results",
+    "href": "materials/slides/ensembles.html#histgradientboostingclassifier-results",
     "title": "Tree-based and ensemble models",
-    "section": "GradientBoostingClassifier results",
-    "text": "GradientBoostingClassifier results\nHow did the GradientBoostingClassifier compare against the other models we tried?\n\nresults\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\nDummy classifier\n0.541333\n0.002990\n\n\nDecision tree\n0.769167\n0.026320\n\n\nRandom forest\n0.818297\n0.017362\n\n\nRandom forest tuned\n0.860688\n0.022223\n\n\nGradient boosted classifier tuned\n0.851993\n0.025671",
+    "section": "HistGradientBoostingClassifier results",
+    "text": "HistGradientBoostingClassifier results\nHow did the HistGradientBoostingClassifier compare against the other models we tried?",
     "crumbs": [
       "Home",
       "Slides",
@@ -587,7 +611,7 @@
     "href": "materials/slides/ensembles.html#precision-and-recall-on-the-tuned-random-forest-model",
     "title": "Tree-based and ensemble models",
     "section": "Precision and recall on the tuned random forest model",
-    "text": "Precision and recall on the tuned random forest model\n\nfrom sklearn.metrics import make_scorer, precision_score, recall_score\n\nscoring = {\n    'accuracy': 'accuracy',\n    'precision': make_scorer(precision_score, pos_label='Yes'),\n    'recall': make_scorer(recall_score, pos_label='Yes')\n}\n\nrf_tune_grid = GridSearchCV(\n    estimator=rf_pipeline,\n    param_grid=rf_param_grid,\n    cv=10,\n    n_jobs=-1,\n    scoring=scoring,\n    refit='accuracy'\n)\n\nrf_tune_grid.fit(X_train_drop_na, y_train_drop_na)\n\nGridSearchCV(cv=10,\n             estimator=Pipeline(steps=[('columntransformer',\n                                        ColumnTransformer(transformers=[('standardscaler',\n                                                                         StandardScaler(),\n                                                                         ['Age',\n                                                                          'RestBP',\n                                                                          'Chol',\n                                                                          'RestECG',\n                                                                          'MaxHR',\n                                                                          'Oldpeak',\n                                                                          'Slope',\n                                                                          'Ca']),\n                                                                        ('passthrough',\n                                                                         'passthrough',\n                                                                         ['Sex',\n                                                                          'Fbs',\n                                                                          'ExAng']),\n                                                                        ('onehotencoder',\n                                                                         OneHotEncoder(handle_unknown='ignore'),\n                                                                         ['ChestPain',\n                                                                          'Thal'])])),\n                                       ('randomforestclas...\n             param_grid={'randomforestclassifier__max_depth': [1, 3, 5, 7, 9],\n                         'randomforestclassifier__max_features': [1, 2, 3, 4, 5,\n                                                                  6, 7],\n                         'randomforestclassifier__n_estimators': [200]},\n             refit='accuracy',\n             scoring={'accuracy': 'accuracy',\n                      'precision': make_scorer(precision_score, response_method='predict', pos_label=Yes),\n                      'recall': make_scorer(recall_score, response_method='predict', pos_label=Yes)})In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.GridSearchCV?Documentation for GridSearchCViFitted\n        \n            \n                Parameters\n                \n\n\n\n\nestimator \nPipeline(step...state=2026))])\n\n\n\nparam_grid \n{'randomforestclassifier__max_depth': [1, 3, ...], 'randomforestclassifier__max_features': [1, 2, ...], 'randomforestclassifier__n_estimators': [200]}\n\n\n\nscoring \n{'accuracy': 'accuracy', 'precision': make_scorer(p...pos_label=Yes), 'recall': make_scorer(r...pos_label=Yes)}\n\n\n\nn_jobs \n-1\n\n\n\nrefit \n'accuracy'\n\n\n\ncv \n10\n\n\n\nverbose \n0\n\n\n\npre_dispatch \n'2*n_jobs'\n\n\n\nerror_score \nnan\n\n\n\nreturn_train_score \nFalse\n\n\n\n\n            \n        \n    best_estimator_: Pipelinecolumntransformer: ColumnTransformer?Documentation for columntransformer: ColumnTransformer\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...), ('passthrough', ...), ...]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak', 'Slope', 'Ca']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue\n\n\n\n\n            \n        \n    passthrough['Sex', 'Fbs', 'ExAng']passthroughpassthroughonehotencoder['ChestPain', 'Thal']OneHotEncoder?Documentation for OneHotEncoder\n        \n            \n                Parameters\n                \n\n\n\n\ncategories \n'auto'\n\n\n\ndrop \nNone\n\n\n\nsparse_output \nTrue\n\n\n\ndtype \n&lt;class 'numpy.float64'&gt;\n\n\n\nhandle_unknown \n'ignore'\n\n\n\nmin_frequency \nNone\n\n\n\nmax_categories \nNone\n\n\n\nfeature_name_combiner \n'concat'\n\n\n\n\n            \n        \n    RandomForestClassifier?Documentation for RandomForestClassifier\n        \n            \n                Parameters\n                \n\n\n\n\nn_estimators \n200\n\n\n\ncriterion \n'gini'\n\n\n\nmax_depth \n1\n\n\n\nmin_samples_split \n2\n\n\n\nmin_samples_leaf \n1\n\n\n\nmin_weight_fraction_leaf \n0.0\n\n\n\nmax_features \n2\n\n\n\nmax_leaf_nodes \nNone\n\n\n\nmin_impurity_decrease \n0.0\n\n\n\nbootstrap \nTrue\n\n\n\noob_score \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nrandom_state \n2026\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nclass_weight \nNone\n\n\n\nccp_alpha \n0.0\n\n\n\nmax_samples \nNone\n\n\n\nmonotonic_cst \nNone",
+    "text": "Precision and recall on the tuned random forest model",
     "crumbs": [
       "Home",
       "Slides",
@@ -599,7 +623,7 @@
     "href": "materials/slides/ensembles.html#precision-and-recall-contd",
     "title": "Tree-based and ensemble models",
     "section": "Precision and recall cont’d",
-    "text": "Precision and recall cont’d\n\nWhat do we think? Is this model ready for production in a diagnostic setting?\nHow could we improve it further?\n\n\ncv_results = pd.DataFrame(rf_tune_grid.cv_results_)\n\nmean_precision = cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_]\nsem_precision = cv_results['std_test_precision'].iloc[rf_tune_grid.best_index_] / np.sqrt(10)\nmean_recall = cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_]\nsem_recall = cv_results['std_test_recall'].iloc[rf_tune_grid.best_index_] / np.sqrt(10)\n\nresults_rf_tuned = pd.DataFrame({\n    'mean': [rf_tune_grid.best_score_, mean_precision, mean_recall],\n    'sem': [cv_results['std_test_accuracy'].iloc[rf_tune_grid.best_index_] / np.sqrt(10), sem_precision, sem_recall],\n}, index=['accuracy', 'precision', 'recall'])\n\nresults_rf_tuned\n\n\n\n\n\n\n\n\nmean\nsem\n\n\n\n\naccuracy\n0.860688\n0.018576\n\n\nprecision\n0.920505\n0.022982\n\n\nrecall\n0.770909\n0.038928",
+    "text": "Precision and recall cont’d\n\nWhat do we think? Is this model ready for production in a diagnostic setting?\nHow could we improve it further?",
     "crumbs": [
       "Home",
       "Slides",
@@ -607,11 +631,23 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#feature-importances",
-    "href": "materials/slides/ensembles.html#feature-importances",
+    "objectID": "materials/slides/ensembles.html#feature-importances-key-points",
+    "href": "materials/slides/ensembles.html#feature-importances-key-points",
     "title": "Tree-based and ensemble models",
-    "section": "Feature importances",
-    "text": "Feature importances\n\n\nKey points:\n\nDecision trees are very interpretable (decision rules!), however in ensemble models (e.g., Random Forest and Boosting) there are many trees - individual decision rules are not as meaningful…\nInstead, we can calculate feature importances as the total decrease in impurity for all splits involving that feature, weighted by the number of samples involved in those splits, normalized and averaged over all the trees.\nThese are calculated on the training set, as that is the set the model is trained on.\n\n\nNotes of caution!\n\nFeature importances can be unreliable with both highly cardinal, and multicollinear features.\nUnlike the linear model coefficients, feature importances do not have a sign! They tell us about importance, but not an “up or down”.\nIncreasing a feature may cause the prediction to first go up, and then go down.\nAlternatives to feature importance to understanding models exist (e.g., SHAP (SHapley Additive exPlanations))",
+    "section": "Feature importances: key points",
+    "text": "Feature importances: key points\n\nDecision trees are very interpretable (decision rules!), however in ensemble models (e.g., Random Forest and Boosting) there are many trees - individual decision rules are not as meaningful…\nInstead, we can calculate feature importances as the total decrease in impurity for all splits involving that feature, weighted by the number of samples involved in those splits, normalized and averaged over all the trees.\nThese are calculated on the training set, as that is the set the model is trained on.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#feature-importances-notes-of-caution",
+    "href": "materials/slides/ensembles.html#feature-importances-notes-of-caution",
+    "title": "Tree-based and ensemble models",
+    "section": "Feature importances: Notes of caution!",
+    "text": "Feature importances: Notes of caution!\n\nFeature importances can be unreliable with both highly cardinal, and multicollinear features.\nUnlike the linear model coefficients, feature importances do not have a sign! They tell us about importance, but not an “up or down”.\nIncreasing a feature may cause the prediction to first go up, and then go down.\nAlternatives to feature importance to understanding models exist, such as post-hoc explanations (sometimes called “explainable AI”, see Interpretable Machine Learning by Christoph Molnar for an introduction)",
     "crumbs": [
       "Home",
       "Slides",
@@ -623,7 +659,19 @@
     "href": "materials/slides/ensembles.html#feature-importances-in-scikit-learn",
     "title": "Tree-based and ensemble models",
     "section": "Feature importances in scikit-learn",
-    "text": "Feature importances in scikit-learn\n\n# Access the best pipeline\nbest_pipeline = rf_tune_grid.best_estimator_\n\n# Extract the trained RandomForestClassifier from the pipeline\nbest_rf = best_pipeline.named_steps['randomforestclassifier']\n\n# Extract feature names after preprocessing\n# Get the names of features from each transformer in the pipeline\nnumeric_features = numeric_feats\ncategorical_feature_names = best_pipeline.named_steps['columntransformer'].transformers_[2][1].get_feature_names_out(categorical_feats)\npassthrough_features = passthrough_feats\n\n# Combine all feature names into a single list\nfeature_names = np.concatenate([numeric_features, passthrough_features, categorical_feature_names])\n\n# Calculate feature importances\nfeature_importances = best_rf.feature_importances_\n\n# Create a DataFrame to display feature importances\nimportances_df = pd.DataFrame({\n    'Feature': feature_names,\n    'Importance': feature_importances\n})\n\n# Sort by importance (descending order)\nimportances_df = importances_df.sort_values(by='Importance', ascending=False)",
+    "text": "Feature importances in scikit-learn",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#feature-importances-in-scikit-learn-contd",
+    "href": "materials/slides/ensembles.html#feature-importances-in-scikit-learn-contd",
+    "title": "Tree-based and ensemble models",
+    "section": "Feature importances in scikit-learn (cont’d)",
+    "text": "Feature importances in scikit-learn (cont’d)",
     "crumbs": [
       "Home",
       "Slides",
@@ -643,11 +691,23 @@
     ]
   },
   {
+    "objectID": "materials/slides/ensembles.html#visualizing-the-results-1",
+    "href": "materials/slides/ensembles.html#visualizing-the-results-1",
+    "title": "Tree-based and ensemble models",
+    "section": "Visualizing the results",
+    "text": "Visualizing the results",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
     "objectID": "materials/slides/ensembles.html#evaluating-on-the-test-set",
     "href": "materials/slides/ensembles.html#evaluating-on-the-test-set",
     "title": "Tree-based and ensemble models",
     "section": "Evaluating on the test set",
-    "text": "Evaluating on the test set\nPredict on the test set:\n\nheart_test_drop_na = heart_test.dropna()\nX_test_drop_na = heart_test_drop_na.drop(columns=['AHD'])\ny_test_drop_na = heart_test_drop_na['AHD']\n\nheart_test_drop_na[\"predicted\"] = rf_tune_grid.predict(\n    X_test_drop_na\n)",
+    "text": "Evaluating on the test set\nPredict on the test set:",
     "crumbs": [
       "Home",
       "Slides",
@@ -659,7 +719,7 @@
     "href": "materials/slides/ensembles.html#evaluating-on-the-test-set-1",
     "title": "Tree-based and ensemble models",
     "section": "Evaluating on the test set",
-    "text": "Evaluating on the test set\nExamine accuracy, precision and recall:\n\n\n\nrf_tune_grid.score(\n    X_test_drop_na,\n    y_test_drop_na\n)\n\n0.7868852459016393\n\n\n\nprecision_score(\n    y_true=heart_test_drop_na[\"AHD\"],\n    y_pred=heart_test_drop_na[\"predicted\"],\n    pos_label='Yes'\n)\n\n0.8\n\n\n\nrecall_score(\n    y_true=heart_test_drop_na[\"AHD\"],\n    y_pred=heart_test_drop_na[\"predicted\"],\n    pos_label='Yes'\n)\n\n0.7142857142857143\n\n\n\n\nconf_matrix = pd.crosstab(\n    heart_test_drop_na[\"AHD\"],\n    heart_test_drop_na[\"predicted\"]\n)\nprint(conf_matrix)\n\npredicted  No  Yes\nAHD               \nNo         28    5\nYes         8   20",
+    "text": "Evaluating on the test set\nExamine accuracy, precision and recall:",
     "crumbs": [
       "Home",
       "Slides",
@@ -667,11 +727,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#other-boosting-models",
-    "href": "materials/slides/ensembles.html#other-boosting-models",
+    "objectID": "materials/slides/ensembles.html#evaluating-on-the-test-set-2",
+    "href": "materials/slides/ensembles.html#evaluating-on-the-test-set-2",
     "title": "Tree-based and ensemble models",
-    "section": "Other boosting models:",
-    "text": "Other boosting models:\n\n\nXGBoost\n\nNot part of sklearn but has similar interface.\nSupports missing values\nGPU training, networked parallel training\nSupports sparse data\nTypically better scores than random forests\n\n\nLightGBM\n\nNot part of sklearn but has similar interface.\nSmall model size\nFaster\nTypically better scores than random forests\n\nCatBoost\n\nNot part of sklearn but has similar interface.\nUsually better scores but slower compared to XGBoost and LightGBM",
+    "section": "Evaluating on the test set",
+    "text": "Evaluating on the test set",
     "crumbs": [
       "Home",
       "Slides",
@@ -1151,7 +1211,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-select-numeric-columns",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: Select numeric columns",
-    "text": "scikit-learn: Select numeric columns\n\nfrom sklearn.compose import make_column_selector\n\npreprocessor = make_column_transformer(\n    (StandardScaler(), make_column_selector(dtype_include=\"number\")),\n)\npreprocessor\n\nColumnTransformer(transformers=[('standardscaler', StandardScaler(),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb3e53df470&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformer?Documentation for ColumnTransformeriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb3e53df470&gt;StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue",
+    "text": "scikit-learn: Select numeric columns\n\nfrom sklearn.compose import make_column_selector\n\npreprocessor = make_column_transformer(\n    (StandardScaler(), make_column_selector(dtype_include=\"number\")),\n)\npreprocessor\n\nColumnTransformer(transformers=[('standardscaler', StandardScaler(),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f2c7a74b110&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformer?Documentation for ColumnTransformeriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f2c7a74b110&gt;StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue",
     "crumbs": [
       "Home",
       "Slides",
@@ -1646,7 +1706,7 @@
     "href": "materials/slides/classification2.html#session-learning-objectives",
     "title": "Classification II: evaluation & tuning",
     "section": "Session learning objectives",
-    "text": "Session learning objectives\nBy the end of the session, learners will be able to do the following:\n\nDescribe what training, validation, and test data sets are and how they are used in classification.\nSplit data into training, validation, and test data sets.\nDescribe what a random seed is and its importance in reproducible data analysis.\nSet the random seed in Python using the numpy.random.seed function.\nDescribe and interpret accuracy, precision, recall, and confusion matrices.",
+    "text": "Session learning objectives\n\n\n\n\n\n\nBy the end of the session, learners will be able to do the following:\n\nDescribe what training, validation, and test data sets are and how they are used in classification.\nSplit data into training, validation, and test data sets.\nDescribe what a random seed is and its importance in reproducible data analysis.\nSet the random seed in Python using the numpy.random.seed function.\nDescribe and interpret accuracy, precision, recall, and confusion matrices.",
     "crumbs": [
       "Home",
       "Slides",

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.34">
 
   <title>Machine learning with scikit-learn in Python – Tree-based and ensemble models</title>
@@ -27,72 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-70dee700f540618a3696fe2d24597c76.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -110,6 +46,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -186,9 +123,8 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-  
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -201,8 +137,16 @@
 </div>
 
 </section>
-<section id="tree-based-methods" class="title-slide slide level2 center">
+<section id="tree-based-methods" class="slide level2">
 <h2>Tree-based methods</h2>
+<div>
+<div id="pyodide-1" class="exercise-cell">
+
+</div>
+<script type="pyodide-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBwZFxucGQuc2V0X29wdGlvbignZGlzcGxheS5tYXhfcm93cycsIDUpIn0=
+</script>
+</div>
 <ul>
 <li class="fragment"><p>Algorithms that stratifying or segmenting the predictor space into a number of simple regions.</p></li>
 <li class="fragment"><p>We call these algorithms decision-tree methods because the decisions used to segment the predictor space can be summarized in a tree.</p></li>
@@ -210,15 +154,13 @@
 <li class="fragment"><p>However, there are extensions of decision trees, such as random forest and boosted trees, which are very powerful at predicting. We will demonstrate two of these in this session.</p></li>
 </ul>
 </section>
-
-<section id="decision-trees" class="title-slide slide level2 center">
+<section id="decision-trees" class="slide level2">
 <h2>Decision trees</h2>
 <ul>
 <li><a href="https://mlu-explain.github.io/decision-tree/">Decision Trees</a> by Jared Wilber &amp; Lucía Santamaría</li>
 </ul>
 </section>
-
-<section id="classification-decision-trees" class="title-slide slide level2 center">
+<section id="classification-decision-trees" class="slide level2">
 <h2>Classification Decision trees</h2>
 <ul>
 <li class="fragment"><p>Use recursive binary splitting to grow a classification tree (splitting of the predictor space into <span class="math inline">\(J\)</span> distinct, non-overlapping regions).</p></li>
@@ -228,218 +170,50 @@
 <li class="fragment"><p>A limitation of decision trees is that theyn tend to overfit, so in practice we use cross-validation to tune a hyperparameter, <span class="math inline">\(\alpha\)</span>, to find the optimal, pruned tree.</p></li>
 </ul>
 </section>
-
-<section id="example-the-heart-data-set" class="title-slide slide level2 center">
+<section id="example-the-heart-data-set" class="slide level2">
 <h2>Example: the heart data set</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <ul>
 <li><p>Let’s consider a situation where we’d like to be able to predict the presence of heart disease (<code>AHD</code>) in patients, based off 13 measured characteristics.</p></li>
 <li><p>The <a href="https://www.statlearning.com/s/Heart.csv">heart data set</a> contains a binary outcome for heart disease for patients who presented with chest pain.</p></li>
 </ul>
-</div><div class="column" style="width:50%;">
-<div id="e253f7da" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a></a>heart <span class="op">=</span> pd.read_csv(<span class="st">"data/Heart.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb1-3"><a></a>heart.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
-Index: 303 entries, 1 to 303
-Data columns (total 14 columns):
- #   Column     Non-Null Count  Dtype  
----  ------     --------------  -----  
- 0   Age        303 non-null    int64  
- 1   Sex        303 non-null    int64  
- 2   ChestPain  303 non-null    object 
- 3   RestBP     303 non-null    int64  
- 4   Chol       303 non-null    int64  
- 5   Fbs        303 non-null    int64  
- 6   RestECG    303 non-null    int64  
- 7   MaxHR      303 non-null    int64  
- 8   ExAng      303 non-null    int64  
- 9   Oldpeak    303 non-null    float64
- 10  Slope      303 non-null    int64  
- 11  Ca         299 non-null    float64
- 12  Thal       301 non-null    object 
- 13  AHD        303 non-null    object 
-dtypes: float64(2), int64(9), object(3)
-memory usage: 35.5+ KB</code></pre>
-</div>
-</div>
-</div></div>
 </section>
-
-<section id="example-the-heart-data-set-1" class="title-slide slide level2 center">
-<h2>Example: the heart data set</h2>
+<section id="example-the-heart-data-set-contd" class="slide level2 smaller">
+<h2>Example: the heart data set (cont’d)</h2>
 <p>An angiographic test was performed and a label for <code>AHD</code> of Yes was labelled to indicate the presence of heart disease, otherwise the label was No.</p>
-<div id="d1c642ff" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">Sex</th>
-<th data-quarto-table-cell-role="th">ChestPain</th>
-<th data-quarto-table-cell-role="th">RestBP</th>
-<th data-quarto-table-cell-role="th">Chol</th>
-<th data-quarto-table-cell-role="th">Fbs</th>
-<th data-quarto-table-cell-role="th">RestECG</th>
-<th data-quarto-table-cell-role="th">MaxHR</th>
-<th data-quarto-table-cell-role="th">ExAng</th>
-<th data-quarto-table-cell-role="th">Oldpeak</th>
-<th data-quarto-table-cell-role="th">Slope</th>
-<th data-quarto-table-cell-role="th">Ca</th>
-<th data-quarto-table-cell-role="th">Thal</th>
-<th data-quarto-table-cell-role="th">AHD</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
-<td>63</td>
-<td>1</td>
-<td>typical</td>
-<td>145</td>
-<td>233</td>
-<td>1</td>
-<td>2</td>
-<td>150</td>
-<td>0</td>
-<td>2.3</td>
-<td>3</td>
-<td>0.0</td>
-<td>fixed</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2</td>
-<td>67</td>
-<td>1</td>
-<td>asymptomatic</td>
-<td>160</td>
-<td>286</td>
-<td>0</td>
-<td>2</td>
-<td>108</td>
-<td>1</td>
-<td>1.5</td>
-<td>2</td>
-<td>3.0</td>
-<td>normal</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td>67</td>
-<td>1</td>
-<td>asymptomatic</td>
-<td>120</td>
-<td>229</td>
-<td>0</td>
-<td>2</td>
-<td>129</td>
-<td>1</td>
-<td>2.6</td>
-<td>2</td>
-<td>2.0</td>
-<td>reversable</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
-<td>37</td>
-<td>1</td>
-<td>nonanginal</td>
-<td>130</td>
-<td>250</td>
-<td>0</td>
-<td>0</td>
-<td>187</td>
-<td>0</td>
-<td>3.5</td>
-<td>3</td>
-<td>0.0</td>
-<td>normal</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5</td>
-<td>41</td>
-<td>0</td>
-<td>nontypical</td>
-<td>130</td>
-<td>204</td>
-<td>0</td>
-<td>2</td>
-<td>172</td>
-<td>0</td>
-<td>1.4</td>
-<td>1</td>
-<td>0.0</td>
-<td>normal</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-2" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IHBhbmRhcyBhcyBwZFxuXG5cbmhlYXJ0ID0gcGQucmVhZF9jc3YoXCJkYXRhL0hlYXJ0LmNzdlwiLCBpbmRleF9jb2w9MClcbmhlYXJ0LmhlYWQoKSJ9
+</script>
 </div>
 </section>
-
-<section id="do-we-have-a-class-imbalance" class="title-slide slide level2 center">
+<section id="do-we-have-a-class-imbalance" class="slide level2 smaller">
 <h2>Do we have a class imbalance?</h2>
 <p>It’s always important to check this, as it may impact your splitting and/or modeling decisions.</p>
-<div id="096a1fb5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>heart[<span class="st">'AHD'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>AHD
-No     0.541254
-Yes    0.458746
-Name: proportion, dtype: float64</code></pre>
-</div>
-</div>
-<p>This looks pretty good! We can move forward this time without doing much more about this.</p>
-</section>
+<div>
+<div id="pyodide-3" class="exercise-cell">
 
-<section id="data-splitting" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaGVhcnRbJ0FIRCddLnZhbHVlX2NvdW50cyhub3JtYWxpemU9VHJ1ZSkifQ==
+</script>
+</div>
+</section>
+<section id="data-splitting" class="slide level2 smaller">
 <h2>Data splitting</h2>
 <p>Let’s split the data into training and test sets:</p>
-<div id="265056b9" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-2"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb6-3"><a></a></span>
-<span id="cb6-4"><a></a>np.random.seed(<span class="dv">2024</span>)</span>
-<span id="cb6-5"><a></a></span>
-<span id="cb6-6"><a></a>heart_train, heart_test <span class="op">=</span> train_test_split(</span>
-<span id="cb6-7"><a></a>    heart, train_size<span class="op">=</span><span class="fl">0.8</span>, stratify<span class="op">=</span>heart[<span class="st">"AHD"</span>]</span>
-<span id="cb6-8"><a></a>)</span>
-<span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a>X_train <span class="op">=</span> heart_train.drop(columns<span class="op">=</span>[<span class="st">'AHD'</span>])</span>
-<span id="cb6-11"><a></a>y_train <span class="op">=</span> heart_train[<span class="st">'AHD'</span>]</span>
-<span id="cb6-12"><a></a>X_test <span class="op">=</span> heart_test.drop(columns<span class="op">=</span>[<span class="st">'AHD'</span>])</span>
-<span id="cb6-13"><a></a>y_test <span class="op">=</span> heart_test[<span class="st">'AHD'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+<div id="pyodide-4" class="exercise-cell">
+
+</div>
+<script type="pyodide-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IG51bXB5IGFzIG5wXG5mcm9tIHNrbGVhcm4ubW9kZWxfc2VsZWN0aW9uIGltcG9ydCB0cmFpbl90ZXN0X3NwbGl0XG5cbm5wLnJhbmRvbS5zZWVkKDIwMjUpXG5cbmhlYXJ0X3RyYWluLCBoZWFydF90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChcbiAgICBoZWFydCwgdHJhaW5fc2l6ZT0wLjgsIHN0cmF0aWZ5PWhlYXJ0W1wiQUhEXCJdXG4pXG5cblhfdHJhaW4gPSBoZWFydF90cmFpbi5kcm9wKGNvbHVtbnM9WydBSEQnXSlcbnlfdHJhaW4gPSBoZWFydF90cmFpblsnQUhEJ11cblhfdGVzdCA9IGhlYXJ0X3Rlc3QuZHJvcChjb2x1bW5zPVsnQUhEJ10pXG55X3Rlc3QgPSBoZWFydF90ZXN0WydBSEQnXSJ9
+</script>
 </div>
 </section>
-
-<section id="categorical-variables" class="title-slide slide level2 center">
+<section id="categorical-variables" class="slide level2">
 <h2>Categorical variables</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
@@ -452,292 +226,78 @@ Name: proportion, dtype: float64</code></pre>
 <p><em>Source: <a href="https://scales.arabpsychology.com/stats/how-can-i-perform-one-hot-encoding-in-r/" class="uri">https://scales.arabpsychology.com/stats/how-can-i-perform-one-hot-encoding-in-r/</a></em></p>
 </div></div>
 </section>
-
-<section id="look-at-the-data-again" class="title-slide slide level2 center">
+<section id="look-at-the-data-again" class="slide level2 smaller">
 <h2>Look at the data again</h2>
 <p>Which columns do we need to standardize?</p>
 <p>Which do we need to one-hot encode?</p>
-<div id="3a534e31" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">Sex</th>
-<th data-quarto-table-cell-role="th">ChestPain</th>
-<th data-quarto-table-cell-role="th">RestBP</th>
-<th data-quarto-table-cell-role="th">Chol</th>
-<th data-quarto-table-cell-role="th">Fbs</th>
-<th data-quarto-table-cell-role="th">RestECG</th>
-<th data-quarto-table-cell-role="th">MaxHR</th>
-<th data-quarto-table-cell-role="th">ExAng</th>
-<th data-quarto-table-cell-role="th">Oldpeak</th>
-<th data-quarto-table-cell-role="th">Slope</th>
-<th data-quarto-table-cell-role="th">Ca</th>
-<th data-quarto-table-cell-role="th">Thal</th>
-<th data-quarto-table-cell-role="th">AHD</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
-<td>63</td>
-<td>1</td>
-<td>typical</td>
-<td>145</td>
-<td>233</td>
-<td>1</td>
-<td>2</td>
-<td>150</td>
-<td>0</td>
-<td>2.3</td>
-<td>3</td>
-<td>0.0</td>
-<td>fixed</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2</td>
-<td>67</td>
-<td>1</td>
-<td>asymptomatic</td>
-<td>160</td>
-<td>286</td>
-<td>0</td>
-<td>2</td>
-<td>108</td>
-<td>1</td>
-<td>1.5</td>
-<td>2</td>
-<td>3.0</td>
-<td>normal</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td>67</td>
-<td>1</td>
-<td>asymptomatic</td>
-<td>120</td>
-<td>229</td>
-<td>0</td>
-<td>2</td>
-<td>129</td>
-<td>1</td>
-<td>2.6</td>
-<td>2</td>
-<td>2.0</td>
-<td>reversable</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
-<td>37</td>
-<td>1</td>
-<td>nonanginal</td>
-<td>130</td>
-<td>250</td>
-<td>0</td>
-<td>0</td>
-<td>187</td>
-<td>0</td>
-<td>3.5</td>
-<td>3</td>
-<td>0.0</td>
-<td>normal</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5</td>
-<td>41</td>
-<td>0</td>
-<td>nontypical</td>
-<td>130</td>
-<td>204</td>
-<td>0</td>
-<td>2</td>
-<td>172</td>
-<td>0</td>
-<td>1.4</td>
-<td>1</td>
-<td>0.0</td>
-<td>normal</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-5" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaGVhcnQuaGVhZCgpIn0=
+</script>
 </div>
 </section>
-
-<section id="one-hot-encoding-pre-processing" class="title-slide slide level2 center">
+<section id="one-hot-encoding-pre-processing" class="slide level2 smaller">
 <h2>One hot encoding &amp; pre-processing</h2>
-<div id="402eecae" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
-<span id="cb8-2"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer, make_column_selector</span>
-<span id="cb8-3"><a></a></span>
-<span id="cb8-4"><a></a>numeric_feats <span class="op">=</span> [<span class="st">'Age'</span>, <span class="st">'RestBP'</span>, <span class="st">'Chol'</span>, <span class="st">'RestECG'</span>, <span class="st">'MaxHR'</span>, <span class="st">'Oldpeak'</span>,<span class="st">'Slope'</span>, <span class="st">'Ca'</span>]</span>
-<span id="cb8-5"><a></a>passthrough_feats <span class="op">=</span> [<span class="st">'Sex'</span>, <span class="st">'Fbs'</span>, <span class="st">'ExAng'</span>]</span>
-<span id="cb8-6"><a></a>categorical_feats <span class="op">=</span> [<span class="st">'ChestPain'</span>, <span class="st">'Thal'</span>]</span>
-<span id="cb8-7"><a></a></span>
-<span id="cb8-8"><a></a>heart_preprocessor <span class="op">=</span> make_column_transformer(</span>
-<span id="cb8-9"><a></a>    (StandardScaler(), numeric_feats),</span>
-<span id="cb8-10"><a></a>    (<span class="st">"passthrough"</span>, passthrough_feats),</span>
-<span id="cb8-11"><a></a>    (OneHotEncoder(handle_unknown <span class="op">=</span> <span class="st">"ignore"</span>), categorical_feats),</span>
-<span id="cb8-12"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+<div id="pyodide-6" class="exercise-cell">
+
+</div>
+<script type="pyodide-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLnByZXByb2Nlc3NpbmcgaW1wb3J0IFN0YW5kYXJkU2NhbGVyLCBPbmVIb3RFbmNvZGVyXG5mcm9tIHNrbGVhcm4uY29tcG9zZSBpbXBvcnQgbWFrZV9jb2x1bW5fdHJhbnNmb3JtZXIsIG1ha2VfY29sdW1uX3NlbGVjdG9yXG5cbm51bWVyaWNfZmVhdHMgPSBbJ0FnZScsICdSZXN0QlAnLCAnQ2hvbCcsICdSZXN0RUNHJywgJ01heEhSJywgJ09sZHBlYWsnLCdTbG9wZScsICdDYSddXG5wYXNzdGhyb3VnaF9mZWF0cyA9IFsnU2V4JywgJ0ZicycsICdFeEFuZyddXG5jYXRlZ29yaWNhbF9mZWF0cyA9IFsnQ2hlc3RQYWluJywgJ1RoYWwnXVxuXG5oZWFydF9wcmVwcm9jZXNzb3IgPSBtYWtlX2NvbHVtbl90cmFuc2Zvcm1lcihcbiAgICAoU3RhbmRhcmRTY2FsZXIoKSwgbnVtZXJpY19mZWF0cyksXG4gICAgKFwicGFzc3Rocm91Z2hcIiwgcGFzc3Rocm91Z2hfZmVhdHMpLFxuICAgIChPbmVIb3RFbmNvZGVyKGhhbmRsZV91bmtub3duID0gXCJpZ25vcmVcIiksIGNhdGVnb3JpY2FsX2ZlYXRzKSxcbikifQ==
+</script>
 </div>
 <blockquote>
 <p><code>handle_unknown = "ignore"</code> handles the case where categories exist in the test data, which were missing in the training set. Specifically, it sets the value for those to 0 for all cases of the category.</p>
 </blockquote>
 </section>
-
-<section id="fitting-a-dummy-classifier" class="title-slide slide level2 center">
+<section id="fitting-a-dummy-classifier" class="slide level2 smaller">
 <h2>Fitting a dummy classifier</h2>
-<div id="9ae4a1ea" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
-<span id="cb9-2"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
-<span id="cb9-3"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
-<span id="cb9-4"><a></a></span>
-<span id="cb9-5"><a></a>dummy <span class="op">=</span> DummyClassifier()</span>
-<span id="cb9-6"><a></a>dummy_pipeline <span class="op">=</span> make_pipeline(heart_preprocessor, dummy)</span>
-<span id="cb9-7"><a></a>cv_10_dummy <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb9-8"><a></a>    cross_validate(</span>
-<span id="cb9-9"><a></a>        estimator<span class="op">=</span>dummy_pipeline,</span>
-<span id="cb9-10"><a></a>        cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb9-11"><a></a>        X<span class="op">=</span>X_train,</span>
-<span id="cb9-12"><a></a>        y<span class="op">=</span>y_train</span>
-<span id="cb9-13"><a></a>    )</span>
-<span id="cb9-14"><a></a>)</span>
-<span id="cb9-15"><a></a>cv_10_dummy_metrics <span class="op">=</span> cv_10_dummy.agg([<span class="st">"mean"</span>, <span class="st">"sem"</span>])</span>
-<span id="cb9-16"><a></a>results <span class="op">=</span> pd.DataFrame({<span class="st">'mean'</span> : [cv_10_dummy_metrics.test_score.iloc[<span class="dv">0</span>]],</span>
-<span id="cb9-17"><a></a>  <span class="st">'sem'</span> : [cv_10_dummy_metrics.test_score.iloc[<span class="dv">1</span>]]},</span>
-<span id="cb9-18"><a></a>  index <span class="op">=</span> [<span class="st">'Dummy classifier'</span>]</span>
-<span id="cb9-19"><a></a>)</span>
-<span id="cb9-20"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Dummy classifier</td>
-<td>0.541333</td>
-<td>0.00299</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-7" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLmR1bW15IGltcG9ydCBEdW1teUNsYXNzaWZpZXJcbmZyb20gc2tsZWFybi5waXBlbGluZSBpbXBvcnQgbWFrZV9waXBlbGluZVxuZnJvbSBza2xlYXJuLm1vZGVsX3NlbGVjdGlvbiBpbXBvcnQgY3Jvc3NfdmFsaWRhdGVcblxuZHVtbXkgPSBEdW1teUNsYXNzaWZpZXIoKVxuZHVtbXlfcGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKGhlYXJ0X3ByZXByb2Nlc3NvciwgZHVtbXkpXG5jdl8xMF9kdW1teSA9IHBkLkRhdGFGcmFtZShcbiAgICBjcm9zc192YWxpZGF0ZShcbiAgICAgICAgZXN0aW1hdG9yPWR1bW15X3BpcGVsaW5lLFxuICAgICAgICBjdj0xMCxcbiAgICAgICAgWD1YX3RyYWluLFxuICAgICAgICB5PXlfdHJhaW5cbiAgICApXG4pIn0=
+</script>
 </div>
 </section>
+<section id="put-the-mean-cross-validated-error-in-a-data-frame" class="slide level2 smaller">
+<h2>Put the mean cross-validated error in a data frame</h2>
+<div>
+<div id="pyodide-8" class="exercise-cell">
 
-<section id="fitting-a-decision-tree" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfZHVtbXlfbWV0cmljcyA9IGN2XzEwX2R1bW15LmFnZyhbXCJtZWFuXCJdKVxucmVzdWx0cyA9IHBkLkRhdGFGcmFtZSh7J21lYW4nIDogW2N2XzEwX2R1bW15X21ldHJpY3MudGVzdF9zY29yZS5pbG9jWzBdXX0sXG4gIGluZGV4ID0gWydEdW1teSBjbGFzc2lmaWVyJ11cbilcbnJlc3VsdHMifQ==
+</script>
+</div>
+</section>
+<section id="fitting-a-decision-tree" class="slide level2 smaller">
 <h2>Fitting a decision tree</h2>
-<div id="48afa339" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
-<span id="cb10-2"><a></a></span>
-<span id="cb10-3"><a></a>decision_tree <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a>dt_pipeline <span class="op">=</span> make_pipeline(heart_preprocessor, decision_tree)</span>
-<span id="cb10-6"><a></a>cv_10_dt <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb10-7"><a></a>    cross_validate(</span>
-<span id="cb10-8"><a></a>        estimator<span class="op">=</span>dt_pipeline,</span>
-<span id="cb10-9"><a></a>        cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb10-10"><a></a>        X<span class="op">=</span>X_train,</span>
-<span id="cb10-11"><a></a>        y<span class="op">=</span>y_train</span>
-<span id="cb10-12"><a></a>    )</span>
-<span id="cb10-13"><a></a>)</span>
-<span id="cb10-14"><a></a>cv_10_dt_metrics <span class="op">=</span> cv_10_dt.agg([<span class="st">"mean"</span>, <span class="st">"sem"</span>])</span>
-<span id="cb10-15"><a></a>results_dt <span class="op">=</span> pd.DataFrame({<span class="st">'mean'</span> : [cv_10_dt_metrics.test_score.iloc[<span class="dv">0</span>]],</span>
-<span id="cb10-16"><a></a>  <span class="st">'sem'</span> : [cv_10_dt_metrics.test_score.iloc[<span class="dv">1</span>]]},</span>
-<span id="cb10-17"><a></a>  index <span class="op">=</span> [<span class="st">'Decision tree'</span>]</span>
-<span id="cb10-18"><a></a>)</span>
-<span id="cb10-19"><a></a>results <span class="op">=</span> pd.concat([results, results_dt])</span>
-<span id="cb10-20"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Dummy classifier</td>
-<td>0.541333</td>
-<td>0.00299</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Decision tree</td>
-<td>0.769167</td>
-<td>0.02632</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-9" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLnRyZWUgaW1wb3J0IERlY2lzaW9uVHJlZUNsYXNzaWZpZXJcblxuZGVjaXNpb25fdHJlZSA9IERlY2lzaW9uVHJlZUNsYXNzaWZpZXIocmFuZG9tX3N0YXRlPTIwMjYpXG5cbmR0X3BpcGVsaW5lID0gbWFrZV9waXBlbGluZShoZWFydF9wcmVwcm9jZXNzb3IsIGRlY2lzaW9uX3RyZWUpXG5jdl8xMF9kdCA9IHBkLkRhdGFGcmFtZShcbiAgICBjcm9zc192YWxpZGF0ZShcbiAgICAgICAgZXN0aW1hdG9yPWR0X3BpcGVsaW5lLFxuICAgICAgICBjdj0xMCxcbiAgICAgICAgWD1YX3RyYWluLFxuICAgICAgICB5PXlfdHJhaW5cbiAgICApXG4pIn0=
+</script>
 </div>
 </section>
+<section id="add-the-mean-cross-validated-error-to-our-results-data-frame" class="slide level2 smaller">
+<h2>Add the mean cross-validated error to our results data frame</h2>
+<div>
+<div id="pyodide-10" class="exercise-cell">
 
-<section id="can-we-do-better" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfZHRfbWV0cmljcyA9IGN2XzEwX2R0LmFnZyhbXCJtZWFuXCJdKVxucmVzdWx0c19kdCA9IHBkLkRhdGFGcmFtZSh7J21lYW4nIDogW2N2XzEwX2R0X21ldHJpY3MudGVzdF9zY29yZS5pbG9jWzBdXX0sXG4gIGluZGV4ID0gWydEZWNpc2lvbiB0cmVlJ11cbilcbnJlc3VsdHMgPSBwZC5jb25jYXQoW3Jlc3VsdHMsIHJlc3VsdHNfZHRdKVxucmVzdWx0cyJ9
+</script>
+</div>
+</section>
+<section id="can-we-do-better" class="slide level2">
 <h2>Can we do better?</h2>
 <ul>
 <li class="fragment"><p>We could tune some decision tree parameters (e.g., alpha, maximum tree depth, etc)…</p></li>
@@ -745,8 +305,7 @@ Name: proportion, dtype: float64</code></pre>
 <li class="fragment"><p><a href="https://mlu-explain.github.io/random-forest/">The Random Forest Algorithm</a> by Jenny Yeon &amp; Jared Wilber</p></li>
 </ul>
 </section>
-
-<section id="the-random-forest-algorithm" class="title-slide slide level2 center">
+<section id="the-random-forest-algorithm" class="slide level2 scrollable">
 <h2>The Random Forest Algorithm</h2>
 <ol type="1">
 <li class="fragment"><p>Build a number of decision trees on bootstrapped training samples.</p></li>
@@ -754,108 +313,29 @@ Name: proportion, dtype: float64</code></pre>
 <li class="fragment"><p>Take the majority votes across all the trees for the final prediction.</p></li>
 </ol>
 </section>
-
-<section id="random-forest-in-scikit-learn-missing-values" class="title-slide slide level2 center">
-<h2>Random forest in <code>scikit-learn</code> &amp; missing values</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<ul>
-<li><p>Does not accept missing values, we need to deal with these somehow…</p></li>
-<li><p>We can either drop the observations with missing values, or we can somehow impute them.</p></li>
-<li><p>For the purposes of this demo we will drop them, but if you are interested in imputation, see the imputation tutorial in <a href="https://scikit-learn.org/stable/modules/impute.html"><code>scikit-learn</code></a></p></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p>How many rows have missing observations:</p>
-<div id="abe2902a" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>heart.isna().<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>np.int64(6)</code></pre>
-</div>
-</div>
-<p>Drop rows with missing observations:</p>
-<div id="8dfe7e56" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>heart_train_drop_na <span class="op">=</span> heart_train.dropna()</span>
-<span id="cb13-2"><a></a></span>
-<span id="cb13-3"><a></a>X_train_drop_na <span class="op">=</span> heart_train_drop_na.drop(</span>
-<span id="cb13-4"><a></a>    columns<span class="op">=</span>[<span class="st">'AHD'</span>]</span>
-<span id="cb13-5"><a></a>)</span>
-<span id="cb13-6"><a></a>y_train_drop_na <span class="op">=</span> heart_train_drop_na[<span class="st">'AHD'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div></div>
-</section>
-
-<section id="random-forest-in-scikit-learn" class="title-slide slide level2 center">
+<section id="random-forest-in-scikit-learn" class="slide level2 smaller">
 <h2>Random forest in <code>scikit-learn</code></h2>
-<div id="ea17b412" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb14-2"><a></a></span>
-<span id="cb14-3"><a></a>random_forest <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
-<span id="cb14-4"><a></a>rf_pipeline <span class="op">=</span> make_pipeline(heart_preprocessor, random_forest)</span>
-<span id="cb14-5"><a></a>cv_10_rf <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb14-6"><a></a>    cross_validate(</span>
-<span id="cb14-7"><a></a>        estimator<span class="op">=</span>rf_pipeline,</span>
-<span id="cb14-8"><a></a>        cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb14-9"><a></a>        X<span class="op">=</span>X_train_drop_na,</span>
-<span id="cb14-10"><a></a>        y<span class="op">=</span>y_train_drop_na</span>
-<span id="cb14-11"><a></a>    )</span>
-<span id="cb14-12"><a></a>)</span>
-<span id="cb14-13"><a></a></span>
-<span id="cb14-14"><a></a>cv_10_rf_metrics <span class="op">=</span> cv_10_rf.agg([<span class="st">"mean"</span>, <span class="st">"sem"</span>])</span>
-<span id="cb14-15"><a></a>results_rf <span class="op">=</span> pd.DataFrame({<span class="st">'mean'</span> : [cv_10_rf_metrics.test_score.iloc[<span class="dv">0</span>]],</span>
-<span id="cb14-16"><a></a>  <span class="st">'sem'</span> : [cv_10_rf_metrics.test_score.iloc[<span class="dv">1</span>]]},</span>
-<span id="cb14-17"><a></a>  index <span class="op">=</span> [<span class="st">'Random forest'</span>]</span>
-<span id="cb14-18"><a></a>)</span>
-<span id="cb14-19"><a></a>results <span class="op">=</span> pd.concat([results, results_rf])</span>
-<span id="cb14-20"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Dummy classifier</td>
-<td>0.541333</td>
-<td>0.002990</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Decision tree</td>
-<td>0.769167</td>
-<td>0.026320</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Random forest</td>
-<td>0.818297</td>
-<td>0.017362</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-11" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLmVuc2VtYmxlIGltcG9ydCBSYW5kb21Gb3Jlc3RDbGFzc2lmaWVyXG5cbnJhbmRvbV9mb3Jlc3QgPSBSYW5kb21Gb3Jlc3RDbGFzc2lmaWVyKHJhbmRvbV9zdGF0ZT0yMDI1KVxucmZfcGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKGhlYXJ0X3ByZXByb2Nlc3NvciwgcmFuZG9tX2ZvcmVzdClcbmN2XzEwX3JmID0gcGQuRGF0YUZyYW1lKFxuICAgIGNyb3NzX3ZhbGlkYXRlKFxuICAgICAgICBlc3RpbWF0b3I9cmZfcGlwZWxpbmUsXG4gICAgICAgIGN2PTEwLFxuICAgICAgICBYPVhfdHJhaW4sXG4gICAgICAgIHk9eV90cmFpblxuICAgIClcbikifQ==
+</script>
 </div>
 </section>
+<section id="add-the-mean-cross-validated-error-to-our-results-data-frame-1" class="slide level2 smaller">
+<h2>Add the mean cross-validated error to our results data frame</h2>
+<div>
+<div id="pyodide-12" class="exercise-cell">
 
-<section id="can-we-do-better-1" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfcmZfbWV0cmljcyA9IGN2XzEwX3JmLmFnZyhbXCJtZWFuXCJdKVxucmVzdWx0c19yZiA9IHBkLkRhdGFGcmFtZSh7J21lYW4nIDogW2N2XzEwX3JmX21ldHJpY3MudGVzdF9zY29yZS5pbG9jWzBdXX0sXG4gIGluZGV4ID0gWydSYW5kb20gZm9yZXN0J11cbilcbnJlc3VsdHMgPSBwZC5jb25jYXQoW3Jlc3VsdHMsIHJlc3VsdHNfcmZdKVxucmVzdWx0cyJ9
+</script>
+</div>
+</section>
+<section id="can-we-do-better-1" class="slide level2">
 <h2>Can we do better?</h2>
 <ul>
 <li class="fragment"><p>Random forest can be tuned a several important parameters, including:</p>
@@ -867,95 +347,30 @@ Name: proportion, dtype: float64</code></pre>
 <li class="fragment"><p>We can use <code>GridSearchCV</code> to search for the optimal parameters for these, as we did for <span class="math inline">\(K\)</span> in <span class="math inline">\(K\)</span>-nearest neighbors.</p></li>
 </ul>
 </section>
-
-<section id="tuning-random-forest-in-scikit-learn" class="title-slide slide level2 center">
+<section id="tuning-random-forest-in-scikit-learn" class="slide level2 smaller">
 <h2>Tuning random forest in <code>scikit-learn</code></h2>
-<div id="64bdca32" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb15-2"><a></a></span>
-<span id="cb15-3"><a></a>rf_param_grid <span class="op">=</span> {<span class="st">'randomforestclassifier__n_estimators'</span>: [<span class="dv">200</span>],</span>
-<span id="cb15-4"><a></a>              <span class="st">'randomforestclassifier__max_depth'</span>: [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>],</span>
-<span id="cb15-5"><a></a>              <span class="st">'randomforestclassifier__max_features'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>]}</span>
-<span id="cb15-6"><a></a></span>
-<span id="cb15-7"><a></a>rf_tune_grid <span class="op">=</span> GridSearchCV(</span>
-<span id="cb15-8"><a></a>    estimator<span class="op">=</span>rf_pipeline,</span>
-<span id="cb15-9"><a></a>    param_grid<span class="op">=</span>rf_param_grid,</span>
-<span id="cb15-10"><a></a>    cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb15-11"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span> <span class="co"># tells computer to use all available CPUs</span></span>
-<span id="cb15-12"><a></a>)</span>
-<span id="cb15-13"><a></a>rf_tune_grid.fit(</span>
-<span id="cb15-14"><a></a>    X_train_drop_na,</span>
-<span id="cb15-15"><a></a>    y_train_drop_na</span>
-<span id="cb15-16"><a></a>)</span>
-<span id="cb15-17"><a></a></span>
-<span id="cb15-18"><a></a>cv_10_rf_tuned_metrics <span class="op">=</span> pd.DataFrame(rf_tune_grid.cv_results_)</span>
-<span id="cb15-19"><a></a>results_rf_tuned <span class="op">=</span> pd.DataFrame({<span class="st">'mean'</span> : rf_tune_grid.best_score_,</span>
-<span id="cb15-20"><a></a>  <span class="st">'sem'</span> : pd.DataFrame(rf_tune_grid.cv_results_)[<span class="st">'std_test_score'</span>][<span class="dv">6</span>] <span class="op">/</span> <span class="dv">10</span><span class="op">**</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)},</span>
-<span id="cb15-21"><a></a>  index <span class="op">=</span> [<span class="st">'Random forest tuned'</span>]</span>
-<span id="cb15-22"><a></a>)</span>
-<span id="cb15-23"><a></a>results <span class="op">=</span> pd.concat([results, results_rf_tuned])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-
-<section id="random-forest-results" class="title-slide slide level2 center">
-<h2>Random Forest results</h2>
-<p>How did the Random Forest compare against the other models we tried?</p>
-<div id="b619f9b9" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Dummy classifier</td>
-<td>0.541333</td>
-<td>0.002990</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Decision tree</td>
-<td>0.769167</td>
-<td>0.026320</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Random forest</td>
-<td>0.818297</td>
-<td>0.017362</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Random forest tuned</td>
-<td>0.860688</td>
-<td>0.022223</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-13" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLm1vZGVsX3NlbGVjdGlvbiBpbXBvcnQgR3JpZFNlYXJjaENWXG5cbnJmX3BhcmFtX2dyaWQgPSB7J3JhbmRvbWZvcmVzdGNsYXNzaWZpZXJfX25fZXN0aW1hdG9ycyc6IFsyMDBdLFxuICAgICAgICAgICAgICAncmFuZG9tZm9yZXN0Y2xhc3NpZmllcl9fbWF4X2RlcHRoJzogWzEsIDMsIDUsIDcsIDldLFxuICAgICAgICAgICAgICAncmFuZG9tZm9yZXN0Y2xhc3NpZmllcl9fbWF4X2ZlYXR1cmVzJzogWzEsIDIsIDMsIDQsIDUsIDYsIDddfVxuXG5yZl90dW5lX2dyaWQgPSBHcmlkU2VhcmNoQ1YoXG4gICAgZXN0aW1hdG9yPXJmX3BpcGVsaW5lLFxuICAgIHBhcmFtX2dyaWQ9cmZfcGFyYW1fZ3JpZCxcbiAgICBjdj0xMCxcbiAgICBuX2pvYnM9LTEgIyB0ZWxscyBjb21wdXRlciB0byB1c2UgYWxsIGF2YWlsYWJsZSBDUFVzXG4pXG5yZl90dW5lX2dyaWQuZml0KFxuICAgIFhfdHJhaW4sXG4gICAgeV90cmFpblxuKSJ9
+</script>
 </div>
 </section>
+<section id="comparing-to-our-other-models" class="slide level2 smaller">
+<h2>Comparing to our other models</h2>
+<p>How did the tuned Random Forest compare against the other models we tried?</p>
+<div>
+<div id="pyodide-14" class="exercise-cell">
 
-<section id="boosting" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfcmZfdHVuZWRfbWV0cmljcyA9IHBkLkRhdGFGcmFtZShyZl90dW5lX2dyaWQuY3ZfcmVzdWx0c18pXG5yZXN1bHRzX3JmX3R1bmVkID0gcGQuRGF0YUZyYW1lKHsnbWVhbicgOiByZl90dW5lX2dyaWQuYmVzdF9zY29yZV99LFxuICBpbmRleCA9IFsnUmFuZG9tIGZvcmVzdCB0dW5lZCddXG4pXG5yZXN1bHRzID0gcGQuY29uY2F0KFtyZXN1bHRzLCByZXN1bHRzX3JmX3R1bmVkXSlcbnJlc3VsdHMifQ==
+</script>
+</div>
+</section>
+<section id="boosting" class="slide level2">
 <h2>Boosting</h2>
 <ul>
 <li class="fragment"><p>No randomization.</p></li>
@@ -964,114 +379,42 @@ Name: proportion, dtype: float64</code></pre>
 <li class="fragment"><p>They build trees in a serial manner, where each tree tries to correct the mistakes of the previous one.</p></li>
 </ul>
 </section>
-
-<section id="tuning-gradientboostingclassifier-with-scikit-learn" class="title-slide slide level2 center">
-<h2>Tuning <code>GradientBoostingClassifier</code> with <code>scikit-learn</code></h2>
+<section id="tuning-boosted-classifiers-with-scikit-learn" class="slide level2">
+<h2>Tuning Boosted Classifiers with <code>scikit-learn</code></h2>
 <ul>
-<li class="fragment"><p><code>GradientBoostingClassifier</code> can be tuned a several important parameters, including:</p>
+<li class="fragment"><p><code>HistGradientBoostingClassifier</code> can be tuned a several important parameters, including:</p>
 <ul>
-<li class="fragment"><p><code>n_estimators</code>: number of decision trees (higher = more complexity)</p></li>
+<li class="fragment"><p><code>max_iter</code>: number of decision trees (higher = more complexity)</p></li>
 <li class="fragment"><p><code>max_depth</code>: max depth of each decision tree (higher = more complexity)</p></li>
 <li class="fragment"><p><code>learning_rate</code>: the shrinkage parameter which controls the rate at which boosting learns. Values between 0.01 or 0.001 are typical.</p></li>
 </ul></li>
 <li class="fragment"><p>We can use <code>GridSearchCV</code> to search for the optimal parameters for these, as we did for the parameters in Random Forest.</p></li>
 </ul>
 </section>
-
-<section id="tuning-gradientboostingclassifier-with-scikit-learn-1" class="title-slide slide level2 center">
-<h2>Tuning <code>GradientBoostingClassifier</code> with <code>scikit-learn</code></h2>
-<div id="0072471d" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
-<span id="cb17-2"><a></a></span>
-<span id="cb17-3"><a></a>gradient_boosted_classifier <span class="op">=</span> GradientBoostingClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
-<span id="cb17-4"><a></a>gb_pipeline <span class="op">=</span> make_pipeline(heart_preprocessor, gradient_boosted_classifier)</span>
-<span id="cb17-5"><a></a>gb_param_grid <span class="op">=</span> {<span class="st">'gradientboostingclassifier__n_estimators'</span>: [<span class="dv">200</span>],</span>
-<span id="cb17-6"><a></a>              <span class="st">'gradientboostingclassifier__max_depth'</span>: [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>],</span>
-<span id="cb17-7"><a></a>              <span class="st">'gradientboostingclassifier__learning_rate'</span>: [<span class="fl">0.001</span>, <span class="fl">0.005</span>, <span class="fl">0.01</span>]}</span>
-<span id="cb17-8"><a></a>gb_tune_grid <span class="op">=</span> GridSearchCV(</span>
-<span id="cb17-9"><a></a>    estimator<span class="op">=</span>gb_pipeline,</span>
-<span id="cb17-10"><a></a>    param_grid<span class="op">=</span>gb_param_grid,</span>
-<span id="cb17-11"><a></a>    cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb17-12"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span> <span class="co"># tells computer to use all available CPUs</span></span>
-<span id="cb17-13"><a></a>)</span>
-<span id="cb17-14"><a></a>gb_tune_grid.fit(</span>
-<span id="cb17-15"><a></a>    X_train_drop_na,</span>
-<span id="cb17-16"><a></a>    y_train_drop_na</span>
-<span id="cb17-17"><a></a>)</span>
-<span id="cb17-18"><a></a></span>
-<span id="cb17-19"><a></a>cv_10_gb_tuned_metrics <span class="op">=</span> pd.DataFrame(gb_tune_grid.cv_results_)</span>
-<span id="cb17-20"><a></a>results_gb_tuned <span class="op">=</span> pd.DataFrame({<span class="st">'mean'</span> : gb_tune_grid.best_score_,</span>
-<span id="cb17-21"><a></a>  <span class="st">'sem'</span> : pd.DataFrame(gb_tune_grid.cv_results_)[<span class="st">'std_test_score'</span>][<span class="dv">6</span>] <span class="op">/</span> <span class="dv">10</span><span class="op">**</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)},</span>
-<span id="cb17-22"><a></a>  index <span class="op">=</span> [<span class="st">'Gradient boosted classifier tuned'</span>]</span>
-<span id="cb17-23"><a></a>)</span>
-<span id="cb17-24"><a></a>results <span class="op">=</span> pd.concat([results, results_gb_tuned])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-
-<section id="gradientboostingclassifier-results" class="title-slide slide level2 center">
-<h2><code>GradientBoostingClassifier</code> results</h2>
-<p>How did the <code>GradientBoostingClassifier</code> compare against the other models we tried?</p>
-<div id="14849750" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<section id="tuning-boosted-classifiers-with-scikit-learn-contd" class="slide level2 smaller">
+<h2>Tuning Boosted Classifiers with <code>scikit-learn</code> (cont’d)</h2>
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Dummy classifier</td>
-<td>0.541333</td>
-<td>0.002990</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Decision tree</td>
-<td>0.769167</td>
-<td>0.026320</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Random forest</td>
-<td>0.818297</td>
-<td>0.017362</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Random forest tuned</td>
-<td>0.860688</td>
-<td>0.022223</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Gradient boosted classifier tuned</td>
-<td>0.851993</td>
-<td>0.025671</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-15" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLmVuc2VtYmxlIGltcG9ydCBIaXN0R3JhZGllbnRCb29zdGluZ0NsYXNzaWZpZXJcblxuZ3JhZGllbnRfYm9vc3RlZF9jbGFzc2lmaWVyID0gSGlzdEdyYWRpZW50Qm9vc3RpbmdDbGFzc2lmaWVyKHJhbmRvbV9zdGF0ZT0yMDI1KVxuZ2JfcGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKGhlYXJ0X3ByZXByb2Nlc3NvciwgZ3JhZGllbnRfYm9vc3RlZF9jbGFzc2lmaWVyKVxuZ2JfcGFyYW1fZ3JpZCA9IHsnaGlzdGdyYWRpZW50Ym9vc3RpbmdjbGFzc2lmaWVyX19tYXhfaXRlcic6IFsyMDBdLFxuICAgICAgICAgICAgICAnaGlzdGdyYWRpZW50Ym9vc3RpbmdjbGFzc2lmaWVyX19tYXhfZGVwdGgnOiBbMSwgMywgNSwgNywgOV0sXG4gICAgICAgICAgICAgICdoaXN0Z3JhZGllbnRib29zdGluZ2NsYXNzaWZpZXJfX2xlYXJuaW5nX3JhdGUnOiBbMC4wMDEsIDAuMDA1LCAwLjAxXX1cbmdiX3R1bmVfZ3JpZCA9IEdyaWRTZWFyY2hDVihcbiAgICBlc3RpbWF0b3I9Z2JfcGlwZWxpbmUsXG4gICAgcGFyYW1fZ3JpZD1nYl9wYXJhbV9ncmlkLFxuICAgIGN2PTEwLFxuICAgIG5fam9icz0tMSAjIHRlbGxzIGNvbXB1dGVyIHRvIHVzZSBhbGwgYXZhaWxhYmxlIENQVXNcbilcbmdiX3R1bmVfZ3JpZC5maXQoXG4gICAgWF90cmFpbixcbiAgICB5X3RyYWluXG4pIn0=
+</script>
 </div>
 </section>
+<section id="histgradientboostingclassifier-results" class="slide level2">
+<h2><code>HistGradientBoostingClassifier</code> results</h2>
+<p>How did the <code>HistGradientBoostingClassifier</code> compare against the other models we tried?</p>
+<div>
+<div id="pyodide-16" class="exercise-cell">
 
-<section id="how-do-we-choose-the-final-model" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfZ2JfdHVuZWRfbWV0cmljcyA9IHBkLkRhdGFGcmFtZShnYl90dW5lX2dyaWQuY3ZfcmVzdWx0c18pXG5yZXN1bHRzX2diX3R1bmVkID0gcGQuRGF0YUZyYW1lKHsnbWVhbicgOiBnYl90dW5lX2dyaWQuYmVzdF9zY29yZV99LFxuICBpbmRleCA9IFsnSGlzdG9ncmFtIEdyYWRpZW50IGJvb3N0ZWQgY2xhc3NpZmllciB0dW5lZCddXG4pXG5yZXN1bHRzID0gcGQuY29uY2F0KFtyZXN1bHRzLCByZXN1bHRzX2diX3R1bmVkXSlcbnJlc3VsdHMifQ==
+</script>
+</div>
+</section>
+<section id="how-do-we-choose-the-final-model" class="slide level2">
 <h2>How do we choose the final model?</h2>
 <ul>
 <li class="fragment"><p>Remember, what is your question or application?</p></li>
@@ -1080,1173 +423,129 @@ Name: proportion, dtype: float64</code></pre>
 <li class="fragment"><p>Remember - no peaking at the test set until you choose! And then, you should only look at the test set for one model!</p></li>
 </ul>
 </section>
-
-<section id="precision-and-recall-on-the-tuned-random-forest-model" class="title-slide slide level2 center">
+<section id="precision-and-recall-on-the-tuned-random-forest-model" class="slide level2 smaller">
 <h2>Precision and recall on the tuned random forest model</h2>
-<div id="9f1afc4f" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> make_scorer, precision_score, recall_score</span>
-<span id="cb19-2"><a></a></span>
-<span id="cb19-3"><a></a>scoring <span class="op">=</span> {</span>
-<span id="cb19-4"><a></a>    <span class="st">'accuracy'</span>: <span class="st">'accuracy'</span>,</span>
-<span id="cb19-5"><a></a>    <span class="st">'precision'</span>: make_scorer(precision_score, pos_label<span class="op">=</span><span class="st">'Yes'</span>),</span>
-<span id="cb19-6"><a></a>    <span class="st">'recall'</span>: make_scorer(recall_score, pos_label<span class="op">=</span><span class="st">'Yes'</span>)</span>
-<span id="cb19-7"><a></a>}</span>
-<span id="cb19-8"><a></a></span>
-<span id="cb19-9"><a></a>rf_tune_grid <span class="op">=</span> GridSearchCV(</span>
-<span id="cb19-10"><a></a>    estimator<span class="op">=</span>rf_pipeline,</span>
-<span id="cb19-11"><a></a>    param_grid<span class="op">=</span>rf_param_grid,</span>
-<span id="cb19-12"><a></a>    cv<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb19-13"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb19-14"><a></a>    scoring<span class="op">=</span>scoring,</span>
-<span id="cb19-15"><a></a>    refit<span class="op">=</span><span class="st">'accuracy'</span></span>
-<span id="cb19-16"><a></a>)</span>
-<span id="cb19-17"><a></a></span>
-<span id="cb19-18"><a></a>rf_tune_grid.fit(X_train_drop_na, y_train_drop_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<style>#sk-container-id-1 {
-  /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: #000;
-  --sklearn-color-text-muted: #666;
-  --sklearn-color-line: gray;
-  /* Definition of color scheme for unfitted estimators */
-  --sklearn-color-unfitted-level-0: #fff5e6;
-  --sklearn-color-unfitted-level-1: #f6e4d2;
-  --sklearn-color-unfitted-level-2: #ffe0b3;
-  --sklearn-color-unfitted-level-3: chocolate;
-  /* Definition of color scheme for fitted estimators */
-  --sklearn-color-fitted-level-0: #f0f8ff;
-  --sklearn-color-fitted-level-1: #d4ebff;
-  --sklearn-color-fitted-level-2: #b3dbfd;
-  --sklearn-color-fitted-level-3: cornflowerblue;
-
-  /* Specific color for light theme */
-  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-icon: #696969;
-
-  @media (prefers-color-scheme: dark) {
-    /* Redefinition of color scheme for dark theme */
-    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-icon: #878787;
-  }
-}
-
-#sk-container-id-1 {
-  color: var(--sklearn-color-text);
-}
-
-#sk-container-id-1 pre {
-  padding: 0;
-}
-
-#sk-container-id-1 input.sk-hidden--visually {
-  border: 0;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-#sk-container-id-1 div.sk-dashed-wrapped {
-  border: 1px dashed var(--sklearn-color-line);
-  margin: 0 0.4em 0.5em 0.4em;
-  box-sizing: border-box;
-  padding-bottom: 0.4em;
-  background-color: var(--sklearn-color-background);
-}
-
-#sk-container-id-1 div.sk-container {
-  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
-     but bootstrap.min.css set `[hidden] { display: none !important; }`
-     so we also need the `!important` here to be able to override the
-     default hidden behavior on the sphinx rendered scikit-learn.org.
-     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
-  display: inline-block !important;
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-text-repr-fallback {
-  display: none;
-}
-
-div.sk-parallel-item,
-div.sk-serial,
-div.sk-item {
-  /* draw centered vertical line to link estimators */
-  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
-  background-size: 2px 100%;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-/* Parallel-specific style estimator block */
-
-#sk-container-id-1 div.sk-parallel-item::after {
-  content: "";
-  width: 100%;
-  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
-  flex-grow: 1;
-}
-
-#sk-container-id-1 div.sk-parallel {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background-color: var(--sklearn-color-background);
-  position: relative;
-}
-
-#sk-container-id-1 div.sk-parallel-item {
-  display: flex;
-  flex-direction: column;
-}
-
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
-  align-self: flex-end;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
-  align-self: flex-start;
-  width: 50%;
-}
-
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
-  width: 0;
-}
-
-/* Serial-specific style estimator block */
-
-#sk-container-id-1 div.sk-serial {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--sklearn-color-background);
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-
-/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
-clickable and can be expanded/collapsed.
-- Pipeline and ColumnTransformer use this feature and define the default style
-- Estimators will overwrite some part of the style using the `sk-estimator` class
-*/
-
-/* Pipeline and ColumnTransformer style (default) */
-
-#sk-container-id-1 div.sk-toggleable {
-  /* Default theme specific background. It is overwritten whether we have a
-  specific estimator or a Pipeline/ColumnTransformer */
-  background-color: var(--sklearn-color-background);
-}
-
-/* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
-  cursor: pointer;
-  display: flex;
-  width: 100%;
-  margin-bottom: 0;
-  padding: 0.5em;
-  box-sizing: border-box;
-  text-align: center;
-  align-items: start;
-  justify-content: space-between;
-  gap: 0.5em;
-}
-
-#sk-container-id-1 label.sk-toggleable__label .caption {
-  font-size: 0.6rem;
-  font-weight: lighter;
-  color: var(--sklearn-color-text-muted);
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
-  /* Arrow on the left of the label */
-  content: "▸";
-  float: left;
-  margin-right: 0.25em;
-  color: var(--sklearn-color-icon);
-}
-
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
-  color: var(--sklearn-color-text);
-}
-
-/* Toggleable content - dropdown */
-
-#sk-container-id-1 div.sk-toggleable__content {
-  display: none;
-  text-align: left;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content pre {
-  margin: 0.2em;
-  border-radius: 0.25em;
-  color: var(--sklearn-color-text);
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
-  /* unfitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
-  /* Expand drop-down */
-  display: block;
-  width: 100%;
-  overflow: visible;
-}
-
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
-  content: "▾";
-}
-
-/* Pipeline/ColumnTransformer-specific style */
-
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator-specific style */
-
-/* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
-  /* The background is the default theme color */
-  color: var(--sklearn-color-text-on-default-background);
-}
-
-/* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-/* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
-  color: var(--sklearn-color-text);
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Estimator label */
-
-#sk-container-id-1 div.sk-label label {
-  font-family: monospace;
-  font-weight: bold;
-  display: inline-block;
-  line-height: 1.2em;
-}
-
-#sk-container-id-1 div.sk-label-container {
-  text-align: center;
-}
-
-/* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
-  font-family: monospace;
-  border: 1px dotted var(--sklearn-color-border-box);
-  border-radius: 0.25em;
-  box-sizing: border-box;
-  margin-bottom: 0.5em;
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-0);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-0);
-}
-
-/* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-2);
-}
-
-#sk-container-id-1 div.sk-estimator.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-2);
-}
-
-/* Specification for estimator info (e.g. "i" and "?") */
-
-/* Common style for "i" and "?" */
-
-.sk-estimator-doc-link,
-a:link.sk-estimator-doc-link,
-a:visited.sk-estimator-doc-link {
-  float: right;
-  font-size: smaller;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1em;
-  height: 1em;
-  width: 1em;
-  text-decoration: none !important;
-  margin-left: 0.5em;
-  text-align: center;
-  /* unfitted */
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-  color: var(--sklearn-color-unfitted-level-1);
-}
-
-.sk-estimator-doc-link.fitted,
-a:link.sk-estimator-doc-link.fitted,
-a:visited.sk-estimator-doc-link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-div.sk-estimator:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover,
-div.sk-label-container:hover .sk-estimator-doc-link:hover,
-.sk-estimator-doc-link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover,
-div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
-.sk-estimator-doc-link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-/* Span, style for the box shown on hovering the info icon */
-.sk-estimator-doc-link span {
-  display: none;
-  z-index: 9999;
-  position: relative;
-  font-weight: normal;
-  right: .2ex;
-  padding: .5ex;
-  margin: .5ex;
-  width: min-content;
-  min-width: 20ex;
-  max-width: 50ex;
-  color: var(--sklearn-color-text);
-  box-shadow: 2pt 2pt 4pt #999;
-  /* unfitted */
-  background: var(--sklearn-color-unfitted-level-0);
-  border: .5pt solid var(--sklearn-color-unfitted-level-3);
-}
-
-.sk-estimator-doc-link.fitted span {
-  /* fitted */
-  background: var(--sklearn-color-fitted-level-0);
-  border: var(--sklearn-color-fitted-level-3);
-}
-
-.sk-estimator-doc-link:hover span {
-  display: block;
-}
-
-/* "?"-specific style due to the `<a>` HTML tag */
-
-#sk-container-id-1 a.estimator_doc_link {
-  float: right;
-  font-size: 1rem;
-  line-height: 1em;
-  font-family: monospace;
-  background-color: var(--sklearn-color-background);
-  border-radius: 1rem;
-  height: 1rem;
-  width: 1rem;
-  text-decoration: none;
-  /* unfitted */
-  color: var(--sklearn-color-unfitted-level-1);
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted {
-  /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
-}
-
-/* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
-  /* unfitted */
-  background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
-  text-decoration: none;
-}
-
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
-  /* fitted */
-  background-color: var(--sklearn-color-fitted-level-3);
-}
-
-.estimator-table summary {
-    padding: .5rem;
-    font-family: monospace;
-    cursor: pointer;
-}
-
-.estimator-table details[open] {
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
-    padding-bottom: 0.3rem;
-}
-
-.estimator-table .parameters-table {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.estimator-table .parameters-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.estimator-table .parameters-table tr:nth-child(even) {
-    background-color: #f6f6f6;
-}
-
-.estimator-table .parameters-table tr:hover {
-    background-color: #e0e0e0;
-}
-
-.estimator-table table td {
-    border: 1px solid rgba(106, 105, 104, 0.232);
-}
-
-.user-set td {
-    color:rgb(255, 94, 0);
-    text-align: left;
-}
-
-.user-set td.value pre {
-    color:rgb(255, 94, 0) !important;
-    background-color: transparent !important;
-}
-
-.default td {
-    color: black;
-    text-align: left;
-}
-
-.user-set td i,
-.default td i {
-    color: black;
-}
-
-.copy-paste-icon {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-size: 14px 14px;
-    background-position: 0;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-}
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=10,
-             estimator=Pipeline(steps=[('columntransformer',
-                                        ColumnTransformer(transformers=[('standardscaler',
-                                                                         StandardScaler(),
-                                                                         ['Age',
-                                                                          'RestBP',
-                                                                          'Chol',
-                                                                          'RestECG',
-                                                                          'MaxHR',
-                                                                          'Oldpeak',
-                                                                          'Slope',
-                                                                          'Ca']),
-                                                                        ('passthrough',
-                                                                         'passthrough',
-                                                                         ['Sex',
-                                                                          'Fbs',
-                                                                          'ExAng']),
-                                                                        ('onehotencoder',
-                                                                         OneHotEncoder(handle_unknown='ignore'),
-                                                                         ['ChestPain',
-                                                                          'Thal'])])),
-                                       ('randomforestclas...
-             param_grid={'randomforestclassifier__max_depth': [1, 3, 5, 7, 9],
-                         'randomforestclassifier__max_features': [1, 2, 3, 4, 5,
-                                                                  6, 7],
-                         'randomforestclassifier__n_estimators': [200]},
-             refit='accuracy',
-             scoring={'accuracy': 'accuracy',
-                      'precision': make_scorer(precision_score, response_method='predict', pos_label=Yes),
-                      'recall': make_scorer(recall_score, response_method='predict', pos_label=Yes)})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GridSearchCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.model_selection.GridSearchCV.html">?<span>Documentation for GridSearchCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">estimator&nbsp;</td>
-<td class="value">Pipeline(step...state=2026))])</td>
-</tr>
-<tr class="user-set even">
-<td><em></em></td>
-<td class="param">param_grid&nbsp;</td>
-<td class="value">{'randomforestclassifier__max_depth': [1, 3, ...], 'randomforestclassifier__max_features': [1, 2, ...], 'randomforestclassifier__n_estimators': [200]}</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">scoring&nbsp;</td>
-<td class="value">{'accuracy': 'accuracy', 'precision': make_scorer(p...pos_label=Yes), 'recall': make_scorer(r...pos_label=Yes)}</td>
-</tr>
-<tr class="user-set even">
-<td><em></em></td>
-<td class="param">n_jobs&nbsp;</td>
-<td class="value">-1</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">refit&nbsp;</td>
-<td class="value">'accuracy'</td>
-</tr>
-<tr class="user-set even">
-<td><em></em></td>
-<td class="param">cv&nbsp;</td>
-<td class="value">10</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">0</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">pre_dispatch&nbsp;</td>
-<td class="value">'2*n_jobs'</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">error_score&nbsp;</td>
-<td class="value">nan</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">return_train_score&nbsp;</td>
-<td class="value">False</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: Pipeline</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___"></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">transformers&nbsp;</td>
-<td class="value">[('standardscaler', ...), ('passthrough', ...), ...]</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">remainder&nbsp;</td>
-<td class="value">'drop'</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">sparse_threshold&nbsp;</td>
-<td class="value">0.3</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">n_jobs&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">transformer_weights&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">verbose_feature_names_out&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">force_int_remainder_cols&nbsp;</td>
-<td class="value">'deprecated'</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>standardscaler</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__standardscaler__"><pre>['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak', 'Slope', 'Ca']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox"><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__standardscaler__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">copy&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">with_mean&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">with_std&nbsp;</td>
-<td class="value">True</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__passthrough__"><pre>['Sex', 'Fbs', 'ExAng']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__passthrough__"><pre>passthrough</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>onehotencoder</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__onehotencoder__"><pre>['ChestPain', 'Thal']</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox"><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___columntransformer__onehotencoder__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">categories&nbsp;</td>
-<td class="value">'auto'</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">drop&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">sparse_output&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">dtype&nbsp;</td>
-<td class="value">&lt;class 'numpy.float64'&gt;</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">handle_unknown&nbsp;</td>
-<td class="value">'ignore'</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">min_frequency&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">max_categories&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">feature_name_combiner&nbsp;</td>
-<td class="value">'concat'</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox"><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></div></label><div class="sk-toggleable__content fitted" data-param-prefix="best_estimator___randomforestclassifier__">
-        <div class="estimator-table">
-            <details>
-                <summary>Parameters</summary>
-                
-<table class="parameters-table caption-top" data-quarto-postprocess="true">
-<tbody>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">n_estimators&nbsp;</td>
-<td class="value">200</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">criterion&nbsp;</td>
-<td class="value">'gini'</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">max_depth&nbsp;</td>
-<td class="value">1</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">min_samples_split&nbsp;</td>
-<td class="value">2</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">min_samples_leaf&nbsp;</td>
-<td class="value">1</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">min_weight_fraction_leaf&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">max_features&nbsp;</td>
-<td class="value">2</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">max_leaf_nodes&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">min_impurity_decrease&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">bootstrap&nbsp;</td>
-<td class="value">True</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">oob_score&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">n_jobs&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="user-set odd">
-<td><em></em></td>
-<td class="param">random_state&nbsp;</td>
-<td class="value">2026</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">verbose&nbsp;</td>
-<td class="value">0</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">warm_start&nbsp;</td>
-<td class="value">False</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">class_weight&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">ccp_alpha&nbsp;</td>
-<td class="value">0.0</td>
-</tr>
-<tr class="default even">
-<td><em></em></td>
-<td class="param">max_samples&nbsp;</td>
-<td class="value">None</td>
-</tr>
-<tr class="default odd">
-<td><em></em></td>
-<td class="param">monotonic_cst&nbsp;</td>
-<td class="value">None</td>
-</tr>
-</tbody>
-</table>
-
-            </details>
-        </div>
-    </div></div></div></div></div></div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
-    // Get the parameter prefix from the closest toggleable content
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
-
-    const originalStyle = element.style;
-    const computedStyle = window.getComputedStyle(element);
-    const originalWidth = computedStyle.width;
-    const originalHTML = element.innerHTML.replace('Copied!', '');
-
-    navigator.clipboard.writeText(fullParamName)
-        .then(() => {
-            element.style.width = originalWidth;
-            element.style.color = 'green';
-            element.innerHTML = "Copied!";
-
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Failed to copy:', err);
-            element.style.color = 'red';
-            element.innerHTML = "Failed!";
-            setTimeout(() => {
-                element.innerHTML = originalHTML;
-                element.style = originalStyle;
-            }, 2000);
-        });
-    return false;
-}
-
-document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
-    const toggleableContent = element.closest('.sk-toggleable__content');
-    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
-    const paramName = element.parentElement.nextElementSibling.textContent.trim();
-    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
-
-    element.setAttribute('title', fullParamName);
-});
+<div>
+<div id="pyodide-17" class="exercise-cell">
+
+</div>
+<script type="pyodide-17-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLm1ldHJpY3MgaW1wb3J0IG1ha2Vfc2NvcmVyLCBwcmVjaXNpb25fc2NvcmUsIHJlY2FsbF9zY29yZVxuXG5zY29yaW5nID0ge1xuICAgICdhY2N1cmFjeSc6ICdhY2N1cmFjeScsXG4gICAgJ3ByZWNpc2lvbic6IG1ha2Vfc2NvcmVyKHByZWNpc2lvbl9zY29yZSwgcG9zX2xhYmVsPSdZZXMnKSxcbiAgICAncmVjYWxsJzogbWFrZV9zY29yZXIocmVjYWxsX3Njb3JlLCBwb3NfbGFiZWw9J1llcycpXG59XG5cbnJmX3R1bmVfZ3JpZCA9IEdyaWRTZWFyY2hDVihcbiAgICBlc3RpbWF0b3I9cmZfcGlwZWxpbmUsXG4gICAgcGFyYW1fZ3JpZD1yZl9wYXJhbV9ncmlkLFxuICAgIGN2PTEwLFxuICAgIG5fam9icz0tMSxcbiAgICBzY29yaW5nPXNjb3JpbmcsXG4gICAgcmVmaXQ9J2FjY3VyYWN5J1xuKVxuXG5yZl90dW5lX2dyaWQuZml0KFhfdHJhaW4sIHlfdHJhaW4pIn0=
 </script>
 </div>
-</div>
-</div></section>
-
-<section id="precision-and-recall-contd" class="title-slide slide level2 center">
+</section>
+<section id="precision-and-recall-contd" class="slide level2 smaller">
 <h2>Precision and recall cont’d</h2>
 <ul>
 <li class="fragment"><p>What do we think? Is this model ready for production in a diagnostic setting?</p></li>
 <li class="fragment"><p>How could we improve it further?</p></li>
 </ul>
-<div id="e792b6da" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a></a>cv_results <span class="op">=</span> pd.DataFrame(rf_tune_grid.cv_results_)</span>
-<span id="cb20-2"><a></a></span>
-<span id="cb20-3"><a></a>mean_precision <span class="op">=</span> cv_results[<span class="st">'mean_test_precision'</span>].iloc[rf_tune_grid.best_index_]</span>
-<span id="cb20-4"><a></a>sem_precision <span class="op">=</span> cv_results[<span class="st">'std_test_precision'</span>].iloc[rf_tune_grid.best_index_] <span class="op">/</span> np.sqrt(<span class="dv">10</span>)</span>
-<span id="cb20-5"><a></a>mean_recall <span class="op">=</span> cv_results[<span class="st">'mean_test_recall'</span>].iloc[rf_tune_grid.best_index_]</span>
-<span id="cb20-6"><a></a>sem_recall <span class="op">=</span> cv_results[<span class="st">'std_test_recall'</span>].iloc[rf_tune_grid.best_index_] <span class="op">/</span> np.sqrt(<span class="dv">10</span>)</span>
-<span id="cb20-7"><a></a></span>
-<span id="cb20-8"><a></a>results_rf_tuned <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb20-9"><a></a>    <span class="st">'mean'</span>: [rf_tune_grid.best_score_, mean_precision, mean_recall],</span>
-<span id="cb20-10"><a></a>    <span class="st">'sem'</span>: [cv_results[<span class="st">'std_test_accuracy'</span>].iloc[rf_tune_grid.best_index_] <span class="op">/</span> np.sqrt(<span class="dv">10</span>), sem_precision, sem_recall],</span>
-<span id="cb20-11"><a></a>}, index<span class="op">=</span>[<span class="st">'accuracy'</span>, <span class="st">'precision'</span>, <span class="st">'recall'</span>])</span>
-<span id="cb20-12"><a></a></span>
-<span id="cb20-13"><a></a>results_rf_tuned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">sem</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">accuracy</td>
-<td>0.860688</td>
-<td>0.018576</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">precision</td>
-<td>0.920505</td>
-<td>0.022982</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">recall</td>
-<td>0.770909</td>
-<td>0.038928</td>
-</tr>
-</tbody>
-</table>
+<div id="pyodide-18" class="exercise-cell">
 
 </div>
-</div>
+<script type="pyodide-18-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfcmVzdWx0cyA9IHBkLkRhdGFGcmFtZShyZl90dW5lX2dyaWQuY3ZfcmVzdWx0c18pXG5cbnJlc3VsdHNfcmZfdHVuZWQgPSBwZC5EYXRhRnJhbWUoe1xuICAgICdtZWFuJzogW3JmX3R1bmVfZ3JpZC5iZXN0X3Njb3JlXyxcbiAgICAgICAgICAgICBjdl9yZXN1bHRzWydtZWFuX3Rlc3RfcHJlY2lzaW9uJ10uaWxvY1tyZl90dW5lX2dyaWQuYmVzdF9pbmRleF8sXG4gICAgICAgICAgICAgY3ZfcmVzdWx0c1snbWVhbl90ZXN0X3JlY2FsbCddLmlsb2NbcmZfdHVuZV9ncmlkLmJlc3RfaW5kZXhfXSxcbn0sIGluZGV4PVsnYWNjdXJhY3knLCAncHJlY2lzaW9uJywgJ3JlY2FsbCddKVxucmVzdWx0c19yZl90dW5lZCJ9
+</script>
 </div>
 </section>
-
-<section id="feature-importances" class="title-slide slide level2 center">
-<h2>Feature importances</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Key points:</strong></p>
+<section id="feature-importances-key-points" class="slide level2">
+<h2>Feature importances: key points</h2>
 <ul>
 <li class="fragment"><p>Decision trees are very interpretable (decision rules!), however in ensemble models (e.g., Random Forest and Boosting) there are many trees - individual decision rules are not as meaningful…</p></li>
 <li class="fragment"><p>Instead, we can calculate feature importances as the total decrease in impurity for all splits involving that feature, weighted by the number of samples involved in those splits, normalized and averaged over all the trees.</p></li>
 <li class="fragment"><p>These are calculated on the training set, as that is the set the model is trained on.</p></li>
 </ul>
-</div><div class="column" style="width:50%;">
-<p><strong>Notes of caution!</strong></p>
+</section>
+<section id="feature-importances-notes-of-caution" class="slide level2">
+<h2>Feature importances: Notes of caution!</h2>
 <ul>
 <li class="fragment"><p>Feature importances can be unreliable with both highly cardinal, and multicollinear features.</p></li>
 <li class="fragment"><p>Unlike the linear model coefficients, feature importances do not have a sign! They tell us about importance, but not an “up or down”.</p></li>
 <li class="fragment"><p>Increasing a feature may cause the prediction to first go up, and then go down.</p></li>
-<li class="fragment"><p>Alternatives to feature importance to understanding models exist (e.g., <a href="https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html">SHAP</a> (SHapley Additive exPlanations))</p></li>
+<li class="fragment"><p>Alternatives to feature importance to understanding models exist, such as post-hoc explanations (sometimes called “explainable AI”, see <a href="https://christophm.github.io/interpretable-ml-book/">Interpretable Machine Learning</a> by Christoph Molnar for an introduction)</p></li>
 </ul>
-</div></div>
 </section>
-
-<section id="feature-importances-in-scikit-learn" class="title-slide slide level2 center">
+<section id="feature-importances-in-scikit-learn" class="slide level2">
 <h2>Feature importances in <code>scikit-learn</code></h2>
-<div id="5a7544da" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a><span class="co"># Access the best pipeline</span></span>
-<span id="cb21-2"><a></a>best_pipeline <span class="op">=</span> rf_tune_grid.best_estimator_</span>
-<span id="cb21-3"><a></a></span>
-<span id="cb21-4"><a></a><span class="co"># Extract the trained RandomForestClassifier from the pipeline</span></span>
-<span id="cb21-5"><a></a>best_rf <span class="op">=</span> best_pipeline.named_steps[<span class="st">'randomforestclassifier'</span>]</span>
-<span id="cb21-6"><a></a></span>
-<span id="cb21-7"><a></a><span class="co"># Extract feature names after preprocessing</span></span>
-<span id="cb21-8"><a></a><span class="co"># Get the names of features from each transformer in the pipeline</span></span>
-<span id="cb21-9"><a></a>numeric_features <span class="op">=</span> numeric_feats</span>
-<span id="cb21-10"><a></a>categorical_feature_names <span class="op">=</span> best_pipeline.named_steps[<span class="st">'columntransformer'</span>].transformers_[<span class="dv">2</span>][<span class="dv">1</span>].get_feature_names_out(categorical_feats)</span>
-<span id="cb21-11"><a></a>passthrough_features <span class="op">=</span> passthrough_feats</span>
-<span id="cb21-12"><a></a></span>
-<span id="cb21-13"><a></a><span class="co"># Combine all feature names into a single list</span></span>
-<span id="cb21-14"><a></a>feature_names <span class="op">=</span> np.concatenate([numeric_features, passthrough_features, categorical_feature_names])</span>
-<span id="cb21-15"><a></a></span>
-<span id="cb21-16"><a></a><span class="co"># Calculate feature importances</span></span>
-<span id="cb21-17"><a></a>feature_importances <span class="op">=</span> best_rf.feature_importances_</span>
-<span id="cb21-18"><a></a></span>
-<span id="cb21-19"><a></a><span class="co"># Create a DataFrame to display feature importances</span></span>
-<span id="cb21-20"><a></a>importances_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb21-21"><a></a>    <span class="st">'Feature'</span>: feature_names,</span>
-<span id="cb21-22"><a></a>    <span class="st">'Importance'</span>: feature_importances</span>
-<span id="cb21-23"><a></a>})</span>
-<span id="cb21-24"><a></a></span>
-<span id="cb21-25"><a></a><span class="co"># Sort by importance (descending order)</span></span>
-<span id="cb21-26"><a></a>importances_df <span class="op">=</span> importances_df.sort_values(by<span class="op">=</span><span class="st">'Importance'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+<div id="pyodide-19" class="exercise-cell">
+
 </div>
-</section>
-
-<section id="visualizing-the-results" class="title-slide slide level2 center">
-<h2>Visualizing the results</h2>
-<div id="5f4b8012" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display" data-execution_count="20">
-
-<style>
-  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed {
-    width: 100%;
-    display: flex;
-  }
-
-  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed details,
-  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed details summary {
-    position: relative;
-  }
-</style>
-<div id="altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2"></div>
-<script type="text/javascript">
-  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
-  (function(spec, embedOpt){
-    let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2") {
-      outputDiv = document.getElementById("altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2");
-    }
-
-    const paths = {
-      "vega": "https://cdn.jsdelivr.net/npm/vega@5?noext",
-      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@5.20.1?noext",
-      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@6?noext",
-    };
-
-    function maybeLoadScript(lib, version) {
-      var key = `${lib.replace("-", "")}_version`;
-      return (VEGA_DEBUG[key] == version) ?
-        Promise.resolve(paths[lib]) :
-        new Promise(function(resolve, reject) {
-          var s = document.createElement('script');
-          document.getElementsByTagName("head")[0].appendChild(s);
-          s.async = true;
-          s.onload = () => {
-            VEGA_DEBUG[key] = version;
-            return resolve(paths[lib]);
-          };
-          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-          s.src = paths[lib];
-        });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === "function" && define.amd) {
-      requirejs.config({paths});
-      let deps = ["vega-embed"];
-      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else {
-      maybeLoadScript("vega", "5")
-        .then(() => maybeLoadScript("vega-lite", "5.20.1"))
-        .then(() => maybeLoadScript("vega-embed", "6"))
-        .catch(showError)
-        .then(() => displayChart(vegaEmbed));
-    }
-  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-7005ae860b862694fb01f227f5e98385"}, "mark": {"type": "bar"}, "encoding": {"tooltip": [{"field": "Feature", "type": "nominal"}, {"field": "Importance", "type": "quantitative"}], "x": {"field": "Importance", "title": "Feature Importance", "type": "quantitative"}, "y": {"field": "Feature", "sort": "-x", "title": "Feature", "type": "nominal"}}, "height": 400, "title": "Feature Importances from Random Forest Model", "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-7005ae860b862694fb01f227f5e98385": [{"Feature": "ChestPain_asymptomatic", "Importance": 0.14}, {"Feature": "ExAng", "Importance": 0.11}, {"Feature": "Ca", "Importance": 0.105}, {"Feature": "MaxHR", "Importance": 0.09}, {"Feature": "Thal_normal", "Importance": 0.085}, {"Feature": "Thal_reversable", "Importance": 0.075}, {"Feature": "Slope", "Importance": 0.065}, {"Feature": "Oldpeak", "Importance": 0.065}, {"Feature": "ChestPain_nontypical", "Importance": 0.06}, {"Feature": "Age", "Importance": 0.045}, {"Feature": "Chol", "Importance": 0.04}, {"Feature": "RestBP", "Importance": 0.035}, {"Feature": "Sex", "Importance": 0.035}, {"Feature": "ChestPain_nonanginal", "Importance": 0.02}, {"Feature": "ChestPain_typical", "Importance": 0.015}, {"Feature": "RestECG", "Importance": 0.015}, {"Feature": "Fbs", "Importance": 0.0}, {"Feature": "Thal_fixed", "Importance": 0.0}]}}, {"mode": "vega-lite"});
+<script type="pyodide-19-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBBY2Nlc3MgdGhlIGJlc3QgcGlwZWxpbmVcbmJlc3RfcGlwZWxpbmUgPSByZl90dW5lX2dyaWQuYmVzdF9lc3RpbWF0b3JfXG5cbiMgRXh0cmFjdCB0aGUgdHJhaW5lZCBSYW5kb21Gb3Jlc3RDbGFzc2lmaWVyIGZyb20gdGhlIHBpcGVsaW5lXG5iZXN0X3JmID0gYmVzdF9waXBlbGluZS5uYW1lZF9zdGVwc1sncmFuZG9tZm9yZXN0Y2xhc3NpZmllciddXG5cbiMgRXh0cmFjdCBmZWF0dXJlIG5hbWVzIGFmdGVyIHByZXByb2Nlc3NpbmdcbiMgR2V0IHRoZSBuYW1lcyBvZiBmZWF0dXJlcyBmcm9tIGVhY2ggdHJhbnNmb3JtZXIgaW4gdGhlIHBpcGVsaW5lXG5udW1lcmljX2ZlYXR1cmVzID0gbnVtZXJpY19mZWF0c1xuY2F0ZWdvcmljYWxfZmVhdHVyZV9uYW1lcyA9IGJlc3RfcGlwZWxpbmUubmFtZWRfc3RlcHNbJ2NvbHVtbnRyYW5zZm9ybWVyJ10udHJhbnNmb3JtZXJzX1syXVsxXS5nZXRfZmVhdHVyZV9uYW1lc19vdXQoY2F0ZWdvcmljYWxfZmVhdHMpXG5wYXNzdGhyb3VnaF9mZWF0dXJlcyA9IHBhc3N0aHJvdWdoX2ZlYXRzXG5cbiMgQ29tYmluZSBhbGwgZmVhdHVyZSBuYW1lcyBpbnRvIGEgc2luZ2xlIGxpc3RcbmZlYXR1cmVfbmFtZXMgPSBucC5jb25jYXRlbmF0ZShbbnVtZXJpY19mZWF0dXJlcywgcGFzc3Rocm91Z2hfZmVhdHVyZXMsIGNhdGVnb3JpY2FsX2ZlYXR1cmVfbmFtZXNdKSJ9
 </script>
 </div>
+</section>
+<section id="feature-importances-in-scikit-learn-contd" class="slide level2 smaller">
+<h2>Feature importances in <code>scikit-learn</code> (cont’d)</h2>
+<div>
+<div id="pyodide-20" class="exercise-cell">
+
+</div>
+<script type="pyodide-20-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDYWxjdWxhdGUgZmVhdHVyZSBpbXBvcnRhbmNlc1xuZmVhdHVyZV9pbXBvcnRhbmNlcyA9IGJlc3RfcmYuZmVhdHVyZV9pbXBvcnRhbmNlc19cblxuIyBDcmVhdGUgYSBEYXRhRnJhbWUgdG8gZGlzcGxheSBmZWF0dXJlIGltcG9ydGFuY2VzXG5pbXBvcnRhbmNlc19kZiA9IHBkLkRhdGFGcmFtZSh7XG4gICAgJ0ZlYXR1cmUnOiBmZWF0dXJlX25hbWVzLFxuICAgICdJbXBvcnRhbmNlJzogZmVhdHVyZV9pbXBvcnRhbmNlc1xufSlcblxuIyBTb3J0IGJ5IGltcG9ydGFuY2UgKGRlc2NlbmRpbmcgb3JkZXIpXG5pbXBvcnRhbmNlc19kZiA9IGltcG9ydGFuY2VzX2RmLnNvcnRfdmFsdWVzKGJ5PSdJbXBvcnRhbmNlJywgYXNjZW5kaW5nPUZhbHNlKVxuaW1wb3J0YW5jZXNfZGYuaGVhZCgpIn0=
+</script>
 </div>
 </section>
+<section id="visualizing-the-results" class="slide level2">
+<h2>Visualizing the results</h2>
+<div>
+<div id="pyodide-21" class="exercise-cell">
 
-<section id="evaluating-on-the-test-set" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-21-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaW1wb3J0IGFsdGFpciBhcyBhbHRcblxuYmFyX2NoYXJ0ID0gYWx0LkNoYXJ0KGltcG9ydGFuY2VzX2RmKS5tYXJrX2JhcigpLmVuY29kZShcbiAgICB4PWFsdC5YKCdJbXBvcnRhbmNlOlEnLCB0aXRsZT0nRmVhdHVyZSBJbXBvcnRhbmNlJyksXG4gICAgeT1hbHQuWSgnRmVhdHVyZTpOJywgc29ydD0nLXgnLCB0aXRsZT0nRmVhdHVyZScpLFxuICAgIHRvb2x0aXA9WydGZWF0dXJlJywgJ0ltcG9ydGFuY2UnXVxuKS5wcm9wZXJ0aWVzKFxuICAgIHRpdGxlPSdGZWF0dXJlIEltcG9ydGFuY2VzIGZyb20gUmFuZG9tIEZvcmVzdCBNb2RlbCcsXG4gICAgd2lkdGg9NjAwLFxuICAgIGhlaWdodD00MDBcbikifQ==
+</script>
+</div>
+</section>
+<section id="visualizing-the-results-1" class="slide level2">
+<h2>Visualizing the results</h2>
+<div>
+<div id="pyodide-22" class="exercise-cell">
+
+</div>
+<script type="pyodide-22-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmFyX2NoYXJ0In0=
+</script>
+</div>
+</section>
+<section id="evaluating-on-the-test-set" class="slide level2 smaller">
 <h2>Evaluating on the test set</h2>
 <p>Predict on the test set:</p>
-<div id="ee33b6f5" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a></a>heart_test_drop_na <span class="op">=</span> heart_test.dropna()</span>
-<span id="cb22-2"><a></a>X_test_drop_na <span class="op">=</span> heart_test_drop_na.drop(columns<span class="op">=</span>[<span class="st">'AHD'</span>])</span>
-<span id="cb22-3"><a></a>y_test_drop_na <span class="op">=</span> heart_test_drop_na[<span class="st">'AHD'</span>]</span>
-<span id="cb22-4"><a></a></span>
-<span id="cb22-5"><a></a>heart_test_drop_na[<span class="st">"predicted"</span>] <span class="op">=</span> rf_tune_grid.predict(</span>
-<span id="cb22-6"><a></a>    X_test_drop_na</span>
-<span id="cb22-7"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div>
+<div id="pyodide-23" class="exercise-cell">
+
+</div>
+<script type="pyodide-23-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiaGVhcnRfdGVzdF9kcm9wX25hID0gaGVhcnRfdGVzdC5kcm9wbmEoKVxuWF90ZXN0ID0gaGVhcnRfdGVzdC5kcm9wKGNvbHVtbnM9WydBSEQnXSlcbnlfdGVzdCA9IGhlYXJ0X3Rlc3RbJ0FIRCddXG5cbmhlYXJ0X3Rlc3RbXCJwcmVkaWN0ZWRcIl0gPSByZl90dW5lX2dyaWQucHJlZGljdChcbiAgICBYX3Rlc3RcbilcblxuaGVhcnRfdGVzdC5oZWFkKCkifQ==
+</script>
 </div>
 </section>
-
-<section id="evaluating-on-the-test-set-1" class="title-slide slide level2 center">
+<section id="evaluating-on-the-test-set-1" class="slide level2">
 <h2>Evaluating on the test set</h2>
 <p>Examine accuracy, precision and recall:</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div id="d7e55ed7" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>rf_tune_grid.score(</span>
-<span id="cb23-2"><a></a>    X_test_drop_na,</span>
-<span id="cb23-3"><a></a>    y_test_drop_na</span>
-<span id="cb23-4"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>0.7868852459016393</code></pre>
-</div>
-</div>
-<div id="16e19bbd" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>precision_score(</span>
-<span id="cb25-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
-<span id="cb25-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
-<span id="cb25-4"><a></a>    pos_label<span class="op">=</span><span class="st">'Yes'</span></span>
-<span id="cb25-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>0.8</code></pre>
-</div>
-</div>
-<div id="b205b76c" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a></a>recall_score(</span>
-<span id="cb27-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
-<span id="cb27-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
-<span id="cb27-4"><a></a>    pos_label<span class="op">=</span><span class="st">'Yes'</span></span>
-<span id="cb27-5"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>0.7142857142857143</code></pre>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div id="bd32d744" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>conf_matrix <span class="op">=</span> pd.crosstab(</span>
-<span id="cb29-2"><a></a>    heart_test_drop_na[<span class="st">"AHD"</span>],</span>
-<span id="cb29-3"><a></a>    heart_test_drop_na[<span class="st">"predicted"</span>]</span>
-<span id="cb29-4"><a></a>)</span>
-<span id="cb29-5"><a></a><span class="bu">print</span>(conf_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>predicted  No  Yes
-AHD               
-No         28    5
-Yes         8   20</code></pre>
-</div>
-</div>
-</div></div>
-</section>
+<div>
+<div id="pyodide-24" class="exercise-cell">
 
-<section id="other-boosting-models" class="title-slide slide level2 center">
-<h2>Other boosting models:</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><a href="https://lightgbm.readthedocs.io/">XGBoost</a></p>
-<ul>
-<li>Not part of <code>sklearn</code> but has similar interface.</li>
-<li>Supports missing values</li>
-<li>GPU training, networked parallel training</li>
-<li>Supports sparse data</li>
-<li>Typically better scores than random forests</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p><a href="https://lightgbm.readthedocs.io/">LightGBM</a></p>
-<ul>
-<li>Not part of sklearn but has similar interface.</li>
-<li>Small model size</li>
-<li>Faster</li>
-<li>Typically better scores than random forests</li>
-</ul>
-<p><a href="https://catboost.ai/">CatBoost</a></p>
-<ul>
-<li>Not part of sklearn but has similar interface.</li>
-<li>Usually better scores but slower compared to XGBoost and LightGBM</li>
-</ul>
-</div></div>
+</div>
+<script type="pyodide-24-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWNjdXJhY3kgPSByZl90dW5lX2dyaWQuc2NvcmUoXG4gICAgWF90ZXN0LCB5X3Rlc3RcbilcblxucHJlY2lzaW9uID0gcHJlY2lzaW9uX3Njb3JlKFxuICAgIHlfdHJ1ZT1oZWFydF90ZXN0W1wiQUhEXCJdLCB5X3ByZWQ9aGVhcnRfdGVzdFtcInByZWRpY3RlZFwiXSxcbiAgICBwb3NfbGFiZWw9J1llcydcbilcblxucmVjYWxsID0gcmVjYWxsX3Njb3JlKFxuICAgIHlfdHJ1ZT1oZWFydF90ZXN0W1wiQUhEXCJdLCB5X3ByZWQ9aGVhcnRfdGVzdFtcInByZWRpY3RlZFwiXSxcbiAgICBwb3NfbGFiZWw9J1llcydcbilcblxucHJpbnQoZlwiQWNjdXJhY3k6IHthY2N1cmFjeX0sIFByZWNpc2lvbjoge3ByZWNpc2lvbn0sIFJlY2FsbDoge3JlY2FsbH1cIikifQ==
+</script>
+</div>
 </section>
+<section id="evaluating-on-the-test-set-2" class="slide level2 smaller">
+<h2>Evaluating on the test set</h2>
+<div>
+<div id="pyodide-25" class="exercise-cell">
 
-<section id="keep-learning" class="title-slide slide level2 center">
+</div>
+<script type="pyodide-25-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY29uZl9tYXRyaXggPSBwZC5jcm9zc3RhYihcbiAgICBoZWFydF90ZXN0W1wiQUhEXCJdLFxuICAgIGhlYXJ0X3Rlc3RbXCJwcmVkaWN0ZWRcIl1cbilcbmNvbmZfbWF0cml4In0=
+</script>
+</div>
+</section>
+<section id="keep-learning" class="slide level2">
 <h2>Keep learning!</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -2255,16 +554,14 @@ Yes         8   20</code></pre>
 <p><img data-src="img/frontmatter/ISLP_cover.png" style="height:50.0%"> <a href="https://www.statlearning.com/" class="uri">https://www.statlearning.com/</a></p>
 </div></div>
 </section>
-
-<section id="local-installation" class="title-slide slide level2 center">
+<section id="local-installation" class="slide level2 scrollable">
 <h2>Local installation</h2>
 <ol type="1">
 <li class="fragment"><p>Using Docker: <a href="https://python.datasciencebook.ca/setup.html">Data Science: A First Introduction (Python Edition) Installation Instructions</a></p></li>
 <li class="fragment"><p>Using conda: <a href="https://ubc-mds.github.io/resources_pages/installation_instructions/">UBC MDS Installation Instructions</a></p></li>
 </ol>
 </section>
-
-<section id="additional-resources" class="title-slide slide level2 center">
+<section id="additional-resources" class="slide level2">
 <h2>Additional resources</h2>
 <ul>
 <li class="fragment">The <a href="https://ubc-mds.github.io/DSCI_573_feat-model-select">UBC DSCI 573 (Feature and Model Selection notes)</a> chapter of Data Science: A First Introduction (Python Edition) by Varada Kolhatkar and Joel Ostblom. These notes cover classification and regression metrics, advanced variable selection and more on ensembles.</li>
@@ -2272,14 +569,30 @@ Yes         8   20</code></pre>
 <li class="fragment"><a href="https://www.statlearning.com/"><em>An Introduction to Statistical Learning</em></a> {cite:p}<code>james2013introduction</code> provides a great next stop in the process of learning about classification. Chapter 4 discusses additional basic techniques for classification that we do not cover, such as logistic regression, linear discriminant analysis, and naive Bayes.</li>
 </ul>
 </section>
-
-<section id="references" class="title-slide slide level2 center">
+<section id="references" class="slide level2">
 <h2>References</h2>
 <p>Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani and Jonathan Taylor. An Introduction to Statistical Learning with Applications in Python. Springer, 1st edition, 2023. URL: https://www.statlearning.com/.</p>
 <p>Kolhatkar, V., and Ostblom, J. (2024). UBC DSCI 573: Feature and Model Selection course notes. URL: https://ubc-mds.github.io/DSCI_573_feat-model-select</p>
 <p>Pedregosa, F. et al., 2011. Scikit-learn: Machine learning in Python. Journal of machine learning research, 12(Oct), pp.2825–2830.</p>
 
 
+<script type="pyodide-data">
+eyJvcHRpb25zIjp7ImVudiI6eyJQTE9UTFlfUkVOREVSRVIiOiJwbG90bHlfbWltZXR5cGUifSwiaW5kZXhVUkwiOiJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvcHlvZGlkZS92MC4yOC4xL2Z1bGwvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsicHlvZGlkZV9odHRwIiwibWljcm9waXAiLCJpcHl0aG9uIl19fQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJweW9kaWRlLTI1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTI0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTI0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIxIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIxLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMjAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTIwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMjAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8yMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE5IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTkgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE5LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTktY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE4IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTggPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE4LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xOCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE3IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTcgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE3LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTctY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE2IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTYgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE2LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTYtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE1IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTUgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE1LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTE0IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTQgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTE0LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTQtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xNCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEzIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTMgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEzLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMyA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEyIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTIgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEyLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMiA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTExIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTEgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTExLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTEtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMSA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEwIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfcHlvZGlkZV9lZGl0b3JfMTAgPSB7XG4gIGNvbnN0IHsgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJweW9kaWRlLTEwLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMTAtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgUHlvZGlkZUV4ZXJjaXNlRWRpdG9yKFxuICAgIHB5b2RpZGVPanMucHlvZGlkZVByb21pc2UsXG4gICAgYmxvY2suY29kZSxcbiAgICBvcHRpb25zXG4gICk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fcHlvZGlkZV92YWx1ZV8xMCA9IHB5b2RpZGVPanMucHJvY2VzcyhfcHlvZGlkZV9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTkiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl85ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzkgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS04LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzggPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl83ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS03LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzcgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTYiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl82ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzYgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzUgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl80ID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS00LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzQgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzMgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF9weW9kaWRlX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFB5b2RpZGVFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0yLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHB5b2RpZGUtMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBQeW9kaWRlRXhlcmNpc2VFZGl0b3IoXG4gICAgcHlvZGlkZU9qcy5weW9kaWRlUHJvbWlzZSxcbiAgICBibG9jay5jb2RlLFxuICAgIG9wdGlvbnNcbiAgKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl9weW9kaWRlX3ZhbHVlXzIgPSBweW9kaWRlT2pzLnByb2Nlc3MoX3B5b2RpZGVfZWRpdG9yXzIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJweW9kaWRlLTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoiX3B5b2RpZGVfdmFsdWVfMSA9IHtcbiAgY29uc3QgeyBoaWdobGlnaHRQeXRob24sIGI2NERlY29kZX0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwicHlvZGlkZS0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBldmFsdWF0aW9uIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oe1xuICAgIGlkOiBcInB5b2RpZGUtMS1jb250ZW50c1wiLFxuICAgIGVjaG86IHRydWUsXG4gICAgb3V0cHV0OiB0cnVlXG4gIH0sIGJsb2NrLmF0dHIpO1xuXG4gIC8vIEV2YWx1YXRlIHRoZSBwcm92aWRlZCBQeXRob24gY29kZVxuICBjb25zdCByZXN1bHQgPSBweW9kaWRlT2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjFcIiBpbiBweW9kaWRlT2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgcHl0aG9uXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFB5dGhvbihibG9jay5jb2RlKSk7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ncm93IHNwaW5uZXItZ3Jvdy1zbSBtLTIgcG9zaXRpb24tYWJzb2x1dGUgdG9wLTAgZW5kLTBcIjtcbiAgICAgIHByZUVsZW0uYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQocHJlRWxlbSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWJvcmRlciBzcGlubmVyLWJvcmRlci1zbVwiO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgIH1cblxuICAgIHlpZWxkIGNvbnRhaW5lcjtcbiAgfVxuXG4gIHB5b2RpZGVPanMucmVuZGVyZWRPanNbXCIxXCJdID0gdHJ1ZTtcbiAgeWllbGQgYXdhaXQgcmVzdWx0O1xufVxuIn0seyJjZWxsTmFtZSI6InB5b2RpZGUtcHJlbHVkZSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InB5b2RpZGVPanMgPSB7XG4gIGNvbnN0IHtcbiAgICBQeW9kaWRlRXZhbHVhdG9yLFxuICAgIFB5b2RpZGVFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBQeXRob24sXG4gICAgc3RhcnRQeW9kaWRlV29ya2VyLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGgsXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyBQeW9kaWRlIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcInB5b2RpZGUtZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIGxldCBweW9kaWRlUHJvbWlzZSA9IChhc3luYyAoKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBQeW9kaWRlYDtcbiAgICBjb25zdCBweW9kaWRlID0gYXdhaXQgc3RhcnRQeW9kaWRlV29ya2VyKGRhdGEub3B0aW9ucyk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6IG1pY3JvcGlwYDtcbiAgICBhd2FpdCBweW9kaWRlLmxvYWRQYWNrYWdlKFwibWljcm9waXBcIik7XG4gICAgY29uc3QgbWljcm9waXAgPSBhd2FpdCBweW9kaWRlLnB5aW1wb3J0KFwibWljcm9waXBcIik7XG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gbWljcm9waXAuaW5zdGFsbChwa2cpO1xuICAgIH0pLnJlZHVjZSgoY3VyLCBuZXh0KSA9PiBjdXIudGhlbihuZXh0KSwgUHJvbWlzZS5yZXNvbHZlKCkpO1xuICAgIGF3YWl0IG1pY3JvcGlwLmRlc3Ryb3koKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGF3YWl0IHB5b2RpZGUuRlMubWtkaXIocGF0aCk7XG4gICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICBpZiAoZS5uYW1lICE9PSBcIkVycm5vRXJyb3JcIikgdGhyb3cgZTtcbiAgICAgICAgICBpZiAoZS5lcnJubyAhPT0gMjApIHtcbiAgICAgICAgICAgIGNvbnN0IGVycm9yVGV4dFB0ciA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5fc3RyZXJyb3IoZS5lcnJubyk7XG4gICAgICAgICAgICBjb25zdCBlcnJvclRleHQgPSBhd2FpdCBweW9kaWRlLl9tb2R1bGUuVVRGOFRvU3RyaW5nKGVycm9yVGV4dFB0cik7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYEZpbGVzeXN0ZW0gRXJyb3IgJHtlLmVycm5vfSBcIiR7ZXJyb3JUZXh0fVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgdHJ5IHtcbiAgICAgICAgcmV0dXJuIGF3YWl0IHB5b2RpZGUuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgaWYgKGUubmFtZSAhPT0gXCJFcnJub0Vycm9yXCIpIHRocm93IGU7XG4gICAgICAgIGNvbnN0IGVycm9yVGV4dFB0ciA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5fc3RyZXJyb3IoZS5lcnJubyk7XG4gICAgICAgIGNvbnN0IGVycm9yVGV4dCA9IGF3YWl0IHB5b2RpZGUuX21vZHVsZS5VVEY4VG9TdHJpbmcoZXJyb3JUZXh0UHRyKTtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yICR7ZS5lcnJub30gXCIke2Vycm9yVGV4dH1cIi5gKTtcbiAgICAgIH1cbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgUHlvZGlkZSBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBQeXRob24ocHlvZGlkZSk7XG5cbiAgICBzdGF0dXNUZXh0LnJlbW92ZSgpO1xuICAgIGlmIChzdGF0dXNDb250YWluZXIuY2hpbGRyZW4ubGVuZ3RoID09IDApIHtcbiAgICAgIHN0YXR1c0NvbnRhaW5lci5wYXJlbnROb2RlLnJlbW92ZSgpO1xuICAgIH1cbiAgICByZXR1cm4gcHlvZGlkZTtcbiAgfSkoKS5jYXRjaCgoZXJyKSA9PiB7XG4gICAgc3RhdHVzVGV4dC5zdHlsZS5jb2xvciA9IFwidmFyKC0tZXhlcmNpc2UtZWRpdG9yLWhsLWVyLCAjQUQwMDAwKVwiO1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBlcnIubWVzc2FnZTtcbiAgICAvL2luZGljYXRvckNvbnRhaW5lci5xdWVyeVNlbGVjdG9yKFwiLnNwaW5uZXItZ3Jvd1wiKS5jbGFzc0xpc3QuYWRkKFwiZC1ub25lXCIpO1xuICAgIHRocm93IGVycjtcbiAgfSk7XG5cbiAgLy8gS2VlcCB0cmFjayBvZiBpbml0aWFsIE9KUyBibG9jayByZW5kZXJcbiAgY29uc3QgcmVuZGVyZWRPanMgPSB7fTtcblxuICBjb25zdCBwcm9jZXNzID0gYXN5bmMgKGNvbnRleHQsIGlucHV0cykgPT4ge1xuICAgIGNvbnN0IHB5b2RpZGUgPSBhd2FpdCBweW9kaWRlUHJvbWlzZTtcbiAgICBjb25zdCBldmFsdWF0b3IgPSBuZXcgUHlvZGlkZUV2YWx1YXRvcihweW9kaWRlLCBjb250ZXh0KTtcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBweW9kaWRlUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgICBwcm9jZXNzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyJkYXRhL2Nhbl9sYW5nLnhsc3giLCJkYXRhL0hlYXJ0LmNzdiIsImRhdGEvd2RiYy5jc3YiLCJkYXRhL25hc2EuanNvbiIsImRhdGEvbWF1bmFfbG9hX2RhdGEuY3N2IiwiZGF0YS9yZWdpb25fbGFuZ190b3A1X2NpdGllc19sb25nLmNzdiIsImRhdGEvY2FuX2xhbmcuY3N2IiwiZGF0YS9tYXVuYV9sb2EuY3N2IiwiZGF0YS93ZGJjX21pc3NpbmcuY3N2IiwiZGF0YS9saXN0aW5ncy5jc3YiLCJkYXRhL3NhY3JhbWVudG8uY3N2IiwiZGF0YS9yZWdpb25fZGF0YS5jc3YiLCJkYXRhL21vcmxleS5jc3YiLCJkYXRhL3Blbmd1aW5zX2FsbF92YXJzLmNzdiIsImRhdGEvY2FuX2xhbmcudHN2IiwiZGF0YS9jYW5fbGFuZ19ub19uYW1lcy50c3YiLCJkYXRhL25vX29mZmljaWFsX2xhbmd1YWdlcy5jc3YiLCJkYXRhL3JlZ2lvbl9sYW5nLmNzdiIsImRhdGEvd2RiY191bnNjYWxlZC5jc3YiLCJkYXRhL3JlZ2lvbl9sYW5nX3RvcDVfY2l0aWVzX3dpZGUuY3N2IiwiZGF0YS9jYW5fbGFuZ19tZXRhLWRhdGEuY3N2IiwiZGF0YS9jYW5fbGFuZy5kYiIsImRhdGEvaXNsYW5kcy5jc3YiLCJkYXRhL2ZhaXRoZnVsLmNzdiIsImRhdGEvcmVnaW9uX2xhbmdfdG9wNV9jaXRpZXNfbWVzc3kuY3N2IiwiZGF0YS9wZW5ndWlucy5jc3YiXQ==
+</script>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -2317,7 +630,7 @@ Yes         8   20</code></pre>
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': true,
+'smaller': false,
  
         // Display controls in the bottom right corner
         controls: false,
@@ -2495,6 +808,17 @@ Yes         8   20</code></pre>
           RevealZoom
         ]
       });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../materials/slides";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "../..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
