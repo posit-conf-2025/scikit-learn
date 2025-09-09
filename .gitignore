@@ -9,3 +9,4 @@
 **.DS_Store
 **.ipynb_checkpoints
 .conda/
+**/*.quarto_ipynb
