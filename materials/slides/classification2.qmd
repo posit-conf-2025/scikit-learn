@@ -14,13 +14,15 @@ execute:
   warning: false
 ---
 
-```{python}
+## Session learning objectives
+
+```{pyodide}
 #| include: false
+#| autorun: true
 import pandas as pd
 pd.set_option('display.max_rows', 5)
 ```
 
-## Session learning objectives
 By the end of the session, learners will be able to do the following:
 
 - Describe what training, validation, and test data sets are and how they are used in classification.

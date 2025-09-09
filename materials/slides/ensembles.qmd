@@ -1,25 +1,27 @@
 ---
 title: "Tree-based and ensemble models"
-format:
-  revealjs:
+format: 
+  live-revealjs:
     slide-number: true
-    slide-level: 4
-    smaller: true
     theme: [default, styles.scss]
     incremental: true
+    scrollable: true
+resources:
+  - data
 jupyter: python3
 execute:
   echo: true
   warning: false
 ---
 
-```{python}
+## Tree-based methods
+
+```{pyodide}
 #| include: false
+#| autorun: true
 import pandas as pd
 pd.set_option('display.max_rows', 5)
 ```
-
-## Tree-based methods
 
 - Algorithms that stratifying or segmenting the predictor space
   into a number of simple regions.
@@ -64,9 +66,6 @@ pd.set_option('display.max_rows', 5)
 
 ## Example: the heart data set
 
-:::: {.columns}
-::: {.column width="50%"}
-
 ::: {.nonincremental}
 - Let's consider a situation where we'd like to be able to predict
   the presence of heart disease (`AHD`) in patients,
@@ -76,49 +75,39 @@ pd.set_option('display.max_rows', 5)
   contains a binary outcome for heart disease
   for patients who presented with chest pain.
 :::
-:::
 
-::: {.column width="50%"}
-```{python}
-import pandas as pd
-heart = pd.read_csv("data/Heart.csv", index_col=0)
-heart.info()
-```
-:::
-::::
-
-## Example: the heart data set
+## Example: the heart data set (cont'd) {.smaller}
 
 An angiographic test was performed and a label for `AHD` of Yes
 was labelled to indicate the presence of heart disease,
 otherwise the label was No.
 
+```{pyodide}
+import pandas as pd
 
-```{python}
+
+heart = pd.read_csv("data/Heart.csv", index_col=0)
 heart.head()
 ```
 
-## Do we have a class imbalance?
+## Do we have a class imbalance? {.smaller}
 
 It's always important to check this, as it may impact your splitting
 and/or modeling decisions.
 
-```{python}
+```{pyodide}
 heart['AHD'].value_counts(normalize=True)
 ```
 
-This looks pretty good!
-We can move forward this time without doing much more about this.
-
-## Data splitting
+## Data splitting {.smaller}
 
 Let's split the data into training and test sets:
 
-```{python}
+```{pyodide}
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-np.random.seed(2024)
+np.random.seed(2025)
 
 heart_train, heart_test = train_test_split(
     heart, train_size=0.8, stratify=heart["AHD"]
@@ -150,19 +139,19 @@ can we treat them the same as numerical ones? **No!**
 ::::
 
 
-## Look at the data again
+## Look at the data again {.smaller}
 
 Which columns do we need to standardize?
 
 Which do we need to one-hot encode?
 
-```{python}
+```{pyodide}
 heart.head()
 ```
 
-## One hot encoding & pre-processing
+## One hot encoding & pre-processing {.smaller}
 
-```{python}
+```{pyodide}
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer, make_column_selector
 
@@ -181,9 +170,9 @@ heart_preprocessor = make_column_transformer(
 > categories exist in the test data, which were missing in the training set.
 > Specifically, it sets the value for those to 0 for all cases of the category.
 
-## Fitting a dummy classifier
+## Fitting a dummy classifier {.smaller}
 
-```{python}
+```{pyodide}
 from sklearn.dummy import DummyClassifier
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import cross_validate
@@ -198,18 +187,22 @@ cv_10_dummy = pd.DataFrame(
         y=y_train
     )
 )
-cv_10_dummy_metrics = cv_10_dummy.agg(["mean", "sem"])
-results = pd.DataFrame({'mean' : [cv_10_dummy_metrics.test_score.iloc[0]],
-  'sem' : [cv_10_dummy_metrics.test_score.iloc[1]]},
+```
+
+## Put the mean cross-validated error in a data frame {.smaller}
+
+```{pyodide}
+cv_10_dummy_metrics = cv_10_dummy.agg(["mean"])
+results = pd.DataFrame({'mean' : [cv_10_dummy_metrics.test_score.iloc[0]]},
   index = ['Dummy classifier']
 )
 results
 ```
 
 
-## Fitting a decision tree
+## Fitting a decision tree {.smaller}
 
-```{python}
+```{pyodide}
 from sklearn.tree import DecisionTreeClassifier
 
 decision_tree = DecisionTreeClassifier(random_state=2026)
@@ -223,9 +216,13 @@ cv_10_dt = pd.DataFrame(
         y=y_train
     )
 )
-cv_10_dt_metrics = cv_10_dt.agg(["mean", "sem"])
-results_dt = pd.DataFrame({'mean' : [cv_10_dt_metrics.test_score.iloc[0]],
-  'sem' : [cv_10_dt_metrics.test_score.iloc[1]]},
+```
+
+## Add the mean cross-validated error to our results data frame {.smaller}
+
+```{pyodide}
+cv_10_dt_metrics = cv_10_dt.agg(["mean"])
+results_dt = pd.DataFrame({'mean' : [cv_10_dt_metrics.test_score.iloc[0]]},
   index = ['Decision tree']
 )
 results = pd.concat([results, results_dt])
@@ -252,62 +249,28 @@ results
 
 3. Take the majority votes across all the trees for the final prediction.
 
-## Random forest in `scikit-learn` & missing values
+## Random forest in `scikit-learn` {.smaller}
 
-:::: {.columns}
-::: {.column width="35%"}
-::: {.nonincremental}
-- Does not accept missing values, we need to deal with these somehow...
-
-- We can either drop the observations with missing values,
-  or we can somehow impute them.
-
-- For the purposes of this demo we will drop them,
-  but if you are interested in imputation,
-  see the imputation tutorial in
-  [`scikit-learn`](https://scikit-learn.org/stable/modules/impute.html)
-:::
-:::
-
-::: {.column width="50%"}
-How many rows have missing observations:
-
-```{python}
-heart.isna().any(axis=1).sum()
-```
-
-Drop rows with missing observations:
-
-```{python}
-heart_train_drop_na = heart_train.dropna()
-
-X_train_drop_na = heart_train_drop_na.drop(
-    columns=['AHD']
-)
-y_train_drop_na = heart_train_drop_na['AHD']
-```
-:::
-::::
-
-## Random forest in `scikit-learn`
-
-```{python}
+```{pyodide}
 from sklearn.ensemble import RandomForestClassifier
 
-random_forest = RandomForestClassifier(random_state=2026)
+random_forest = RandomForestClassifier(random_state=2025)
 rf_pipeline = make_pipeline(heart_preprocessor, random_forest)
 cv_10_rf = pd.DataFrame(
     cross_validate(
         estimator=rf_pipeline,
         cv=10,
-        X=X_train_drop_na,
-        y=y_train_drop_na
+        X=X_train,
+        y=y_train
     )
 )
+```
 
-cv_10_rf_metrics = cv_10_rf.agg(["mean", "sem"])
-results_rf = pd.DataFrame({'mean' : [cv_10_rf_metrics.test_score.iloc[0]],
-  'sem' : [cv_10_rf_metrics.test_score.iloc[1]]},
+## Add the mean cross-validated error to our results data frame {.smaller}
+
+```{pyodide}
+cv_10_rf_metrics = cv_10_rf.agg(["mean"])
+results_rf = pd.DataFrame({'mean' : [cv_10_rf_metrics.test_score.iloc[0]]},
   index = ['Random forest']
 )
 results = pd.concat([results, results_rf])
@@ -328,9 +291,9 @@ results
 - We can use `GridSearchCV` to search for the optimal parameters for these,
   as we did for $K$ in $K$-nearest neighbors.
 
-## Tuning random forest in `scikit-learn`
+## Tuning random forest in `scikit-learn` {.smaller}
 
-```{python}
+```{pyodide}
 from sklearn.model_selection import GridSearchCV
 
 rf_param_grid = {'randomforestclassifier__n_estimators': [200],
@@ -344,24 +307,22 @@ rf_tune_grid = GridSearchCV(
     n_jobs=-1 # tells computer to use all available CPUs
 )
 rf_tune_grid.fit(
-    X_train_drop_na,
-    y_train_drop_na
+    X_train,
+    y_train
 )
+```
 
+## Comparing to our other models {.smaller}
+
+How did the tuned Random Forest compare
+against the other models we tried?
+
+```{pyodide}
 cv_10_rf_tuned_metrics = pd.DataFrame(rf_tune_grid.cv_results_)
-results_rf_tuned = pd.DataFrame({'mean' : rf_tune_grid.best_score_,
-  'sem' : pd.DataFrame(rf_tune_grid.cv_results_)['std_test_score'][6] / 10**(1/2)},
+results_rf_tuned = pd.DataFrame({'mean' : rf_tune_grid.best_score_},
   index = ['Random forest tuned']
 )
 results = pd.concat([results, results_rf_tuned])
-```
-
-## Random Forest results
-
-How did the Random Forest compare
-against the other models we tried?
-
-```{python}
 results
 ```
 
@@ -377,11 +338,11 @@ results
 - They build trees in a serial manner,
   where each tree tries to correct the mistakes of the previous one.
 
-## Tuning `GradientBoostingClassifier` with `scikit-learn`
+## Tuning Boosted Classifiers with `scikit-learn`
 
-- `GradientBoostingClassifier` can be tuned a several important parameters, including:
+- `HistGradientBoostingClassifier` can be tuned a several important parameters, including:
 
-  - `n_estimators`: number of decision trees (higher = more complexity)
+  - `max_iter`: number of decision trees (higher = more complexity)
 
   - `max_depth`: max depth of each decision tree (higher = more complexity)
 
@@ -391,16 +352,16 @@ results
 - We can use `GridSearchCV` to search for the optimal parameters for these,
   as we did for the parameters in Random Forest.
 
-## Tuning `GradientBoostingClassifier` with `scikit-learn`
+## Tuning Boosted Classifiers with `scikit-learn` (cont'd) {.smaller}
 
-```{python}
-from sklearn.ensemble import GradientBoostingClassifier
+```{pyodide}
+from sklearn.ensemble import HistGradientBoostingClassifier
 
-gradient_boosted_classifier = GradientBoostingClassifier(random_state=2026)
+gradient_boosted_classifier = HistGradientBoostingClassifier(random_state=2025)
 gb_pipeline = make_pipeline(heart_preprocessor, gradient_boosted_classifier)
-gb_param_grid = {'gradientboostingclassifier__n_estimators': [200],
-              'gradientboostingclassifier__max_depth': [1, 3, 5, 7, 9],
-              'gradientboostingclassifier__learning_rate': [0.001, 0.005, 0.01]}
+gb_param_grid = {'histgradientboostingclassifier__max_iter': [200],
+              'histgradientboostingclassifier__max_depth': [1, 3, 5, 7, 9],
+              'histgradientboostingclassifier__learning_rate': [0.001, 0.005, 0.01]}
 gb_tune_grid = GridSearchCV(
     estimator=gb_pipeline,
     param_grid=gb_param_grid,
@@ -408,24 +369,22 @@ gb_tune_grid = GridSearchCV(
     n_jobs=-1 # tells computer to use all available CPUs
 )
 gb_tune_grid.fit(
-    X_train_drop_na,
-    y_train_drop_na
+    X_train,
+    y_train
 )
-
-cv_10_gb_tuned_metrics = pd.DataFrame(gb_tune_grid.cv_results_)
-results_gb_tuned = pd.DataFrame({'mean' : gb_tune_grid.best_score_,
-  'sem' : pd.DataFrame(gb_tune_grid.cv_results_)['std_test_score'][6] / 10**(1/2)},
-  index = ['Gradient boosted classifier tuned']
-)
-results = pd.concat([results, results_gb_tuned])
 ```
 
-## `GradientBoostingClassifier` results
+## `HistGradientBoostingClassifier` results
 
-How did the `GradientBoostingClassifier` compare
+How did the `HistGradientBoostingClassifier` compare
 against the other models we tried?
 
-```{python}
+```{pyodide}
+cv_10_gb_tuned_metrics = pd.DataFrame(gb_tune_grid.cv_results_)
+results_gb_tuned = pd.DataFrame({'mean' : gb_tune_grid.best_score_},
+  index = ['Histogram Gradient boosted classifier tuned']
+)
+results = pd.concat([results, results_gb_tuned])
 results
 ```
 
@@ -443,9 +402,9 @@ results
 - Remember - no peaking at the test set until you choose!
   And then, you should only look at the test set for one model!
 
-## Precision and recall on the tuned random forest model
+## Precision and recall on the tuned random forest model {.smaller}
 
-```{python}
+```{pyodide}
 from sklearn.metrics import make_scorer, precision_score, recall_score
 
 scoring = {
@@ -463,37 +422,27 @@ rf_tune_grid = GridSearchCV(
     refit='accuracy'
 )
 
-rf_tune_grid.fit(X_train_drop_na, y_train_drop_na)
+rf_tune_grid.fit(X_train, y_train)
 ```
 
-## Precision and recall cont'd
+## Precision and recall cont'd {.smaller}
 
 - What do we think? Is this model ready for production in a diagnostic setting?
 
 - How could we improve it further?
 
-```{python}
+```{pyodide}
 cv_results = pd.DataFrame(rf_tune_grid.cv_results_)
 
-mean_precision = cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_]
-sem_precision = cv_results['std_test_precision'].iloc[rf_tune_grid.best_index_] / np.sqrt(10)
-mean_recall = cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_]
-sem_recall = cv_results['std_test_recall'].iloc[rf_tune_grid.best_index_] / np.sqrt(10)
-
 results_rf_tuned = pd.DataFrame({
-    'mean': [rf_tune_grid.best_score_, mean_precision, mean_recall],
-    'sem': [cv_results['std_test_accuracy'].iloc[rf_tune_grid.best_index_] / np.sqrt(10), sem_precision, sem_recall],
+    'mean': [rf_tune_grid.best_score_,
+             cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_,
+             cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_],
 }, index=['accuracy', 'precision', 'recall'])
-
 results_rf_tuned
 ```
 
-## Feature importances
-
-:::: {.columns}
-::: {.column width="50%"}
-
-**Key points:**
+## Feature importances: key points
 
 - Decision trees are very interpretable (decision rules!), however in ensemble
   models (e.g., Random Forest and Boosting) there are many trees -
@@ -507,11 +456,7 @@ results_rf_tuned
 - These are calculated on the training set,
   as that is the set the model is trained on.
 
-:::
-
-::: {.column width="50%"}
-
-**Notes of caution!**
+## Feature importances: Notes of caution!
 
 - Feature importances can be unreliable with both highly cardinal,
   and multicollinear features.
@@ -521,16 +466,14 @@ results_rf_tuned
 
 - Increasing a feature may cause the prediction to first go up, and then go down.
 
-- Alternatives to feature importance to understanding models exist
-  (e.g., [SHAP](https://shap.readthedocs.io/en/latest/example_notebooks/overviews/An%20introduction%20to%20explainable%20AI%20with%20Shapley%20values.html)
-  (SHapley Additive exPlanations))
-
-:::
-::::
+- Alternatives to feature importance to understanding models exist, 
+such as post-hoc explanations (sometimes called "explainable AI", 
+see [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/) 
+by Christoph Molnar for an introduction)
 
 ## Feature importances in `scikit-learn`
 
-```{python}
+```{pyodide}
 # Access the best pipeline
 best_pipeline = rf_tune_grid.best_estimator_
 
@@ -545,7 +488,11 @@ passthrough_features = passthrough_feats
 
 # Combine all feature names into a single list
 feature_names = np.concatenate([numeric_features, passthrough_features, categorical_feature_names])
+```
 
+## Feature importances in `scikit-learn` (cont'd) {.smaller}
+
+```{pyodide}
 # Calculate feature importances
 feature_importances = best_rf.feature_importances_
 
@@ -557,12 +504,12 @@ importances_df = pd.DataFrame({
 
 # Sort by importance (descending order)
 importances_df = importances_df.sort_values(by='Importance', ascending=False)
+importances_df.head()
 ```
 
 ## Visualizing the results
 
-```{python}
-#| echo: false
+```{pyodide}
 import altair as alt
 
 bar_chart = alt.Chart(importances_df).mark_bar().encode(
@@ -574,96 +521,61 @@ bar_chart = alt.Chart(importances_df).mark_bar().encode(
     width=600,
     height=400
 )
+```
+
+## Visualizing the results
+
+```{pyodide}
 bar_chart
 ```
 
-## Evaluating on the test set
+## Evaluating on the test set {.smaller}
 
 Predict on the test set:
 
-```{python}
+```{pyodide}
 heart_test_drop_na = heart_test.dropna()
-X_test_drop_na = heart_test_drop_na.drop(columns=['AHD'])
-y_test_drop_na = heart_test_drop_na['AHD']
+X_test = heart_test.drop(columns=['AHD'])
+y_test = heart_test['AHD']
 
-heart_test_drop_na["predicted"] = rf_tune_grid.predict(
-    X_test_drop_na
+heart_test["predicted"] = rf_tune_grid.predict(
+    X_test
 )
+
+heart_test.head()
 ```
 
 ## Evaluating on the test set
 
 Examine accuracy, precision and recall:
 
-:::: {.columns}
-::: {.column width="50%"}
-
-```{python}
-rf_tune_grid.score(
-    X_test_drop_na,
-    y_test_drop_na
+```{pyodide}
+accuracy = rf_tune_grid.score(
+    X_test, y_test
 )
-```
 
-```{python}
-precision_score(
-    y_true=heart_test_drop_na["AHD"],
-    y_pred=heart_test_drop_na["predicted"],
+precision = precision_score(
+    y_true=heart_test["AHD"], y_pred=heart_test["predicted"],
     pos_label='Yes'
 )
-```
 
-```{python}
-recall_score(
-    y_true=heart_test_drop_na["AHD"],
-    y_pred=heart_test_drop_na["predicted"],
+recall = recall_score(
+    y_true=heart_test["AHD"], y_pred=heart_test["predicted"],
     pos_label='Yes'
 )
+
+print(f"Accuracy: {accuracy}, Precision: {precision}, Recall: {recall}")
 ```
 
-:::
+## Evaluating on the test set {.smaller}
 
-::: {.column width="50%"}
-
-```{python}
+```{pyodide}
 conf_matrix = pd.crosstab(
-    heart_test_drop_na["AHD"],
-    heart_test_drop_na["predicted"]
+    heart_test["AHD"],
+    heart_test["predicted"]
 )
-print(conf_matrix)
+conf_matrix
 ```
-
-:::
-::::
-
-## Other boosting models:
-::: {.nonincremental}
-:::: {.columns}
-::: {.column width="50%"}
-[XGBoost](https://lightgbm.readthedocs.io/)
-
-- Not part of `sklearn` but has similar interface.
-- Supports missing values
-- GPU training, networked parallel training
-- Supports sparse data
-- Typically better scores than random forests
-:::
-
-::: {.column width="50%"}
-[LightGBM](https://lightgbm.readthedocs.io/)
-
-- Not part of sklearn but has similar interface.
-- Small model size
-- Faster
-- Typically better scores than random forests
-
-[CatBoost](https://catboost.ai/)
-
-- Not part of sklearn but has similar interface.
-- Usually better scores but slower compared to XGBoost and LightGBM
-:::
-::::
-:::
 
 ## Keep learning!
 
