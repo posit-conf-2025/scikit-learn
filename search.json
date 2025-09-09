@@ -23,7 +23,43 @@
     "href": "materials/slides/regression.html#the-regression-problem",
     "title": "Regression",
     "section": "The regression problem",
-    "text": "The regression problem\n\nPredictive problem\nUse past information to predict future observations\nPredict numerical values instead of categorical values\n\nExamples:\n\nRace time in the Boston marathon\nsize of a house to predict its sale price\n\nRegression Methods\nIn this workshop:\n\nK-nearest neighbors (brief overview)\nLinear regression\nL1 regularization\n\nClassification similarities to regression\nConcepts from classification map over to the setting of regression\n\nPredict a new observation’s response variable based on past observations\nSplit the data into training and test sets\nUse cross-validation to evaluate different choices of model parameters\n\nDifference\nPredicting numerical variables instead of categorical variables",
+    "text": "The regression problem\n\nPredictive problem\nUse past information to predict future observations\nPredict numerical values instead of categorical values\n\nExamples:\n\nRace time in the Boston marathon\nsize of a house to predict its sale price",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#regression-methods",
+    "href": "materials/slides/regression.html#regression-methods",
+    "title": "Regression",
+    "section": "Regression Methods",
+    "text": "Regression Methods\nIn this workshop:\n\nK-nearest neighbors (brief overview)\nLinear regression\nL1 regularization",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#classification-similarities-to-regression",
+    "href": "materials/slides/regression.html#classification-similarities-to-regression",
+    "title": "Regression",
+    "section": "Classification similarities to regression",
+    "text": "Classification similarities to regression\nConcepts from classification map over to the setting of regression\n\nPredict a new observation’s response variable based on past observations\nSplit the data into training and test sets\nUse cross-validation to evaluate different choices of model parameters",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#difference",
+    "href": "materials/slides/regression.html#difference",
+    "title": "Regression",
+    "section": "Difference",
+    "text": "Difference\nPredicting numerical variables instead of categorical variables",
     "crumbs": [
       "Home",
       "Slides",
@@ -35,7 +71,31 @@
     "href": "materials/slides/regression.html#explore-a-data-set",
     "title": "Regression",
     "section": "Explore a data set",
-    "text": "Explore a data set\n932 real estate transactions in Sacramento, California\n\nCan we use the size of a house in the Sacramento, CA area to predict its sale price?\n\nData and package setup\n\nimport altair as alt\nimport numpy as np\nimport pandas as pd\nimport plotly.express as px\nimport plotly.graph_objects as go\nfrom sklearn.model_selection import GridSearchCV, train_test_split\nfrom sklearn.compose import make_column_transformer\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nsacramento = pd.read_csv('data/sacramento.csv')\nprint(sacramento)\n\n                city     zip  beds  baths  sqft         type   price  \\\n0         SACRAMENTO  z95838     2    1.0   836  Residential   59222   \n1         SACRAMENTO  z95823     3    1.0  1167  Residential   68212   \n..               ...     ...   ...    ...   ...          ...     ...   \n930        ELK_GROVE  z95758     4    2.0  1685  Residential  235301   \n931  EL_DORADO_HILLS  z95762     3    2.0  1362  Residential  235738   \n\n      latitude   longitude  \n0    38.631913 -121.434879  \n1    38.478902 -121.431028  \n..         ...         ...  \n930  38.417000 -121.397424  \n931  38.655245 -121.075915  \n\n[932 rows x 9 columns]\n\n\nPrice vs Sq.Ft",
+    "text": "Explore a data set\n932 real estate transactions in Sacramento, California\n\nCan we use the size of a house in the Sacramento, CA area to predict its sale price?",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#data-and-package-setup",
+    "href": "materials/slides/regression.html#data-and-package-setup",
+    "title": "Regression",
+    "section": "Data and package setup",
+    "text": "Data and package setup\n\nimport altair as alt\nimport numpy as np\nimport pandas as pd\nimport plotly.express as px\nimport plotly.graph_objects as go\nfrom sklearn.model_selection import GridSearchCV, train_test_split\nfrom sklearn.compose import make_column_transformer\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nsacramento = pd.read_csv('data/sacramento.csv')\nprint(sacramento)\n\n                city     zip  beds  baths  sqft         type   price  \\\n0         SACRAMENTO  z95838     2    1.0   836  Residential   59222   \n1         SACRAMENTO  z95823     3    1.0  1167  Residential   68212   \n..               ...     ...   ...    ...   ...          ...     ...   \n930        ELK_GROVE  z95758     4    2.0  1685  Residential  235301   \n931  EL_DORADO_HILLS  z95762     3    2.0  1362  Residential  235738   \n\n      latitude   longitude  \n0    38.631913 -121.434879  \n1    38.478902 -121.431028  \n..         ...         ...  \n930  38.417000 -121.397424  \n931  38.655245 -121.075915  \n\n[932 rows x 9 columns]",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#price-vs-sq.ft",
+    "href": "materials/slides/regression.html#price-vs-sq.ft",
+    "title": "Regression",
+    "section": "Price vs Sq.Ft",
+    "text": "Price vs Sq.Ft",
     "crumbs": [
       "Home",
       "Slides",
@@ -47,7 +107,19 @@
     "href": "materials/slides/regression.html#sample-of-data",
     "title": "Regression",
     "section": "Sample of data",
-    "text": "Sample of data\n\n# look at a small sample of data\nnp.random.seed(10)\n\nsmall_sacramento = sacramento.sample(n=30)\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n538   ELK_GROVE  z95758     3    3.0  2503  Residential  484500  38.409689   \n304     ROCKLIN  z95765     4    2.0  2607  Residential  402000  38.805749   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n559  SACRAMENTO  z95817     2    1.0  1080  Residential   65000  38.544162   \n917  SACRAMENTO  z95834     3    2.0  1665  Residential  224000  38.631026   \n\n      longitude  \n538 -121.446059  \n304 -121.280931  \n..          ...  \n559 -121.460652  \n917 -121.501879  \n\n[30 rows x 9 columns]\n\n\nSample: K-NN Example\n\n\nHouse price of 2000\n\n\n\n\n\n\n\n\n\n5 closest neighbors",
+    "text": "Sample of data\n\n# look at a small sample of data\nnp.random.seed(10)\n\nsmall_sacramento = sacramento.sample(n=30)\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n538   ELK_GROVE  z95758     3    3.0  2503  Residential  484500  38.409689   \n304     ROCKLIN  z95765     4    2.0  2607  Residential  402000  38.805749   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n559  SACRAMENTO  z95817     2    1.0  1080  Residential   65000  38.544162   \n917  SACRAMENTO  z95834     3    2.0  1665  Residential  224000  38.631026   \n\n      longitude  \n538 -121.446059  \n304 -121.280931  \n..          ...  \n559 -121.460652  \n917 -121.501879  \n\n[30 rows x 9 columns]",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sample-k-nn-example",
+    "href": "materials/slides/regression.html#sample-k-nn-example",
+    "title": "Regression",
+    "section": "Sample: K-NN Example",
+    "text": "Sample: K-NN Example\n\n\nHouse price of 2000\n\n\n\n\n\n\n\n\n\n5 closest neighbors",
     "crumbs": [
       "Home",
       "Slides",
@@ -83,7 +155,55 @@
     "href": "materials/slides/regression.html#splitting-the-data",
     "title": "Regression",
     "section": "Splitting the data",
-    "text": "Splitting the data\n\nnp.random.seed(1)\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)\n\n\n\n\n\n\n\nNote\n\n\nWe are not specifying the stratify argument. The train_test_split() function cannot stratify on a quantitative variable\n\n\n\nMetric: RMS(P)E\nRoot Mean Square (Prediction) Error\n\\[\\text{RMSPE} = \\sqrt{\\frac{1}{n}\\sum\\limits_{i=1}^{n}(y_i - \\hat{y}_i)^2}\\]\nwhere:\n\n\\(n\\) is the number of observations,\n\\(y_i\\) is the observed value for the \\(i^\\text{th}\\) observation, and\n\\(\\hat{y}_i\\) is the forecasted/predicted value for the \\(i^\\text{th}\\) observation.\n\nMetric: Visualize\n\n\n\n\n\n\n\n\nRMSPE vs RMSE\nRoot Mean Square (Prediction) Error\n\nRMSPE: the error calculated on the non-training dataset\nRMSE: the error calcualted on the training dataset\n\nThis notation is a statistics distinction, you will most likely see RMSPE written as RMSE.\nChoosing \\(k\\)\nAs we did previously, we can use cross-validation and select the value of \\(k\\) that yields the lowest RMSE to choose the best model.",
+    "text": "Splitting the data\n\nnp.random.seed(1)\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)\n\n\n\n\n\n\n\nNote\n\n\nWe are not specifying the stratify argument. The train_test_split() function cannot stratify on a quantitative variable",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#metric-rmspe",
+    "href": "materials/slides/regression.html#metric-rmspe",
+    "title": "Regression",
+    "section": "Metric: RMS(P)E",
+    "text": "Metric: RMS(P)E\nRoot Mean Square (Prediction) Error\n\\[\\text{RMSPE} = \\sqrt{\\frac{1}{n}\\sum\\limits_{i=1}^{n}(y_i - \\hat{y}_i)^2}\\]\nwhere:\n\n\\(n\\) is the number of observations,\n\\(y_i\\) is the observed value for the \\(i^\\text{th}\\) observation, and\n\\(\\hat{y}_i\\) is the forecasted/predicted value for the \\(i^\\text{th}\\) observation.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#metric-visualize",
+    "href": "materials/slides/regression.html#metric-visualize",
+    "title": "Regression",
+    "section": "Metric: Visualize",
+    "text": "Metric: Visualize",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#rmspe-vs-rmse",
+    "href": "materials/slides/regression.html#rmspe-vs-rmse",
+    "title": "Regression",
+    "section": "RMSPE vs RMSE",
+    "text": "RMSPE vs RMSE\nRoot Mean Square (Prediction) Error\n\nRMSPE: the error calculated on the non-training dataset\nRMSE: the error calcualted on the training dataset\n\nThis notation is a statistics distinction, you will most likely see RMSPE written as RMSE.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#choosing-k",
+    "href": "materials/slides/regression.html#choosing-k",
+    "title": "Regression",
+    "section": "Choosing \\(k\\)",
+    "text": "Choosing \\(k\\)\nAs we did previously, we can use cross-validation and select the value of \\(k\\) that yields the lowest RMSE to choose the best model.",
     "crumbs": [
       "Home",
       "Slides",
@@ -95,7 +215,19 @@
     "href": "materials/slides/regression.html#evaluating-on-the-test-set",
     "title": "Regression",
     "section": "Evaluating on the test set",
-    "text": "Evaluating on the test set\n\nThen we retrain the K-NN regression model on the entire training data set using best \\(k\\).\n\n\nfrom sklearn.metrics import mean_squared_error\n\nsacramento_test['predicted'] = sacr_gridsearch.predict(sacramento_test)\nRMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nRMSPE\n\n87498.86808211416\n\n\n\nThe code for running cross-validation to get sacr_gridsearch is included at the end of the slides for reference.\n\nFinal best K model\nPredicted values of house price (orange line) for the final K-NN regression model.\n\n\n\n\n\n\n\n\n\nK-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.",
+    "text": "Evaluating on the test set\n\nThen we retrain the K-NN regression model on the entire training data set using best \\(k\\).\n\n\nfrom sklearn.metrics import mean_squared_error\n\nsacramento_test['predicted'] = sacr_gridsearch.predict(sacramento_test)\nRMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nRMSPE\n\n87498.86808211416\n\n\n\nThe code for running cross-validation to get sacr_gridsearch is included at the end of the slides for reference.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#final-best-k-model",
+    "href": "materials/slides/regression.html#final-best-k-model",
+    "title": "Regression",
+    "section": "Final best K model",
+    "text": "Final best K model\nPredicted values of house price (orange line) for the final K-NN regression model.\n\n\n\n\n\n\n\n\n\nK-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.",
     "crumbs": [
       "Home",
       "Slides",
@@ -119,7 +251,79 @@
     "href": "materials/slides/regression.html#linear-regression",
     "title": "Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\n\nAddresses the limitations from KNN regression\nProvides an interpretable mathematical equation that describes the relationship between the predictor and response variables\nCreates a straight line of best fit through the training data\n\n\n\n\n\n\n\nNote\n\n\nLogistic regression is the linear model we can use for binary classification\n\n\n\nSacramento real estate\n\nimport pandas as pd\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nnp.random.seed(42)\nsmall_sacramento = sacramento.sample(n=30)\n\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n829  SACRAMENTO  z95824     3    1.0  1161  Residential  109000  38.511893   \n70    ELK_GROVE  z95624     4    2.0  1715  Residential  199500  38.440760   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n909  SACRAMENTO  z95828     3    1.0   888  Residential  216021  38.508217   \n265  SACRAMENTO  z95835     4    3.0  2030  Residential  270000  38.671807   \n\n      longitude  \n829 -121.457676  \n70  -121.385792  \n..          ...  \n909 -121.411207  \n265 -121.498274  \n\n[30 rows x 9 columns]\n\n\nSacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house sale price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term\n\n\nSacramento real estate: Prediction\n\n\n\n\n\n\n\n\nEstimating a line\n\n\n\n\n\n\n\n\nWhat makes the best line?\nTo define the best line we need to know how to measure the distance of the points to the line!\nWhich of the following criteria would you choose to define “distance of a point to the line”?\n\n\nFigure by Dr. Joel Ostblom\n\nLeast squares\nLeast Squares method minimizes the sum of the squares of the residuals. The residuals are the difference between the observed value of the response (\\(y_i\\)) and the predicted value of the response (\\(\\hat{y}_i\\)):\n\\[r_i = y_i-\\hat{y}_i\\]\n\n\n\n\n\n\n\n\n\nThe residuals are the vertical distances of each point to the estimated line",
+    "text": "Linear Regression\n\nAddresses the limitations from KNN regression\nProvides an interpretable mathematical equation that describes the relationship between the predictor and response variables\nCreates a straight line of best fit through the training data\n\n\n\n\n\n\n\nNote\n\n\nLogistic regression is the linear model we can use for binary classification",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate",
+    "href": "materials/slides/regression.html#sacramento-real-estate",
+    "title": "Regression",
+    "section": "Sacramento real estate",
+    "text": "Sacramento real estate\n\nimport pandas as pd\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nnp.random.seed(42)\nsmall_sacramento = sacramento.sample(n=30)\n\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n829  SACRAMENTO  z95824     3    1.0  1161  Residential  109000  38.511893   \n70    ELK_GROVE  z95624     4    2.0  1715  Residential  199500  38.440760   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n909  SACRAMENTO  z95828     3    1.0   888  Residential  216021  38.508217   \n265  SACRAMENTO  z95835     4    3.0  2030  Residential  270000  38.671807   \n\n      longitude  \n829 -121.457676  \n70  -121.385792  \n..          ...  \n909 -121.411207  \n265 -121.498274  \n\n[30 rows x 9 columns]",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate-best-fit-line",
+    "href": "materials/slides/regression.html#sacramento-real-estate-best-fit-line",
+    "title": "Regression",
+    "section": "Sacramento real estate: best fit line",
+    "text": "Sacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house sale price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate-prediction",
+    "href": "materials/slides/regression.html#sacramento-real-estate-prediction",
+    "title": "Regression",
+    "section": "Sacramento real estate: Prediction",
+    "text": "Sacramento real estate: Prediction",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#estimating-a-line",
+    "href": "materials/slides/regression.html#estimating-a-line",
+    "title": "Regression",
+    "section": "Estimating a line",
+    "text": "Estimating a line",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#what-makes-the-best-line",
+    "href": "materials/slides/regression.html#what-makes-the-best-line",
+    "title": "Regression",
+    "section": "What makes the best line?",
+    "text": "What makes the best line?\nTo define the best line we need to know how to measure the distance of the points to the line!\nWhich of the following criteria would you choose to define “distance of a point to the line”?\n\n\nFigure by Dr. Joel Ostblom",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#least-squares",
+    "href": "materials/slides/regression.html#least-squares",
+    "title": "Regression",
+    "section": "Least squares",
+    "text": "Least squares\nLeast Squares method minimizes the sum of the squares of the residuals. The residuals are the difference between the observed value of the response (\\(y_i\\)) and the predicted value of the response (\\(\\hat{y}_i\\)):\n\\[r_i = y_i-\\hat{y}_i\\]\n\n\n\n\n\n\n\n\n\nThe residuals are the vertical distances of each point to the estimated line",
     "crumbs": [
       "Home",
       "Slides",
@@ -143,7 +347,67 @@
     "href": "materials/slides/regression.html#linear-regression-in-python",
     "title": "Regression",
     "section": "Linear regression in Python",
-    "text": "Linear regression in Python\nThe scikit-learn pattern still applies:\n\nCreate a training and test set\nInstantiate a model\nFit the model on training\nUse model on testing set\n\nLinear regression: Train test split\n\nimport numpy as np\nimport altair as alt\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nnp.random.seed(1)\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)\n\nLinear regression: Fit the model\n\n# fit the linear regression model\nlm = LinearRegression()\nlm.fit(\n    sacramento_train[['sqft']],  # A single-column data frame\n    sacramento_train['price'],  # A series\n)\n\n# make a dataframe containing slope and intercept coefficients\nresults_df = pd.DataFrame({'slope': [lm.coef_[0]], 'intercept': [lm.intercept_]})\nprint(results_df)\n\n        slope     intercept\n0  137.285652  15642.309105\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)\nLinear regression: Predictions\n\n# make predictions\nsacramento_test[\"predicted\"] = lm.predict(sacramento_test[[\"sqft\"]])\n\n# calculate RMSPE\nRMSPE = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE\n\n85376.59691629931\n\n\nLinear regression: Plot\n\n\n\n\n\n\n\n\nStandarization\n\nWe did not need to standarize like we did for KNN.\nIn linear regression, if we standarize, we convert all the units to unit-less standard deviations\nStandarization in linear regression does not change the fit of the model\n\nIt will, however, change the coefficients!",
+    "text": "Linear regression in Python\nThe scikit-learn pattern still applies:\n\nCreate a training and test set\nInstantiate a model\nFit the model on training\nUse model on testing set",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#linear-regression-train-test-split",
+    "href": "materials/slides/regression.html#linear-regression-train-test-split",
+    "title": "Regression",
+    "section": "Linear regression: Train test split",
+    "text": "Linear regression: Train test split\n\nimport numpy as np\nimport altair as alt\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nnp.random.seed(1)\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#linear-regression-fit-the-model",
+    "href": "materials/slides/regression.html#linear-regression-fit-the-model",
+    "title": "Regression",
+    "section": "Linear regression: Fit the model",
+    "text": "Linear regression: Fit the model\n\n# fit the linear regression model\nlm = LinearRegression()\nlm.fit(\n    sacramento_train[['sqft']],  # A single-column data frame\n    sacramento_train['price'],  # A series\n)\n\n# make a dataframe containing slope and intercept coefficients\nresults_df = pd.DataFrame({'slope': [lm.coef_[0]], 'intercept': [lm.intercept_]})\nprint(results_df)\n\n        slope     intercept\n0  137.285652  15642.309105\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#linear-regression-predictions",
+    "href": "materials/slides/regression.html#linear-regression-predictions",
+    "title": "Regression",
+    "section": "Linear regression: Predictions",
+    "text": "Linear regression: Predictions\n\n# make predictions\nsacramento_test[\"predicted\"] = lm.predict(sacramento_test[[\"sqft\"]])\n\n# calculate RMSPE\nRMSPE = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE\n\n85376.59691629931",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#linear-regression-plot",
+    "href": "materials/slides/regression.html#linear-regression-plot",
+    "title": "Regression",
+    "section": "Linear regression: Plot",
+    "text": "Linear regression: Plot",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#standarization",
+    "href": "materials/slides/regression.html#standarization",
+    "title": "Regression",
+    "section": "Standarization",
+    "text": "Standarization\n\nWe did not need to standarize like we did for KNN.\nIn linear regression, if we standarize, we convert all the units to unit-less standard deviations\nStandarization in linear regression does not change the fit of the model\n\nIt will, however, change the coefficients!",
     "crumbs": [
       "Home",
       "Slides",
@@ -167,7 +431,55 @@
     "href": "materials/slides/regression.html#multiple-linear-regression",
     "title": "Regression",
     "section": "Multiple linear regression",
-    "text": "Multiple linear regression\n\nMore predictor variables! (More does not always mean better…)\nWhen \\(p\\), the number of variables, is greater than 1, we have multiple linear regression.\n\n\nNote: We will talk about categorical predictors later in the workshop\n\nSacramento real estate: 2 predictors\n\nmlm = LinearRegression()\nmlm.fit(sacramento_train[['sqft', 'beds']], sacramento_train['price'])\n\nsacramento_test['predicted'] = mlm.predict(sacramento_test[['sqft', 'beds']])\n\nSacramento real estate: Coefficients\n\nmlm.coef_\n\narray([   154.59235377, -20333.43213798])\n\n\n\nmlm.intercept_\n\nnp.float64(53180.26906624224)\n\n\n\\[\\text{house sale price} = 53180.27 + 154.59\\cdot(\\text{house size}) -20333.43\\cdot(\\text{bedrooms}),\\] where:\n\nIntercept (\\(\\hat{\\beta}_0=53180.27\\)): Predicted sale price when house size = 0 and bedrooms = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=154.59\\)): Holding bedrooms constant, each extra unit of size (e.g., square foot) increases the price by $154.59 on average.\nNumber of bedrooms (\\(\\hat{\\beta}_2=-20333.43\\)): Holding size constant, each additional bedroom reduces price by about $20,333.\n\nMore variables make it harder to visualize\n\n\n        \n        \n        \n\n\n                            \n                                            \n\n\nSacramento real estate: mlm rmspe\n\nlm_mult_test_RMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nlm_mult_test_RMSPE\n\n82331.04630202598",
+    "text": "Multiple linear regression\n\nMore predictor variables! (More does not always mean better…)\nWhen \\(p\\), the number of variables, is greater than 1, we have multiple linear regression.\n\n\nNote: We will talk about categorical predictors later in the workshop",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate-2-predictors",
+    "href": "materials/slides/regression.html#sacramento-real-estate-2-predictors",
+    "title": "Regression",
+    "section": "Sacramento real estate: 2 predictors",
+    "text": "Sacramento real estate: 2 predictors\n\nmlm = LinearRegression()\nmlm.fit(sacramento_train[['sqft', 'beds']], sacramento_train['price'])\n\nsacramento_test['predicted'] = mlm.predict(sacramento_test[['sqft', 'beds']])",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate-coefficients",
+    "href": "materials/slides/regression.html#sacramento-real-estate-coefficients",
+    "title": "Regression",
+    "section": "Sacramento real estate: Coefficients",
+    "text": "Sacramento real estate: Coefficients\n\nmlm.coef_\n\narray([   154.59235377, -20333.43213798])\n\n\n\nmlm.intercept_\n\nnp.float64(53180.26906624224)\n\n\n\\[\\text{house sale price} = 53180.27 + 154.59\\cdot(\\text{house size}) -20333.43\\cdot(\\text{bedrooms}),\\] where:\n\nIntercept (\\(\\hat{\\beta}_0=53180.27\\)): Predicted sale price when house size = 0 and bedrooms = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=154.59\\)): Holding bedrooms constant, each extra unit of size (e.g., square foot) increases the price by $154.59 on average.\nNumber of bedrooms (\\(\\hat{\\beta}_2=-20333.43\\)): Holding size constant, each additional bedroom reduces price by about $20,333.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#more-variables-make-it-harder-to-visualize",
+    "href": "materials/slides/regression.html#more-variables-make-it-harder-to-visualize",
+    "title": "Regression",
+    "section": "More variables make it harder to visualize",
+    "text": "More variables make it harder to visualize",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#sacramento-real-estate-mlm-rmspe",
+    "href": "materials/slides/regression.html#sacramento-real-estate-mlm-rmspe",
+    "title": "Regression",
+    "section": "Sacramento real estate: mlm rmspe",
+    "text": "Sacramento real estate: mlm rmspe\n\nlm_mult_test_RMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nlm_mult_test_RMSPE\n\n82331.04630202598",
     "crumbs": [
       "Home",
       "Slides",
@@ -179,7 +491,31 @@
     "href": "materials/slides/regression.html#outliers-and-multicollinearity",
     "title": "Regression",
     "section": "Outliers and Multicollinearity",
-    "text": "Outliers and Multicollinearity\n\nOutliers: extreme values that can move the best fit line\nMulticollinearity: variables that are highly correlated to one another\n\nOutliers\n\n\nSubset\n\n\n\n\n\n\n\n\n\nFull data\n\n\n\n\n\n\n\n\n\nMulticollinearity\n\nMulticollinearity means that some (or all) of the explanatory variables are linearly related!\nWhen this happens, the coefficient estimates are very “unstable” and the contribution of one variable gets mixed with that of another variable correlated with it.\nEssentially, the plane of best fit has regression coefficients that are very sensitive to the exact values in the data.",
+    "text": "Outliers and Multicollinearity\n\nOutliers: extreme values that can move the best fit line\nMulticollinearity: variables that are highly correlated to one another",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#outliers",
+    "href": "materials/slides/regression.html#outliers",
+    "title": "Regression",
+    "section": "Outliers",
+    "text": "Outliers\n\n\nSubset\n\n\n\n\n\n\n\n\n\nFull data",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multicollinearity",
+    "href": "materials/slides/regression.html#multicollinearity",
+    "title": "Regression",
+    "section": "Multicollinearity",
+    "text": "Multicollinearity\n\nMulticollinearity means that some (or all) of the explanatory variables are linearly related!\nWhen this happens, the coefficient estimates are very “unstable” and the contribution of one variable gets mixed with that of another variable correlated with it.\nEssentially, the plane of best fit has regression coefficients that are very sensitive to the exact values in the data.",
     "crumbs": [
       "Home",
       "Slides",
@@ -227,7 +563,19 @@
     "href": "materials/slides/regression.html#choosing-the-shrinkage-parameter",
     "title": "Regression",
     "section": "Choosing the shrinkage parameter",
-    "text": "Choosing the shrinkage parameter\n\nThe \\(\\alpha\\) parameter controls the strength of the L1 penalty:\n\nLarger \\(\\alpha\\) → stronger regularization → more coefficients shrunk to zero\nSmaller \\(\\alpha\\) → less regularization → more complex model\n\nProper selection of \\(\\alpha\\) is critical for balancing bias and variance.\n\nTuning \\(\\alpha\\) with cross-validation\n\nJust like tuning \\(k\\) in KNN, we can select \\(\\alpha\\) by evaluating performance on validation sets.\nExample workflow with GridSearchCV:\n\n\npipeline = make_pipeline(\n    sacr_preprocessor,\n    Lasso(max_iter=10000)\n)\n\nparam_grid = {\n    'lasso__alpha': np.arange(1, 3000, 10.0)\n}\n\ngrid_search = GridSearchCV(\n    estimator=pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\ngrid_search.fit(X_train, y_train)\n\nprint(\"Best alpha:\", grid_search.best_params_['lasso__alpha'])\nprint(\"Coefficients:\", coefs)\n\nBest alpha: 1891.0\nCoefficients: [-10065.94683829      0.         103554.95899024]",
+    "text": "Choosing the shrinkage parameter\n\nThe \\(\\alpha\\) parameter controls the strength of the L1 penalty:\n\nLarger \\(\\alpha\\) → stronger regularization → more coefficients shrunk to zero\nSmaller \\(\\alpha\\) → less regularization → more complex model\n\nProper selection of \\(\\alpha\\) is critical for balancing bias and variance.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#tuning-alpha-with-cross-validation",
+    "href": "materials/slides/regression.html#tuning-alpha-with-cross-validation",
+    "title": "Regression",
+    "section": "Tuning \\(\\alpha\\) with cross-validation",
+    "text": "Tuning \\(\\alpha\\) with cross-validation\n\nJust like tuning \\(k\\) in KNN, we can select \\(\\alpha\\) by evaluating performance on validation sets.\nExample workflow with GridSearchCV:\n\n\npipeline = make_pipeline(\n    sacr_preprocessor,\n    Lasso(max_iter=10000)\n)\n\nparam_grid = {\n    'lasso__alpha': np.arange(1, 3000, 10.0)\n}\n\ngrid_search = GridSearchCV(\n    estimator=pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\ngrid_search.fit(X_train, y_train)\n\nprint(\"Best alpha:\", grid_search.best_params_['lasso__alpha'])\nprint(\"Coefficients:\", coefs)\n\nBest alpha: 1891.0\nCoefficients: [-10065.94683829      0.         103554.95899024]",
     "crumbs": [
       "Home",
       "Slides",
@@ -287,7 +635,79 @@
     "href": "materials/slides/regression.html#code-for-cv-in-k-nn-regression",
     "title": "Regression",
     "section": "Code for CV in K-NN regression",
-    "text": "Code for CV in K-NN regression\n\nfrom sklearn.neighbors import KNeighborsRegressor\n\n# preprocess the data, make the pipeline\nsacr_preprocessor = make_column_transformer((StandardScaler(), ['sqft']))\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 201, 3),\n}\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\n# fit the GridSearchCV object\nsacr_gridsearch.fit(\n    sacramento_train[['sqft']],  \n    sacramento_train['price']\n)\n\nsacr_gridsearch.best_params_\n\n# Retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n\nbest_k_sacr = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nbest_cv_RMSPE = min(sacr_results[\"mean_test_score\"])\n\nMultivariable K-NN regression: Preprocessor\n\nsacr_preprocessor = make_column_transformer(\n    (StandardScaler(), ['sqft', 'beds'])\n)\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())\n\nMultivariable K-NN regression: CV\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 50),\n}\n\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error',\n)\n\nsacr_gridsearch.fit(\n    sacramento_train[['sqft', 'beds']], sacramento_train['price']\n)\n\nGridSearchCV(cv=5,\n             estimator=Pipeline(steps=[('columntransformer',\n                                        ColumnTransformer(transformers=[('standardscaler',\n                                                                         StandardScaler(),\n                                                                         ['sqft',\n                                                                          'beds'])])),\n                                       ('kneighborsregressor',\n                                        KNeighborsRegressor())]),\n             param_grid={'kneighborsregressor__n_neighbors': range(1, 50)},\n             scoring='neg_root_mean_squared_error')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.GridSearchCV?Documentation for GridSearchCViFitted\n        \n            \n                Parameters\n                \n\n\n\n\nestimator \nPipeline(step...Regressor())])\n\n\n\nparam_grid \n{'kneighborsregressor__n_neighbors': range(1, 50)}\n\n\n\nscoring \n'neg_root_mean_squared_error'\n\n\n\nn_jobs \nNone\n\n\n\nrefit \nTrue\n\n\n\ncv \n5\n\n\n\nverbose \n0\n\n\n\npre_dispatch \n'2*n_jobs'\n\n\n\nerror_score \nnan\n\n\n\nreturn_train_score \nFalse\n\n\n\n\n            \n        \n    best_estimator_: Pipelinecolumntransformer: ColumnTransformer?Documentation for columntransformer: ColumnTransformer\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['sqft', 'beds']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue\n\n\n\n\n            \n        \n    KNeighborsRegressor?Documentation for KNeighborsRegressor\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n29\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone\n\n\n\n\n            \n        \n    \n\n\nMultivariable K-NN regression: Best K\n\n# retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results['mean_test_score'] = -sacr_results['mean_test_score']\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n# show only the row of minimum RMSPE\nsacr_results.nsmallest(1, 'mean_test_score')\n\n\n\n\n\n\n\n\nn_neighbors\nmean_test_score\n\n\n\n\n28\n29\n85156.027067\n\n\n\n\n\n\n\nMultivariable K-NN regression: Best model\n\nbest_k_sacr_multi = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nmin_rmspe_sacr_multi = min(sacr_results[\"mean_test_score\"])\n\nBest K\n\nbest_k_sacr_multi\n\nnp.int64(29)\n\n\nBest RMSPE\n\nmin_rmspe_sacr_multi\n\n85156.02706746716\n\n\nMultivariable K-NN regression: Test data\n\nsacramento_test[\"predicted\"] = sacr_gridsearch.predict(sacramento_test)\nRMSPE_mult = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE_mult\n\n85083.2902421959\n\n\nMultivariable K-NN regression: Visualize",
+    "text": "Code for CV in K-NN regression\n\nfrom sklearn.neighbors import KNeighborsRegressor\n\n# preprocess the data, make the pipeline\nsacr_preprocessor = make_column_transformer((StandardScaler(), ['sqft']))\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 201, 3),\n}\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\n# fit the GridSearchCV object\nsacr_gridsearch.fit(\n    sacramento_train[['sqft']],  \n    sacramento_train['price']\n)\n\nsacr_gridsearch.best_params_\n\n# Retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n\nbest_k_sacr = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nbest_cv_RMSPE = min(sacr_results[\"mean_test_score\"])",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-preprocessor",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-preprocessor",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: Preprocessor",
+    "text": "Multivariable K-NN regression: Preprocessor\n\nsacr_preprocessor = make_column_transformer(\n    (StandardScaler(), ['sqft', 'beds'])\n)\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-cv",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-cv",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: CV",
+    "text": "Multivariable K-NN regression: CV\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 50),\n}\n\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error',\n)\n\nsacr_gridsearch.fit(\n    sacramento_train[['sqft', 'beds']], sacramento_train['price']\n)\n\nGridSearchCV(cv=5,\n             estimator=Pipeline(steps=[('columntransformer',\n                                        ColumnTransformer(transformers=[('standardscaler',\n                                                                         StandardScaler(),\n                                                                         ['sqft',\n                                                                          'beds'])])),\n                                       ('kneighborsregressor',\n                                        KNeighborsRegressor())]),\n             param_grid={'kneighborsregressor__n_neighbors': range(1, 50)},\n             scoring='neg_root_mean_squared_error')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.GridSearchCV?Documentation for GridSearchCViFitted\n        \n            \n                Parameters\n                \n\n\n\n\nestimator \nPipeline(step...Regressor())])\n\n\n\nparam_grid \n{'kneighborsregressor__n_neighbors': range(1, 50)}\n\n\n\nscoring \n'neg_root_mean_squared_error'\n\n\n\nn_jobs \nNone\n\n\n\nrefit \nTrue\n\n\n\ncv \n5\n\n\n\nverbose \n0\n\n\n\npre_dispatch \n'2*n_jobs'\n\n\n\nerror_score \nnan\n\n\n\nreturn_train_score \nFalse\n\n\n\n\n            \n        \n    best_estimator_: Pipelinecolumntransformer: ColumnTransformer?Documentation for columntransformer: ColumnTransformer\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['sqft', 'beds']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue\n\n\n\n\n            \n        \n    KNeighborsRegressor?Documentation for KNeighborsRegressor\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n29\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-best-k",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-best-k",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: Best K",
+    "text": "Multivariable K-NN regression: Best K\n\n# retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results['mean_test_score'] = -sacr_results['mean_test_score']\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n# show only the row of minimum RMSPE\nsacr_results.nsmallest(1, 'mean_test_score')\n\n\n\n\n\n\n\n\nn_neighbors\nmean_test_score\n\n\n\n\n28\n29\n85156.027067",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-best-model",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-best-model",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: Best model",
+    "text": "Multivariable K-NN regression: Best model\n\nbest_k_sacr_multi = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nmin_rmspe_sacr_multi = min(sacr_results[\"mean_test_score\"])\n\nBest K\n\nbest_k_sacr_multi\n\nnp.int64(29)\n\n\nBest RMSPE\n\nmin_rmspe_sacr_multi\n\n85156.02706746716",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-test-data",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-test-data",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: Test data",
+    "text": "Multivariable K-NN regression: Test data\n\nsacramento_test[\"predicted\"] = sacr_gridsearch.predict(sacramento_test)\nRMSPE_mult = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE_mult\n\n85083.2902421959",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#multivariable-k-nn-regression-visualize",
+    "href": "materials/slides/regression.html#multivariable-k-nn-regression-visualize",
+    "title": "Regression",
+    "section": "Multivariable K-NN regression: Visualize",
+    "text": "Multivariable K-NN regression: Visualize",
     "crumbs": [
       "Home",
       "Slides",
@@ -787,11 +1207,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/classification1.html#section",
-    "href": "materials/slides/classification1.html#section",
+    "objectID": "materials/slides/classification1.html#introductions",
+    "href": "materials/slides/classification1.html#introductions",
     "title": "Classification I: training & predicting",
-    "section": "",
-    "text": "Tiffany Timbers\nAssociate Prof. of Teaching, Dept. of Statistics, UBC\n\n\n\n\nKatie Burak\nAssistant Prof. of Teaching, Dept. of Statistics, UBC\n\n\n\n\n\nSource: https://visit.ubc.ca/plan-your-trip/",
+    "section": "Introductions",
+    "text": "Introductions\n\n\n\n\nTiffany Timbers\nAssociate Professor of Teaching,  Dept. of Statistics, UBC\n\n\n\nKatie Burak\nAssistant Professor of Teaching,  Dept. of Statistics, UBC",
     "crumbs": [
       "Home",
       "Slides",
@@ -875,7 +1295,7 @@
     "href": "materials/slides/classification1.html#loading-the-cancer-data",
     "title": "Classification I: training & predicting",
     "section": "Loading the cancer data",
-    "text": "Loading the cancer data\n\nimport pandas as pd\nimport altair as alt\n\ncancer = pd.read_csv(\"data/wdbc.csv\")\nprint(cancer)\n\n           ID Class    Radius   Texture  Perimeter      Area  Smoothness  \\\n0      842302     M  1.096100 -2.071512   1.268817  0.983510    1.567087   \n1      842517     M  1.828212 -0.353322   1.684473  1.907030   -0.826235   \n2    84300903     M  1.578499  0.455786   1.565126  1.557513    0.941382   \n..        ...   ...       ...       ...        ...       ...         ...   \n566    926954     M  0.701667  2.043775   0.672084  0.577445   -0.839745   \n567    927241     M  1.836725  2.334403   1.980781  1.733693    1.524426   \n568     92751     B -1.806811  1.220718  -1.812793 -1.346604   -3.109349   \n\n     Compactness  Concavity  Concave_Points  Symmetry  Fractal_Dimension  \n0       3.280628   2.650542        2.530249  2.215566           2.253764  \n1      -0.486643  -0.023825        0.547662  0.001391          -0.867889  \n2       1.052000   1.362280        2.035440  0.938859          -0.397658  \n..           ...        ...             ...       ...                ...  \n566    -0.038646   0.046547        0.105684 -0.808406          -0.894800  \n567     3.269267   3.294046        2.656528  2.135315           1.042778  \n568    -1.149741  -1.113893       -1.260710 -0.819349          -0.560539  \n\n[569 rows x 12 columns]\n\n\n\nthese values have been standardized (centered and scaled)",
+    "text": "Loading the cancer data\n\n\n\n\n\n\n\nthese values have been standardized (centered and scaled)",
     "crumbs": [
       "Home",
       "Slides",
@@ -899,7 +1319,7 @@
     "href": "materials/slides/classification1.html#dataframe-info",
     "title": "Classification I: training & predicting",
     "section": "DataFrame; info",
-    "text": "DataFrame; info\n\ncancer.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 569 entries, 0 to 568\nData columns (total 12 columns):\n #   Column             Non-Null Count  Dtype  \n---  ------             --------------  -----  \n 0   ID                 569 non-null    int64  \n 1   Class              569 non-null    object \n 2   Radius             569 non-null    float64\n 3   Texture            569 non-null    float64\n 4   Perimeter          569 non-null    float64\n 5   Area               569 non-null    float64\n 6   Smoothness         569 non-null    float64\n 7   Compactness        569 non-null    float64\n 8   Concavity          569 non-null    float64\n 9   Concave_Points     569 non-null    float64\n 10  Symmetry           569 non-null    float64\n 11  Fractal_Dimension  569 non-null    float64\ndtypes: float64(10), int64(1), object(1)\nmemory usage: 53.5+ KB",
+    "text": "DataFrame; info",
     "crumbs": [
       "Home",
       "Slides",
@@ -911,7 +1331,7 @@
     "href": "materials/slides/classification1.html#series-unique",
     "title": "Classification I: training & predicting",
     "section": "Series; unique",
-    "text": "Series; unique\n\ncancer[\"Class\"].unique()\n\narray(['M', 'B'], dtype=object)",
+    "text": "Series; unique",
     "crumbs": [
       "Home",
       "Slides",
@@ -923,7 +1343,7 @@
     "href": "materials/slides/classification1.html#series-replace",
     "title": "Classification I: training & predicting",
     "section": "Series; replace",
-    "text": "Series; replace\n\ncancer[\"Class\"] = cancer[\"Class\"].replace({\n    \"M\" : \"Malignant\",\n    \"B\" : \"Benign\"\n})\n\ncancer[\"Class\"].unique()\n\narray(['Malignant', 'Benign'], dtype=object)",
+    "text": "Series; replace",
     "crumbs": [
       "Home",
       "Slides",
@@ -935,7 +1355,7 @@
     "href": "materials/slides/classification1.html#exploring-the-cancer-data",
     "title": "Classification I: training & predicting",
     "section": "Exploring the cancer data",
-    "text": "Exploring the cancer data\n\n\n\ncancer.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 569 entries, 0 to 568\nData columns (total 12 columns):\n #   Column             Non-Null Count  Dtype  \n---  ------             --------------  -----  \n 0   ID                 569 non-null    int64  \n 1   Class              569 non-null    object \n 2   Radius             569 non-null    float64\n 3   Texture            569 non-null    float64\n 4   Perimeter          569 non-null    float64\n 5   Area               569 non-null    float64\n 6   Smoothness         569 non-null    float64\n 7   Compactness        569 non-null    float64\n 8   Concavity          569 non-null    float64\n 9   Concave_Points     569 non-null    float64\n 10  Symmetry           569 non-null    float64\n 11  Fractal_Dimension  569 non-null    float64\ndtypes: float64(10), int64(1), object(1)\nmemory usage: 53.5+ KB\n\n\n\n\ncancer[\"Class\"].value_counts()\n\nClass\nBenign       357\nMalignant    212\nName: count, dtype: int64\n\n\n\ncancer[\"Class\"].value_counts(normalize=True)\n\nClass\nBenign       0.627417\nMalignant    0.372583\nName: proportion, dtype: float64",
+    "text": "Exploring the cancer data",
     "crumbs": [
       "Home",
       "Slides",
@@ -947,7 +1367,7 @@
     "href": "materials/slides/classification1.html#visualization-scatter",
     "title": "Classification I: training & predicting",
     "section": "Visualization; scatter",
-    "text": "Visualization; scatter\n\nperim_concav = alt.Chart(cancer).mark_circle().encode(\n    x=alt.X(\"Perimeter\").title(\"Perimeter (standardized)\"),\n    y=alt.Y(\"Concavity\").title(\"Concavity (standardized)\"),\n    color=alt.Color(\"Class\").title(\"Diagnosis\")\n)\nperim_concav\n\n\n\n\n\n\n\n\nMalignant: upper right-hand corner\nBenign: lower left-hand corner",
+    "text": "Visualization; scatter\n\n\n\n\n\n\n\nMalignant: upper right-hand corner\nBenign: lower left-hand corner",
     "crumbs": [
       "Home",
       "Slides",
@@ -959,7 +1379,7 @@
     "href": "materials/slides/classification1.html#classification-with-k-nearest-neighbors",
     "title": "Classification I: training & predicting",
     "section": "Classification with K-nearest neighbors",
-    "text": "Classification with K-nearest neighbors\n\nnew_point = [2, 4]\nattrs = [\"Perimeter\", \"Concavity\"]\n\npoints_df = pd.DataFrame(\n    {\"Perimeter\": new_point[0], \"Concavity\": new_point[1], \"Class\": [\"Unknown\"]}\n)\n\nperim_concav_with_new_point_df = pd.concat((cancer, points_df), ignore_index=True)\nprint(perim_concav_with_new_point_df.iloc[[-1]])\n\n     ID    Class  Radius  Texture  Perimeter  Area  Smoothness  Compactness  \\\n569 NaN  Unknown     NaN      NaN        2.0   NaN         NaN          NaN   \n\n     Concavity  Concave_Points  Symmetry  Fractal_Dimension  \n569        4.0             NaN       NaN                NaN  \n\n\n\nCompute the distance matrix between each pair from a vector array X and Y\n\n\nfrom sklearn.metrics.pairwise import euclidean_distances\n\n# distance of new point to all other points\nmy_distances = euclidean_distances(perim_concav_with_new_point_df[attrs])[len(cancer)][:-1]",
+    "text": "Classification with K-nearest neighbors",
     "crumbs": [
       "Home",
       "Slides",
@@ -967,11 +1387,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/classification1.html#distances-euclidean_distances",
-    "href": "materials/slides/classification1.html#distances-euclidean_distances",
+    "objectID": "materials/slides/classification1.html#distances",
+    "href": "materials/slides/classification1.html#distances",
     "title": "Classification I: training & predicting",
-    "section": "Distances (euclidean_distances())",
-    "text": "Distances (euclidean_distances())\n\nlen(my_distances)\n\n569\n\n\n\n# distance of new point to all other points\nmy_distances\n\narray([1.5348178 , 4.03617694, 2.67332814, 3.32713588, 2.63979916,\n       3.93975767, 3.79946977, 4.45111808, 3.53679058, 3.24726821,\n       4.951685  , 4.1538876 , 2.54585424, 4.15425044, 3.11637861,\n       3.55044614, 4.59148187, 3.2419721 , 3.28753437, 4.80392314,\n       5.0725937 , 5.77909213, 2.95751989, 3.74039071, 3.43925614,\n       2.52875652, 3.77084705, 3.33265886, 3.38875698, 4.01548319,\n       2.29844791, 4.41639587, 2.37500289, 3.07980178, 3.68423234,\n       3.64538579, 3.96211289, 5.35324353, 5.15747872, 4.34753568,\n       5.22721626, 4.73904767, 2.52193106, 4.45490282, 4.66689367,\n       2.72752709, 6.12589249, 4.22308671, 4.99998799, 5.02870163,\n       5.6046947 , 5.35214561, 5.55043261, 3.00901521, 4.79823955,\n       5.48235796, 3.5095414 , 3.95297778, 5.63490804, 6.01390031,\n       5.87933291, 5.91132619, 3.03871581, 5.49969602, 4.39948134,\n       3.94696965, 5.86541424, 5.44232875, 3.5688574 , 5.25454378,\n       3.82344861, 5.25379158, 3.18218244, 4.62286207, 5.32774445,\n       4.16803695, 4.77170639, 3.116331  , 0.42493342, 5.19385448,\n       5.30482795, 4.27283113, 1.5738716 , 2.72530186, 5.28695027,\n       3.53135424, 4.07667556, 3.36046764, 5.02616064, 4.28105636,\n       5.08987644, 4.06173178, 5.23583761, 5.12196626, 3.41101552,\n       3.29340171, 5.45247337, 5.97564782, 5.33610215, 4.36938678,\n       4.5747129 , 6.48184167, 5.47542661, 5.36604536, 5.613812  ,\n       3.33949831, 5.01110652, 5.41189651, 0.55551675, 5.27565211,\n       5.58649812, 4.47802084, 2.21531998, 5.22162826, 5.76866374,\n       5.38532049, 5.19210935, 3.45558489, 2.82916109, 4.33700274,\n       5.43089315, 3.37958378, 1.08182567, 4.43471652, 4.67171757,\n       5.38180662, 4.95316036, 4.01361335, 4.05397523, 1.96649017,\n       5.38705743, 3.64469659, 4.05988238, 4.50756395, 3.76213679,\n       5.13050863, 5.3935035 , 5.43774287, 3.65660785, 5.31746273,\n       6.06709632, 4.19123548, 5.58505201, 5.07141526, 5.67437994,\n       5.3118164 , 3.95222274, 4.34990935, 4.48041652, 5.21967232,\n       5.27228063, 4.9856446 , 3.16033374, 5.64783765, 4.55625381,\n       5.28942169, 2.94556088, 4.65987123, 5.52821987, 5.87425544,\n       5.01479597, 3.6647416 , 2.00933283, 5.09508115, 3.48554243,\n       5.21089953, 5.63346732, 4.25659443, 2.60788505, 5.1235711 ,\n       5.26668135, 4.92430756, 3.0055466 , 5.62066384, 5.93265649,\n       6.22261986, 4.67391612, 3.14048344, 5.63516301, 5.56209059,\n       2.28238396, 1.99614747, 4.5827958 , 5.14142315, 4.75900602,\n       5.99489694, 4.18791744, 5.37081664, 5.51737366, 5.28279829,\n       3.24435641, 5.30255656, 6.07841571, 4.47920836, 3.41230971,\n       5.20804267, 3.95279728, 3.85020952, 3.75520252, 4.09873275,\n       5.25090776, 3.95571059, 1.02556995, 3.74838091, 4.78344684,\n       4.50775001, 5.84453971, 4.42820325, 4.58608769, 4.70991057,\n       3.06620895, 5.47795396, 2.25791126, 3.18980412, 4.20191625,\n       4.37716521, 5.0105848 , 5.37840319, 3.54661409, 3.71379989,\n       5.10911168, 4.64924355, 5.79426278, 3.99346608, 5.20629394,\n       4.8202891 , 5.87943181, 4.64980144, 5.05761654, 3.75592522,\n       2.93896634, 5.66720387, 5.81073384, 3.17472629, 5.91706868,\n       5.35505181, 2.72040037, 3.99349371, 4.22138008, 3.51876003,\n       5.02543159, 5.59640488, 4.19318547, 5.0057303 , 2.58704649,\n       5.436657  , 5.12633337, 4.09064801, 5.66613011, 5.33180539,\n       1.71335191, 5.52675358, 2.12125281, 3.70385664, 3.43324432,\n       4.3806353 , 2.89031145, 2.55719447, 1.68480579, 3.28838601,\n       3.22394667, 4.90458516, 4.04354139, 4.88035432, 4.15209961,\n       3.40503317, 5.21596945, 5.10091918, 5.20786877, 4.9990198 ,\n       5.43226346, 5.48087656, 2.3767069 , 5.94507697, 4.5211903 ,\n       5.11031365, 5.82862797, 4.18684585, 5.35268577, 5.02260746,\n       2.76808627, 5.54993437, 3.12307913, 2.97318351, 4.38259137,\n       5.6711251 , 5.00552683, 5.40036897, 4.81405276, 5.57564086,\n       3.86732996, 4.72192014, 4.94335599, 5.47527125, 5.51168283,\n       5.42911177, 5.76462356, 5.48649506, 5.21509314, 5.67912648,\n       2.40157339, 4.92425385, 2.26303009, 5.69991917, 5.4438214 ,\n       5.57975911, 5.60096199, 6.1393111 , 5.55874599, 5.58924375,\n       5.62058842, 5.31151692, 5.1926542 , 5.6562653 , 6.23036743,\n       5.6534404 , 5.61434666, 3.80439574, 4.23384145, 5.56434723,\n       5.24601934, 3.68571812, 5.21072769, 1.90607514, 5.50310111,\n       5.30800616, 5.31620585, 5.74411995, 3.54212369, 3.16475863,\n       3.87726006, 4.81132308, 5.78706455, 5.84246195, 5.64107847,\n       3.43286642, 5.19423698, 3.85344874, 5.73171579, 2.29795062,\n       4.53177935, 5.19744059, 5.26949039, 2.81144211, 5.34221365,\n       5.57907032, 5.66694907, 4.91027582, 5.53765451, 5.60939647,\n       5.71574716, 2.00610128, 1.64508773, 3.97190329, 5.36950242,\n       4.52016957, 4.52715816, 5.37106085, 5.6874369 , 5.81664449,\n       5.68607257, 5.21747136, 5.35277254, 4.5962934 , 5.34491444,\n       3.89468209, 3.06847474, 5.23307852, 3.64878701, 2.06129256,\n       3.12501267, 5.00993253, 2.69057385, 3.2072275 , 5.26156013,\n       4.50595937, 3.67124149, 5.44150361, 5.06129902, 4.07858682,\n       4.96929894, 5.48405295, 4.84004697, 5.02207388, 5.01255365,\n       4.49141632, 4.95776003, 5.31116114, 4.74060439, 2.826814  ,\n       5.76396494, 6.20275637, 3.15987858, 1.59685768, 5.19525058,\n       5.21526538, 4.57871804, 4.80968212, 5.58105375, 5.46288376,\n       1.2972468 , 5.47224066, 5.15663081, 5.2604016 , 5.48496181,\n       5.34176328, 4.6689632 , 4.95661351, 3.72705942, 5.36077755,\n       5.52742781, 5.53221228, 5.71326651, 4.60752105, 4.87268565,\n       5.47286534, 5.89021125, 3.55992932, 5.40790439, 5.76402146,\n       5.20077264, 3.72751151, 5.00184656, 4.43321448, 5.95746714,\n       5.99801562, 5.26310755, 5.51782159, 5.7224917 , 5.51340204,\n       2.3124617 , 4.80399256, 2.45412403, 3.19080856, 5.05656702,\n       4.22394203, 5.43823889, 5.11692072, 5.38685852, 5.28621747,\n       4.84268126, 3.78545419, 5.4249681 , 5.73311162, 3.864998  ,\n       5.13322811, 3.13380247, 4.95722975, 4.43807879, 3.14362623,\n       4.79413756, 3.08367712, 5.30108059, 4.66354759, 5.3452239 ,\n       5.25742829, 5.00824137, 5.30251499, 5.50604417, 5.89508861,\n       4.0359228 , 1.98568574, 5.08294291, 5.43529775, 5.06510952,\n       4.4364945 , 4.3738675 , 5.91565644, 2.59125613, 4.65623267,\n       5.75301228, 5.48445557, 4.77751754, 5.73632325, 5.32328468,\n       4.98354112, 4.89768611, 5.28065632, 5.22420762, 2.63344333,\n       5.39567051, 5.19629894, 4.90482811, 5.03639886, 3.93947738,\n       3.96686285, 4.85329884, 2.34089893, 5.30309605, 4.85559729,\n       5.5309169 , 4.67995816, 3.75864018, 5.62983122, 5.4130801 ,\n       4.6341703 , 4.7487875 , 5.27707904, 3.33910207, 2.37201494,\n       4.48871851, 3.9471973 , 5.00585064, 3.04870175, 5.07434752,\n       4.79884848, 4.79972507, 5.41633547, 4.66063335, 2.98017132,\n       5.02270071, 5.05194873, 3.93259786, 4.50489852, 4.53936557,\n       5.35824937, 3.24923179, 3.36951055, 5.06570933, 5.20763998,\n       5.74945417, 2.4422538 , 5.79929781, 4.92446715, 5.78256826,\n       5.95832482, 5.08135275, 5.37836918, 4.36770317, 5.30961783,\n       5.18642487, 5.3174709 , 5.35493406, 3.21253802, 5.29920646,\n       2.50107618, 3.80249905, 5.25928058, 6.37734031, 5.48039131,\n       5.05783739, 4.26631233, 4.97127178, 5.26423305, 5.09946287,\n       5.22502766, 5.87042063, 5.50586936, 5.82652706, 5.73627569,\n       5.91148802, 5.33015146, 5.43981718, 5.70454323, 4.95160691,\n       5.34062637, 5.93732182, 6.1113282 , 4.23339133, 4.606416  ,\n       4.98378665, 5.86739997, 2.45102755, 1.13686605, 2.05527356,\n       3.32995444, 4.17051001, 0.70621597, 6.37881593])",
+    "section": "Distances",
+    "text": "Distances\n-Compute the distance matrix between each pair from a vector array X and Y using euclidean_distances",
     "crumbs": [
       "Home",
       "Slides",
@@ -995,7 +1415,7 @@
     "href": "materials/slides/classification1.html#knn-example-new-point",
     "title": "Classification I: training & predicting",
     "section": "KNN Example: new point",
-    "text": "KNN Example: new point\n\nperim_concav_with_new_point = (\n    alt.Chart(perim_concav_with_new_point_df)\n    .mark_point(opacity=0.6, filled=True, size=40)\n    .encode(\n        x=alt.X(\"Perimeter\").title(\"Perimeter (standardized)\"),\n        y=alt.Y(\"Concavity\").title(\"Concavity (standardized)\"),\n        color=alt.Color(\"Class\").title(\"Diagnosis\"),\n        shape=alt.Shape(\"Class\").scale(range=[\"circle\", \"circle\", \"diamond\"]),\n        size=alt.condition(\"datum.Class == 'Unknown'\", alt.value(100), alt.value(30)),\n        stroke=alt.condition(\"datum.Class == 'Unknown'\", alt.value(\"black\"), alt.value(None)),\n    )\n)\n\nperim_concav_with_new_point",
+    "text": "KNN Example: new point",
     "crumbs": [
       "Home",
       "Slides",
@@ -1103,7 +1523,7 @@
     "href": "materials/slides/classification1.html#k-nearest-neighbors-with-scikit-learn",
     "title": "Classification I: training & predicting",
     "section": "K-nearest neighbors with scikit-learn",
-    "text": "K-nearest neighbors with scikit-learn\n\nK-nearest neighbors algorithm is implemented in scikit-learn\n\n\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output=\"pandas\")\n\nNow we can get started with sklearn and KNeighborsClassifier()\n\nfrom sklearn.neighbors import KNeighborsClassifier",
+    "text": "K-nearest neighbors with scikit-learn\n\nK-nearest neighbors algorithm is implemented in scikit-learn\n\n\n\n\n\n\n\nNow we can get started with sklearn and KNeighborsClassifier()",
     "crumbs": [
       "Home",
       "Slides",
@@ -1115,7 +1535,7 @@
     "href": "materials/slides/classification1.html#review-cancer-data",
     "title": "Classification I: training & predicting",
     "section": "Review cancer data",
-    "text": "Review cancer data\n\ncancer_train = cancer[[\"Class\", \"Perimeter\", \"Concavity\"]]\nprint(cancer_train)\n\n         Class  Perimeter  Concavity\n0    Malignant   1.268817   2.650542\n1    Malignant   1.684473  -0.023825\n2    Malignant   1.565126   1.362280\n..         ...        ...        ...\n566  Malignant   0.672084   0.046547\n567  Malignant   1.980781   3.294046\n568     Benign  -1.812793  -1.113893\n\n[569 rows x 3 columns]",
+    "text": "Review cancer data",
     "crumbs": [
       "Home",
       "Slides",
@@ -1127,7 +1547,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-create-model-object",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: Create Model Object",
-    "text": "scikit-learn: Create Model Object\n\nfrom sklearn.neighbors import KNeighborsClassifier\n\nknn = KNeighborsClassifier(n_neighbors=5)\nknn\n\nKNeighborsClassifier()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.KNeighborsClassifier?Documentation for KNeighborsClassifieriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n5\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone",
+    "text": "scikit-learn: Create Model Object",
     "crumbs": [
       "Home",
       "Slides",
@@ -1139,7 +1559,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-fit-the-model",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: Fit the model",
-    "text": "scikit-learn: Fit the model\n\nknn.fit(\n  X=cancer_train[[\"Perimeter\", \"Concavity\"]],\n  y=cancer_train[\"Class\"]\n)\n\nKNeighborsClassifier()In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.KNeighborsClassifier?Documentation for KNeighborsClassifieriFitted\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n5\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone\n\n\n\n\n            \n        \n    \n\n\n\n\n\n\n\n\nNote\n\n\n\nWe do not re-assign the variable\nThe arguments are X and y (note the capitialization). This comes from matrix notation.",
+    "text": "scikit-learn: Fit the model\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe do not re-assign the variable\nThe arguments are X and y (note the capitialization). This comes from matrix notation.",
     "crumbs": [
       "Home",
       "Slides",
@@ -1151,7 +1571,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-predict",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: Predict",
-    "text": "scikit-learn: Predict\n\nnew_obs = pd.DataFrame({\"Perimeter\": [0], \"Concavity\": [3.5]})\nprint(new_obs)\n\n   Perimeter  Concavity\n0          0        3.5\n\n\n\nknn.predict(new_obs)\n\narray(['Malignant'], dtype=object)",
+    "text": "scikit-learn: Predict",
     "crumbs": [
       "Home",
       "Slides",
@@ -1187,7 +1607,7 @@
     "href": "materials/slides/classification1.html#data-preprocessing-standardization",
     "title": "Classification I: training & predicting",
     "section": "Data preprocessing: Standardization",
-    "text": "Data preprocessing: Standardization\n\nThe mean is used to center, the standard deviation is used to scale\nStandardization: transform the data such that the mean is 0, and a standard deviation is 1\n\n\nunscaled_cancer = pd.read_csv(\"data/wdbc_unscaled.csv\")[[\"Class\", \"Area\", \"Smoothness\"]]\nunscaled_cancer[\"Class\"] = unscaled_cancer[\"Class\"].replace({\n   \"M\" : \"Malignant\",\n   \"B\" : \"Benign\"\n})\nunscaled_cancer\n\n\n\n\n\n\n\n\nClass\nArea\nSmoothness\n\n\n\n\n0\nMalignant\n1001.0\n0.11840\n\n\n1\nMalignant\n1326.0\n0.08474\n\n\n2\nMalignant\n1203.0\n0.10960\n\n\n...\n...\n...\n...\n\n\n566\nMalignant\n858.1\n0.08455\n\n\n567\nMalignant\n1265.0\n0.11780\n\n\n568\nBenign\n181.0\n0.05263\n\n\n\n\n569 rows × 3 columns",
+    "text": "Data preprocessing: Standardization\n\nThe mean is used to center, the standard deviation is used to scale\nStandardization: transform the data such that the mean is 0, and a standard deviation is 1",
     "crumbs": [
       "Home",
       "Slides",
@@ -1199,7 +1619,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-columntransformer",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: ColumnTransformer",
-    "text": "scikit-learn: ColumnTransformer\n\nscikit-learn has a preprocessing module\n\nStandardScaler(): scale our data\n\nmake_column_transformer: creates a ColumnTransformer to select columns\n\n\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.compose import make_column_transformer\n\npreprocessor = make_column_transformer(\n    (StandardScaler(), [\"Area\", \"Smoothness\"]),\n)\npreprocessor\n\nColumnTransformer(transformers=[('standardscaler', StandardScaler(),\n                                 ['Area', 'Smoothness'])])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformer?Documentation for ColumnTransformeriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['Area', 'Smoothness']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue",
+    "text": "scikit-learn: ColumnTransformer\n\nscikit-learn has a preprocessing module\n\nStandardScaler(): scale our data\n\nmake_column_transformer: creates a ColumnTransformer to select columns",
     "crumbs": [
       "Home",
       "Slides",
@@ -1211,7 +1631,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-select-numeric-columns",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: Select numeric columns",
-    "text": "scikit-learn: Select numeric columns\n\nfrom sklearn.compose import make_column_selector\n\npreprocessor = make_column_transformer(\n    (StandardScaler(), make_column_selector(dtype_include=\"number\")),\n)\npreprocessor\n\nColumnTransformer(transformers=[('standardscaler', StandardScaler(),\n                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7ff42a692bd0&gt;)])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformer?Documentation for ColumnTransformeriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7ff42a692bd0&gt;StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue",
+    "text": "scikit-learn: Select numeric columns",
     "crumbs": [
       "Home",
       "Slides",
@@ -1223,7 +1643,7 @@
     "href": "materials/slides/classification1.html#scikit-learn-transform",
     "title": "Classification I: training & predicting",
     "section": "scikit-learn: transform",
-    "text": "scikit-learn: transform\nScale the data\n\npreprocessor.fit(unscaled_cancer)\nscaled_cancer = preprocessor.transform(unscaled_cancer)\n\nCompare unscaled vs scaled\n\n\n\nprint(unscaled_cancer)\n\n         Class    Area  Smoothness\n0    Malignant  1001.0     0.11840\n1    Malignant  1326.0     0.08474\n2    Malignant  1203.0     0.10960\n..         ...     ...         ...\n566  Malignant   858.1     0.08455\n567  Malignant  1265.0     0.11780\n568     Benign   181.0     0.05263\n\n[569 rows x 3 columns]\n\n\n\n\nprint(scaled_cancer)\n\n     standardscaler__Area  standardscaler__Smoothness\n0                0.984375                    1.568466\n1                1.908708                   -0.826962\n2                1.558884                    0.942210\n..                    ...                         ...\n566              0.577953                   -0.840484\n567              1.735218                    1.525767\n568             -1.347789                   -3.112085\n\n[569 rows x 2 columns]",
+    "text": "scikit-learn: transform\nScale the data\n\n\n\n\n\n\nCompare unscaled vs scaled",
     "crumbs": [
       "Home",
       "Slides",
@@ -1259,7 +1679,7 @@
     "href": "materials/slides/classification1.html#balancing-class-imbalance",
     "title": "Classification I: training & predicting",
     "section": "Balancing + class imbalance",
-    "text": "Balancing + class imbalance\nWhat if we have class imbalance? i.e., if the response variable has a big difference in frequency counts between classes?\n\nrare_cancer = pd.concat((\n    cancer[cancer[\"Class\"] == \"Benign\"],\n    cancer[cancer[\"Class\"] == \"Malignant\"].head(3) # only 3 total\n))\nprint(rare_cancer)\n\n          ID      Class    Radius   Texture  Perimeter      Area  Smoothness  \\\n19   8510426     Benign -0.166653 -1.146154  -0.185565 -0.251735    0.101657   \n20   8510653     Benign -0.297184 -0.832276  -0.260877 -0.383301    0.792066   \n21   8510824     Benign -1.311926 -1.592558  -1.301661 -1.082620    0.429441   \n..       ...        ...       ...       ...        ...       ...         ...   \n0     842302  Malignant  1.096100 -2.071512   1.268817  0.983510    1.567087   \n1     842517  Malignant  1.828212 -0.353322   1.684473  1.907030   -0.826235   \n2   84300903  Malignant  1.578499  0.455786   1.565126  1.557513    0.941382   \n\n    Compactness  Concavity  Concave_Points  Symmetry  Fractal_Dimension  \\\n19    -0.436466  -0.277965       -0.028584  0.267676          -0.727669   \n20     0.429044  -0.540886       -0.459223  0.566790           0.752425   \n21    -0.746429  -0.743094       -0.725698  0.012334           0.885562   \n..          ...        ...             ...       ...                ...   \n0      3.280628   2.650542        2.530249  2.215566           2.253764   \n1     -0.486643  -0.023825        0.547662  0.001391          -0.867889   \n2      1.052000   1.362280        2.035440  0.938859          -0.397658   \n\n    dist_from_new  \n19       3.852759  \n20       4.072405  \n21       4.546829  \n..            ...  \n0        1.951685  \n1        4.031378  \n2        2.650133  \n\n[360 rows x 13 columns]",
+    "text": "Balancing + class imbalance\nWhat if we have class imbalance? i.e., if the response variable has a big difference in frequency counts between classes?",
     "crumbs": [
       "Home",
       "Slides",
@@ -1271,7 +1691,7 @@
     "href": "materials/slides/classification1.html#visualizing-class-imbalance",
     "title": "Classification I: training & predicting",
     "section": "Visualizing class imbalance",
-    "text": "Visualizing class imbalance\n\nrare_cancer[\"Class\"].value_counts()\n\nClass\nBenign       357\nMalignant      3\nName: count, dtype: int64",
+    "text": "Visualizing class imbalance",
     "crumbs": [
       "Home",
       "Slides",
@@ -1307,7 +1727,7 @@
     "href": "materials/slides/classification1.html#upsampling-code",
     "title": "Classification I: training & predicting",
     "section": "Upsampling: code",
-    "text": "Upsampling: code\nSet seed\n\nimport numpy as np\n\nnp.random.seed(42)\n\nUpsample the rare class\n\nmalignant_cancer = rare_cancer[rare_cancer[\"Class\"] == \"Malignant\"]\nbenign_cancer = rare_cancer[rare_cancer[\"Class\"] == \"Benign\"]\nmalignant_cancer_upsample = malignant_cancer.sample(\n    n=benign_cancer.shape[0], replace=True\n)\nupsampled_cancer = pd.concat((malignant_cancer_upsample, benign_cancer))\nupsampled_cancer[\"Class\"].value_counts()\n\nClass\nMalignant    357\nBenign       357\nName: count, dtype: int64",
+    "text": "Upsampling: code\nSet seed\n\n\n\n\n\n\nUpsample the rare class",
     "crumbs": [
       "Home",
       "Slides",
@@ -1331,7 +1751,7 @@
     "href": "materials/slides/classification1.html#missing-data",
     "title": "Classification I: training & predicting",
     "section": "Missing data",
-    "text": "Missing data\nAssume we are only looking at “randomly missing” data\n\nmissing_cancer = pd.read_csv(\"data/wdbc_missing.csv\")[\n    [\"Class\", \"Radius\", \"Texture\", \"Perimeter\"]\n]\nmissing_cancer[\"Class\"] = missing_cancer[\"Class\"].replace(\n    {\"M\": \"Malignant\", \"B\": \"Benign\"}\n)\nprint(missing_cancer)\n\n       Class    Radius   Texture  Perimeter\n0  Malignant       NaN       NaN   1.268817\n1  Malignant  1.828212 -0.353322   1.684473\n2  Malignant  1.578499       NaN   1.565126\n3  Malignant -0.768233  0.253509  -0.592166\n4  Malignant  1.748758 -1.150804   1.775011\n5  Malignant -0.475956 -0.834601  -0.386808\n6  Malignant  1.169878  0.160508   1.137124",
+    "text": "Missing data\nAssume we are only looking at “randomly missing” data",
     "crumbs": [
       "Home",
       "Slides",
@@ -1343,7 +1763,7 @@
     "href": "materials/slides/classification1.html#missing-data-.dropna",
     "title": "Classification I: training & predicting",
     "section": "Missing data: .dropna()",
-    "text": "Missing data: .dropna()\nKNN computes distances across all the features, it needs complete observations\n\n# drop incomplete observations\nno_missing_cancer = missing_cancer.dropna()\nprint(no_missing_cancer)\n\n       Class    Radius   Texture  Perimeter\n1  Malignant  1.828212 -0.353322   1.684473\n3  Malignant -0.768233  0.253509  -0.592166\n4  Malignant  1.748758 -1.150804   1.775011\n5  Malignant -0.475956 -0.834601  -0.386808\n6  Malignant  1.169878  0.160508   1.137124",
+    "text": "Missing data: .dropna()\nKNN computes distances across all the features, it needs complete observations",
     "crumbs": [
       "Home",
       "Slides",
@@ -1355,7 +1775,7 @@
     "href": "materials/slides/classification1.html#missing-data-simpleimputer",
     "title": "Classification I: training & predicting",
     "section": "Missing data: SimpleImputer()",
-    "text": "Missing data: SimpleImputer()\nWe can impute missing data (with the mean) if there’s too many missing values\n\nfrom sklearn.impute import SimpleImputer\n\npreprocessor = make_column_transformer(\n    (SimpleImputer(), [\"Radius\", \"Texture\", \"Perimeter\"]),\n    verbose_feature_names_out=False,\n)\npreprocessor\n\nColumnTransformer(transformers=[('simpleimputer', SimpleImputer(),\n                                 ['Radius', 'Texture', 'Perimeter'])],\n                  verbose_feature_names_out=False)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.ColumnTransformer?Documentation for ColumnTransformeriNot fitted\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('simpleimputer', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nFalse\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    simpleimputer['Radius', 'Texture', 'Perimeter']SimpleImputer?Documentation for SimpleImputer\n        \n            \n                Parameters\n                \n\n\n\n\nmissing_values \nnan\n\n\n\nstrategy \n'mean'\n\n\n\nfill_value \nNone\n\n\n\ncopy \nTrue\n\n\n\nadd_indicator \nFalse\n\n\n\nkeep_empty_features \nFalse",
+    "text": "Missing data: SimpleImputer()\nWe can impute missing data (with the mean) if there’s too many missing values",
     "crumbs": [
       "Home",
       "Slides",
@@ -1367,7 +1787,7 @@
     "href": "materials/slides/classification1.html#imputed-data",
     "title": "Classification I: training & predicting",
     "section": "Imputed data",
-    "text": "Imputed data\n\npreprocessor.fit(missing_cancer)\nimputed_cancer = preprocessor.transform(missing_cancer)\n\n\n\n\nprint(missing_cancer)\n\n       Class    Radius   Texture  Perimeter\n0  Malignant       NaN       NaN   1.268817\n1  Malignant  1.828212 -0.353322   1.684473\n2  Malignant  1.578499       NaN   1.565126\n3  Malignant -0.768233  0.253509  -0.592166\n4  Malignant  1.748758 -1.150804   1.775011\n5  Malignant -0.475956 -0.834601  -0.386808\n6  Malignant  1.169878  0.160508   1.137124\n\n\n\n\nprint(imputed_cancer)\n\n     Radius   Texture  Perimeter\n0  0.846860 -0.384942   1.268817\n1  1.828212 -0.353322   1.684473\n2  1.578499 -0.384942   1.565126\n3 -0.768233  0.253509  -0.592166\n4  1.748758 -1.150804   1.775011\n5 -0.475956 -0.834601  -0.386808\n6  1.169878  0.160508   1.137124",
+    "text": "Imputed data",
     "crumbs": [
       "Home",
       "Slides",
@@ -1379,7 +1799,7 @@
     "href": "materials/slides/classification1.html#put-it-all-together-preprocessor",
     "title": "Classification I: training & predicting",
     "section": "Put it all together: Preprocessor",
-    "text": "Put it all together: Preprocessor\n\n# load the unscaled cancer data, make Class readable\nunscaled_cancer = pd.read_csv(\"data/wdbc_unscaled.csv\")\nunscaled_cancer[\"Class\"] = unscaled_cancer[\"Class\"].replace(\n    {\"M\": \"Malignant\", \"B\": \"Benign\"}\n)\n\n# create the K-NN model\nknn = KNeighborsClassifier(n_neighbors=7)\n\n# create the centering / scaling preprocessor\npreprocessor = make_column_transformer(\n    (StandardScaler(), [\"Area\", \"Smoothness\"]),\n    # more column transformers here\n)",
+    "text": "Put it all together: Preprocessor",
     "crumbs": [
       "Home",
       "Slides",
@@ -1391,7 +1811,7 @@
     "href": "materials/slides/classification1.html#put-it-all-together-pipeline",
     "title": "Classification I: training & predicting",
     "section": "Put it all together: Pipeline",
-    "text": "Put it all together: Pipeline\n\nfrom sklearn.pipeline import make_pipeline\n\nknn_pipeline = make_pipeline(preprocessor, knn)\nknn_pipeline.fit(\n    X=unscaled_cancer,\n    y=unscaled_cancer[\"Class\"]\n)\nknn_pipeline\n\nPipeline(steps=[('columntransformer',\n                 ColumnTransformer(transformers=[('standardscaler',\n                                                  StandardScaler(),\n                                                  ['Area', 'Smoothness'])])),\n                ('kneighborsclassifier', KNeighborsClassifier(n_neighbors=7))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\nsteps \n[('columntransformer', ...), ('kneighborsclassifier', ...)]\n\n\n\ntransform_input \nNone\n\n\n\nmemory \nNone\n\n\n\nverbose \nFalse\n\n\n\n\n            \n        \n    columntransformer: ColumnTransformer?Documentation for columntransformer: ColumnTransformer\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['Area', 'Smoothness']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue\n\n\n\n\n            \n        \n    KNeighborsClassifier?Documentation for KNeighborsClassifier\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n7\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone",
+    "text": "Put it all together: Pipeline",
     "crumbs": [
       "Home",
       "Slides",
@@ -1403,7 +1823,7 @@
     "href": "materials/slides/classification1.html#put-it-all-together-predict",
     "title": "Classification I: training & predicting",
     "section": "Put it all together: Predict",
-    "text": "Put it all together: Predict\n\nnew_observation = pd.DataFrame(\n    {\"Area\": [500, 1500], \"Smoothness\": [0.075, 0.1]}\n)\nprediction = knn_pipeline.predict(new_observation)\nprediction\n\narray(['Benign', 'Malignant'], dtype=object)",
+    "text": "Put it all together: Predict",
     "crumbs": [
       "Home",
       "Slides",
@@ -1415,7 +1835,7 @@
     "href": "materials/slides/classification1.html#prediction-area",
     "title": "Classification I: training & predicting",
     "section": "Prediction Area",
-    "text": "Prediction Area\nModel prediction area.\n\n\n\n\n\n\n\n\n\nPoints are on original unscaled data\nArea is using the pipeline model",
+    "text": "Prediction Area\nModel prediction area.\n\n\nPoints are on original unscaled data\nArea is using the pipeline model",
     "crumbs": [
       "Home",
       "Slides",
@@ -1427,7 +1847,7 @@
     "href": "materials/slides/classification1.html#reference-code",
     "title": "Classification I: training & predicting",
     "section": "Reference Code",
-    "text": "Reference Code\n\n\n\nimport pandas as pd\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.compose import (\n    make_column_transformer,\n)\n\n\n# load the unscaled cancer data\nunscaled_cancer = pd.read_csv(\n    \"data/wdbc_unscaled.csv\"\n)\n\n# make Class readable\nunscaled_cancer[\"Class\"] = unscaled_cancer[\n    \"Class\"\n].replace({\"M\": \"Malignant\", \"B\": \"Benign\"})\n\n\n\n# create the K-NN model\nknn = KNeighborsClassifier(n_neighbors=7)\n\n# create the centering / scaling preprocessor\npreprocessor = make_column_transformer(\n    (StandardScaler(), ['Area', 'Smoothness']),\n    # more column transformers here\n)\n\nknn_pipeline = make_pipeline(preprocessor, knn)\nknn_pipeline.fit(X=unscaled_cancer, y=unscaled_cancer['Class'])\nknn_pipeline\n\nnew_observation = pd.DataFrame(\n    {\n        'Area': [500, 1500],\n        'Smoothness': [0.075, 0.1],\n    }\n)\nprediction = knn_pipeline.predict(new_observation)\nprediction\n\narray(['Benign', 'Malignant'], dtype=object)",
+    "text": "Reference Code",
     "crumbs": [
       "Home",
       "Slides",
