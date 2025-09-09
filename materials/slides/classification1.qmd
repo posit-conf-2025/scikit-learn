@@ -1,66 +1,58 @@
 ---
 title: "Classification I: training & predicting"
-format:
-  revealjs:
+format: 
+  live-revealjs:
     slide-number: true
-    smaller: true
     theme: [default, styles.scss]
+    incremental: false
+    scrollable: true
+resources:
+  - data
 jupyter: python3
-
 execute:
   echo: true
   warning: false
-
-editor:
-  render-on-save: true
 ---
 
 
 ```{python}
 # | include: false
 import pandas as pd
+import numpy as np
+import altair as alt
 
 pd.set_option("display.max_rows", 7)
 ```
 
-## 
+## Introductions
 
 <!-- Top row: two profile intros -->
 ::: {style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start;"}
 
-<!-- Tiffany -->
+
 ::: {style="text-align: center; flex: 0 0 auto;"}
 <img src="https://canssiontario.utoronto.ca/wp-content/uploads/2021/03/Timbers-Tiffany_5x7.png" 
      alt="Tiffany Timbers" 
      style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"/>
 
 **Tiffany Timbers**  
-Associate Prof. of Teaching, 
+Associate Professor of Teaching, <br>
 Dept. of Statistics, UBC
 :::
 
-<!-- Katie -->
+
 ::: {style="text-align: center; flex: 0 0 auto;"}
 <img src="https://katieburak.github.io/profile.png" 
      alt="Katie Burak" 
      style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;"/>
 
 **Katie Burak**  
-Assistant Prof. of Teaching, 
+Assistant Professor of Teaching, <br>
 Dept. of Statistics, UBC
 :::
 
 :::
 
-<!-- Bottom row: UBC photo -->
-::: {style="margin-top: 2rem; text-align: center;"}
-
-<img src="https://visit.ubc.ca/wp-content/uploads/2019/04/plantrip_header-2800x1000_2x.jpg" 
-     alt="UBC Campus" 
-     style="max-width: 60%; height: auto; border-radius: 8px;"/>
-
-*Source: [https://visit.ubc.ca/plan-your-trip/](https://visit.ubc.ca/plan-your-trip/)*
-:::
 
 
 ## Helpful resources
@@ -132,7 +124,7 @@ created by Dr. William H. Wolberg, W. Nick Street, and Olvi L. Mangasarian
 
 ## Loading the cancer data 
 
-```{python}
+```{pyodide}
 import pandas as pd
 import altair as alt
 
@@ -159,20 +151,20 @@ print(cancer)
 
 ## DataFrame; info
 
-```{python}
+```{pyodide}
 cancer.info()
 ```
 
 ## Series; unique
 
-```{python}
+```{pyodide}
 cancer["Class"].unique()
 ```
 
 
 ## Series; replace
 
-```{python}
+```{pyodide}
 cancer["Class"] = cancer["Class"].replace({
     "M" : "Malignant",
     "B" : "Benign"
@@ -186,18 +178,18 @@ cancer["Class"].unique()
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 cancer.info()
 ```
 :::
 
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 cancer["Class"].value_counts()
 ```
 
-```{python}
+```{pyodide}
 cancer["Class"].value_counts(normalize=True)
 ```
 :::
@@ -206,7 +198,7 @@ cancer["Class"].value_counts(normalize=True)
 
 ## Visualization; scatter
 
-```{python}
+```{pyodide}
 perim_concav = alt.Chart(cancer).mark_circle().encode(
     x=alt.X("Perimeter").title("Perimeter (standardized)"),
     y=alt.Y("Concavity").title("Concavity (standardized)"),
@@ -220,7 +212,7 @@ perim_concav
 
 ## Classification with K-nearest neighbors
 
-```{python}
+```{pyodide}
 new_point = [2, 4]
 attrs = ["Perimeter", "Concavity"]
 
@@ -232,22 +224,24 @@ perim_concav_with_new_point_df = pd.concat((cancer, points_df), ignore_index=Tru
 print(perim_concav_with_new_point_df.iloc[[-1]])
 ```
 
-> Compute the distance matrix between each pair from a vector array X and Y
 
-```{python}
+
+## Distances 
+
+-Compute the distance matrix between each pair from a vector array X and Y using `euclidean_distances`
+
+```{pyodide}
 from sklearn.metrics.pairwise import euclidean_distances
 
 # distance of new point to all other points
 my_distances = euclidean_distances(perim_concav_with_new_point_df[attrs])[len(cancer)][:-1]
 ```
 
-## Distances (`euclidean_distances()`)
-
-```{python}
+```{pyodide}
 len(my_distances)
 ```
 
-```{python}
+```{pyodide}
 # distance of new point to all other points
 my_distances
 ```
@@ -260,22 +254,7 @@ my_distances
 
 ## KNN Example: new point
 
-```{python}
-perim_concav_with_new_point = (
-    alt.Chart(perim_concav_with_new_point_df)
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Perimeter").title("Perimeter (standardized)"),
-        y=alt.Y("Concavity").title("Concavity (standardized)"),
-        color=alt.Color("Class").title("Diagnosis"),
-        shape=alt.Shape("Class").scale(range=["circle", "circle", "diamond"]),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(100), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None)),
-    )
-)
-
-perim_concav_with_new_point
-```
+![](img/classification1/perim_concav_with_new_point.png){fig-align="center"}
 
 ## KNN example: closest point
 
@@ -283,108 +262,19 @@ perim_concav_with_new_point
 > then the perimeter and concavity values are similar,
 > and so we may expect that they would have the same diagnosis
 
-```{python}
-#| echo: false
-
-import numpy as np
-
-near_neighbor_df = pd.concat([
-    cancer.loc[[np.argmin(my_distances)], attrs],
-    perim_concav_with_new_point_df.loc[[cancer.shape[0]], attrs],
-])
-
-line = (
-    alt.Chart(near_neighbor_df)
-    .mark_line()
-    .encode(x="Perimeter", y="Concavity", color=alt.value("black"))
-)
-
-(perim_concav_with_new_point + line)
-```
+![](img/classification1/perim_concav_with_new_point-line.png){fig-align="center"}
 
 
 
 ## KNN Example: another new point
 
-```{python}
-#| echo: false
-
-new_point = [0.2, 3.3]
-attrs = ["Perimeter", "Concavity"]
-points_df2 = pd.DataFrame(
-    {"Perimeter": new_point[0], "Concavity": new_point[1], "Class": ["Unknown"]}
-)
-perim_concav_with_new_point_df2 = pd.concat((cancer, points_df2), ignore_index=True)
-# Find the euclidean distances from the new point to each of the points
-# in the orginal data set
-my_distances2 = euclidean_distances(perim_concav_with_new_point_df2[attrs])[
-    len(cancer)
-][:-1]
-
-perim_concav_with_new_point2 = (
-    alt.Chart(
-        perim_concav_with_new_point_df2,
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Perimeter", title="Perimeter (standardized)"),
-        y=alt.Y("Concavity", title="Concavity (standardized)"),
-        color=alt.Color(
-            "Class",
-            title="Diagnosis",
-        ),
-        shape=alt.Shape(
-            "Class", scale=alt.Scale(range=["circle", "circle", "diamond"])
-        ),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(80), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None)),
-    )
-)
-
-near_neighbor_df2 = pd.concat([
-    cancer.loc[[np.argmin(my_distances2)], attrs],
-    perim_concav_with_new_point_df2.loc[[cancer.shape[0]], attrs],
-])
-line2 = alt.Chart(near_neighbor_df2).mark_line().encode(
-    x="Perimeter",
-    y="Concavity",
-    color=alt.value("black")
-)
-
-(perim_concav_with_new_point2 + line2)
-```
+![](img/classification1/perim_concav_with_new_point2.png){fig-align="center"}
 
 ## KNN: improve the prediction with `k`
 
 we can consider several neighboring points, `k=3`
 
-```{python}
-#| echo: false
-
-# The index of 3 rows that has smallest distance to the new point
-min_3_idx = np.argpartition(my_distances2, 3)[:3]
-near_neighbor_df3 = pd.concat([
-    cancer.loc[[min_3_idx[1]], attrs],
-    perim_concav_with_new_point_df2.loc[[cancer.shape[0]], attrs],
-])
-near_neighbor_df4 = pd.concat([
-    cancer.loc[[min_3_idx[2]], attrs],
-    perim_concav_with_new_point_df2.loc[[cancer.shape[0]], attrs],
-])
-
-line3 = alt.Chart(near_neighbor_df3).mark_line().encode(
-    x="Perimeter",
-    y="Concavity",
-    color=alt.value("black")
-)
-line4 = alt.Chart(near_neighbor_df4).mark_line().encode(
-    x="Perimeter",
-    y="Concavity",
-    color=alt.value("black")
-)
-
-(perim_concav_with_new_point2 + line2 + line3 + line4)
-```
+![](img/classification1/perim_concav_with_new_point2-lines.png){fig-align="center"}
 
 ## Distance between points
 
@@ -394,49 +284,7 @@ $$\mathrm{Distance} = \sqrt{(a_x -b_x)^2 + (a_y - b_y)^2}$$
 
 >  3 of the 5 nearest neighbors to our new observation are malignant
 
-```{python}
-#| echo: false
-new_point = [0, 3.5]
-attrs = ["Perimeter", "Concavity"]
-points_df3 = pd.DataFrame(
-    {"Perimeter": new_point[0], "Concavity": new_point[1], "Class": ["Unknown"]}
-)
-perim_concav_with_new_point_df3 = pd.concat((cancer, points_df3), ignore_index=True)
-perim_concav_with_new_point3 = (
-    alt.Chart(
-        perim_concav_with_new_point_df3,
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Perimeter", title="Perimeter (standardized)"),
-        y=alt.Y("Concavity", title="Concavity (standardized)"),
-        color=alt.Color(
-            "Class",
-            title="Diagnosis",
-        ),
-        shape=alt.Shape(
-            "Class", scale=alt.Scale(range=["circle", "circle", "diamond"])
-        ),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(80), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None)),
-    )
-)
-
-
-circle_path_df = pd.DataFrame(
-    {
-        "Perimeter": new_point[0] + 1.4 * np.cos(np.linspace(0, 2 * np.pi, 100)),
-        "Concavity": new_point[1] + 1.4 * np.sin(np.linspace(0, 2 * np.pi, 100)),
-    }
-)
-circle = alt.Chart(circle_path_df.reset_index()).mark_line(color="black").encode(
-    x="Perimeter",
-    y="Concavity",
-    order="index"
-)
-
-(perim_concav_with_new_point3 + circle)
-```
+![](img/classification1/3-of-5.png){fig-align="center"}
 
 ## More than two explanatory variables: distance formula
 
@@ -447,105 +295,7 @@ $$\mathrm{Distance} = \sqrt{(a_{1} -b_{1})^2 + (a_{2} - b_{2})^2 + \dots + (a_{m
 
 ## More than two explanatory variables: visualize
 
-```{python}
-#| echo: false
-
-import plotly.express as px
-import plotly.graph_objects as go
-
-new_obs_Perimeter = 0
-new_obs_Concavity = 3.5
-new_obs_Symmetry = 1
-cancer["dist_from_new"] = (
-      (cancer["Perimeter"] - new_obs_Perimeter) ** 2
-    + (cancer["Concavity"] - new_obs_Concavity) ** 2
-    + (cancer["Symmetry"] - new_obs_Symmetry) ** 2
-)**(1/2)
-cancer.nsmallest(5, "dist_from_new")[[
-    "Perimeter",
-    "Concavity",
-    "Symmetry",
-    "Class",
-    "dist_from_new"
-]]
-
-new_point = [0, 3.5, 1]
-attrs = ["Perimeter", "Concavity", "Symmetry"]
-points_df4 = pd.DataFrame(
-    {
-        "Perimeter": new_point[0],
-        "Concavity": new_point[1],
-        "Symmetry": new_point[2],
-        "Class": ["Unknown"],
-    }
-)
-perim_concav_with_new_point_df4 = pd.concat((cancer, points_df4), ignore_index=True)
-# Find the euclidean distances from the new point to each of the points
-# in the orginal data set
-my_distances4 = euclidean_distances(perim_concav_with_new_point_df4[attrs])[
-    len(cancer)
-][:-1]
-
-# The index of 5 rows that has smallest distance to the new point
-min_5_idx = np.argpartition(my_distances4, 5)[:5]
-
-neighbor_df_list = []
-for idx in min_5_idx:
-    neighbor_df = pd.concat(
-        (
-            cancer.loc[idx, attrs + ["Class"]],
-            perim_concav_with_new_point_df4.loc[len(cancer), attrs + ["Class"]],
-        ),
-        axis=1,
-    ).T
-    neighbor_df_list.append(neighbor_df)
-
-fig = px.scatter_3d(
-    perim_concav_with_new_point_df4,
-    x="Perimeter",
-    y="Concavity",
-    z="Symmetry",
-    color="Class",
-    symbol="Class",
-    opacity=0.5,
-)
-# specify trace names and symbols in a dict
-symbols = {"Malignant": "circle", "Benign": "circle", "Unknown": "diamond"}
-
-# set all symbols in fig
-for i, d in enumerate(fig.data):
-    fig.data[i].marker.symbol = symbols[fig.data[i].name]
-
-# specify trace names and colors in a dict
-colors = {"Malignant": "#ff7f0e", "Benign": "#1f77b4", "Unknown": "red"}
-
-# set all colors in fig
-for i, d in enumerate(fig.data):
-    fig.data[i].marker.color = colors[fig.data[i].name]
-
-# set a fixed custom marker size
-fig.update_traces(marker={"size": 5})
-
-# add lines
-for neighbor_df in neighbor_df_list:
-    fig.add_trace(
-        go.Scatter3d(
-            x=neighbor_df["Perimeter"],
-            y=neighbor_df["Concavity"],
-            z=neighbor_df["Symmetry"],
-            line_color=colors[neighbor_df.iloc[0]["Class"]],
-            name=neighbor_df.iloc[0]["Class"],
-            mode="lines",
-            line=dict(width=2),
-            showlegend=False,
-        )
-    )
-
-
-# tight layout
-fig.update_layout(margin=dict(l=0, r=0, b=0, t=1), template="plotly_white")
-
-```
+![](img/classification1/3d.png){fig-align="center"}
 
 ## Summary of K-nearest neighbors algorithm
 
@@ -559,7 +309,7 @@ The K-nearest neighbors algorithm works as follows:
 
 - K-nearest neighbors algorithm is implemented in [`scikit-learn`](https://scikit-learn.org/stable/index.html)
 
-```{python}
+```{pyodide}
 from sklearn import set_config
 
 # Output dataframes instead of arrays
@@ -568,20 +318,20 @@ set_config(transform_output="pandas")
 
 Now we can get started with `sklearn` and `KNeighborsClassifier()`
 
-```{python}
+```{pyodide}
 from sklearn.neighbors import KNeighborsClassifier
 ```
 
 ## Review cancer data
 
-```{python}
+```{pyodide}
 cancer_train = cancer[["Class", "Perimeter", "Concavity"]]
 print(cancer_train)
 ```
 
 ## `scikit-learn`: Create Model Object
 
-```{python}
+```{pyodide}
 from sklearn.neighbors import KNeighborsClassifier
 
 knn = KNeighborsClassifier(n_neighbors=5)
@@ -590,7 +340,7 @@ knn
 
 ## `scikit-learn`: Fit the model
 
-```{python}
+```{pyodide}
 knn.fit(
   X=cancer_train[["Perimeter", "Concavity"]],
   y=cancer_train["Class"]
@@ -605,12 +355,12 @@ knn.fit(
 
 ## `scikit-learn`: Predict
 
-```{python}
+```{pyodide}
 new_obs = pd.DataFrame({"Perimeter": [0], "Concavity": [3.5]})
 print(new_obs)
 ```
 
-```{python}
+```{pyodide}
 knn.predict(new_obs)
 ```
 
@@ -646,7 +396,7 @@ Difference in weight is in the 10s, difference in height is fractions of a foot.
 - The mean is used to center, the standard deviation is used to scale
 - Standardization: transform the data such that the mean is 0, and a standard deviation is 1
 
-```{python}
+```{pyodide}
 unscaled_cancer = pd.read_csv("data/wdbc_unscaled.csv")[["Class", "Area", "Smoothness"]]
 unscaled_cancer["Class"] = unscaled_cancer["Class"].replace({
    "M" : "Malignant",
@@ -663,7 +413,7 @@ unscaled_cancer
   creates a [`ColumnTransformer`](https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer)
   to select columns
 
-```{python}
+```{pyodide}
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import make_column_transformer
 
@@ -675,7 +425,7 @@ preprocessor
 
 ## `scikit-learn`: Select numeric columns
 
-```{python}
+```{pyodide}
 from sklearn.compose import make_column_selector
 
 preprocessor = make_column_transformer(
@@ -688,7 +438,7 @@ preprocessor
 
 Scale the data
 
-```{python}
+```{pyodide}
 preprocessor.fit(unscaled_cancer)
 scaled_cancer = preprocessor.transform(unscaled_cancer)
 ```
@@ -698,14 +448,14 @@ Compare unscaled vs scaled
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 print(unscaled_cancer)
 ```
 :::
 
 
 ::: {.column width="50%"}
-```{python}
+```{pyodide}
 print(scaled_cancer)
 ```
 :::
@@ -714,168 +464,7 @@ print(scaled_cancer)
 
 ## Visualize unstandarized vs standarized data
 
-:::: {.columns}
-
-::: {.column width="50%"}
-```{python}
-#| echo: false
-
-preprocessor_keep_all = make_column_transformer(
-    (StandardScaler(), make_column_selector(dtype_include="number")),
-    remainder="passthrough",
-    verbose_feature_names_out=False
-)
-preprocessor_keep_all.fit(unscaled_cancer)
-scaled_cancer_all = preprocessor_keep_all.transform(unscaled_cancer)
-scaled_cancer_all
-
-def class_dscp(x):
-    if x == "M":
-        return "Malignant"
-    elif x == "B":
-        return "Benign"
-    else:
-        return x
-
-
-attrs = ["Area", "Smoothness"]
-new_obs = pd.DataFrame({"Class": ["Unknown"], "Area": 400, "Smoothness": 0.135})
-unscaled_cancer["Class"] = unscaled_cancer["Class"].apply(class_dscp)
-area_smoothness_new_df = pd.concat((unscaled_cancer, new_obs), ignore_index=True)
-my_distances = euclidean_distances(area_smoothness_new_df[attrs])[
-    len(unscaled_cancer)
-][:-1]
-area_smoothness_new_point = (
-    alt.Chart(
-        area_smoothness_new_df,
-        title=alt.TitleParams(text="Unstandardized data", anchor="start"),
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Area"),
-        y=alt.Y("Smoothness"),
-        color=alt.Color(
-            "Class",
-            title="Diagnosis",
-        ),
-        shape=alt.Shape(
-            "Class", scale=alt.Scale(range=["circle", "circle", "diamond"])
-        ),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(80), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None))
-    )
-)
-
-# The index of 3 rows that has smallest distance to the new point
-min_3_idx = np.argpartition(my_distances, 3)[:3]
-neighbor1 = pd.concat([
-    unscaled_cancer.loc[[min_3_idx[0]], attrs],
-    new_obs[attrs],
-])
-neighbor2 = pd.concat([
-    unscaled_cancer.loc[[min_3_idx[1]], attrs],
-    new_obs[attrs],
-])
-neighbor3 = pd.concat([
-    unscaled_cancer.loc[[min_3_idx[2]], attrs],
-    new_obs[attrs],
-])
-
-line1 = (
-    alt.Chart(neighbor1)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-line2 = (
-    alt.Chart(neighbor2)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-line3 = (
-    alt.Chart(neighbor3)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-
-area_smoothness_new_point = area_smoothness_new_point + line1 + line2 + line3
-
-area_smoothness_new_point
-```
-:::
-
-
-::: {.column width="50%"}
-```{python}
-#| echo: false
-
-attrs = ["Area", "Smoothness"]
-new_obs_scaled = pd.DataFrame({"Class": ["Unknown"], "Area": -0.72, "Smoothness": 2.8})
-scaled_cancer_all["Class"] = scaled_cancer_all["Class"].apply(class_dscp)
-area_smoothness_new_df_scaled = pd.concat(
-    (scaled_cancer_all, new_obs_scaled), ignore_index=True
-)
-my_distances_scaled = euclidean_distances(area_smoothness_new_df_scaled[attrs])[
-    len(scaled_cancer_all)
-][:-1]
-area_smoothness_new_point_scaled = (
-    alt.Chart(
-        area_smoothness_new_df_scaled,
-        title=alt.TitleParams(text="Standardized data", anchor="start"),
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Area", title="Area (standardized)"),
-        y=alt.Y("Smoothness", title="Smoothness (standardized)"),
-        color=alt.Color(
-            "Class",
-            title="Diagnosis",
-        ),
-        shape=alt.Shape(
-            "Class", scale=alt.Scale(range=["circle", "circle", "diamond"])
-        ),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(80), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None))
-    )
-)
-min_3_idx_scaled = np.argpartition(my_distances_scaled, 3)[:3]
-neighbor1_scaled = pd.concat([
-    scaled_cancer_all.loc[[min_3_idx_scaled[0]], attrs],
-    new_obs_scaled[attrs],
-])
-neighbor2_scaled = pd.concat([
-    scaled_cancer_all.loc[[min_3_idx_scaled[1]], attrs],
-    new_obs_scaled[attrs],
-])
-neighbor3_scaled = pd.concat([
-    scaled_cancer_all.loc[[min_3_idx_scaled[2]], attrs],
-    new_obs_scaled[attrs],
-])
-
-line1_scaled = (
-    alt.Chart(neighbor1_scaled)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-line2_scaled = (
-    alt.Chart(neighbor2_scaled)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-line3_scaled = (
-    alt.Chart(neighbor3_scaled)
-    .mark_line()
-    .encode(x="Area", y="Smoothness", color=alt.value("black"))
-)
-
-area_smoothness_new_point_scaled = (
-    area_smoothness_new_point_scaled + line1_scaled + line2_scaled + line3_scaled
-)
-
-area_smoothness_new_point_scaled
-```
-:::
-
-::::
+![](img/classification1/unstandardizedcomparison.png){fig-align="center"}
 
 ## Why `scikit-learn` pipelines?
 
@@ -889,7 +478,7 @@ area_smoothness_new_point_scaled
 What if we have class imbalance? i.e., if the response variable has a big difference
 in frequency counts between classes?
 
-```{python}
+```{pyodide}
 rare_cancer = pd.concat((
     cancer[cancer["Class"] == "Benign"],
     cancer[cancer["Class"] == "Malignant"].head(3) # only 3 total
@@ -899,161 +488,22 @@ print(rare_cancer)
 
 ## Visualizing class imbalance
 
-```{python}
+```{pyodide}
 rare_cancer["Class"].value_counts()
 ```
 
-```{python}
-#| echo: false
-
-rare_plot = alt.Chart(rare_cancer).mark_circle().encode(
-    x=alt.X("Perimeter").title("Perimeter (standardized)"),
-    y=alt.Y("Concavity").title("Concavity (standardized)"),
-    color=alt.Color("Class").title("Diagnosis")
-)
-rare_plot
-```
+![](img/classification1/rarecancer.png){fig-align="center"}
 
 ## Predicting with class imbalance
 
 :::: {.columns}
 
 ::: {.column width="50%"}
-```{python}
-#| echo: false
-
-attrs = ["Perimeter", "Concavity"]
-new_point = [2, 2]
-new_point_df = pd.DataFrame(
-    {"Class": ["Unknown"], "Perimeter": new_point[0], "Concavity": new_point[1]}
-)
-rare_cancer["Class"] = rare_cancer["Class"].apply(class_dscp)
-rare_cancer_with_new_df = pd.concat((rare_cancer, new_point_df), ignore_index=True)
-my_distances = euclidean_distances(rare_cancer_with_new_df[attrs])[
-    len(rare_cancer)
-][:-1]
-
-# First layer: scatter plot, with unknwon point labeled as red "unknown" diamond
-rare_plot = (
-    alt.Chart(
-        rare_cancer_with_new_df
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Perimeter", title="Perimeter (standardized)"),
-        y=alt.Y("Concavity", title="Concavity (standardized)"),
-        color=alt.Color(
-            "Class",
-            title="Diagnosis",
-        ),
-        shape=alt.Shape(
-            "Class", scale=alt.Scale(range=["circle", "circle", "diamond"])
-        ),
-        size=alt.condition("datum.Class == 'Unknown'", alt.value(80), alt.value(30)),
-        stroke=alt.condition("datum.Class == 'Unknown'", alt.value("black"), alt.value(None))
-    )
-)
-
-# Find the 7 NNs
-min_7_idx = np.argpartition(my_distances, 7)[:7]
-
-# For loop: each iteration adds a line segment of corresponding color
-for i in range(7):
-    clr = "#1f77b4"
-    if rare_cancer.iloc[min_7_idx[i], :]["Class"] == "Malignant":
-        clr = "#ff7f0e"
-    neighbor = pd.concat([
-        rare_cancer.iloc[[min_7_idx[i]], :][attrs],
-        new_point_df[attrs],
-    ])
-    rare_plot = rare_plot + (
-        alt.Chart(neighbor)
-        .mark_line(opacity=0.3)
-        .encode(x="Perimeter", y="Concavity", color=alt.value(clr))
-    )
-
-rare_plot
-```
-
+![](img/classification1/imbalance1.png)
 :::
 
 ::: {.column width="50%"}
-```{python}
-# | echo: false
-
-knn = KNeighborsClassifier(n_neighbors=7)
-knn.fit(X=rare_cancer[["Perimeter", "Concavity"]], y=rare_cancer["Class"])
-
-# create a prediction pt grid
-per_grid = np.linspace(
-    rare_cancer["Perimeter"].min() * 1.05,
-    rare_cancer["Perimeter"].max() * 1.05,
-    50,
-)
-con_grid = np.linspace(
-    rare_cancer["Concavity"].min() * 1.05,
-    rare_cancer["Concavity"].max() * 1.05,
-    50,
-)
-pcgrid = np.array(np.meshgrid(per_grid, con_grid)).reshape(2, -1).T
-pcgrid = pd.DataFrame(pcgrid, columns=["Perimeter", "Concavity"])
-pcgrid
-
-knnPredGrid = knn.predict(pcgrid)
-prediction_table = pcgrid.copy()
-prediction_table["Class"] = knnPredGrid
-prediction_table
-
-# create the scatter plot
-rare_plot = (
-    alt.Chart(
-        rare_cancer,
-    )
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X("Perimeter", title="Perimeter (standardized)"),
-        y=alt.Y("Concavity", title="Concavity (standardized)"),
-        color=alt.Color("Class", title="Diagnosis"),
-    )
-)
-
-# add a prediction layer, also scatter plot
-prediction_plot = (
-    alt.Chart(
-        prediction_table,
-        title="Imbalanced data",
-    )
-    .mark_point(opacity=0.05, filled=True, size=300)
-    .encode(
-        x=alt.X(
-            "Perimeter",
-            title="Perimeter (standardized)",
-            scale=alt.Scale(
-                domain=(
-                    rare_cancer["Perimeter"].min() * 1.05,
-                    rare_cancer["Perimeter"].max() * 1.05,
-                ),
-                nice=False,
-            ),
-        ),
-        y=alt.Y(
-            "Concavity",
-            title="Concavity (standardized)",
-            scale=alt.Scale(
-                domain=(
-                    rare_cancer["Concavity"].min() * 1.05,
-                    rare_cancer["Concavity"].max() * 1.05,
-                ),
-                nice=False,
-            ),
-        ),
-        color=alt.Color("Class", title="Diagnosis"),
-    )
-)
-
-(rare_plot + prediction_plot)
-```
-
+![](img/classification1/imbalance2.png)
 :::
 
 ::::
@@ -1070,7 +520,7 @@ Rebalance the data by *oversampling* the rare class
 ## Upsampling: code
 
 Set seed
-```{python}
+```{pyodide}
 import numpy as np
 
 np.random.seed(42)
@@ -1078,7 +528,7 @@ np.random.seed(42)
 
 Upsample the rare class
 
-```{python}
+```{pyodide}
 malignant_cancer = rare_cancer[rare_cancer["Class"] == "Malignant"]
 benign_cancer = rare_cancer[rare_cancer["Class"] == "Benign"]
 malignant_cancer_upsample = malignant_cancer.sample(
@@ -1091,83 +541,13 @@ upsampled_cancer["Class"].value_counts()
 
 ## Upsampling: Re-train KNN `k=7`
 
-::: {.columns}
-::: {.column}
-```{python}
-#| echo: false
-
-(rare_plot + prediction_plot)
-```
-
-:::
-
-::: {.column}
-```{python}
-#| echo: false
-
-knn = KNeighborsClassifier(n_neighbors=7)
-knn.fit(
-    X=upsampled_cancer[["Perimeter", "Concavity"]], y=upsampled_cancer["Class"]
-)
-
-# create a prediction pt grid
-knnPredGrid = knn.predict(pcgrid)
-prediction_table = pcgrid
-prediction_table["Class"] = knnPredGrid
-
-# create the scatter plot
-rare_plot = (
-    alt.Chart(rare_cancer)
-    .mark_point(opacity=0.6, filled=True, size=40)
-    .encode(
-        x=alt.X(
-            "Perimeter",
-            title="Perimeter (standardized)",
-            scale=alt.Scale(
-                domain=(
-                    rare_cancer["Perimeter"].min() * 1.05,
-                    rare_cancer["Perimeter"].max() * 1.05,
-                ),
-                nice=False,
-            ),
-        ),
-        y=alt.Y(
-            "Concavity",
-            title="Concavity (standardized)",
-            scale=alt.Scale(
-                domain=(
-                    rare_cancer["Concavity"].min() * 1.05,
-                    rare_cancer["Concavity"].max() * 1.05,
-                ),
-                nice=False,
-            ),
-        ),
-        color=alt.Color("Class", title="Diagnosis"),
-    )
-)
-
-# add a prediction layer, also scatter plot
-upsampled_plot = (
-    alt.Chart(prediction_table)
-    .mark_point(opacity=0.05, filled=True, size=300)
-    .encode(
-        x=alt.X("Perimeter", title="Perimeter (standardized)"),
-        y=alt.Y("Concavity", title="Concavity (standardized)"),
-        color=alt.Color("Class", title="Diagnosis"),
-    )
-)
-
-(rare_plot + upsampled_plot)
-```
-
-:::
-:::
+![](img/classification1/upsampled.png){fig-align="center"}
 
 ## Missing data
 
 Assume we are only looking at "randomly missing" data
 
-```{python}
+```{pyodide}
 missing_cancer = pd.read_csv("data/wdbc_missing.csv")[
     ["Class", "Radius", "Texture", "Perimeter"]
 ]
@@ -1181,7 +561,7 @@ print(missing_cancer)
 
 KNN computes distances across all the features, it needs complete observations
 
-```{python}
+```{pyodide}
 # drop incomplete observations
 no_missing_cancer = missing_cancer.dropna()
 print(no_missing_cancer)
@@ -1191,7 +571,7 @@ print(no_missing_cancer)
 
 We can impute missing data (with the mean) if there's too many missing values
 
-```{python}
+```{pyodide}
 from sklearn.impute import SimpleImputer
 
 preprocessor = make_column_transformer(
@@ -1203,7 +583,7 @@ preprocessor
 
 ## Imputed data
 
-```{python}
+```{pyodide}
 preprocessor.fit(missing_cancer)
 imputed_cancer = preprocessor.transform(missing_cancer)
 
@@ -1212,14 +592,14 @@ imputed_cancer = preprocessor.transform(missing_cancer)
 ::: {.columns}
 ::: {.column}
 
-```{python}
+```{pyodide}
 print(missing_cancer)
 ```
 
 :::
 ::: {.column}
 
-```{python}
+```{pyodide}
 print(imputed_cancer)
 ```
 
@@ -1228,7 +608,7 @@ print(imputed_cancer)
 
 ## Put it all together: Preprocessor
 
-```{python}
+```{pyodide}
 # load the unscaled cancer data, make Class readable
 unscaled_cancer = pd.read_csv("data/wdbc_unscaled.csv")
 unscaled_cancer["Class"] = unscaled_cancer["Class"].replace(
@@ -1248,7 +628,7 @@ preprocessor = make_column_transformer(
 
 ## Put it all together: Pipeline
 
-```{python}
+```{pyodide}
 from sklearn.pipeline import make_pipeline
 
 knn_pipeline = make_pipeline(preprocessor, knn)
@@ -1261,7 +641,7 @@ knn_pipeline
 
 ## Put it all together: Predict
 
-```{python}
+```{pyodide}
 new_observation = pd.DataFrame(
     {"Area": [500, 1500], "Smoothness": [0.075, 0.1]}
 )
@@ -1273,67 +653,7 @@ prediction
 
 Model prediction area.
 
-```{python}
-#| echo: false
-
-import numpy as np
-
-# create the grid of area/smoothness vals, and arrange in a data frame
-are_grid = np.linspace(
-    unscaled_cancer["Area"].min() * 0.95, unscaled_cancer["Area"].max() * 1.05, 50
-)
-smo_grid = np.linspace(
-    unscaled_cancer["Smoothness"].min() * 0.95, unscaled_cancer["Smoothness"].max() * 1.05, 50
-)
-asgrid = np.array(np.meshgrid(are_grid, smo_grid)).reshape(2, -1).T
-asgrid = pd.DataFrame(asgrid, columns=["Area", "Smoothness"])
-
-# use the fit workflow to make predictions at the grid points
-knnPredGrid = knn_pipeline.predict(asgrid)
-
-# bind the predictions as a new column with the grid points
-prediction_table = asgrid.copy()
-prediction_table["Class"] = knnPredGrid
-
-# plot:
-# 1. the colored scatter of the original data
-unscaled_plot = alt.Chart(unscaled_cancer).mark_point(
-    opacity=0.6,
-    filled=True,
-    size=40
-).encode(
-    x=alt.X("Area")
-        .scale(
-            nice=False,
-            domain=(
-                unscaled_cancer["Area"].min() * 0.95,
-                unscaled_cancer["Area"].max() * 1.05
-            )
-        ),
-    y=alt.Y("Smoothness")
-        .scale(
-            nice=False,
-            domain=(
-                unscaled_cancer["Smoothness"].min() * 0.95,
-                unscaled_cancer["Smoothness"].max() * 1.05
-            )
-        ),
-    color=alt.Color("Class").title("Diagnosis")
-)
-
-# 2. the faded colored scatter for the grid points
-prediction_plot = alt.Chart(prediction_table).mark_point(
-    opacity=0.05,
-    filled=True,
-    size=300
-).encode(
-    x="Area",
-    y="Smoothness",
-    color=alt.Color("Class").title("Diagnosis")
-)
-
-(unscaled_plot + prediction_plot)
-```
+![](img/classification1/prediction_plot.png){fig-align="center"}
 
 - Points are on original unscaled data
 - Area is using the pipeline model
@@ -1343,7 +663,7 @@ prediction_plot = alt.Chart(prediction_table).mark_point(
 ::: {.columns}
 ::: {.column}
 
-```{python}
+```{pyodide}
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
@@ -1368,7 +688,7 @@ unscaled_cancer["Class"] = unscaled_cancer[
 :::
 ::: {.column}
 
-```{python}
+```{pyodide}
 # create the K-NN model
 knn = KNeighborsClassifier(n_neighbors=7)
 

@@ -45,7 +45,7 @@ Examples:
 - Race time in the Boston marathon
 - size of a house to predict its sale price
 
-### Regression Methods
+## Regression Methods
 
 In this workshop:
 
@@ -53,7 +53,7 @@ In this workshop:
 - Linear regression
 - L1 regularization
 
-### Classification similarities to regression
+## Classification similarities to regression
 
 Concepts from classification map over to the setting of regression
 
@@ -61,7 +61,7 @@ Concepts from classification map over to the setting of regression
 - Split the data into training and test sets
 - Use cross-validation to evaluate different choices of model parameters
 
-### Difference
+## Difference
 
 Predicting numerical variables instead of categorical variables
 
@@ -71,7 +71,7 @@ Predicting numerical variables instead of categorical variables
 
 > Can we use the size of a house in the Sacramento, CA area to predict its sale price?
 
-### Data and package setup
+## Data and package setup
 
 ```{python}
 import altair as alt
@@ -93,7 +93,7 @@ print(sacramento)
 
 ```
 
-### Price vs Sq.Ft
+## Price vs Sq.Ft
 
 ```{python}
 #| echo: false
@@ -121,7 +121,7 @@ small_sacramento = sacramento.sample(n=30)
 print(small_sacramento)
 ```
 
-### Sample: K-NN Example
+## Sample: K-NN Example
 
 ::: {.columns}
 ::: {.column}
@@ -248,7 +248,7 @@ We are not specifying the stratify argument.
 The `train_test_split()` function cannot stratify on a quantitative variable
 :::
 
-### Metric: RMS(P)E
+## Metric: RMS(P)E
 
 Root Mean Square (Prediction) Error
 
@@ -260,7 +260,7 @@ where:
 - $y_i$ is the observed value for the $i^\text{th}$ observation, and
 - $\hat{y}_i$ is the forecasted/predicted value for the $i^\text{th}$ observation.
 
-### Metric: Visualize
+## Metric: Visualize
 
 ```{python}
 # | echo: false
@@ -327,7 +327,7 @@ errors_plot = alt.layer(*v_lines, errors_plot)
 errors_plot
 ```
 
-### RMSPE vs RMSE
+## RMSPE vs RMSE
 
 Root Mean Square (Prediction) Error
 
@@ -337,7 +337,7 @@ Root Mean Square (Prediction) Error
 This notation is a statistics distinction,
 you will most likely see RMSPE written as RMSE.
 
-### Choosing $k$
+## Choosing $k$
 
 As we did previously, we can use cross-validation and select the value of $k$ that yields the lowest RMSE to choose the best model.
 
@@ -450,7 +450,7 @@ RMSPE
 
 > *The code for running cross-validation to get `sacr_gridsearch` is included at the end of the slides for reference.*
 
-### Final best K model
+## Final best K model
 
 Predicted values of house price (orange line) for the final K-NN regression model.
 
@@ -512,7 +512,7 @@ the relationship between the predictor and response variables
 Logistic regression is the linear model we can use for binary classification
 :::
 
-### Sacramento real estate
+## Sacramento real estate
 
 ```{python}
 import pandas as pd
@@ -525,7 +525,7 @@ small_sacramento = sacramento.sample(n=30)
 print(small_sacramento)
 ```
 
-### Sacramento real estate: best fit line
+## Sacramento real estate: best fit line
 
 ::: {.columns}
 ::: {.column}
@@ -612,7 +612,7 @@ where
 :::
 :::
 
-### Sacramento real estate: Prediction
+## Sacramento real estate: Prediction
 
 ```{python}
 # | echo: false
@@ -658,7 +658,7 @@ small_plot_2000_pred
 
 ```
 
-### Estimating a line
+## Estimating a line
 
 
 ```{python}
@@ -676,7 +676,7 @@ several_lines_plot
 ```
 
 
-### What makes the best line?
+## What makes the best line?
 
 To define the **best line** we need to know how to measure the distance of the points to the line! 
     
@@ -686,7 +686,7 @@ To define the **best line** we need to know how to measure the distance of the p
 
 > Figure by Dr. Joel Ostblom
 
-### Least squares
+## Least squares
 
 Least Squares method minimizes the sum of the squares of the residuals. The **residuals** are the difference between the observed value of the response ($y_i$) and the predicted value of the response ($\hat{y}_i$):
 
@@ -738,7 +738,7 @@ The `scikit-learn` pattern still applies:
 - Fit the model on training
 - Use model on testing set
 
-### Linear regression: Train test split
+## Linear regression: Train test split
 
 ```{python}
 import numpy as np
@@ -762,7 +762,7 @@ sacramento_train, sacramento_test = train_test_split(
 
 ```
 
-### Linear regression: Fit the model
+## Linear regression: Fit the model
 
 ```{python}
 # fit the linear regression model
@@ -779,7 +779,7 @@ print(results_df)
 <!--TODO: numbers here are hard-coded -->
 $\text{house sale price} =$ 137.29 $+$ 15642.31 $\cdot (\text{house size}).$
 
-### Linear regression: Predictions
+## Linear regression: Predictions
 
 ```{python}
 # make predictions
@@ -794,7 +794,7 @@ RMSPE = mean_squared_error(
 RMSPE
 ```
 
-### Linear regression: Plot
+## Linear regression: Plot
 
 ```{python}
 # | echo: false
@@ -822,7 +822,7 @@ sacr_preds_plot
 
 ```
 
-### Standarization
+## Standarization
 
 - We did not need to standarize like we did for KNN.
 - In linear regression, if we standarize, we convert all the units to unit-less standard deviations
@@ -952,7 +952,7 @@ lm_plot_final = (
 
 > *Note: We will talk about categorical predictors later in the workshop*
 
-### Sacramento real estate: 2 predictors
+## Sacramento real estate: 2 predictors
 
 ```{python}
 mlm = LinearRegression()
@@ -961,7 +961,7 @@ mlm.fit(sacramento_train[['sqft', 'beds']], sacramento_train['price'])
 sacramento_test['predicted'] = mlm.predict(sacramento_test[['sqft', 'beds']])
 ```
 
-### Sacramento real estate: Coefficients
+## Sacramento real estate: Coefficients
 
 ```{python}
 mlm.coef_
@@ -980,7 +980,7 @@ where:
 
 - Number of bedrooms ($\hat{\beta}_2=-20333.43$): Holding size constant, each additional bedroom reduces price by about $20,333.
 
-### More variables make it harder to visualize
+## More variables make it harder to visualize
 
 ```{python}
 # | echo: false
@@ -1032,7 +1032,7 @@ fig.update_layout(
 fig
 ```
 
-### Sacramento real estate: mlm rmspe
+## Sacramento real estate: mlm rmspe
 
 ```{python}
 lm_mult_test_RMSPE = mean_squared_error(
@@ -1048,7 +1048,7 @@ lm_mult_test_RMSPE
 - Outliers: extreme values that can move the best fit line
 - Multicollinearity: variables that are highly correlated to one another
 
-### Outliers
+## Outliers
 
 ::: {.columns}
 ::: {.column}
@@ -1170,7 +1170,7 @@ lm_plot_outlier_large
 :::
 :::
 
-### Multicollinearity
+## Multicollinearity
 
 - Multicollinearity means that some (or all) of the *explanatory* variables are linearly related! 
 
@@ -1296,7 +1296,7 @@ print("Selected features:", selected_features)
 
 - Proper selection of $\alpha$ is critical for balancing **bias** and **variance**.
 
-### Tuning $\alpha$ with cross-validation
+## Tuning $\alpha$ with cross-validation
 
 - Just like tuning $k$ in KNN, we can select $\alpha$ by evaluating performance on validation sets.
 
@@ -1417,7 +1417,7 @@ best_k_sacr = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin
 best_cv_RMSPE = min(sacr_results["mean_test_score"])
 ```
 
-### Multivariable K-NN regression: Preprocessor
+## Multivariable K-NN regression: Preprocessor
 
 ```{python}
 sacr_preprocessor = make_column_transformer(
@@ -1426,7 +1426,7 @@ sacr_preprocessor = make_column_transformer(
 sacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())
 ```
 
-### Multivariable K-NN regression: CV
+## Multivariable K-NN regression: CV
 
 ```{python}
 # create the 5-fold GridSearchCV object
@@ -1446,7 +1446,7 @@ sacr_gridsearch.fit(
 )
 ```
 
-### Multivariable K-NN regression: Best K
+## Multivariable K-NN regression: Best K
 
 ```{python}
 # retrieve the CV scores
@@ -1463,7 +1463,7 @@ sacr_results = sacr_results[
 sacr_results.nsmallest(1, 'mean_test_score')
 ```
 
-### Multivariable K-NN regression: Best model
+## Multivariable K-NN regression: Best model
 
 ```{python}
 best_k_sacr_multi = sacr_results["n_neighbors"][sacr_results["mean_test_score"].idxmin()]
@@ -1484,7 +1484,7 @@ min_rmspe_sacr_multi
 
 
 
-### Multivariable K-NN regression: Test data
+## Multivariable K-NN regression: Test data
 
 ```{python}
 sacramento_test["predicted"] = sacr_gridsearch.predict(sacramento_test)
@@ -1498,7 +1498,7 @@ RMSPE_mult
 
 
 
-### Multivariable K-NN regression: Visualize
+## Multivariable K-NN regression: Visualize
 
 ```{python}
 # | echo: false
