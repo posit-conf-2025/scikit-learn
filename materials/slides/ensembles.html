@@ -238,7 +238,7 @@
 <li><p>The <a href="https://www.statlearning.com/s/Heart.csv">heart data set</a> contains a binary outcome for heart disease for patients who presented with chest pain.</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="407d18da" class="cell" data-execution_count="2">
+<div id="e253f7da" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a></a>heart <span class="op">=</span> pd.read_csv(<span class="st">"data/Heart.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb1-3"><a></a>heart.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -272,7 +272,7 @@ memory usage: 35.5+ KB</code></pre>
 <section id="example-the-heart-data-set-1" class="title-slide slide level2 center">
 <h2>Example: the heart data set</h2>
 <p>An angiographic test was performed and a label for <code>AHD</code> of Yes was labelled to indicate the presence of heart disease, otherwise the label was No.</p>
-<div id="27ade006" class="cell" data-execution_count="3">
+<div id="d1c642ff" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -407,7 +407,7 @@ memory usage: 35.5+ KB</code></pre>
 <section id="do-we-have-a-class-imbalance" class="title-slide slide level2 center">
 <h2>Do we have a class imbalance?</h2>
 <p>It’s always important to check this, as it may impact your splitting and/or modeling decisions.</p>
-<div id="6a570ad6" class="cell" data-execution_count="4">
+<div id="096a1fb5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>heart[<span class="st">'AHD'</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>AHD
@@ -422,7 +422,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="data-splitting" class="title-slide slide level2 center">
 <h2>Data splitting</h2>
 <p>Let’s split the data into training and test sets:</p>
-<div id="6e985866" class="cell" data-execution_count="5">
+<div id="265056b9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb6-3"><a></a></span>
@@ -457,7 +457,7 @@ Name: proportion, dtype: float64</code></pre>
 <h2>Look at the data again</h2>
 <p>Which columns do we need to standardize?</p>
 <p>Which do we need to one-hot encode?</p>
-<div id="91dbc00d" class="cell" data-execution_count="6">
+<div id="3a534e31" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>heart.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -591,7 +591,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="one-hot-encoding-pre-processing" class="title-slide slide level2 center">
 <h2>One hot encoding &amp; pre-processing</h2>
-<div id="a9c1a784" class="cell" data-execution_count="7">
+<div id="402eecae" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler, OneHotEncoder</span>
 <span id="cb8-2"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer, make_column_selector</span>
 <span id="cb8-3"><a></a></span>
@@ -612,7 +612,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="fitting-a-dummy-classifier" class="title-slide slide level2 center">
 <h2>Fitting a dummy classifier</h2>
-<div id="989e42aa" class="cell" data-execution_count="8">
+<div id="9ae4a1ea" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
 <span id="cb9-2"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb9-3"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_validate</span>
@@ -673,7 +673,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="fitting-a-decision-tree" class="title-slide slide level2 center">
 <h2>Fitting a decision tree</h2>
-<div id="32fd04ff" class="cell" data-execution_count="9">
+<div id="48afa339" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb10-2"><a></a></span>
 <span id="cb10-3"><a></a>decision_tree <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -766,14 +766,14 @@ Name: proportion, dtype: float64</code></pre>
 </ul>
 </div><div class="column" style="width:50%;">
 <p>How many rows have missing observations:</p>
-<div id="3eeed5bb" class="cell" data-execution_count="10">
+<div id="abe2902a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>heart.isna().<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>np.int64(6)</code></pre>
 </div>
 </div>
 <p>Drop rows with missing observations:</p>
-<div id="005d869f" class="cell" data-execution_count="11">
+<div id="8dfe7e56" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>heart_train_drop_na <span class="op">=</span> heart_train.dropna()</span>
 <span id="cb13-2"><a></a></span>
 <span id="cb13-3"><a></a>X_train_drop_na <span class="op">=</span> heart_train_drop_na.drop(</span>
@@ -786,7 +786,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="random-forest-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Random forest in <code>scikit-learn</code></h2>
-<div id="9c9928cd" class="cell" data-execution_count="12">
+<div id="ea17b412" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
 <span id="cb14-2"><a></a></span>
 <span id="cb14-3"><a></a>random_forest <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -870,7 +870,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="tuning-random-forest-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Tuning random forest in <code>scikit-learn</code></h2>
-<div id="f15c3a9b" class="cell" data-execution_count="13">
+<div id="64bdca32" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb15-2"><a></a></span>
 <span id="cb15-3"><a></a>rf_param_grid <span class="op">=</span> {<span class="st">'randomforestclassifier__n_estimators'</span>: [<span class="dv">200</span>],</span>
@@ -900,7 +900,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="random-forest-results" class="title-slide slide level2 center">
 <h2>Random Forest results</h2>
 <p>How did the Random Forest compare against the other models we tried?</p>
-<div id="960692b5" class="cell" data-execution_count="14">
+<div id="b619f9b9" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
@@ -980,7 +980,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="tuning-gradientboostingclassifier-with-scikit-learn-1" class="title-slide slide level2 center">
 <h2>Tuning <code>GradientBoostingClassifier</code> with <code>scikit-learn</code></h2>
-<div id="385a6fcb" class="cell" data-execution_count="15">
+<div id="0072471d" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
 <span id="cb17-2"><a></a></span>
 <span id="cb17-3"><a></a>gradient_boosted_classifier <span class="op">=</span> GradientBoostingClassifier(random_state<span class="op">=</span><span class="dv">2026</span>)</span>
@@ -1011,7 +1011,7 @@ Name: proportion, dtype: float64</code></pre>
 <section id="gradientboostingclassifier-results" class="title-slide slide level2 center">
 <h2><code>GradientBoostingClassifier</code> results</h2>
 <p>How did the <code>GradientBoostingClassifier</code> compare against the other models we tried?</p>
-<div id="9e3a45f9" class="cell" data-execution_count="16">
+<div id="14849750" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -1083,7 +1083,7 @@ Name: proportion, dtype: float64</code></pre>
 
 <section id="precision-and-recall-on-the-tuned-random-forest-model" class="title-slide slide level2 center">
 <h2>Precision and recall on the tuned random forest model</h2>
-<div id="3e396b95" class="cell" data-execution_count="17">
+<div id="9f1afc4f" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> make_scorer, precision_score, recall_score</span>
 <span id="cb19-2"><a></a></span>
 <span id="cb19-3"><a></a>scoring <span class="op">=</span> {</span>
@@ -1962,7 +1962,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li class="fragment"><p>What do we think? Is this model ready for production in a diagnostic setting?</p></li>
 <li class="fragment"><p>How could we improve it further?</p></li>
 </ul>
-<div id="864983dd" class="cell" data-execution_count="18">
+<div id="e792b6da" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a></a>cv_results <span class="op">=</span> pd.DataFrame(rf_tune_grid.cv_results_)</span>
 <span id="cb20-2"><a></a></span>
 <span id="cb20-3"><a></a>mean_precision <span class="op">=</span> cv_results[<span class="st">'mean_test_precision'</span>].iloc[rf_tune_grid.best_index_]</span>
@@ -2047,7 +2047,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 
 <section id="feature-importances-in-scikit-learn" class="title-slide slide level2 center">
 <h2>Feature importances in <code>scikit-learn</code></h2>
-<div id="0ecb80b4" class="cell" data-execution_count="19">
+<div id="5a7544da" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a><span class="co"># Access the best pipeline</span></span>
 <span id="cb21-2"><a></a>best_pipeline <span class="op">=</span> rf_tune_grid.best_estimator_</span>
 <span id="cb21-3"><a></a></span>
@@ -2079,27 +2079,27 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 
 <section id="visualizing-the-results" class="title-slide slide level2 center">
 <h2>Visualizing the results</h2>
-<div id="00e5eca7" class="cell" data-execution_count="20">
+<div id="5f4b8012" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display" data-execution_count="20">
 
 <style>
-  #altair-viz-fa093f717de741e3a740b47e144ac0fa.vega-embed {
+  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-fa093f717de741e3a740b47e144ac0fa.vega-embed details,
-  #altair-viz-fa093f717de741e3a740b47e144ac0fa.vega-embed details summary {
+  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed details,
+  #altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-fa093f717de741e3a740b47e144ac0fa"></div>
+<div id="altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-fa093f717de741e3a740b47e144ac0fa") {
-      outputDiv = document.getElementById("altair-viz-fa093f717de741e3a740b47e144ac0fa");
+    if (outputDiv.id !== "altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2") {
+      outputDiv = document.getElementById("altair-viz-b12332c7f7e748b99dc1e3438cbf6eb2");
     }
 
     const paths = {
@@ -2156,7 +2156,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="evaluating-on-the-test-set" class="title-slide slide level2 center">
 <h2>Evaluating on the test set</h2>
 <p>Predict on the test set:</p>
-<div id="38af3bce" class="cell" data-execution_count="21">
+<div id="ee33b6f5" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a></a>heart_test_drop_na <span class="op">=</span> heart_test.dropna()</span>
 <span id="cb22-2"><a></a>X_test_drop_na <span class="op">=</span> heart_test_drop_na.drop(columns<span class="op">=</span>[<span class="st">'AHD'</span>])</span>
 <span id="cb22-3"><a></a>y_test_drop_na <span class="op">=</span> heart_test_drop_na[<span class="st">'AHD'</span>]</span>
@@ -2172,7 +2172,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <p>Examine accuracy, precision and recall:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="4b1c7ee3" class="cell" data-execution_count="22">
+<div id="d7e55ed7" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>rf_tune_grid.score(</span>
 <span id="cb23-2"><a></a>    X_test_drop_na,</span>
 <span id="cb23-3"><a></a>    y_test_drop_na</span>
@@ -2181,7 +2181,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <pre><code>0.7868852459016393</code></pre>
 </div>
 </div>
-<div id="1855652a" class="cell" data-execution_count="23">
+<div id="16e19bbd" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>precision_score(</span>
 <span id="cb25-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb25-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
@@ -2191,7 +2191,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <pre><code>0.8</code></pre>
 </div>
 </div>
-<div id="7361e0a3" class="cell" data-execution_count="24">
+<div id="b205b76c" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a></a>recall_score(</span>
 <span id="cb27-2"><a></a>    y_true<span class="op">=</span>heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb27-3"><a></a>    y_pred<span class="op">=</span>heart_test_drop_na[<span class="st">"predicted"</span>],</span>
@@ -2202,7 +2202,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="3d49a470" class="cell" data-execution_count="25">
+<div id="bd32d744" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>conf_matrix <span class="op">=</span> pd.crosstab(</span>
 <span id="cb29-2"><a></a>    heart_test_drop_na[<span class="st">"AHD"</span>],</span>
 <span id="cb29-3"><a></a>    heart_test_drop_na[<span class="st">"predicted"</span>]</span>

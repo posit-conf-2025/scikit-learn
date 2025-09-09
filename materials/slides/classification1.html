@@ -303,7 +303,7 @@ Assistant Prof.&nbsp;of Teaching, Dept. of Statistics, UBC</p>
 </section>
 <section id="loading-the-cancer-data" class="slide level2">
 <h2>Loading the cancer data</h2>
-<div id="c28a5303" class="cell" data-execution_count="2">
+<div id="b5cbd102" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
 <span id="cb1-3"><a></a></span>
@@ -354,7 +354,7 @@ Assistant Prof.&nbsp;of Teaching, Dept. of Statistics, UBC</p>
 </section>
 <section id="dataframe-info" class="slide level2">
 <h2>DataFrame; info</h2>
-<div id="26910c29" class="cell" data-execution_count="3">
+<div id="6792e872" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>cancer.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -381,7 +381,7 @@ memory usage: 53.5+ KB</code></pre>
 </section>
 <section id="series-unique" class="slide level2">
 <h2>Series; unique</h2>
-<div id="5e3d11ca" class="cell" data-execution_count="4">
+<div id="cb450633" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>cancer[<span class="st">"Class"</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>array(['M', 'B'], dtype=object)</code></pre>
@@ -390,7 +390,7 @@ memory usage: 53.5+ KB</code></pre>
 </section>
 <section id="series-replace" class="slide level2">
 <h2>Series; replace</h2>
-<div id="8656e1c0" class="cell" data-execution_count="5">
+<div id="4362df39" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>cancer[<span class="st">"Class"</span>] <span class="op">=</span> cancer[<span class="st">"Class"</span>].replace({</span>
 <span id="cb7-2"><a></a>    <span class="st">"M"</span> : <span class="st">"Malignant"</span>,</span>
 <span id="cb7-3"><a></a>    <span class="st">"B"</span> : <span class="st">"Benign"</span></span>
@@ -406,7 +406,7 @@ memory usage: 53.5+ KB</code></pre>
 <h2>Exploring the cancer data</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="8c74eed5" class="cell" data-execution_count="6">
+<div id="dbda45b7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a>cancer.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -431,7 +431,7 @@ memory usage: 53.5+ KB</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="464aab6a" class="cell" data-execution_count="7">
+<div id="4fd0063f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>cancer[<span class="st">"Class"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Class
@@ -440,7 +440,7 @@ Malignant    212
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="87609012" class="cell" data-execution_count="8">
+<div id="3478f122" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>cancer[<span class="st">"Class"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>Class
@@ -453,7 +453,7 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="visualization-scatter" class="slide level2">
 <h2>Visualization; scatter</h2>
-<div id="f6506ee1" class="cell" data-execution_count="9">
+<div id="dfd7cbfa" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>perim_concav <span class="op">=</span> alt.Chart(cancer).mark_circle().encode(</span>
 <span id="cb15-2"><a></a>    x<span class="op">=</span>alt.X(<span class="st">"Perimeter"</span>).title(<span class="st">"Perimeter (standardized)"</span>),</span>
 <span id="cb15-3"><a></a>    y<span class="op">=</span>alt.Y(<span class="st">"Concavity"</span>).title(<span class="st">"Concavity (standardized)"</span>),</span>
@@ -463,23 +463,23 @@ Name: proportion, dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="9">
 
 <style>
-  #altair-viz-f6b0a29c9a064cf1b849098fe9830a6f.vega-embed {
+  #altair-viz-7a575801ee01452db9b4a4cc96f754c8.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-f6b0a29c9a064cf1b849098fe9830a6f.vega-embed details,
-  #altair-viz-f6b0a29c9a064cf1b849098fe9830a6f.vega-embed details summary {
+  #altair-viz-7a575801ee01452db9b4a4cc96f754c8.vega-embed details,
+  #altair-viz-7a575801ee01452db9b4a4cc96f754c8.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-f6b0a29c9a064cf1b849098fe9830a6f"></div>
+<div id="altair-viz-7a575801ee01452db9b4a4cc96f754c8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-f6b0a29c9a064cf1b849098fe9830a6f") {
-      outputDiv = document.getElementById("altair-viz-f6b0a29c9a064cf1b849098fe9830a6f");
+    if (outputDiv.id !== "altair-viz-7a575801ee01452db9b4a4cc96f754c8") {
+      outputDiv = document.getElementById("altair-viz-7a575801ee01452db9b4a4cc96f754c8");
     }
 
     const paths = {
@@ -538,7 +538,7 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="classification-with-k-nearest-neighbors" class="slide level2">
 <h2>Classification with K-nearest neighbors</h2>
-<div id="f86ae9d0" class="cell" data-execution_count="10">
+<div id="8d165cfd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>new_point <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>]</span>
 <span id="cb16-2"><a></a>attrs <span class="op">=</span> [<span class="st">"Perimeter"</span>, <span class="st">"Concavity"</span>]</span>
 <span id="cb16-3"><a></a></span>
@@ -559,7 +559,7 @@ Name: proportion, dtype: float64</code></pre>
 <blockquote>
 <p>Compute the distance matrix between each pair from a vector array X and Y</p>
 </blockquote>
-<div id="3c04a607" class="cell" data-execution_count="11">
+<div id="57cbd753" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a><span class="im">from</span> sklearn.metrics.pairwise <span class="im">import</span> euclidean_distances</span>
 <span id="cb18-2"><a></a></span>
 <span id="cb18-3"><a></a><span class="co"># distance of new point to all other points</span></span>
@@ -568,13 +568,13 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="distances-euclidean_distances" class="slide level2">
 <h2>Distances (<code>euclidean_distances()</code>)</h2>
-<div id="e1bf9b01" class="cell" data-execution_count="12">
+<div id="1c8793a4" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a><span class="bu">len</span>(my_distances)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>569</code></pre>
 </div>
 </div>
-<div id="fe65552b" class="cell" data-execution_count="13">
+<div id="b6b37140" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a><span class="co"># distance of new point to all other points</span></span>
 <span id="cb21-2"><a></a>my_distances</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -704,7 +704,7 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="knn-example-new-point" class="slide level2">
 <h2>KNN Example: new point</h2>
-<div id="b112d194" class="cell" data-execution_count="14">
+<div id="0eb9bb72" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>perim_concav_with_new_point <span class="op">=</span> (</span>
 <span id="cb23-2"><a></a>    alt.Chart(perim_concav_with_new_point_df)</span>
 <span id="cb23-3"><a></a>    .mark_point(opacity<span class="op">=</span><span class="fl">0.6</span>, filled<span class="op">=</span><span class="va">True</span>, size<span class="op">=</span><span class="dv">40</span>)</span>
@@ -722,23 +722,23 @@ Name: proportion, dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="14">
 
 <style>
-  #altair-viz-1e22da4e9c6b4e0e8a77f64835519783.vega-embed {
+  #altair-viz-e293611f04e944508307a97e593e43be.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-1e22da4e9c6b4e0e8a77f64835519783.vega-embed details,
-  #altair-viz-1e22da4e9c6b4e0e8a77f64835519783.vega-embed details summary {
+  #altair-viz-e293611f04e944508307a97e593e43be.vega-embed details,
+  #altair-viz-e293611f04e944508307a97e593e43be.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-1e22da4e9c6b4e0e8a77f64835519783"></div>
+<div id="altair-viz-e293611f04e944508307a97e593e43be"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1e22da4e9c6b4e0e8a77f64835519783") {
-      outputDiv = document.getElementById("altair-viz-1e22da4e9c6b4e0e8a77f64835519783");
+    if (outputDiv.id !== "altair-viz-e293611f04e944508307a97e593e43be") {
+      outputDiv = document.getElementById("altair-viz-e293611f04e944508307a97e593e43be");
     }
 
     const paths = {
@@ -796,27 +796,27 @@ Name: proportion, dtype: float64</code></pre>
 <blockquote>
 <p>if a point is close to another in the scatter plot, then the perimeter and concavity values are similar, and so we may expect that they would have the same diagnosis</p>
 </blockquote>
-<div id="16c4d595" class="cell" data-execution_count="15">
+<div id="2eab33bc" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display" data-execution_count="15">
 
 <style>
-  #altair-viz-c5d71f19f37e47cc88d9347b7dc6d843.vega-embed {
+  #altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-c5d71f19f37e47cc88d9347b7dc6d843.vega-embed details,
-  #altair-viz-c5d71f19f37e47cc88d9347b7dc6d843.vega-embed details summary {
+  #altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8.vega-embed details,
+  #altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-c5d71f19f37e47cc88d9347b7dc6d843"></div>
+<div id="altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c5d71f19f37e47cc88d9347b7dc6d843") {
-      outputDiv = document.getElementById("altair-viz-c5d71f19f37e47cc88d9347b7dc6d843");
+    if (outputDiv.id !== "altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8") {
+      outputDiv = document.getElementById("altair-viz-4b7fba2700e44b009c38d3fe19c6dbd8");
     }
 
     const paths = {
@@ -871,27 +871,27 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="knn-example-another-new-point" class="slide level2">
 <h2>KNN Example: another new point</h2>
-<div id="1395aa7d" class="cell" data-execution_count="16">
+<div id="32ab9cdb" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display" data-execution_count="16">
 
 <style>
-  #altair-viz-3bc87b597901416aa6cf024f01940840.vega-embed {
+  #altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-3bc87b597901416aa6cf024f01940840.vega-embed details,
-  #altair-viz-3bc87b597901416aa6cf024f01940840.vega-embed details summary {
+  #altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb.vega-embed details,
+  #altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-3bc87b597901416aa6cf024f01940840"></div>
+<div id="altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-3bc87b597901416aa6cf024f01940840") {
-      outputDiv = document.getElementById("altair-viz-3bc87b597901416aa6cf024f01940840");
+    if (outputDiv.id !== "altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb") {
+      outputDiv = document.getElementById("altair-viz-c0cf4a2855a8427e9b2a26a08fab63fb");
     }
 
     const paths = {
@@ -947,27 +947,27 @@ Name: proportion, dtype: float64</code></pre>
 <section id="knn-improve-the-prediction-with-k" class="slide level2">
 <h2>KNN: improve the prediction with <code>k</code></h2>
 <p>we can consider several neighboring points, <code>k=3</code></p>
-<div id="142394ca" class="cell" data-execution_count="17">
+<div id="77e9b891" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display" data-execution_count="17">
 
 <style>
-  #altair-viz-28b6d6869215494b8c92bc7a579aab9f.vega-embed {
+  #altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-28b6d6869215494b8c92bc7a579aab9f.vega-embed details,
-  #altair-viz-28b6d6869215494b8c92bc7a579aab9f.vega-embed details summary {
+  #altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0.vega-embed details,
+  #altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-28b6d6869215494b8c92bc7a579aab9f"></div>
+<div id="altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-28b6d6869215494b8c92bc7a579aab9f") {
-      outputDiv = document.getElementById("altair-viz-28b6d6869215494b8c92bc7a579aab9f");
+    if (outputDiv.id !== "altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0") {
+      outputDiv = document.getElementById("altair-viz-6d17aa9c9dc1410fb8eee1a02f88e0e0");
     }
 
     const paths = {
@@ -1029,27 +1029,27 @@ Name: proportion, dtype: float64</code></pre>
 <blockquote>
 <p>3 of the 5 nearest neighbors to our new observation are malignant</p>
 </blockquote>
-<div id="66019613" class="cell" data-execution_count="18">
+<div id="8d8edc9d" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display" data-execution_count="18">
 
 <style>
-  #altair-viz-27f541abaf2644d6af7acec4944724e0.vega-embed {
+  #altair-viz-eb52eaa3323348faa2b73ec10c371eaf.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-27f541abaf2644d6af7acec4944724e0.vega-embed details,
-  #altair-viz-27f541abaf2644d6af7acec4944724e0.vega-embed details summary {
+  #altair-viz-eb52eaa3323348faa2b73ec10c371eaf.vega-embed details,
+  #altair-viz-eb52eaa3323348faa2b73ec10c371eaf.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-27f541abaf2644d6af7acec4944724e0"></div>
+<div id="altair-viz-eb52eaa3323348faa2b73ec10c371eaf"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-27f541abaf2644d6af7acec4944724e0") {
-      outputDiv = document.getElementById("altair-viz-27f541abaf2644d6af7acec4944724e0");
+    if (outputDiv.id !== "altair-viz-eb52eaa3323348faa2b73ec10c371eaf") {
+      outputDiv = document.getElementById("altair-viz-eb52eaa3323348faa2b73ec10c371eaf");
     }
 
     const paths = {
@@ -1109,7 +1109,7 @@ Name: proportion, dtype: float64</code></pre>
 </section>
 <section id="more-than-two-explanatory-variables-visualize" class="slide level2">
 <h2>More than two explanatory variables: visualize</h2>
-<div id="1346d7b4" class="cell" data-execution_count="19">
+<div id="8e5aa5d6" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
         <script type="text/javascript">
         window.PlotlyConfig = {MathJaxConfig: 'local'};
@@ -1120,9 +1120,9 @@ Name: proportion, dtype: float64</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="af01da8b-e26c-4948-a8cb-0bfaa459acef" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("af01da8b-e26c-4948-a8cb-0bfaa459acef")) {                    Plotly.newPlot(                        "af01da8b-e26c-4948-a8cb-0bfaa459acef",                        [{"hovertemplate":"Class=Malignant\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Malignant","marker":{"color":"#ff7f0e","opacity":0.5,"symbol":"circle","size":5},"mode":"markers","name":"Malignant","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"wpt+VBNN9D8Eo7B9mfP6PzhINYvBCvk\u002foq1zXgbz4r9fAkxHcmb8PyHsESh1wdi\u002fyPkQdakx8j9xZuT6M6Oyv5s4lqGkise\u002fphAS4XsR1b9Q6VdEiUPcP4U\u002fs19got4\u002ftYHH8lCf+j\u002fL86CbzeXePxNbY9vTLrE\u002fSvTRLlMUyT+PqbohfDG9P1T3PfRJPuU\u002fOEg1i8EK+T\u002fQgHzMrrzbP6r068FvyP0\u002fsCeQrde+5z8dR2uzpKXvP866cvdTqcw\u002fVKCeKxTX8z+VzI6QQXnbP+DBxoeCVO4\u002fACEjgDWe9T8wspM1B33ivyYDkPTQbus\u002f7VWVEMSo9z\u002f6l6IqccvjP84Bh0uO4Oc\u002fypmAVr1\u002fsT\u002fRmLjPkc\u002fCPx+M32r2zMK\u002f55sZNrV+zr9zedJq8W3qvy0Kg0wx7Pc\u002fv\u002fTtEmF9yL8MWxv8yz\u002fRv1NxVRvJ5PQ\u002f6mzQJWqMz7839fCdqKfyPx+eqUMM38s\u002fbxwDqTQU9j83I+gODt3CP1gwEIhHcsc\u002fa630rItw2L9rMEO415vMP0AEWszt0\u002fQ\u002f5PAPmM1G7T+7hVmg4Dawv8LEV4uC898\u002fKIj1Ts2W8j\u002fYUuFnDwgBQHSKZUojLwpAqHJexAtz+D+1XcwVgy7zP5Wph\u002fHrB7g\u002fRTOj3DjG8z8iTyFq3q3VP10DD6ZL8dU\u002ftYHH8lCf+j9MihJMP3S6P+Z5Xw7zpMS\u002fruf4ybcRyb8rNZHxCQcEQBAgpSkDktE\u002fX4QZJSsV4j\u002fk8A+YzUbtP+ekvgIVYfM\u002fTsBenW9wCEDkKMI2BizGvyQqYy43svQ\u002fePwixy5O+T\u002fY3g7tRKHZP\u002f3G6zq8veI\u002fKIj1Ts2W8j83aHallf7av6BxDCUmtsk\u002fnmdQceNK4T9L3Serqhfhv22adavQvvA\u002f7YTeIA+b9j+lQxW0wID5P3E3IV0KzANA0TDQW9nS5j86IWJRW8fvP5v\u002fNM2aJNC\u002f0IB8zK682z\u002fRMNBb2dLmP7kec6SKrA1AiTH43MazAECbWWrBIlDYP1uyPp7OTtI\u002fKbc+XxiJ8T9tpPzdkUu5PwJSQa7qfty\u002forf84bg01j+\u002fx9eB7Tasv22adavQvvA\u002frKGn1FZl9z8Zn3HKN4+6P\u002f6bvSU5du4\u002fjbOF2ioJBkC+MIVhwzyRvzbp8eNo8NE\u002fUpmr07NZ5z8eTl4LBSP8P7bA4IP0xw9AQn\u002f0cfGr7T8py4yk7\u002fuiP3ZkVO3cQqW\u002fBgFDni\u002fY+D\u002f7wpBfn7n3Pws1aggcANw\u002fo66X9a2r0b\u002fnH1moGDnsP\u002fEGbB5z8Ps\u002f4TIBhglCBEDE7sJBLLD6P+cfWagYOew\u002fqHJexAtz+D+7Mp4AAOf+P6VDFbTAgPk\u002fZrd9MD6y6z8NX9W+xbz2P1Nv1Qw9t5a\u002fcZ6Qpphp+z+Obvxvq5TdP\u002fHbfelEAug\u002fy\u002fOgm83l3j8Eo7B9mfP6P+2sNNn5D+k\u002fJaX90zqK7T+g5kXyAyfVP6nJ\u002fYxB2uk\u002fvJAwIZbL\u002fD\u002f3\u002fY71ejcCQCF2tMPvl+4\u002fmIPVd8wM8z\u002ffF+PRM4r2P31atefEMvc\u002fM+79RUgq5j+fD+5J1Fjmv+kmTAB5tvg\u002fHk5eCwUj\u002fD87JDqu85nxP+X3AvAtxPk\u002f3monv0zt\u002fD\u002fcvauMuqnjP5jadEACdOQ\u002ffV4Qw+E24j\u002fpfevIrh3qP9QIeqPuXfQ\u002fX5vc\u002fePIBEAp2zk85vn4Pxdymcgn7eM\u002fx8qn9LMSC0Bbo2eH9sTPP5R4h0RPi\u002fs\u002fgAuM9XN6+z\u002f8WyEWERwAQG1HEU4NLwJAc6LrgbVt5j8cNhi0xz0AQDK7WVrgM\u002fw\u002fu4tSx\u002fSV6L9oYCEfvhS1P4uYZyZVUfg\u002flcyOkEF52z+RUFH8DkMBQMJsNUTIWvU\u002fq05j5z0C8T9V33KwWvnIP9FRM7xjytw\u002fz6\u002fF3Pmu2j+UeIdET4v7P1NxVRvJ5PQ\u002fdMdxIc3job+rmrR89ufqP3wHcfqrz\u002fA\u002fXC16XPWt8D86ysKIJWD+P8x7nnINh\u002fc\u002fLWEiFWdT6T82WAUMGkEPQGprLJuFzPE\u002fcHOicWp75z8KMIyuesr3Pxdymcgn7eM\u002fDN1HwWFn8T\u002fUN8OzOVDzPw6D0JuTLf4\u002fiOe\u002fUWlsjj9xNyFdCswDQAaojtc6Kd8\u002fXZFqflCJwb8fnqlDDN\u002fLP4YW2ijx+\u002fI\u002fh2keFgpf+T+Xwu4IcDUIQB5OXgsFI\u002fw\u002fDoPQm5Mt\u002fj9hvrM\u002fVPmyPw7X1+eFG94\u002fIVVx0w\u002fNAEDSM4hIx3gAQPRk\u002fj4J1fk\u002flasrMLeB5T93T2e0R7H\u002fPw=="},"y":{"dtype":"f8","bdata":"RpeJQE80BUBJv4psjWWYv5eUWeTly\u002fU\u002fSDTarZ2g\u002fj8GNUzauer1PyRwmPeAsus\u002fWx47aBAw0z+y1aAyvDevP048r08HffM\u002fH3oUmijM+z88jWfD9Wbmv4CKXMXYPsE\u002fJGs5oXSf9z8qI4qWFP3AP67\u002frDcm4\u002fg\u002f7Njd1VYl7j+I4jY7qNfHv3FCi4ofvfA\u002f4sFRQy655z8CrB6NHN33P7iVRjGBx9A\u002fggjaU+CR6T\u002f0NiE5Fur6Pxl6QvhGjuU\u002fd2PLczcq6D9GX8SXe+nvP7RYWzxA9L8\u002fcJ1YooG4\u002fD+UeLpbS37aP36E06gHsP4\u002fg5uNmU7e7j\u002fgT9SQrrTiPwQP76QGd+I\u002f1arFsAVN4T\u002fPo5Gm0wTqv9kXln95Gcw\u002fW+asHS0p57\u002fojJPTfwzJPyvO21pAd\u002fg\u002fEe96mBEOvz9RLqq1jPCzv5eUWeTly\u002fU\u002f4XrI0LUi2z8LJnHhBb7xP2FVvxsQHt2\u002faisJTiB24T8X546y2EHgPy8QSIEdB\u002fk\u002fpN7ctp1E0z+yRrBoV23eP6ihEfE91M4\u002fRyDOvPsi8D85sjk6KYTBv6x\u002f98\u002fYjLw\u002faD8VP8Lz7z9lasLJw8IMQHKTu3qhmAhA7mEBzcoN9T8lrdMlcPHhP4j04Q6RXtk\u002fTiDYEiVI5z\u002fpXBLfTcnSP9ygEVoWTPA\u002f3X\u002flHFEp5z\u002fvBhOauVCwP69uIK96X6C\u002flAssl0i+9z9hBkUPevAQQCJAfRW1GPA\u002fCzD32db8+D84NbTl6nrJv7Z+XuIb1+Y\u002fdHbtYp31EEAM7uzsS9zcv8C\u002fm9rIHak\u002f28aFvtigAEADYDbElzPnP1QMUDZl48g\u002f2aWoZGpG1T+yhWV6\u002fbvgv4dKRnq9Ieo\u002f9cBic8A1sj\u002fOWy\u002fo2\u002fLuPwV8DQF6aPM\u002fYLHurX582D+Hrdkyy0EAQI0LWvVmgOE\u002fNGpW9x5prb\u002fqkRJZbYL5P\u002fRjhQarQti\u002fxPiC2Ob19j+NV0K+6ynyP5kixQJX5gNAxRRxRNgLAEDHrhTzGFzSv3YrPSlUI9y\u002frDhpxGvUtr8YpfQt3e\u002f1P4UkYwPDoc8\u002fpFAYX6w88D9ZdJ\u002fTPPPjP3AXEQnRQtE\u002fnFoEauMk0j+j7bevUXHXP0aId+mqw8c\u002fE9pDi1NxCkBC7Ubl++TqP5uZoLWLWsW\u002fKrxykcj8zr8QuS59nS\u002fuP3peVe4bNgdAHn9z8DTf7z\u002fnGqa4cDnSPzyUQ+r+ZMA\u002fIgjZ8RnU3j+Mo5rv\u002f6HUPx0k3oway9Q\u002fgHDHt2Uy8D\u002f8jz36EIP0P7BsA0jhu+o\u002f3hKPDJZQ9T8pSRzEUtGUP\u002fN4u70RPOU\u002f\u002fmmyZj9N9z\u002ffVPaH3k0CQH6E06gHsP4\u002fZYYOGspY3j96M7rnlLXjP\u002fKBBUVDMb0\u002f52ZWza378T+6FjnKTk\u002f\u002fP5Tlm1ji9QZAiPSfBCBS8T+lx\u002fRnOFTpP+jf5G04Cui\u002fx92RKvM8uj8h4KdJ2L\u002fiv7we64AaQpc\u002fv7HvD0U64z+DVMIcZTv6P1TVKs9xidm\u002fFP13rFGdu7\u002fGYHqSlbv0Pw13wlbAn+0\u002fuDI+ZU9G9T96HJrk593ov6c0E8SrRfo\u002f2Nqo3on\u002f+z85XyBUuG3TP24m7AGFb9U\u002flCcaAzrUAEC74QCc567nP\u002f33NLS\u002fSPI\u002fiPThDpFe2T8OJns3L+PoPxyWy6cpnss\u002fpcwbCv1\u002f\u002fD+Y\u002fFCelJHzPyaMaonOVARAfuzFtyHjCEB4PXiUrdvbPxmDjH94g70\u002fNpl\u002fJOQ57j8r6iIAsnrWP7oWOcpOT\u002f8\u002f2zgaoGeG8j+RMbcqGvT0P8zIe6Jtpuk\u002fENDUwZET8D\u002fKpOltQHevvxfstVSdbfM\u002fmz69xHEh9D9myDOLoUkDQAy+YvhHFwdArbP8Iukg2T8Otq8crtXgvxRo510Mc+k\u002foO1edtGDAkALMPfZ1vz4P3FypmzrVuw\u002fE16ZGYMb0z+I9OEOkV7ZP7RT2gqkN9A\u002ft8DAss9B8D9IL7ML2XTrPzvb60rBye4\u002flPfRGKcbwz8bXhzYDZELQEOA8NRADPk\u002fdUe8gg0O+z\u002fmCOUL0HT7PzLoWONM\u002f+S\u002fvWpmncyj1j+dQxwbfjToPwBEJ9NtF\u002fo\u002fTvDGhoLT4j9DPo4EjaHvP6AYMjGg6\u002fY\u002f+\u002fyTCsxb5j\u002fmNupwnGHGv9qOwBUFVus\u002fFzjW0Wn+5D\u002fLrGyxQ4r8PzdIOAVTfek\u002flSxiKjcG+D+Vv0POwxTnPwrfqg+xrQBAgnXzBL\u002fwBkAWJk3ZECH\u002fP0ac\u002f8VqKOY\u002fNLt\u002f8PPUpz\u002fA4c2SNFoKQA=="},"z":{"dtype":"f8","bdata":"xf5CbXq5AUDLuopj3MpWP\u002fN7M3EhC+4\u002fTrFc2TzrBkAvTjESCJCDv8RdCWSBEvA\u002fttFrRd9zsL\u002f3iLtVFm\u002f2P6fDBPQEbP8\u002fMHL6NLl96T9OaI9LlI3wv9J62ffnXrw\u002fAlZiPSAVAUC7rh0HGYXAP\u002fN7M3EhC+4\u002fUNtEbcmt\u002fD9grt0p\u002fVXqvx77LbP4kPQ\u002f0hGBkoTN6r\u002famFSoebMEQHqfqtoo5sO\u002f38tkYdhn5T+dQUT9WOwRQDpBMzLKs\u002fk\u002ffUxPJB\u002fC2r8vsMQo8bPaP7cj6I4D9NC\u002fVgeyS9qs9T9wAhyT54\u002f8P32P4X0GePk\u002fdwPyekVSwz93Vt\u002fvfcHlPzbcMQcCs9M\u002fLjmvR5kh0T+NeDcPhMnsv6hU+PCJY9W\u002fA5cvcnPKub+BKuBSPnfTP1fS0+hfFv0\u002fqQELfFH04j8jj1hBU6POv09\u002ftMZqRNY\u002fhLtOXBd38j\u002fve28FNl3wP2REFJmF1ea\u002fonDl0Q+a2D+Q53+mEyTpPwLUDS5DCeA\u002f1RsRXuPM1T98N7GWyoDgP9IRgZKEzeq\u002f9GEW3bTv2j+PTL1l8Hbhv1JsoQBIb6m\u002f6+U4lq3d8z85IjDuo+8PQM1gQVcnO7A\u002fzgQ1QqS75L9CbaAQ27LyPyKRKI5svu4\u002ffDexlsqA4D\u002fWae0N1RbWv2zKOExUQcQ\u002fOsGszAiK8D+gHYobBnbPP3YyMpCypue\u002fe\u002f5ydC142j9uAjrd8bgFQBUEnzdiKPQ\u002frC3BufmY8D\u002f2J2NJCIbyP706xKpCBeI\u002f3\u002fmstIecCEAru8UfZKLHv9WSJj87X98\u002fkxM25LvI9j\u002fXKF2uw97bP2ZJ3P40VfQ\u002fJcXnqfHs2786hwYE33Pqv\u002feaVP9R+OA\u002fKB8NwIAOxz\u002fX2BdbWkgJQBJ3kO2rmuI\u002fPMBEJnx80L+Q53+mEyTpP1HC+Bjv1KO\u002fCMc86rb\u002f0j\u002fxV4YRVvDvv\u002fmD8+9m7+i\u002fvTrEqkIF4j+20WtF33Owv3xQhrsMs6W\u002fkulNUC8GAUCnksLkwZnmv4N4vAIwwdO\u002fDwhIVhxA5r8xlV04ArQAQKV9MSLwq94\u002fMYeL94pr0b9wQ6Ntcea0PxM8B3KhbsO\u002fb2bxqzfVxL\u002flrDYIJSfgP9G5UKtI1vG\u002fszoNCtqq9j\u002fJ1B5F2aT5P3TnlljuZum\u002ftg5XzDEG6T9kLTh9RsTFv6oo+VNKGeO\u002fkZccCaBk\u002fb\u002fcDdhzyrX4PwFqjfxiLvE\u002fzVSY3xd78D+Yw4nnsGP2v87vo3\u002fSzdw\u002fWp3oumIs8j\u002fUAIwj6qPyP+9K8WHeOPW\u002fuOJXL\u002fK71j+3Pm3J\u002fBz0vy9OMRIIkIO\u002fJGWu5Nhr4z\u002feWHOrjvX2PxNO0siZWtK\u002fARxPLaSjdD8z5zL+dKHAvwQxBnsugNY\u002fCMc86rb\u002f0j86jOyzmBwBQDoXS5498QNAgg9bGEVO8D+uxt2gSMqBP2dRYOll5+y\u002f20K21kRM8T8kuBZmZePuvwh04TOt28k\u002fep+q2ijmw7\u002fioqY8xifVv\u002fFXhhFW8O+\u002fii2c17+J7r+mBhxBmBnVPwjHPOq2\u002f9I\u002fIPOf4W8Pzj\u002fNuZkK4Hvmv6Ff+ef8UbK\u002f6vv1aveG+T\u002fC3k6TekCRv6kTaJF4K9s\u002fQMM+4g8aBkBO9smnwtbfP\u002f06KAW8yso\u002f7iS9FJGou7+DeLwCMMHTv3w3sZbKgOA\u002f+\u002fkuo2VNq781f0aFmY\u002fvPz2tgQ3GcABAFMIrJXDa4D+EASIuLDfjv6eSwuTBmea\u002fuY\u002f8eOiXzT\u002fWae0N1RbWv0b8voG6H6c\u002f4KMO41I19T\u002fPKOKhb9biP15jQvI4Fuy\u002f94i7VRZv9j\u002fX8lI50Yzlv6i2b0SNtOQ\u002fXsW5RTxn2z9AIgXZFnP0PwVhHHj5lvE\u002fP0Hq0jIO5T8QoE4SvtrCP8sJwRM\u002f6e8\u002ftMO7lG3G6j+zjbEfe3TUv6V9MSLwq94\u002ffV6fbsOl4L+3Pm3J\u002fBz0v6hU+PCJY9W\u002fuTA03+MF178RyvhuOBLuv6xzlIsOWeG\u002f05iyFu5isb8IteyfEhztPzD+oNji\u002fdq\u002ffnkkqbzO8z8abjHfnEGlPzBLep6RDcA\u002fVaZZP8zD8T+FtRXLUwizPyUSwW+g\u002fMA\u002fL\u002f8If28L+z9DJmWYOeXxv8LeTpN6QJG\u002fVaZZP8zD8T8I3Np3C0Htv+W7aVf5lsY\u002fpzRrdtH2ob9laMH4UPDkP\u002fjTVo3arvQ\u002fF086byZo8j8vsMQo8bPaP4S7TlwXd\u002fI\u002fn6D7ztqw8z84Kg638\u002fzTv2c6hM0m1su\u002f5ko6wXXe6b8CVmI9IBUBQA=="},"type":"scatter3d"},{"hovertemplate":"Class=Benign\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Benign","marker":{"color":"#1f77b4","opacity":0.5,"symbol":"circle","size":5},"mode":"markers","name":"Benign","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"c2JUnpXAx79ZLahkM7LQv67ivl+a0\u002fS\u002fNdeyqXym2L\u002frWed\u002fVYL6v3P10IfxV+K\u002fKCGLMUemyr\u002fF2DoEOrfmv67n+Mm3Ecm\u002fJzZi6HZp5b9FASOIeIjovzXXsql8pti\u002fZHKs4gDH+L\u002fIDJni7w3yv5lI7uUPkfi\u002fllck5MST9b+5kGeVX\u002fr0v5ZTyQioj+q\u002fJP33p+HY9b8RXzb3k+rbvyT996fh2PW\u002fCik6bz3U4L81DPmCvmHFvy4oUIFpH9e\u002ffma0oQTq578K2FePqdzMvzRyoEFrx+O\u002f6O48y1QN4L8WCf58uwXEP0FGar37Zrs\u002fWr5rYEwK078X5UzYUkjMv8MWuhI6rOK\u002ffQvDaT2p878JfH5cVjfnv2zkSe9huf+\u002frYsfl2Rs478lm328E3PyvzZ3tQ\u002fWK\u002fC\u002fNQNkPYQf5r8NGJCL7BDhv+8hodZnqum\u002fi0i7tX9n87+HR\u002fhWptzZv7RxP1W2384\u002fFw11iP+47r92DvFBJ8r3v+2fE9kDVeS\u002fq7N1T0\u002fh9b9FASOIeIjov03opGzVWLg\u002flO+VL5fqzr9gYiFuBZfCvy+LX8PSC9Q\u002fxuX8HFP54L+T+9egjGvaP8XYOgQ6t+a\u002fa8pvQt7m6L8ZGjehGPvovx8N6JjkO\u002fS\u002fr62mjpYc6L\u002fUyLS3kKzVv1uwuOAbOe+\u002fLcM9GVhA4r8t\u002fG6UMu3OP2hgIR++FLU\u002ftrASVI1GxL\u002f3gFeOpUfWvydOyK9ee\u002fm\u002fWqHCwruP8r+HptrFMMnrv4TUoFf3idG\u002fYpl\u002fHGcK4r+3hSLObaPlP\u002fEuY++A7OO\u002fCKB5OSSo7r9FsFKA++Xkv0J5U7l269+\u002f+G760qCZwj8jixq7K43uv1RfWZiSZMY\u002f3kFOiN1G4b\u002f1EmvYsqfsv8PshdBZHvC\u002f8ed8o4S5+L9AVhs7ggXyv60QRREMO9q\u002f24j084Qg3L+kLwFcakjov\u002faDjtIak\u002fK\u002fNWNqQ7bE5r8YKW2fzf3lvxYH5qebTeG\u002fe0ut8U002r++H7er3JH0vwABcaZt3Ni\u002f1bL+cWCv4b9d8c9rX6fcv6+xAWqzIPO\u002fNS6AevARyr+B6sdcG1XQP2LqTyTkrOW\u002fkLEo+a1K4794669Xp7nxv42rh0AzisW\u002fmEVYur3Mwb9SUmag2q3xv55hr7hoitO\u002f4dSdMxjMlj9k7qr\u002fALHwv6bkMPRE38w\u002fiullNhD4278G3vhHJJ3qv2y7OUQp5Ou\u002fqSNsRoTp9L9Evx44APW2v9kijxmge5g\u002fB7bQl3csyL+OgGsDx5fhvyPHJeSPwee\u002f0\u002flF9ioQwr9Wga+wJaDwvw+9leeZpdS\u002fm5D4yLN80r+r0aFrZI3vv9AW7ULK1ee\u002f81Dq5rKc6L\u002flZXyVO+Htv+mb5gUlVcm\u002fZI9VgJFB2b9t7PY5EJftv4uVLQt\u002flbG\u002fPkOKYbD+6b8qi43LEBD0vyLWW+JExOS\u002fLzaVGAeT6r9FXfy6yy3Ov1ZH1bWnYr+\u002fK1Z1+gxZ578tl4yFUMfUv7IDg\u002fjy+N+\u002f3QFblEGR4r9jT2KM9YvavwJe3y9cCOi\u002f7JJRwOoS6r\u002fOGNLnWWTFP8AtZJbiqMo\u002fTAJHHyBB17+LQuz0xqLlv9zI5+cg1tq\u002fbe8vz3aXxL96yqJybhDuvzJLCITGkJ+\u002fXEACyjuK8L8vyvCQY2TevwxPHEKMiPC\u002f9t85\u002fS806L\u002fFOEEKbFznv2tcJKUOztS\u002fiwo8p39y97\u002f9jRmnvonQv\u002fsixW0PY9i\u002fp15KbLU6578bYt\u002fEGfadP2J+q5xAftm\u002fY3sTIP0E6L8MAyEoJfH4vwopOm891OC\u002f1uO7Z0di47\u002fzVf+0HQH1vy1jNxMmm+G\u002fdlumTtzB8L+CqT8S5BjYv0qdNLcOYuK\u002fxZ1Tcn073L\u002fAyTRftG20v96SHpBa6eS\u002fSrF2F6Oe078D76IrdWDqv0+BPKBAHeu\u002fRB+PhOKN4r8tl4yFUMfUvxE\u002fLFGJJfK\u002fqNjQATf6tj\u002fgWPpcd\u002fjzv5PEefIq+Oq\u002fyGeKGrdO5r9BhWRLzffwv\u002fkduQswKeS\u002fYLmOjBqQvj\u002fhVJ+BWvTovw6pU4cFaeO\u002fOiN3TxoP6L\u002fi5WJ9c0zrv7X\u002fmi27d9q\u002fdcerDk4e0r\u002fJDqV0IyvCv+g4GntxMve\u002fm+Zz+kEr9b\u002fzzOgDs4bgvx45xzQqudG\u002f1NmRy3GZ2r95L8eylkTjP7K7jD5XF9G\u002f7A5Q3er84b+mtefj+ezNP1DVRT0kwMW\u002fG6Hi2HLf4j+dYjI37bvsv30lPi\u002fkAtC\u002fB5RJoEV8w79O8HikJ8Xov8dayAGeDOy\u002f+xtFJpRo4b98nH35ytbdv7nZK2tRRtC\u002fJHTh9nZe4b97K24oa\u002fXCv9V280j8eui\u002fCfDPLqhD8b\u002fqyCOEPCr4v6JNbVjUTeK\u002f9RKbMeJgt7+uxXHShWHEv1TxnDvPfde\u002f0jh0OvyF7L+xCzmvLAHmv88lI0F\u002f2OS\u002f6OKeSeOD1L9g7eegJybXvyTU5\u002fyoA+K\u002f7SMVvANr7L+hlpmBLj3gP8VMg2oAmdi\u002fzzRZPzTb4b9WP9XGCKfpv3g533ZVuOu\u002fv3+9sQ439b86OK3tJkvNP4AEOrY2hOS\u002fV6M2qFdQ9b8bH0MD+DTdv6GRe0c4ruu\u002fm+CkOYlm57+fxL760XbQP3ZXS3O\u002fveW\u002fFHFggghvur\u002f\u002fAu73lMfzv2s+wRQw8\u002fK\u002fw+yF0Fke8L\u002fmxYKbbYbuvwcPtj0LUOy\u002f1GpVx4rx3L\u002fWqki7Jqfbvx\u002fjTIkLxr4\u002f2zck7Ad+2L891H22+A+3v4hnrIFfU8G\u002fSmGMF2oQub\u002fdhVx3Qafqv3srbihr9cK\u002fRxS0YUqP8L\u002fLBRAv6ejivwn8CDQSmsQ\u002flamH8esHuD+PES\u002f\u002f3+\u002fjvz1h9l0aBOS\u002fgXoLsRDssz\u002frJq04R+Tdv7z0IEPxps2\u002fk5FIF6iE5r+9DF1G1LnUvzXXsql8pti\u002fppNiPbnx879Nrvq5Sa6HPzc0ITNr0ue\u002fqy6xDXZA1L\u002fnSkkuONzKv+ps0CVqjM+\u002foQQTJzxa9L8f5wXGlYfkv3l8c1PAEfS\u002fV0yX3yHp47+zz55FvJrHP23XMVv3KOO\u002ftV59nEVk7L\u002fpRBk1senXv36QwnRElZI\u002fFXGTspiYv797d16FVa3nvyTU5\u002fyoA+K\u002fTbO+RfIPwb+\u002f9O0SYX3Iv+QowjYGLMa\u002fjZ1FgPaG3D\u002fUWXizqQTYv+xVC\u002fgJnLc\u002fn6\u002fnQ6Kz5b\u002fgkKqqvijiv2BZ6w+oze0\u002fFgfmp5tN4b+cIbzEzNTUv+H2fSC43cU\u002fa630rItw2L+\u002fP8FR51bevxgP+0WyztE\u002fxZ1Tcn073L95fHNTwBH0v\u002fCUOLZrVvK\u002f5F\u002fttNd14L9DA5dtFEnrvyL\u002fdPkIxOA\u002fZhmZNC+f5L9oAsIuuFm8Pz79A+vNc7g\u002fyVhUHAJM6b\u002fZFZ301c3Tv3CLoOXp6di\u002fULTgi6gT9b80lpseOTjrv02zvkXyD8G\u002fPCfSKjcT87+TiZvM+ab4v1N3sxyO28e\u002fWUoj+oUo4b+SgM6Mhnqxv1KMitO9nuK\u002fH0cMzMcs5b\u002fFeDT+BxLmv+QowjYGLMa\u002fbLs5RCnk67+4ydHV9IrkvyLx74EW9\u002fy\u002fGgKaZWe6\u002fL8MC85y087mv+syvHmsO8Q\u002fEVY+KJrFvD8z9R6m5qvSvy7p3DTxKre\u002fjvxXSLAsyb+BaVWK043xv\u002fqC1N\u002fMMvG\u002f8vX4rutb9L\u002fJ64v9tmTuvwyPz1XT5O6\u002fk8R58ir46r+K6WU2EPjbv2hANfrLs\u002fW\u002frlA4Bajw2L96ev9tJFHxv0MVblSY7\u002fG\u002fwK\u002fAtKeJ9b\u002f8kIHK0knHPwWNKECn+ua\u002f2xFD7KbSmL\u002fHWsgBngzsv\u002fmYU7EzAf2\u002f"},"y":{"dtype":"f8","bdata":"iNkxqy3K0b+OpAPT707hv\u002fkuVy5tx+e\u002fDHuW7kxc6b96jyiXLkXtv\u002f5BixQnXtK\u002fHgUi3eKS4L8VuK0UR\u002f7svzQ1XALCMOy\u002fjCM6fpW667\u002fSLdDzN3Xnv+sMwCDzrvG\u002f3YsdrSBf678ifeGHF0vvv\u002fGHJk42mue\u002fNaBOCH4317+qoOhrEO3qv1Snc\u002fekweS\u002f7NN51LV\u002fBkC8wWugMPvkv3nZh43el6G\u002fYo\u002f\u002f\u002ffEb5r\u002fKWYnTaxTQv7zkwzOtCOS\u002fbAcwUk034b93qsROP4\u002fWP8KNFhRy++K\u002fBhnNgAAA17\u002f8V3roK3DBP0Uzh6NlMee\u002flHo0PwKO5r+Dc5SlVLHjv0gvQ6NJpum\u002fvXbchaFz8L8cnSojNM3iv5OZdjCB0vG\u002fBvSKoT0U6r85KGtVVOLVvwL4zqFZn+e\u002fQ7VIMokPzb9IMFSjEAnpv9ZYVMuvFN6\u002fU+40HmU\u002f4r\u002f8GB26rmvMP1oHMpRyOQVAi\u002fhFPo5M079wBP1R+A7jv2o2MN4oSea\u002fE\u002fH2fECaqD9dTZPXFIzlv4xLUBg+fXO\u002fIFsSB2xNub+x3hCS0fHtv4dhLskiEtQ\u002fBzo7yDYv6L+E8RE0XATMvzZMDJ3fOeW\u002f5eMoblSV5b9jYP9xFgrhv5OZdjCB0vG\u002fTSwQo\u002fR967+EzAcJ4f\u002ffvyDpHELim+q\u002ftl245p3A5L9l5mV\u002fY9iVP0Zbe\u002f5qPKm\u002fDcA1FX8U6L9hbKdqdQ7nvx9rZ\u002f+SYeE\u002fkvObUBgoEEBnQ+nWTrDrvwn4INx\u002fh6o\u002fMQuxdskM5L\u002fxkXSSv\u002fHdv4wjOn6Vuuu\u002fKKxul70z8b+T50hFTFrQv5sLjtCaLdy\u002f6FOEIEbU678YZUT1J3zpv3n6UlEyM+m\u002fhrYRzPij479RtCzwyijqv5OZdjCB0vG\u002fk5l2MIHS8b8dKfvYtdHgP9RqHrqNgPG\u002fn4wsZVb0778KoenN1qrVv91JpWtzgPG\u002f4+VKbuJa5L92lH2XETPqv2LVryTrNuS\u002fIVM2\u002fB4n57+TmXYwgdLxv5F+eD8eGeS\u002fpTPAuXPW4r\u002fKfkKEoRi8v0NAQJyLmOy\u002fcbhgDU54lr8p1sWUyvzXv0+2TvBY7ui\u002f7\u002fMpVLkD0r8rs20BTu\u002fYv1ouf0S0CeS\u002fvgd0qlJgwL\u002fizHjTNozsv5A52RjsYOW\u002fm3SWihBW2b8ncN0HMH3wv+hK13P0ENO\u002fDPAO7dmh27\u002fUnjym8Bbtv9dVX+hM0\u002fC\u002fJyhWaGoD7b\u002flylbTqMbtv3AXEQnRQtE\u002fYT\u002fJ3ifC4L8uZ4+O8mrvv9ErHlw5fuo\u002fTIyjZGDK4L\u002f3A5uirUDgvxhbvvxWPeK\u002fwdIlozOC4z97GnjkWRjqvwOomIKPReK\u002fWqD89jMO6b\u002fmJ3\u002fgdwPUv0xF4j2gTOO\u002f+rq3e1\u002f947+qyv7Go72rv1rcQv\u002f\u002fXfC\u002fH1RH\u002fOWJ5r93BvtJkTfvv7SOor6\u002fsNe\u002fvl6rRxqG8b8w8+\u002fb5KDrvz08IKRkquG\u002f0aKApgyi6r\u002fnGqa4cDnSP3HbbBzwcvG\u002fH5zhbiWD0r+aUoeropLqv02Nuf0bT6k\u002fMlrWlcwD6r8GUVvL4wbjPy87ik4kmte\u002f\u002fZT0M0bg1b+iP2iy0trov8zTojJ2ee6\u002fCoc+56tg77\u002fBx62Y5a7uv4F\u002fPJ6ztem\u002fN7+aTyah6b+MYU74A3XQv9+udUCdbOq\u002flpx70rc45r9QkMNch7jrvz4L0kNwh\u002fG\u002fCiCdAmAV8b\u002fAC\u002fp5zETxv\u002feZ5XBD6PC\u002fjP\u002fQ6lFK7b8dG1DOEtbtv5YFhIwtYeO\u002fQxzXCEgo7r+TmXYwgdLxv1AjPp+u7PC\u002fK0ZZ+wMj77+pBAI4CdH1P59MIav4Qe6\u002fVzF6kMFK0b9rfOAEImTkvwjQIQ76o+u\u002fXAj0sOLT5r+6qaoFTI\u002fsv2AStjwSg\u002fG\u002fTiYChnN3zL8YUyXuS9Hwv02qNNp5oPG\u002fHEmNcQBE8L+CUDwS2KPkv2Ml5kO1kOm\u002f7OSNeDAIvL80alb3Hmmtv2uEDEkd9tu\u002f2T8rjnKQ47\u002f4dRhVLUXlv14fwCWkUPC\u002f+iPANdUl4b+wSkxMnELpv7B4O9iw8e6\u002ftuBuJb4n8L9DwhrxrI\u002fhv9aE4jkLzcY\u002ftp9pBDI4tz9QShM2jp3tv42lFNO2seC\u002fHuxPQjfE6L+Yu\u002fwvKJXxv5ace9K3OOa\u002foj9ostLa6L8GF6uAcjrYvyMKU9XQ4+q\u002fsEDGU8sD4r96haKeXQbmv7w0+lJ3Yum\u002fgFM3XuXk0b+hiq\u002fjH\u002fD7Pz63Ek\u002fuiu6\u002fjV9krL2W4r\u002fbCsxq0He\u002fv3mGs54kaeW\u002fgh8h71EWvr8p1sWUyvzXv6aNRB3Hh96\u002ffTQjy4Ri0L+yJdK4kW\u002frv5T30RinG8M\u002fpzoTsu\u002fs67+TmXYwgdLxv3XRuMUAcuC\u002f70KHJwTi6L8Ded+9WUOjv9Oi2Ik17Me\u002f41jZICnC6L9CzbHpRDHovwTUZQ4WL+m\u002fg5XbOApc478Tapn1Cmrmv2C+\u002f4nNLeu\u002fFAvffx6Z37\u002fcR1fSbSLbv6BCY\u002f7fG9a\u002fTdvIg2PB5r9E7ud8M3nov61Nf0zxaue\u002fWi1uRO2m5L\u002fps98tajnQv1l+tWN+Y+m\u002fd5Jbl4Nt678pkV4i4Cvqv7mY5KxlBvC\u002fSuhJyEFB27+zXShPLY\u002fmP+WmRSOOoMy\u002fLdl1QB70uD\u002fRctzkeQfwvzGWHJ6YU\u002fG\u002fzA+VrFZu1L+y+PMsRCPlvwiJYOc5Ju6\u002fwAs8v1AE7r8u6LDGdUnCv1sJBbGpNua\u002fEXZB7mlu7L\u002fZ+XpneXXlv59MIav4Qe6\u002f5BEY+mhE678cwumt9YeyP\u002fTTGG3kaO+\u002fpBndHgGl679cNquIr5vbvyUiFHC1T+O\u002f5jy0nscqgL+3YZTvbnGKv74oUloYXuO\u002fWv9l8trez7\u002fUTgaHJr3nvyaUkSI1VOi\u002fFTDpqpmdy78HGPQ0gYTovy5ooI65ze6\u002fWxOLqXp17b98p+kxE7Hlv3T\u002fp1EVIea\u002fxPYezucj4L9KeZzw9pbDP4UkYwPDoc8\u002fcufmtjC17b8Ofz8VATLFP+N7MbSlz+e\u002f3I0\u002fra4k6r\u002fw2Ua5RtLav5OZdjCB0vG\u002f8rKqJa453r81niwI8HHYv9iawPGMpN6\u002fuKzdBaG36r\u002fLs0XrBq3cv4yvmsuH8Oe\u002fAvjOoVmf579rzN5vpNbYv9hkpSF9Y+G\u002fyzCrEGRT2D9Aq9q+HlXqP1NqABVum92\u002fH79xtul34r8QVPpatMPsvyADAN1UzeG\u002fX1F6zPRh8L85mQ+8VGvsv+zUFcFYgdC\u002fxeMGPvu1u7\u002fFaJyAZyjlv1jpNwGrm8K\u002f8CEZ4M2y17\u002f6x7VrPEy7P\u002fDvxSS8Fdg\u002fLWtLoRijtr\u002fU23fU31Xjv+hTTGz+7Nq\u002fVzF6kMFK0b9Z6M4du+7lvytMNw64ILW\u002f\u002fSGeNUdg4r+nvf4G2Ebgv0N7WcrsEeS\u002f9g9DmwxF5r\u002fE5baUKc7wvyxrm9rGDty\u002flzFRGLRK6r80nmS8N1npvwotgs8QyOK\u002fvpvgDF\u002fF579KeZzw9pbDPxfzxkKod+S\u002fvKdQUXbi3L+ndj3gF8niv7hmLd+nnOy\u002fF5UdzYIJ3b8e4slJZoXhv5OZdjCB0vG\u002fBFU0\u002fGTlpz\u002fT3WEgJjTRv774WFPcbcM\u002fBsi9Fbcq47\u002fuRKknkqfnvzqx0FY51+S\u002f6gEsAe60579fMY48FJXvv5QHpoy7JuK\u002fSi4yo4JD6r8PEGw0SW7tv5OZdjCB0vG\u002fRAe6F99H4L8w8+\u002fb5KDrv\u002f4ffDW5muO\u002f15Nt+RCO1b+vTDaY4iDXv\u002faZpgRS0PC\u002fk5l2MIHS8b9DBJ+c8KPGPwjawMzI+9E\u002frh+QwNy74b+TmXYwgdLxv5OZdjCB0vG\u002f"},"z":{"dtype":"f8","bdata":"LjmvR5kh0T+gE+2EJCPiP1b9Eyu\u002fQok\u002ftz5tyfwc9L96n6raKObDv4qSVKPw5N+\u002fL04xEgiQg7+YYjHbonryvxSIhVxGxPq\u002fb9eEnDRTyj\u002fRhdruWk3ZPwBu9qlMkps\u002fswTHANMG3r\u002frnC908C0LQGAz9QsxmK4\u002fwvNMnozl\u002fj\u002fWae0N1RbWv319hGjfQPG\u002fLIjznRd58T\u002fmSjrBdd7pv6YGHEGYGdU\u002fqFT48Ilj1b9Pm58E80EBQA+4m1kR29W\u002f0nrZ9+devD\u002fyy99tLHDeP5v0y\u002fbzNe8\u002fJHcL+v+i2z9Vplk\u002fzMPxPzihI5hLj92\u002fyo3jzDfX+L9UoZHZHETkvyyjeNgQotQ\u002fX83CIxnx+r\u002fp4HAw\u002fl3mvyR3C\u002fr\u002fots\u002ftyPojgP00L8g4dSKdyPfPxJuaMjZqPc\u002fUcL4GO\u002fUo79\u002fIFCH33fovw7G1EMq8vK\u002fFGAv3sCR6r+s6i5gEuPRv1lwEzbFH9m\u002fS+l9V+LE2T\u002fQT9B5aPvivwmMLnsA3Ny\u002f3txZ0HKR\u002fb87EPEih+Hgv9Yt3LTbuMQ\u002fNE4Edla99r8h9mVNSRHnvw7hWX4jG+Y\u002fC4EthI3tzz8CG6Xaml2QPyZ2o1Nzlfu\u002fX5yAFNYe0r+E2GMJGvfCv1q4bfVbVdU\u002fQrNz4u9y4797QNhZzGS\u002fvykM2sL7FPi\u002f38tkYdhn5T8YVp8SYpLPv7ONsR97dNS\u002fILTyOlfD87\u002f4npZ0akEFQDyMzmmO8\u002fc\u002ftFDoKC59BUCbJ4goNiqxP3Hgozx\u002fY6M\u002fL55nE8p84j+9CGeaBT2+P+ZKOsF13um\u002fi9Vr8IOS9b8iGhOtFCzlP7FUc\u002f3da+6\u002f7umYVdBP8b\u002f0q0lu7CH5v5CySreuhr2\u002fq0ymsxU04T+znw41oqvsv6kTaJF4K9s\u002fLfFUiALs1L99Xp9uw6Xgv+K9K3e\u002fUPi\u002fJauBtu0r9L9QKK5Oqc8CwA0iZeqIW9m\u002ffX2EaN9A8b8PuJtZEdvVvzsQ8SKH4eC\u002fq2FEQWp1279W7CwR4YPiv81gQVcnO7A\u002f\u002fj3XvrqJ4z97\u002fnJ0LXjaPwc+UssOktw\u002fGtkHQa\u002frwT98\u002fQrOoGr6vyNKKarfQvC\u002foBPthCQj4j8AiXL2fsnhPwuR9uCvW\u002fq\u002fTNcgQruN4T99lKnjtffWPyb2HO6xa\u002fK\u002fIpEojmy+7j92exQtOA62vzpyaHaKMtA\u002fW1atQsFe8b\u002f9OigFvMrKP4vPrWsULL8\u002fsVRz\u002fd1r7r8QEXB77jHxv9UwZoygaPu\u002f1mntDdUW1r8HkT9ARwHvv\u002fXGzqjlSuw\u002fjxEdOAsIwr8xh4v3imvRvw7G1EMq8vK\u002ftzVFpCor6b\u002f8jYO7xe7TP7XVC98RqtA\u002fcEOjbXHmtD9L6X1X4sTZP+srDGjCneS\u002f3oDJKRQo5z9XN8hIpcPgv\u002fjgJ9FmuPG\u002fep+q2ijmw79Zph2rt3HvPzK9lWx9vec\u002fVhDacKye4D+hsfA9ddrrv74b37AmavE\u002f1UsnW67j8D\u002fgETgz7Sf2v31MTyQfwtq\u002fo\u002fyLdTka6r8AT8wtVbP7v+BESOxL3AZAdQtEuLmB5z8Gf+IqIMrWv6AdihsGds8\u002fQ2PH5eQN07+5j\u002fx46JfNP1ShkdkcROS\u002fKJnoDLKi6b+C3tx07Sn1v+srDGjCneS\u002f5a\u002fyjKY527+76wPmn5e8vzjkOuXePPO\u002f9vbkpbBh97\u002fO76N\u002f0s3cP4O2hvZn9+S\u002fdnsULTgOtr\u002fgcpA\u002f+xD6v8Usi8Ap7vS\u002fgqH1M5YJ3T+Dtob2Z\u002ffkv2L5eGHBlei\u002fU3xcnGL3sz+tjhnGB4L0P+z9wxQTaQHAA\u002fv7BTwu4L8CS2xuMkH+P40gByhI0vO\u002fwVyhvfQE0L+dG7rO7Frvv1ShkdkcROS\u002fKVseGXps2L9rD+3Wc5n5v4c\u002fNYH7Evm\u002fK7vFH2Six79laDwFpfjdP48RHTgLCMK\u002fD39dN3TS778wxVXrwqHiv8exR81rTNI\u002f+PdMTD1v1z9fh+9RBDHqPzPnMv50ocC\u002f+qegTzIK5z+o3V0chtnkvzbxz5RW9O2\u002fUl8exyr28L\u002fOBDVCpLvkv2532\u002fJM5AJAwKxNuv9p4L+gKIsSeWTcvyNKKarfQvC\u002ffK7GdyIT6j9WddubdJ\u002f2vyR3C\u002fr\u002fots\u002f0blQq0jW8b9OaI9LlI3wv1b9Eyu\u002fQok\u002fIIIM8XKRyL+YYjHbonryv+12p5+G3eK\u002f5a\u002fyjKY527\u002fioqY8xifVv1llEj9SMcw\u002fgo+YHm\u002fS5D+BJRjtjvf1P6G6GGNHzPa\u002foV\u002f55\u002fxRsr\u002fKRxD7IhfoP8ySqzLnVuY\u002fhIg+o7jCAcCmeZGIvXW+v4Fr676jt+a\u002faNpKCA5V478q5INEduLnv5Aq9g8jL3i\u002ffFCGuwyzpb82U8zbBT3kP0dTR+hZRd0\u002fvBYXS3fq47\u002f5+WnYtfyUv77Yx2OTvOu\u002fRnEA0P0k8L+7rh0HGYXAP2L5eGHBlei\u002fTyxZEGEgzT+s6i5gEuPRv15jQvI4Fuy\u002fezLpMBsB87+s6i5gEuPRv4\u002fD0kZICeu\u002fvTrEqkIF4j9i+XhhwZXovwZ\u002f4iogyta\u002fSP7ShZ9g\u002f79aL4PWs+feP6QgOdUENeg\u002f3DUu8k\u002fo6D\u002f4OFi4oq\u002fqvz4dPXNn8+a\u002fC0sjD5ub6T9X8fR2kAPwP+PqAPxcXdE\u002fJRLBb6D8wD+LMoKHeTIFQEBo2KorM+W\u002fe\u002f5ydC142j8Mlr5GX9vnP6eb6gmUi\u002fG\u002fLaIQMoSU9L9qexP3a3xiv6Gx8D112uu\u002fKB8NwIAOxz8Gf+IqIMrWvzbxz5RW9O2\u002fwCNjm1f86b8v7atpSNTyv46BXzRWu\u002fe\u002flwrjqVxaAEA3iRHvh06fPwjHPOq2\u002f9I\u002fILTyOlfD87\u002fROdcQCgD7vz4dPXNn8+a\u002f7Xann4bd4r8m3hNeKpGnv4s2xPyRe\u002fm\u002fJt4TXiqRp7\u002fNuZkK4HvmvzsQ8SKH4eC\u002fDwhIVhxA5r8pWx4ZemzYv319hGjfQPG\u002fWMB20zjf9L9i+XhhwZXovyUDsp0pI+2\u002f4Rm8HR663r\u002f3mlT\u002fUfjgPyhTFTud4vg\u002fBWeV48zJwz\u002fQPYAvxBfdv4eFCFMQ09m\u002fKB8NwIAOxz+SvsGBAeTYv9G5UKtI1vG\u002fARxPLaSjdD+meZGIvXW+vwSEqpDPSfS\u002faZz7ICon67+meZGIvXW+v9r\u002fI31dltK\u002fA5cvcnPKub81f0aFmY\u002fvP9XPDYCSf\u002fe\u002fdwPyekVSwz+6QpH0Cj3vv9buEMS4QwHA+86OJysv57+5MDTf4wXXvw7G1EMq8vK\u002fvBYXS3fq478oQbgldqvwv1c3yEilw+C\u002fpX0xIvCr3j\u002flTyBxL4cAQIxRSTeLpOw\u002fywn9p1M78j9WENpwrJ7gPzSU10drfde\u002f27DfJt8+8r8n1zf0ldDhv7cj6I4D9NC\u002f9GEW3bTv2j+v93qw8vTXvw9Yq\u002fOP\u002f\u002fE\u002faPXPQgd+9j8uerqz\u002fmHkvwZ\u002f4iogyta\u002fXSHP30bI+L9cfV+GpTHfv2Y\u002fA9Q+sNS\u002fVdrcxjyg3L9ns1wwFTDjP+SIiahZDOK\u002f+YPz72bv6L9XWMbucR\u002fGP2aPr9BJFeW\u002fzbmZCuB75r\u002fUAIwj6qPyP2Sey21DQss\u002fOWAYLOZO6j+MUdtkEdaXP1llEj9SMcw\u002f6OxLVcqAuj\u002f9GSpf727lv+ngcDD+Xea\u002f0pprsSw74b8uOa9HmSHRP31en27DpeC\u002fj8PSRkgJ679ns1wwFTDjP2kl5j\u002fSlOG\u002fMHL6NLl96T8Pf103dNLvvyXF56nx7Nu\u002fs58ONaKr7L9OwL8y0ITpv3YmQLkLQbO\u002fhw7zcbhA0L9YwHbTON\u002f0v+u0uvJVufi\u002fZpjX9RsH8L980XLaAu8FwH3VtE8bOOq\u002f"},"type":"scatter3d"},{"hovertemplate":"Class=Unknown\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Unknown","marker":{"color":"red","opacity":0.5,"symbol":"diamond","size":5},"mode":"markers","name":"Unknown","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"y":{"dtype":"f8","bdata":"AAAAAAAADEA="},"z":{"dtype":"f8","bdata":"AAAAAAAA8D8="},"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.4169296890238429,0.0],"y":[2.314364361545543,3.5],"z":[0.8367221741628925,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[1.3346636452104552,0.0],"y":[2.886367741120699,3.5],"z":[1.0993590061025895,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.4704298748105068,0.0],"y":[2.0848103736897245,3.5],"z":[1.1540750127566932,1.0],"type":"scatter3d"},{"line":{"color":"#1f77b4","width":2},"mode":"lines","name":"Benign","showlegend":false,"x":[-1.3654495774533837,0.0],"y":[2.812358531921282,3.5],"z":[1.09206353854871,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.6226996343571639,0.0],"y":[2.54140956264884,3.5],"z":[2.0550652556609337,1.0],"type":"scatter3d"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"scene":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"xaxis":{"title":{"text":"Perimeter"}},"yaxis":{"title":{"text":"Concavity"}},"zaxis":{"title":{"text":"Symmetry"}}},"legend":{"title":{"text":"Class"},"tracegroupgap":0},"margin":{"l":0,"r":0,"b":0,"t":1}},                        {"responsive": true}                    ).then(function(){
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="c7add250-81e2-4be9-bac7-b55df437777f" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("c7add250-81e2-4be9-bac7-b55df437777f")) {                    Plotly.newPlot(                        "c7add250-81e2-4be9-bac7-b55df437777f",                        [{"hovertemplate":"Class=Malignant\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Malignant","marker":{"color":"#ff7f0e","opacity":0.5,"symbol":"circle","size":5},"mode":"markers","name":"Malignant","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"wpt+VBNN9D8Eo7B9mfP6PzhINYvBCvk\u002foq1zXgbz4r9fAkxHcmb8PyHsESh1wdi\u002fyPkQdakx8j9xZuT6M6Oyv5s4lqGkise\u002fphAS4XsR1b9Q6VdEiUPcP4U\u002fs19got4\u002ftYHH8lCf+j\u002fL86CbzeXePxNbY9vTLrE\u002fSvTRLlMUyT+PqbohfDG9P1T3PfRJPuU\u002fOEg1i8EK+T\u002fQgHzMrrzbP6r068FvyP0\u002fsCeQrde+5z8dR2uzpKXvP866cvdTqcw\u002fVKCeKxTX8z+VzI6QQXnbP+DBxoeCVO4\u002fACEjgDWe9T8wspM1B33ivyYDkPTQbus\u002f7VWVEMSo9z\u002f6l6IqccvjP84Bh0uO4Oc\u002fypmAVr1\u002fsT\u002fRmLjPkc\u002fCPx+M32r2zMK\u002f55sZNrV+zr9zedJq8W3qvy0Kg0wx7Pc\u002fv\u002fTtEmF9yL8MWxv8yz\u002fRv1NxVRvJ5PQ\u002f6mzQJWqMz7839fCdqKfyPx+eqUMM38s\u002fbxwDqTQU9j83I+gODt3CP1gwEIhHcsc\u002fa630rItw2L9rMEO415vMP0AEWszt0\u002fQ\u002f5PAPmM1G7T+7hVmg4Dawv8LEV4uC898\u002fKIj1Ts2W8j\u002fYUuFnDwgBQHSKZUojLwpAqHJexAtz+D+1XcwVgy7zP5Wph\u002fHrB7g\u002fRTOj3DjG8z8iTyFq3q3VP10DD6ZL8dU\u002ftYHH8lCf+j9MihJMP3S6P+Z5Xw7zpMS\u002fruf4ybcRyb8rNZHxCQcEQBAgpSkDktE\u002fX4QZJSsV4j\u002fk8A+YzUbtP+ekvgIVYfM\u002fTsBenW9wCEDkKMI2BizGvyQqYy43svQ\u002fePwixy5O+T\u002fY3g7tRKHZP\u002f3G6zq8veI\u002fKIj1Ts2W8j83aHallf7av6BxDCUmtsk\u002fnmdQceNK4T9L3Serqhfhv22adavQvvA\u002f7YTeIA+b9j+lQxW0wID5P3E3IV0KzANA0TDQW9nS5j86IWJRW8fvP5v\u002fNM2aJNC\u002f0IB8zK682z\u002fRMNBb2dLmP7kec6SKrA1AiTH43MazAECbWWrBIlDYP1uyPp7OTtI\u002fKbc+XxiJ8T9tpPzdkUu5PwJSQa7qfty\u002forf84bg01j+\u002fx9eB7Tasv22adavQvvA\u002frKGn1FZl9z8Zn3HKN4+6P\u002f6bvSU5du4\u002fjbOF2ioJBkC+MIVhwzyRvzbp8eNo8NE\u002fUpmr07NZ5z8eTl4LBSP8P7bA4IP0xw9AQn\u002f0cfGr7T8py4yk7\u002fuiP3ZkVO3cQqW\u002fBgFDni\u002fY+D\u002f7wpBfn7n3Pws1aggcANw\u002fo66X9a2r0b\u002fnH1moGDnsP\u002fEGbB5z8Ps\u002f4TIBhglCBEDE7sJBLLD6P+cfWagYOew\u002fqHJexAtz+D+7Mp4AAOf+P6VDFbTAgPk\u002fZrd9MD6y6z8NX9W+xbz2P1Nv1Qw9t5a\u002fcZ6Qpphp+z+Obvxvq5TdP\u002fHbfelEAug\u002fy\u002fOgm83l3j8Eo7B9mfP6P+2sNNn5D+k\u002fJaX90zqK7T+g5kXyAyfVP6nJ\u002fYxB2uk\u002fvJAwIZbL\u002fD\u002f3\u002fY71ejcCQCF2tMPvl+4\u002fmIPVd8wM8z\u002ffF+PRM4r2P31atefEMvc\u002fM+79RUgq5j+fD+5J1Fjmv+kmTAB5tvg\u002fHk5eCwUj\u002fD87JDqu85nxP+X3AvAtxPk\u002f3monv0zt\u002fD\u002fcvauMuqnjP5jadEACdOQ\u002ffV4Qw+E24j\u002fpfevIrh3qP9QIeqPuXfQ\u002fX5vc\u002fePIBEAp2zk85vn4Pxdymcgn7eM\u002fx8qn9LMSC0Bbo2eH9sTPP5R4h0RPi\u002fs\u002fgAuM9XN6+z\u002f8WyEWERwAQG1HEU4NLwJAc6LrgbVt5j8cNhi0xz0AQDK7WVrgM\u002fw\u002fu4tSx\u002fSV6L9oYCEfvhS1P4uYZyZVUfg\u002flcyOkEF52z+RUFH8DkMBQMJsNUTIWvU\u002fq05j5z0C8T9V33KwWvnIP9FRM7xjytw\u002fz6\u002fF3Pmu2j+UeIdET4v7P1NxVRvJ5PQ\u002fdMdxIc3job+rmrR89ufqP3wHcfqrz\u002fA\u002fXC16XPWt8D86ysKIJWD+P8x7nnINh\u002fc\u002fLWEiFWdT6T82WAUMGkEPQGprLJuFzPE\u002fcHOicWp75z8KMIyuesr3Pxdymcgn7eM\u002fDN1HwWFn8T\u002fUN8OzOVDzPw6D0JuTLf4\u002fiOe\u002fUWlsjj9xNyFdCswDQAaojtc6Kd8\u002fXZFqflCJwb8fnqlDDN\u002fLP4YW2ijx+\u002fI\u002fh2keFgpf+T+Xwu4IcDUIQB5OXgsFI\u002fw\u002fDoPQm5Mt\u002fj9hvrM\u002fVPmyPw7X1+eFG94\u002fIVVx0w\u002fNAEDSM4hIx3gAQPRk\u002fj4J1fk\u002flasrMLeB5T93T2e0R7H\u002fPw=="},"y":{"dtype":"f8","bdata":"RpeJQE80BUBJv4psjWWYv5eUWeTly\u002fU\u002fSDTarZ2g\u002fj8GNUzauer1PyRwmPeAsus\u002fWx47aBAw0z+y1aAyvDevP048r08HffM\u002fH3oUmijM+z88jWfD9Wbmv4CKXMXYPsE\u002fJGs5oXSf9z8qI4qWFP3AP67\u002frDcm4\u002fg\u002f7Njd1VYl7j+I4jY7qNfHv3FCi4ofvfA\u002f4sFRQy655z8CrB6NHN33P7iVRjGBx9A\u002fggjaU+CR6T\u002f0NiE5Fur6Pxl6QvhGjuU\u002fd2PLczcq6D9GX8SXe+nvP7RYWzxA9L8\u002fcJ1YooG4\u002fD+UeLpbS37aP36E06gHsP4\u002fg5uNmU7e7j\u002fgT9SQrrTiPwQP76QGd+I\u002f1arFsAVN4T\u002fPo5Gm0wTqv9kXln95Gcw\u002fW+asHS0p57\u002fojJPTfwzJPyvO21pAd\u002fg\u002fEe96mBEOvz9RLqq1jPCzv5eUWeTly\u002fU\u002f4XrI0LUi2z8LJnHhBb7xP2FVvxsQHt2\u002faisJTiB24T8X546y2EHgPy8QSIEdB\u002fk\u002fpN7ctp1E0z+yRrBoV23eP6ihEfE91M4\u002fRyDOvPsi8D85sjk6KYTBv6x\u002f98\u002fYjLw\u002faD8VP8Lz7z9lasLJw8IMQHKTu3qhmAhA7mEBzcoN9T8lrdMlcPHhP4j04Q6RXtk\u002fTiDYEiVI5z\u002fpXBLfTcnSP9ygEVoWTPA\u002f3X\u002flHFEp5z\u002fvBhOauVCwP69uIK96X6C\u002flAssl0i+9z9hBkUPevAQQCJAfRW1GPA\u002fCzD32db8+D84NbTl6nrJv7Z+XuIb1+Y\u002fdHbtYp31EEAM7uzsS9zcv8C\u002fm9rIHak\u002f28aFvtigAEADYDbElzPnP1QMUDZl48g\u002f2aWoZGpG1T+yhWV6\u002fbvgv4dKRnq9Ieo\u002f9cBic8A1sj\u002fOWy\u002fo2\u002fLuPwV8DQF6aPM\u002fYLHurX582D+Hrdkyy0EAQI0LWvVmgOE\u002fNGpW9x5prb\u002fqkRJZbYL5P\u002fRjhQarQti\u002fxPiC2Ob19j+NV0K+6ynyP5kixQJX5gNAxRRxRNgLAEDHrhTzGFzSv3YrPSlUI9y\u002frDhpxGvUtr8YpfQt3e\u002f1P4UkYwPDoc8\u002fpFAYX6w88D9ZdJ\u002fTPPPjP3AXEQnRQtE\u002fnFoEauMk0j+j7bevUXHXP0aId+mqw8c\u002fE9pDi1NxCkBC7Ubl++TqP5uZoLWLWsW\u002fKrxykcj8zr8QuS59nS\u002fuP3peVe4bNgdAHn9z8DTf7z\u002fnGqa4cDnSPzyUQ+r+ZMA\u002fIgjZ8RnU3j+Mo5rv\u002f6HUPx0k3oway9Q\u002fgHDHt2Uy8D\u002f8jz36EIP0P7BsA0jhu+o\u002f3hKPDJZQ9T8pSRzEUtGUP\u002fN4u70RPOU\u002f\u002fmmyZj9N9z\u002ffVPaH3k0CQH6E06gHsP4\u002fZYYOGspY3j96M7rnlLXjP\u002fKBBUVDMb0\u002f52ZWza378T+6FjnKTk\u002f\u002fP5Tlm1ji9QZAiPSfBCBS8T+lx\u002fRnOFTpP+jf5G04Cui\u002fx92RKvM8uj8h4KdJ2L\u002fiv7we64AaQpc\u002fv7HvD0U64z+DVMIcZTv6P1TVKs9xidm\u002fFP13rFGdu7\u002fGYHqSlbv0Pw13wlbAn+0\u002fuDI+ZU9G9T96HJrk593ov6c0E8SrRfo\u002f2Nqo3on\u002f+z85XyBUuG3TP24m7AGFb9U\u002flCcaAzrUAEC74QCc567nP\u002f33NLS\u002fSPI\u002fiPThDpFe2T8OJns3L+PoPxyWy6cpnss\u002fpcwbCv1\u002f\u002fD+Y\u002fFCelJHzPyaMaonOVARAfuzFtyHjCEB4PXiUrdvbPxmDjH94g70\u002fNpl\u002fJOQ57j8r6iIAsnrWP7oWOcpOT\u002f8\u002f2zgaoGeG8j+RMbcqGvT0P8zIe6Jtpuk\u002fENDUwZET8D\u002fKpOltQHevvxfstVSdbfM\u002fmz69xHEh9D9myDOLoUkDQAy+YvhHFwdArbP8Iukg2T8Otq8crtXgvxRo510Mc+k\u002foO1edtGDAkALMPfZ1vz4P3FypmzrVuw\u002fE16ZGYMb0z+I9OEOkV7ZP7RT2gqkN9A\u002ft8DAss9B8D9IL7ML2XTrPzvb60rBye4\u002flPfRGKcbwz8bXhzYDZELQEOA8NRADPk\u002fdUe8gg0O+z\u002fmCOUL0HT7PzLoWONM\u002f+S\u002fvWpmncyj1j+dQxwbfjToPwBEJ9NtF\u002fo\u002fTvDGhoLT4j9DPo4EjaHvP6AYMjGg6\u002fY\u002f+\u002fyTCsxb5j\u002fmNupwnGHGv9qOwBUFVus\u002fFzjW0Wn+5D\u002fLrGyxQ4r8PzdIOAVTfek\u002flSxiKjcG+D+Vv0POwxTnPwrfqg+xrQBAgnXzBL\u002fwBkAWJk3ZECH\u002fP0ac\u002f8VqKOY\u002fNLt\u002f8PPUpz\u002fA4c2SNFoKQA=="},"z":{"dtype":"f8","bdata":"xf5CbXq5AUDLuopj3MpWP\u002fN7M3EhC+4\u002fTrFc2TzrBkAvTjESCJCDv8RdCWSBEvA\u002fttFrRd9zsL\u002f3iLtVFm\u002f2P6fDBPQEbP8\u002fMHL6NLl96T9OaI9LlI3wv9J62ffnXrw\u002fAlZiPSAVAUC7rh0HGYXAP\u002fN7M3EhC+4\u002fUNtEbcmt\u002fD9grt0p\u002fVXqvx77LbP4kPQ\u002f0hGBkoTN6r\u002famFSoebMEQHqfqtoo5sO\u002f38tkYdhn5T+dQUT9WOwRQDpBMzLKs\u002fk\u002ffUxPJB\u002fC2r8vsMQo8bPaP7cj6I4D9NC\u002fVgeyS9qs9T9wAhyT54\u002f8P32P4X0GePk\u002fdwPyekVSwz93Vt\u002fvfcHlPzbcMQcCs9M\u002fLjmvR5kh0T+NeDcPhMnsv6hU+PCJY9W\u002fA5cvcnPKub+BKuBSPnfTP1fS0+hfFv0\u002fqQELfFH04j8jj1hBU6POv09\u002ftMZqRNY\u002fhLtOXBd38j\u002fve28FNl3wP2REFJmF1ea\u002fonDl0Q+a2D+Q53+mEyTpPwLUDS5DCeA\u002f1RsRXuPM1T98N7GWyoDgP9IRgZKEzeq\u002f9GEW3bTv2j+PTL1l8Hbhv1JsoQBIb6m\u002f6+U4lq3d8z85IjDuo+8PQM1gQVcnO7A\u002fzgQ1QqS75L9CbaAQ27LyPyKRKI5svu4\u002ffDexlsqA4D\u002fWae0N1RbWv2zKOExUQcQ\u002fOsGszAiK8D+gHYobBnbPP3YyMpCypue\u002fe\u002f5ydC142j9uAjrd8bgFQBUEnzdiKPQ\u002frC3BufmY8D\u002f2J2NJCIbyP706xKpCBeI\u002f3\u002fmstIecCEAru8UfZKLHv9WSJj87X98\u002fkxM25LvI9j\u002fXKF2uw97bP2ZJ3P40VfQ\u002fJcXnqfHs2786hwYE33Pqv\u002feaVP9R+OA\u002fKB8NwIAOxz\u002fX2BdbWkgJQBJ3kO2rmuI\u002fPMBEJnx80L+Q53+mEyTpP1HC+Bjv1KO\u002fCMc86rb\u002f0j\u002fxV4YRVvDvv\u002fmD8+9m7+i\u002fvTrEqkIF4j+20WtF33Owv3xQhrsMs6W\u002fkulNUC8GAUCnksLkwZnmv4N4vAIwwdO\u002fDwhIVhxA5r8xlV04ArQAQKV9MSLwq94\u002fMYeL94pr0b9wQ6Ntcea0PxM8B3KhbsO\u002fb2bxqzfVxL\u002flrDYIJSfgP9G5UKtI1vG\u002fszoNCtqq9j\u002fJ1B5F2aT5P3TnlljuZum\u002ftg5XzDEG6T9kLTh9RsTFv6oo+VNKGeO\u002fkZccCaBk\u002fb\u002fcDdhzyrX4PwFqjfxiLvE\u002fzVSY3xd78D+Yw4nnsGP2v87vo3\u002fSzdw\u002fWp3oumIs8j\u002fUAIwj6qPyP+9K8WHeOPW\u002fuOJXL\u002fK71j+3Pm3J\u002fBz0vy9OMRIIkIO\u002fJGWu5Nhr4z\u002feWHOrjvX2PxNO0siZWtK\u002fARxPLaSjdD8z5zL+dKHAvwQxBnsugNY\u002fCMc86rb\u002f0j86jOyzmBwBQDoXS5498QNAgg9bGEVO8D+uxt2gSMqBP2dRYOll5+y\u002f20K21kRM8T8kuBZmZePuvwh04TOt28k\u002fep+q2ijmw7\u002fioqY8xifVv\u002fFXhhFW8O+\u002fii2c17+J7r+mBhxBmBnVPwjHPOq2\u002f9I\u002fIPOf4W8Pzj\u002fNuZkK4Hvmv6Ff+ef8UbK\u002f6vv1aveG+T\u002fC3k6TekCRv6kTaJF4K9s\u002fQMM+4g8aBkBO9smnwtbfP\u002f06KAW8yso\u002f7iS9FJGou7+DeLwCMMHTv3w3sZbKgOA\u002f+\u002fkuo2VNq781f0aFmY\u002fvPz2tgQ3GcABAFMIrJXDa4D+EASIuLDfjv6eSwuTBmea\u002fuY\u002f8eOiXzT\u002fWae0N1RbWv0b8voG6H6c\u002f4KMO41I19T\u002fPKOKhb9biP15jQvI4Fuy\u002f94i7VRZv9j\u002fX8lI50Yzlv6i2b0SNtOQ\u002fXsW5RTxn2z9AIgXZFnP0PwVhHHj5lvE\u002fP0Hq0jIO5T8QoE4SvtrCP8sJwRM\u002f6e8\u002ftMO7lG3G6j+zjbEfe3TUv6V9MSLwq94\u002ffV6fbsOl4L+3Pm3J\u002fBz0v6hU+PCJY9W\u002fuTA03+MF178RyvhuOBLuv6xzlIsOWeG\u002f05iyFu5isb8IteyfEhztPzD+oNji\u002fdq\u002ffnkkqbzO8z8abjHfnEGlPzBLep6RDcA\u002fVaZZP8zD8T+FtRXLUwizPyUSwW+g\u002fMA\u002fL\u002f8If28L+z9DJmWYOeXxv8LeTpN6QJG\u002fVaZZP8zD8T8I3Np3C0Htv+W7aVf5lsY\u002fpzRrdtH2ob9laMH4UPDkP\u002fjTVo3arvQ\u002fF086byZo8j8vsMQo8bPaP4S7TlwXd\u002fI\u002fn6D7ztqw8z84Kg638\u002fzTv2c6hM0m1su\u002f5ko6wXXe6b8CVmI9IBUBQA=="},"type":"scatter3d"},{"hovertemplate":"Class=Benign\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Benign","marker":{"color":"#1f77b4","opacity":0.5,"symbol":"circle","size":5},"mode":"markers","name":"Benign","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"c2JUnpXAx79ZLahkM7LQv67ivl+a0\u002fS\u002fNdeyqXym2L\u002frWed\u002fVYL6v3P10IfxV+K\u002fKCGLMUemyr\u002fF2DoEOrfmv67n+Mm3Ecm\u002fJzZi6HZp5b9FASOIeIjovzXXsql8pti\u002fZHKs4gDH+L\u002fIDJni7w3yv5lI7uUPkfi\u002fllck5MST9b+5kGeVX\u002fr0v5ZTyQioj+q\u002fJP33p+HY9b8RXzb3k+rbvyT996fh2PW\u002fCik6bz3U4L81DPmCvmHFvy4oUIFpH9e\u002ffma0oQTq578K2FePqdzMvzRyoEFrx+O\u002f6O48y1QN4L8WCf58uwXEP0FGar37Zrs\u002fWr5rYEwK078X5UzYUkjMv8MWuhI6rOK\u002ffQvDaT2p878JfH5cVjfnv2zkSe9huf+\u002frYsfl2Rs478lm328E3PyvzZ3tQ\u002fWK\u002fC\u002fNQNkPYQf5r8NGJCL7BDhv+8hodZnqum\u002fi0i7tX9n87+HR\u002fhWptzZv7RxP1W2384\u002fFw11iP+47r92DvFBJ8r3v+2fE9kDVeS\u002fq7N1T0\u002fh9b9FASOIeIjov03opGzVWLg\u002flO+VL5fqzr9gYiFuBZfCvy+LX8PSC9Q\u002fxuX8HFP54L+T+9egjGvaP8XYOgQ6t+a\u002fa8pvQt7m6L8ZGjehGPvovx8N6JjkO\u002fS\u002fr62mjpYc6L\u002fUyLS3kKzVv1uwuOAbOe+\u002fLcM9GVhA4r8t\u002fG6UMu3OP2hgIR++FLU\u002ftrASVI1GxL\u002f3gFeOpUfWvydOyK9ee\u002fm\u002fWqHCwruP8r+HptrFMMnrv4TUoFf3idG\u002fYpl\u002fHGcK4r+3hSLObaPlP\u002fEuY++A7OO\u002fCKB5OSSo7r9FsFKA++Xkv0J5U7l269+\u002f+G760qCZwj8jixq7K43uv1RfWZiSZMY\u002f3kFOiN1G4b\u002f1EmvYsqfsv8PshdBZHvC\u002f8ed8o4S5+L9AVhs7ggXyv60QRREMO9q\u002f24j084Qg3L+kLwFcakjov\u002faDjtIak\u002fK\u002fNWNqQ7bE5r8YKW2fzf3lvxYH5qebTeG\u002fe0ut8U002r++H7er3JH0vwABcaZt3Ni\u002f1bL+cWCv4b9d8c9rX6fcv6+xAWqzIPO\u002fNS6AevARyr+B6sdcG1XQP2LqTyTkrOW\u002fkLEo+a1K4794669Xp7nxv42rh0AzisW\u002fmEVYur3Mwb9SUmag2q3xv55hr7hoitO\u002f4dSdMxjMlj9k7qr\u002fALHwv6bkMPRE38w\u002fiullNhD4278G3vhHJJ3qv2y7OUQp5Ou\u002fqSNsRoTp9L9Evx44APW2v9kijxmge5g\u002fB7bQl3csyL+OgGsDx5fhvyPHJeSPwee\u002f0\u002flF9ioQwr9Wga+wJaDwvw+9leeZpdS\u002fm5D4yLN80r+r0aFrZI3vv9AW7ULK1ee\u002f81Dq5rKc6L\u002flZXyVO+Htv+mb5gUlVcm\u002fZI9VgJFB2b9t7PY5EJftv4uVLQt\u002flbG\u002fPkOKYbD+6b8qi43LEBD0vyLWW+JExOS\u002fLzaVGAeT6r9FXfy6yy3Ov1ZH1bWnYr+\u002fK1Z1+gxZ578tl4yFUMfUv7IDg\u002fjy+N+\u002f3QFblEGR4r9jT2KM9YvavwJe3y9cCOi\u002f7JJRwOoS6r\u002fOGNLnWWTFP8AtZJbiqMo\u002fTAJHHyBB17+LQuz0xqLlv9zI5+cg1tq\u002fbe8vz3aXxL96yqJybhDuvzJLCITGkJ+\u002fXEACyjuK8L8vyvCQY2TevwxPHEKMiPC\u002f9t85\u002fS806L\u002fFOEEKbFznv2tcJKUOztS\u002fiwo8p39y97\u002f9jRmnvonQv\u002fsixW0PY9i\u002fp15KbLU6578bYt\u002fEGfadP2J+q5xAftm\u002fY3sTIP0E6L8MAyEoJfH4vwopOm891OC\u002f1uO7Z0di47\u002fzVf+0HQH1vy1jNxMmm+G\u002fdlumTtzB8L+CqT8S5BjYv0qdNLcOYuK\u002fxZ1Tcn073L\u002fAyTRftG20v96SHpBa6eS\u002fSrF2F6Oe078D76IrdWDqv0+BPKBAHeu\u002fRB+PhOKN4r8tl4yFUMfUvxE\u002fLFGJJfK\u002fqNjQATf6tj\u002fgWPpcd\u002fjzv5PEefIq+Oq\u002fyGeKGrdO5r9BhWRLzffwv\u002fkduQswKeS\u002fYLmOjBqQvj\u002fhVJ+BWvTovw6pU4cFaeO\u002fOiN3TxoP6L\u002fi5WJ9c0zrv7X\u002fmi27d9q\u002fdcerDk4e0r\u002fJDqV0IyvCv+g4GntxMve\u002fm+Zz+kEr9b\u002fzzOgDs4bgvx45xzQqudG\u002f1NmRy3GZ2r95L8eylkTjP7K7jD5XF9G\u002f7A5Q3er84b+mtefj+ezNP1DVRT0kwMW\u002fG6Hi2HLf4j+dYjI37bvsv30lPi\u002fkAtC\u002fB5RJoEV8w79O8HikJ8Xov8dayAGeDOy\u002f+xtFJpRo4b98nH35ytbdv7nZK2tRRtC\u002fJHTh9nZe4b97K24oa\u002fXCv9V280j8eui\u002fCfDPLqhD8b\u002fqyCOEPCr4v6JNbVjUTeK\u002f9RKbMeJgt7+uxXHShWHEv1TxnDvPfde\u002f0jh0OvyF7L+xCzmvLAHmv88lI0F\u002f2OS\u002f6OKeSeOD1L9g7eegJybXvyTU5\u002fyoA+K\u002f7SMVvANr7L+hlpmBLj3gP8VMg2oAmdi\u002fzzRZPzTb4b9WP9XGCKfpv3g533ZVuOu\u002fv3+9sQ439b86OK3tJkvNP4AEOrY2hOS\u002fV6M2qFdQ9b8bH0MD+DTdv6GRe0c4ruu\u002fm+CkOYlm57+fxL760XbQP3ZXS3O\u002fveW\u002fFHFggghvur\u002f\u002fAu73lMfzv2s+wRQw8\u002fK\u002fw+yF0Fke8L\u002fmxYKbbYbuvwcPtj0LUOy\u002f1GpVx4rx3L\u002fWqki7Jqfbvx\u002fjTIkLxr4\u002f2zck7Ad+2L891H22+A+3v4hnrIFfU8G\u002fSmGMF2oQub\u002fdhVx3Qafqv3srbihr9cK\u002fRxS0YUqP8L\u002fLBRAv6ejivwn8CDQSmsQ\u002flamH8esHuD+PES\u002f\u002f3+\u002fjvz1h9l0aBOS\u002fgXoLsRDssz\u002frJq04R+Tdv7z0IEPxps2\u002fk5FIF6iE5r+9DF1G1LnUvzXXsql8pti\u002fppNiPbnx879Nrvq5Sa6HPzc0ITNr0ue\u002fqy6xDXZA1L\u002fnSkkuONzKv+ps0CVqjM+\u002foQQTJzxa9L8f5wXGlYfkv3l8c1PAEfS\u002fV0yX3yHp47+zz55FvJrHP23XMVv3KOO\u002ftV59nEVk7L\u002fpRBk1senXv36QwnRElZI\u002fFXGTspiYv797d16FVa3nvyTU5\u002fyoA+K\u002fTbO+RfIPwb+\u002f9O0SYX3Iv+QowjYGLMa\u002fjZ1FgPaG3D\u002fUWXizqQTYv+xVC\u002fgJnLc\u002fn6\u002fnQ6Kz5b\u002fgkKqqvijiv2BZ6w+oze0\u002fFgfmp5tN4b+cIbzEzNTUv+H2fSC43cU\u002fa630rItw2L+\u002fP8FR51bevxgP+0WyztE\u002fxZ1Tcn073L95fHNTwBH0v\u002fCUOLZrVvK\u002f5F\u002fttNd14L9DA5dtFEnrvyL\u002fdPkIxOA\u002fZhmZNC+f5L9oAsIuuFm8Pz79A+vNc7g\u002fyVhUHAJM6b\u002fZFZ301c3Tv3CLoOXp6di\u002fULTgi6gT9b80lpseOTjrv02zvkXyD8G\u002fPCfSKjcT87+TiZvM+ab4v1N3sxyO28e\u002fWUoj+oUo4b+SgM6Mhnqxv1KMitO9nuK\u002fH0cMzMcs5b\u002fFeDT+BxLmv+QowjYGLMa\u002fbLs5RCnk67+4ydHV9IrkvyLx74EW9\u002fy\u002fGgKaZWe6\u002fL8MC85y087mv+syvHmsO8Q\u002fEVY+KJrFvD8z9R6m5qvSvy7p3DTxKre\u002fjvxXSLAsyb+BaVWK043xv\u002fqC1N\u002fMMvG\u002f8vX4rutb9L\u002fJ64v9tmTuvwyPz1XT5O6\u002fk8R58ir46r+K6WU2EPjbv2hANfrLs\u002fW\u002frlA4Bajw2L96ev9tJFHxv0MVblSY7\u002fG\u002fwK\u002fAtKeJ9b\u002f8kIHK0knHPwWNKECn+ua\u002f2xFD7KbSmL\u002fHWsgBngzsv\u002fmYU7EzAf2\u002f"},"y":{"dtype":"f8","bdata":"iNkxqy3K0b+OpAPT707hv\u002fkuVy5tx+e\u002fDHuW7kxc6b96jyiXLkXtv\u002f5BixQnXtK\u002fHgUi3eKS4L8VuK0UR\u002f7svzQ1XALCMOy\u002fjCM6fpW667\u002fSLdDzN3Xnv+sMwCDzrvG\u002f3YsdrSBf678ifeGHF0vvv\u002fGHJk42mue\u002fNaBOCH4317+qoOhrEO3qv1Snc\u002fekweS\u002f7NN51LV\u002fBkC8wWugMPvkv3nZh43el6G\u002fYo\u002f\u002f\u002ffEb5r\u002fKWYnTaxTQv7zkwzOtCOS\u002fbAcwUk034b93qsROP4\u002fWP8KNFhRy++K\u002fBhnNgAAA17\u002f8V3roK3DBP0Uzh6NlMee\u002flHo0PwKO5r+Dc5SlVLHjv0gvQ6NJpum\u002fvXbchaFz8L8cnSojNM3iv5OZdjCB0vG\u002fBvSKoT0U6r85KGtVVOLVvwL4zqFZn+e\u002fQ7VIMokPzb9IMFSjEAnpv9ZYVMuvFN6\u002fU+40HmU\u002f4r\u002f8GB26rmvMP1oHMpRyOQVAi\u002fhFPo5M079wBP1R+A7jv2o2MN4oSea\u002fE\u002fH2fECaqD9dTZPXFIzlv4xLUBg+fXO\u002fIFsSB2xNub+x3hCS0fHtv4dhLskiEtQ\u002fBzo7yDYv6L+E8RE0XATMvzZMDJ3fOeW\u002f5eMoblSV5b9jYP9xFgrhv5OZdjCB0vG\u002fTSwQo\u002fR967+EzAcJ4f\u002ffvyDpHELim+q\u002ftl245p3A5L9l5mV\u002fY9iVP0Zbe\u002f5qPKm\u002fDcA1FX8U6L9hbKdqdQ7nvx9rZ\u002f+SYeE\u002fkvObUBgoEEBnQ+nWTrDrvwn4INx\u002fh6o\u002fMQuxdskM5L\u002fxkXSSv\u002fHdv4wjOn6Vuuu\u002fKKxul70z8b+T50hFTFrQv5sLjtCaLdy\u002f6FOEIEbU678YZUT1J3zpv3n6UlEyM+m\u002fhrYRzPij479RtCzwyijqv5OZdjCB0vG\u002fk5l2MIHS8b8dKfvYtdHgP9RqHrqNgPG\u002fn4wsZVb0778KoenN1qrVv91JpWtzgPG\u002f4+VKbuJa5L92lH2XETPqv2LVryTrNuS\u002fIVM2\u002fB4n57+TmXYwgdLxv5F+eD8eGeS\u002fpTPAuXPW4r\u002fKfkKEoRi8v0NAQJyLmOy\u002fcbhgDU54lr8p1sWUyvzXv0+2TvBY7ui\u002f7\u002fMpVLkD0r8rs20BTu\u002fYv1ouf0S0CeS\u002fvgd0qlJgwL\u002fizHjTNozsv5A52RjsYOW\u002fm3SWihBW2b8ncN0HMH3wv+hK13P0ENO\u002fDPAO7dmh27\u002fUnjym8Bbtv9dVX+hM0\u002fC\u002fJyhWaGoD7b\u002flylbTqMbtv3AXEQnRQtE\u002fYT\u002fJ3ifC4L8uZ4+O8mrvv9ErHlw5fuo\u002fTIyjZGDK4L\u002f3A5uirUDgvxhbvvxWPeK\u002fwdIlozOC4z97GnjkWRjqvwOomIKPReK\u002fWqD89jMO6b\u002fmJ3\u002fgdwPUv0xF4j2gTOO\u002f+rq3e1\u002f947+qyv7Go72rv1rcQv\u002f\u002fXfC\u002fH1RH\u002fOWJ5r93BvtJkTfvv7SOor6\u002fsNe\u002fvl6rRxqG8b8w8+\u002fb5KDrvz08IKRkquG\u002f0aKApgyi6r\u002fnGqa4cDnSP3HbbBzwcvG\u002fH5zhbiWD0r+aUoeropLqv02Nuf0bT6k\u002fMlrWlcwD6r8GUVvL4wbjPy87ik4kmte\u002f\u002fZT0M0bg1b+iP2iy0trov8zTojJ2ee6\u002fCoc+56tg77\u002fBx62Y5a7uv4F\u002fPJ6ztem\u002fN7+aTyah6b+MYU74A3XQv9+udUCdbOq\u002flpx70rc45r9QkMNch7jrvz4L0kNwh\u002fG\u002fCiCdAmAV8b\u002fAC\u002fp5zETxv\u002feZ5XBD6PC\u002fjP\u002fQ6lFK7b8dG1DOEtbtv5YFhIwtYeO\u002fQxzXCEgo7r+TmXYwgdLxv1AjPp+u7PC\u002fK0ZZ+wMj77+pBAI4CdH1P59MIav4Qe6\u002fVzF6kMFK0b9rfOAEImTkvwjQIQ76o+u\u002fXAj0sOLT5r+6qaoFTI\u002fsv2AStjwSg\u002fG\u002fTiYChnN3zL8YUyXuS9Hwv02qNNp5oPG\u002fHEmNcQBE8L+CUDwS2KPkv2Ml5kO1kOm\u002f7OSNeDAIvL80alb3Hmmtv2uEDEkd9tu\u002f2T8rjnKQ47\u002f4dRhVLUXlv14fwCWkUPC\u002f+iPANdUl4b+wSkxMnELpv7B4O9iw8e6\u002ftuBuJb4n8L9DwhrxrI\u002fhv9aE4jkLzcY\u002ftp9pBDI4tz9QShM2jp3tv42lFNO2seC\u002fHuxPQjfE6L+Yu\u002fwvKJXxv5ace9K3OOa\u002foj9ostLa6L8GF6uAcjrYvyMKU9XQ4+q\u002fsEDGU8sD4r96haKeXQbmv7w0+lJ3Yum\u002fgFM3XuXk0b+hiq\u002fjH\u002fD7Pz63Ek\u002fuiu6\u002fjV9krL2W4r\u002fbCsxq0He\u002fv3mGs54kaeW\u002fgh8h71EWvr8p1sWUyvzXv6aNRB3Hh96\u002ffTQjy4Ri0L+yJdK4kW\u002frv5T30RinG8M\u002fpzoTsu\u002fs67+TmXYwgdLxv3XRuMUAcuC\u002f70KHJwTi6L8Ded+9WUOjv9Oi2Ik17Me\u002f41jZICnC6L9CzbHpRDHovwTUZQ4WL+m\u002fg5XbOApc478Tapn1Cmrmv2C+\u002f4nNLeu\u002fFAvffx6Z37\u002fcR1fSbSLbv6BCY\u002f7fG9a\u002fTdvIg2PB5r9E7ud8M3nov61Nf0zxaue\u002fWi1uRO2m5L\u002fps98tajnQv1l+tWN+Y+m\u002fd5Jbl4Nt678pkV4i4Cvqv7mY5KxlBvC\u002fSuhJyEFB27+zXShPLY\u002fmP+WmRSOOoMy\u002fLdl1QB70uD\u002fRctzkeQfwvzGWHJ6YU\u002fG\u002fzA+VrFZu1L+y+PMsRCPlvwiJYOc5Ju6\u002fwAs8v1AE7r8u6LDGdUnCv1sJBbGpNua\u002fEXZB7mlu7L\u002fZ+XpneXXlv59MIav4Qe6\u002f5BEY+mhE678cwumt9YeyP\u002fTTGG3kaO+\u002fpBndHgGl679cNquIr5vbvyUiFHC1T+O\u002f5jy0nscqgL+3YZTvbnGKv74oUloYXuO\u002fWv9l8trez7\u002fUTgaHJr3nvyaUkSI1VOi\u002fFTDpqpmdy78HGPQ0gYTovy5ooI65ze6\u002fWxOLqXp17b98p+kxE7Hlv3T\u002fp1EVIea\u002fxPYezucj4L9KeZzw9pbDP4UkYwPDoc8\u002fcufmtjC17b8Ofz8VATLFP+N7MbSlz+e\u002f3I0\u002fra4k6r\u002fw2Ua5RtLav5OZdjCB0vG\u002f8rKqJa453r81niwI8HHYv9iawPGMpN6\u002fuKzdBaG36r\u002fLs0XrBq3cv4yvmsuH8Oe\u002fAvjOoVmf579rzN5vpNbYv9hkpSF9Y+G\u002fyzCrEGRT2D9Aq9q+HlXqP1NqABVum92\u002fH79xtul34r8QVPpatMPsvyADAN1UzeG\u002fX1F6zPRh8L85mQ+8VGvsv+zUFcFYgdC\u002fxeMGPvu1u7\u002fFaJyAZyjlv1jpNwGrm8K\u002f8CEZ4M2y17\u002f6x7VrPEy7P\u002fDvxSS8Fdg\u002fLWtLoRijtr\u002fU23fU31Xjv+hTTGz+7Nq\u002fVzF6kMFK0b9Z6M4du+7lvytMNw64ILW\u002f\u002fSGeNUdg4r+nvf4G2Ebgv0N7WcrsEeS\u002f9g9DmwxF5r\u002fE5baUKc7wvyxrm9rGDty\u002flzFRGLRK6r80nmS8N1npvwotgs8QyOK\u002fvpvgDF\u002fF579KeZzw9pbDPxfzxkKod+S\u002fvKdQUXbi3L+ndj3gF8niv7hmLd+nnOy\u002fF5UdzYIJ3b8e4slJZoXhv5OZdjCB0vG\u002fBFU0\u002fGTlpz\u002fT3WEgJjTRv774WFPcbcM\u002fBsi9Fbcq47\u002fuRKknkqfnvzqx0FY51+S\u002f6gEsAe60579fMY48FJXvv5QHpoy7JuK\u002fSi4yo4JD6r8PEGw0SW7tv5OZdjCB0vG\u002fRAe6F99H4L8w8+\u002fb5KDrv\u002f4ffDW5muO\u002f15Nt+RCO1b+vTDaY4iDXv\u002faZpgRS0PC\u002fk5l2MIHS8b9DBJ+c8KPGPwjawMzI+9E\u002frh+QwNy74b+TmXYwgdLxv5OZdjCB0vG\u002f"},"z":{"dtype":"f8","bdata":"LjmvR5kh0T+gE+2EJCPiP1b9Eyu\u002fQok\u002ftz5tyfwc9L96n6raKObDv4qSVKPw5N+\u002fL04xEgiQg7+YYjHbonryvxSIhVxGxPq\u002fb9eEnDRTyj\u002fRhdruWk3ZPwBu9qlMkps\u002fswTHANMG3r\u002frnC908C0LQGAz9QsxmK4\u002fwvNMnozl\u002fj\u002fWae0N1RbWv319hGjfQPG\u002fLIjznRd58T\u002fmSjrBdd7pv6YGHEGYGdU\u002fqFT48Ilj1b9Pm58E80EBQA+4m1kR29W\u002f0nrZ9+devD\u002fyy99tLHDeP5v0y\u002fbzNe8\u002fJHcL+v+i2z9Vplk\u002fzMPxPzihI5hLj92\u002fyo3jzDfX+L9UoZHZHETkvyyjeNgQotQ\u002fX83CIxnx+r\u002fp4HAw\u002fl3mvyR3C\u002fr\u002fots\u002ftyPojgP00L8g4dSKdyPfPxJuaMjZqPc\u002fUcL4GO\u002fUo79\u002fIFCH33fovw7G1EMq8vK\u002fFGAv3sCR6r+s6i5gEuPRv1lwEzbFH9m\u002fS+l9V+LE2T\u002fQT9B5aPvivwmMLnsA3Ny\u002f3txZ0HKR\u002fb87EPEih+Hgv9Yt3LTbuMQ\u002fNE4Edla99r8h9mVNSRHnvw7hWX4jG+Y\u002fC4EthI3tzz8CG6Xaml2QPyZ2o1Nzlfu\u002fX5yAFNYe0r+E2GMJGvfCv1q4bfVbVdU\u002fQrNz4u9y4797QNhZzGS\u002fvykM2sL7FPi\u002f38tkYdhn5T8YVp8SYpLPv7ONsR97dNS\u002fILTyOlfD87\u002f4npZ0akEFQDyMzmmO8\u002fc\u002ftFDoKC59BUCbJ4goNiqxP3Hgozx\u002fY6M\u002fL55nE8p84j+9CGeaBT2+P+ZKOsF13um\u002fi9Vr8IOS9b8iGhOtFCzlP7FUc\u002f3da+6\u002f7umYVdBP8b\u002f0q0lu7CH5v5CySreuhr2\u002fq0ymsxU04T+znw41oqvsv6kTaJF4K9s\u002fLfFUiALs1L99Xp9uw6Xgv+K9K3e\u002fUPi\u002fJauBtu0r9L9QKK5Oqc8CwA0iZeqIW9m\u002ffX2EaN9A8b8PuJtZEdvVvzsQ8SKH4eC\u002fq2FEQWp1279W7CwR4YPiv81gQVcnO7A\u002f\u002fj3XvrqJ4z97\u002fnJ0LXjaPwc+UssOktw\u002fGtkHQa\u002frwT98\u002fQrOoGr6vyNKKarfQvC\u002foBPthCQj4j8AiXL2fsnhPwuR9uCvW\u002fq\u002fTNcgQruN4T99lKnjtffWPyb2HO6xa\u002fK\u002fIpEojmy+7j92exQtOA62vzpyaHaKMtA\u002fW1atQsFe8b\u002f9OigFvMrKP4vPrWsULL8\u002fsVRz\u002fd1r7r8QEXB77jHxv9UwZoygaPu\u002f1mntDdUW1r8HkT9ARwHvv\u002fXGzqjlSuw\u002fjxEdOAsIwr8xh4v3imvRvw7G1EMq8vK\u002ftzVFpCor6b\u002f8jYO7xe7TP7XVC98RqtA\u002fcEOjbXHmtD9L6X1X4sTZP+srDGjCneS\u002f3oDJKRQo5z9XN8hIpcPgv\u002fjgJ9FmuPG\u002fep+q2ijmw79Zph2rt3HvPzK9lWx9vec\u002fVhDacKye4D+hsfA9ddrrv74b37AmavE\u002f1UsnW67j8D\u002fgETgz7Sf2v31MTyQfwtq\u002fo\u002fyLdTka6r8AT8wtVbP7v+BESOxL3AZAdQtEuLmB5z8Gf+IqIMrWv6AdihsGds8\u002fQ2PH5eQN07+5j\u002fx46JfNP1ShkdkcROS\u002fKJnoDLKi6b+C3tx07Sn1v+srDGjCneS\u002f5a\u002fyjKY527+76wPmn5e8vzjkOuXePPO\u002f9vbkpbBh97\u002fO76N\u002f0s3cP4O2hvZn9+S\u002fdnsULTgOtr\u002fgcpA\u002f+xD6v8Usi8Ap7vS\u002fgqH1M5YJ3T+Dtob2Z\u002ffkv2L5eGHBlei\u002fU3xcnGL3sz+tjhnGB4L0P+z9wxQTaQHAA\u002fv7BTwu4L8CS2xuMkH+P40gByhI0vO\u002fwVyhvfQE0L+dG7rO7Frvv1ShkdkcROS\u002fKVseGXps2L9rD+3Wc5n5v4c\u002fNYH7Evm\u002fK7vFH2Six79laDwFpfjdP48RHTgLCMK\u002fD39dN3TS778wxVXrwqHiv8exR81rTNI\u002f+PdMTD1v1z9fh+9RBDHqPzPnMv50ocC\u002f+qegTzIK5z+o3V0chtnkvzbxz5RW9O2\u002fUl8exyr28L\u002fOBDVCpLvkv2532\u002fJM5AJAwKxNuv9p4L+gKIsSeWTcvyNKKarfQvC\u002ffK7GdyIT6j9WddubdJ\u002f2vyR3C\u002fr\u002fots\u002f0blQq0jW8b9OaI9LlI3wv1b9Eyu\u002fQok\u002fIIIM8XKRyL+YYjHbonryv+12p5+G3eK\u002f5a\u002fyjKY527\u002fioqY8xifVv1llEj9SMcw\u002fgo+YHm\u002fS5D+BJRjtjvf1P6G6GGNHzPa\u002foV\u002f55\u002fxRsr\u002fKRxD7IhfoP8ySqzLnVuY\u002fhIg+o7jCAcCmeZGIvXW+v4Fr676jt+a\u002faNpKCA5V478q5INEduLnv5Aq9g8jL3i\u002ffFCGuwyzpb82U8zbBT3kP0dTR+hZRd0\u002fvBYXS3fq47\u002f5+WnYtfyUv77Yx2OTvOu\u002fRnEA0P0k8L+7rh0HGYXAP2L5eGHBlei\u002fTyxZEGEgzT+s6i5gEuPRv15jQvI4Fuy\u002fezLpMBsB87+s6i5gEuPRv4\u002fD0kZICeu\u002fvTrEqkIF4j9i+XhhwZXovwZ\u002f4iogyta\u002fSP7ShZ9g\u002f79aL4PWs+feP6QgOdUENeg\u002f3DUu8k\u002fo6D\u002f4OFi4oq\u002fqvz4dPXNn8+a\u002fC0sjD5ub6T9X8fR2kAPwP+PqAPxcXdE\u002fJRLBb6D8wD+LMoKHeTIFQEBo2KorM+W\u002fe\u002f5ydC142j8Mlr5GX9vnP6eb6gmUi\u002fG\u002fLaIQMoSU9L9qexP3a3xiv6Gx8D112uu\u002fKB8NwIAOxz8Gf+IqIMrWvzbxz5RW9O2\u002fwCNjm1f86b8v7atpSNTyv46BXzRWu\u002fe\u002flwrjqVxaAEA3iRHvh06fPwjHPOq2\u002f9I\u002fILTyOlfD87\u002fROdcQCgD7vz4dPXNn8+a\u002f7Xann4bd4r8m3hNeKpGnv4s2xPyRe\u002fm\u002fJt4TXiqRp7\u002fNuZkK4HvmvzsQ8SKH4eC\u002fDwhIVhxA5r8pWx4ZemzYv319hGjfQPG\u002fWMB20zjf9L9i+XhhwZXovyUDsp0pI+2\u002f4Rm8HR663r\u002f3mlT\u002fUfjgPyhTFTud4vg\u002fBWeV48zJwz\u002fQPYAvxBfdv4eFCFMQ09m\u002fKB8NwIAOxz+SvsGBAeTYv9G5UKtI1vG\u002fARxPLaSjdD+meZGIvXW+vwSEqpDPSfS\u002faZz7ICon67+meZGIvXW+v9r\u002fI31dltK\u002fA5cvcnPKub81f0aFmY\u002fvP9XPDYCSf\u002fe\u002fdwPyekVSwz+6QpH0Cj3vv9buEMS4QwHA+86OJysv57+5MDTf4wXXvw7G1EMq8vK\u002fvBYXS3fq478oQbgldqvwv1c3yEilw+C\u002fpX0xIvCr3j\u002flTyBxL4cAQIxRSTeLpOw\u002fywn9p1M78j9WENpwrJ7gPzSU10drfde\u002f27DfJt8+8r8n1zf0ldDhv7cj6I4D9NC\u002f9GEW3bTv2j+v93qw8vTXvw9Yq\u002fOP\u002f\u002fE\u002faPXPQgd+9j8uerqz\u002fmHkvwZ\u002f4iogyta\u002fXSHP30bI+L9cfV+GpTHfv2Y\u002fA9Q+sNS\u002fVdrcxjyg3L9ns1wwFTDjP+SIiahZDOK\u002f+YPz72bv6L9XWMbucR\u002fGP2aPr9BJFeW\u002fzbmZCuB75r\u002fUAIwj6qPyP2Sey21DQss\u002fOWAYLOZO6j+MUdtkEdaXP1llEj9SMcw\u002f6OxLVcqAuj\u002f9GSpf727lv+ngcDD+Xea\u002f0pprsSw74b8uOa9HmSHRP31en27DpeC\u002fj8PSRkgJ679ns1wwFTDjP2kl5j\u002fSlOG\u002fMHL6NLl96T8Pf103dNLvvyXF56nx7Nu\u002fs58ONaKr7L9OwL8y0ITpv3YmQLkLQbO\u002fhw7zcbhA0L9YwHbTON\u002f0v+u0uvJVufi\u002fZpjX9RsH8L980XLaAu8FwH3VtE8bOOq\u002f"},"type":"scatter3d"},{"hovertemplate":"Class=Unknown\u003cbr\u003ePerimeter=%{x}\u003cbr\u003eConcavity=%{y}\u003cbr\u003eSymmetry=%{z}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Unknown","marker":{"color":"red","opacity":0.5,"symbol":"diamond","size":5},"mode":"markers","name":"Unknown","scene":"scene","showlegend":true,"x":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"y":{"dtype":"f8","bdata":"AAAAAAAADEA="},"z":{"dtype":"f8","bdata":"AAAAAAAA8D8="},"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.4169296890238429,0.0],"y":[2.314364361545543,3.5],"z":[0.8367221741628925,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[1.3346636452104552,0.0],"y":[2.886367741120699,3.5],"z":[1.0993590061025895,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.4704298748105068,0.0],"y":[2.0848103736897245,3.5],"z":[1.1540750127566932,1.0],"type":"scatter3d"},{"line":{"color":"#1f77b4","width":2},"mode":"lines","name":"Benign","showlegend":false,"x":[-1.3654495774533837,0.0],"y":[2.812358531921282,3.5],"z":[1.09206353854871,1.0],"type":"scatter3d"},{"line":{"color":"#ff7f0e","width":2},"mode":"lines","name":"Malignant","showlegend":false,"x":[0.6226996343571639,0.0],"y":[2.54140956264884,3.5],"z":[2.0550652556609337,1.0],"type":"scatter3d"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"scene":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"xaxis":{"title":{"text":"Perimeter"}},"yaxis":{"title":{"text":"Concavity"}},"zaxis":{"title":{"text":"Symmetry"}}},"legend":{"title":{"text":"Class"},"tracegroupgap":0},"margin":{"l":0,"r":0,"b":0,"t":1}},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('af01da8b-e26c-4948-a8cb-0bfaa459acef');
+var gd = document.getElementById('c7add250-81e2-4be9-bac7-b55df437777f');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1162,20 +1162,20 @@ if (outputEl) {{
 <ul>
 <li>K-nearest neighbors algorithm is implemented in <a href="https://scikit-learn.org/stable/index.html"><code>scikit-learn</code></a></li>
 </ul>
-<div id="aeb715d1" class="cell" data-execution_count="20">
+<div id="27d6df70" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a></a><span class="im">from</span> sklearn <span class="im">import</span> set_config</span>
 <span id="cb24-2"><a></a></span>
 <span id="cb24-3"><a></a><span class="co"># Output dataframes instead of arrays</span></span>
 <span id="cb24-4"><a></a>set_config(transform_output<span class="op">=</span><span class="st">"pandas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can get started with <code>sklearn</code> and <code>KNeighborsClassifier()</code></p>
-<div id="df89bb26" class="cell" data-execution_count="21">
+<div id="a588f385" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="review-cancer-data" class="slide level2">
 <h2>Review cancer data</h2>
-<div id="65dc2279" class="cell" data-execution_count="22">
+<div id="fc5850ba" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a></a>cancer_train <span class="op">=</span> cancer[[<span class="st">"Class"</span>, <span class="st">"Perimeter"</span>, <span class="st">"Concavity"</span>]]</span>
 <span id="cb26-2"><a></a><span class="bu">print</span>(cancer_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1194,7 +1194,7 @@ if (outputEl) {{
 </section>
 <section id="scikit-learn-create-model-object" class="slide level2">
 <h2><code>scikit-learn</code>: Create Model Object</h2>
-<div id="17ea4805" class="cell" data-execution_count="23">
+<div id="78910974" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
 <span id="cb28-2"><a></a></span>
 <span id="cb28-3"><a></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
@@ -1777,7 +1777,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="scikit-learn-fit-the-model" class="slide level2">
 <h2><code>scikit-learn</code>: Fit the model</h2>
-<div id="af941224" class="cell" data-execution_count="24">
+<div id="4b5f48c6" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>knn.fit(</span>
 <span id="cb29-2"><a></a>  X<span class="op">=</span>cancer_train[[<span class="st">"Perimeter"</span>, <span class="st">"Concavity"</span>]],</span>
 <span id="cb29-3"><a></a>  y<span class="op">=</span>cancer_train[<span class="st">"Class"</span>]</span>
@@ -2376,7 +2376,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="scikit-learn-predict" class="slide level2">
 <h2><code>scikit-learn</code>: Predict</h2>
-<div id="2f100a95" class="cell" data-execution_count="25">
+<div id="5446ca0c" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a></a>new_obs <span class="op">=</span> pd.DataFrame({<span class="st">"Perimeter"</span>: [<span class="dv">0</span>], <span class="st">"Concavity"</span>: [<span class="fl">3.5</span>]})</span>
 <span id="cb30-2"><a></a><span class="bu">print</span>(new_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2384,7 +2384,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 0          0        3.5</code></pre>
 </div>
 </div>
-<div id="0de31629" class="cell" data-execution_count="26">
+<div id="31971b32" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a></a>knn.predict(new_obs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>array(['Malignant'], dtype=object)</code></pre>
@@ -2422,7 +2422,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <li>The mean is used to center, the standard deviation is used to scale</li>
 <li>Standardization: transform the data such that the mean is 0, and a standard deviation is 1</li>
 </ul>
-<div id="238685c0" class="cell" data-execution_count="27">
+<div id="877c45a9" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a></a>unscaled_cancer <span class="op">=</span> pd.read_csv(<span class="st">"data/wdbc_unscaled.csv"</span>)[[<span class="st">"Class"</span>, <span class="st">"Area"</span>, <span class="st">"Smoothness"</span>]]</span>
 <span id="cb34-2"><a></a>unscaled_cancer[<span class="st">"Class"</span>] <span class="op">=</span> unscaled_cancer[<span class="st">"Class"</span>].replace({</span>
 <span id="cb34-3"><a></a>   <span class="st">"M"</span> : <span class="st">"Malignant"</span>,</span>
@@ -2514,7 +2514,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </ul></li>
 <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector"><code>make_column_transformer</code></a>: creates a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer"><code>ColumnTransformer</code></a> to select columns</li>
 </ul>
-<div id="16d20e44" class="cell" data-execution_count="28">
+<div id="b965ef28" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb35-2"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_transformer</span>
 <span id="cb35-3"><a></a></span>
@@ -3128,7 +3128,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="scikit-learn-select-numeric-columns" class="slide level2">
 <h2><code>scikit-learn</code>: Select numeric columns</h2>
-<div id="6ca05632" class="cell" data-execution_count="29">
+<div id="07e33dc8" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a></a><span class="im">from</span> sklearn.compose <span class="im">import</span> make_column_selector</span>
 <span id="cb36-2"><a></a></span>
 <span id="cb36-3"><a></a>preprocessor <span class="op">=</span> make_column_transformer(</span>
@@ -3614,7 +3614,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     cursor: pointer;
 }
 </style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ColumnTransformer(transformers=[('standardscaler', StandardScaler(),
-                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f50823af380&gt;)])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for ColumnTransformer</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content " data-param-prefix="">
+                                 &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb3e53df470&gt;)])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox"><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for ColumnTransformer</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content " data-param-prefix="">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -3666,7 +3666,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
             </details>
         </div>
-    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>standardscaler</div></div></label><div class="sk-toggleable__content " data-param-prefix="standardscaler__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f50823af380&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="standardscaler__">
+    </div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox"><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>standardscaler</div></div></label><div class="sk-toggleable__content " data-param-prefix="standardscaler__"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb3e53df470&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox"><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.7/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content " data-param-prefix="standardscaler__">
         <div class="estimator-table">
             <details>
                 <summary>Parameters</summary>
@@ -3742,14 +3742,14 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="scikit-learn-transform" class="slide level2">
 <h2><code>scikit-learn</code>: transform</h2>
 <p>Scale the data</p>
-<div id="70944772" class="cell" data-execution_count="30">
+<div id="228427a8" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a></a>preprocessor.fit(unscaled_cancer)</span>
 <span id="cb37-2"><a></a>scaled_cancer <span class="op">=</span> preprocessor.transform(unscaled_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Compare unscaled vs scaled</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="d64d8f58" class="cell" data-execution_count="31">
+<div id="0ea1c3df" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a></a><span class="bu">print</span>(unscaled_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Class    Area  Smoothness
@@ -3765,7 +3765,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="e09a9833" class="cell" data-execution_count="32">
+<div id="91089de7" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a></a><span class="bu">print</span>(scaled_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     standardscaler__Area  standardscaler__Smoothness
@@ -3786,27 +3786,27 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <h2>Visualize unstandarized vs standarized data</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="6d356620" class="cell" data-execution_count="33">
+<div id="2a18c3fd" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display" data-execution_count="33">
 
 <style>
-  #altair-viz-29ec3de88607499ba4b49160ccbfaa15.vega-embed {
+  #altair-viz-4f6d27822c8e40f7b2d8adb34997258e.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-29ec3de88607499ba4b49160ccbfaa15.vega-embed details,
-  #altair-viz-29ec3de88607499ba4b49160ccbfaa15.vega-embed details summary {
+  #altair-viz-4f6d27822c8e40f7b2d8adb34997258e.vega-embed details,
+  #altair-viz-4f6d27822c8e40f7b2d8adb34997258e.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-29ec3de88607499ba4b49160ccbfaa15"></div>
+<div id="altair-viz-4f6d27822c8e40f7b2d8adb34997258e"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-29ec3de88607499ba4b49160ccbfaa15") {
-      outputDiv = document.getElementById("altair-viz-29ec3de88607499ba4b49160ccbfaa15");
+    if (outputDiv.id !== "altair-viz-4f6d27822c8e40f7b2d8adb34997258e") {
+      outputDiv = document.getElementById("altair-viz-4f6d27822c8e40f7b2d8adb34997258e");
     }
 
     const paths = {
@@ -3859,27 +3859,27 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="fdd9dba8" class="cell" data-execution_count="34">
+<div id="6c9919d2" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display" data-execution_count="34">
 
 <style>
-  #altair-viz-809edd60e05e4487aebef0195de64349.vega-embed {
+  #altair-viz-5026fc651779492d896827f9c9eae7a9.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-809edd60e05e4487aebef0195de64349.vega-embed details,
-  #altair-viz-809edd60e05e4487aebef0195de64349.vega-embed details summary {
+  #altair-viz-5026fc651779492d896827f9c9eae7a9.vega-embed details,
+  #altair-viz-5026fc651779492d896827f9c9eae7a9.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-809edd60e05e4487aebef0195de64349"></div>
+<div id="altair-viz-5026fc651779492d896827f9c9eae7a9"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-809edd60e05e4487aebef0195de64349") {
-      outputDiv = document.getElementById("altair-viz-809edd60e05e4487aebef0195de64349");
+    if (outputDiv.id !== "altair-viz-5026fc651779492d896827f9c9eae7a9") {
+      outputDiv = document.getElementById("altair-viz-5026fc651779492d896827f9c9eae7a9");
     }
 
     const paths = {
@@ -3945,7 +3945,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="balancing-class-imbalance" class="slide level2">
 <h2>Balancing + class imbalance</h2>
 <p>What if we have class imbalance? i.e., if the response variable has a big difference in frequency counts between classes?</p>
-<div id="b9ae9da4" class="cell" data-execution_count="35">
+<div id="7dbb07ce" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a></a>rare_cancer <span class="op">=</span> pd.concat((</span>
 <span id="cb42-2"><a></a>    cancer[cancer[<span class="st">"Class"</span>] <span class="op">==</span> <span class="st">"Benign"</span>],</span>
 <span id="cb42-3"><a></a>    cancer[cancer[<span class="st">"Class"</span>] <span class="op">==</span> <span class="st">"Malignant"</span>].head(<span class="dv">3</span>) <span class="co"># only 3 total</span></span>
@@ -3985,7 +3985,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="visualizing-class-imbalance" class="slide level2">
 <h2>Visualizing class imbalance</h2>
-<div id="7fb2d701" class="cell" data-execution_count="36">
+<div id="beff37dc" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a></a>rare_cancer[<span class="st">"Class"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>Class
@@ -3994,27 +3994,27 @@ Malignant      3
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="c13b2732" class="cell" data-execution_count="37">
+<div id="bbb8e9ec" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display" data-execution_count="37">
 
 <style>
-  #altair-viz-68ab67419558424abc106684ca7a7f03.vega-embed {
+  #altair-viz-73b650e3025640e49c2fc4ba2f21b870.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-68ab67419558424abc106684ca7a7f03.vega-embed details,
-  #altair-viz-68ab67419558424abc106684ca7a7f03.vega-embed details summary {
+  #altair-viz-73b650e3025640e49c2fc4ba2f21b870.vega-embed details,
+  #altair-viz-73b650e3025640e49c2fc4ba2f21b870.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-68ab67419558424abc106684ca7a7f03"></div>
+<div id="altair-viz-73b650e3025640e49c2fc4ba2f21b870"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-68ab67419558424abc106684ca7a7f03") {
-      outputDiv = document.getElementById("altair-viz-68ab67419558424abc106684ca7a7f03");
+    if (outputDiv.id !== "altair-viz-73b650e3025640e49c2fc4ba2f21b870") {
+      outputDiv = document.getElementById("altair-viz-73b650e3025640e49c2fc4ba2f21b870");
     }
 
     const paths = {
@@ -4071,27 +4071,27 @@ Name: count, dtype: int64</code></pre>
 <h2>Predicting with class imbalance</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="60a270e2" class="cell" data-execution_count="38">
+<div id="fbb07ce5" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display" data-execution_count="38">
 
 <style>
-  #altair-viz-c1784e36485b4c02b5b260d2cfd8882e.vega-embed {
+  #altair-viz-592b464704374d4da6bddf6789449819.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-c1784e36485b4c02b5b260d2cfd8882e.vega-embed details,
-  #altair-viz-c1784e36485b4c02b5b260d2cfd8882e.vega-embed details summary {
+  #altair-viz-592b464704374d4da6bddf6789449819.vega-embed details,
+  #altair-viz-592b464704374d4da6bddf6789449819.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-c1784e36485b4c02b5b260d2cfd8882e"></div>
+<div id="altair-viz-592b464704374d4da6bddf6789449819"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-c1784e36485b4c02b5b260d2cfd8882e") {
-      outputDiv = document.getElementById("altair-viz-c1784e36485b4c02b5b260d2cfd8882e");
+    if (outputDiv.id !== "altair-viz-592b464704374d4da6bddf6789449819") {
+      outputDiv = document.getElementById("altair-viz-592b464704374d4da6bddf6789449819");
     }
 
     const paths = {
@@ -4144,27 +4144,27 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div id="efca0ce4" class="cell" data-execution_count="39">
+<div id="ecd6338e" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display" data-execution_count="39">
 
 <style>
-  #altair-viz-ab150c7358434907a4fd33878d741e65.vega-embed {
+  #altair-viz-cecb1d4951884869b96bd71ce36d8c00.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-ab150c7358434907a4fd33878d741e65.vega-embed details,
-  #altair-viz-ab150c7358434907a4fd33878d741e65.vega-embed details summary {
+  #altair-viz-cecb1d4951884869b96bd71ce36d8c00.vega-embed details,
+  #altair-viz-cecb1d4951884869b96bd71ce36d8c00.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-ab150c7358434907a4fd33878d741e65"></div>
+<div id="altair-viz-cecb1d4951884869b96bd71ce36d8c00"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ab150c7358434907a4fd33878d741e65") {
-      outputDiv = document.getElementById("altair-viz-ab150c7358434907a4fd33878d741e65");
+    if (outputDiv.id !== "altair-viz-cecb1d4951884869b96bd71ce36d8c00") {
+      outputDiv = document.getElementById("altair-viz-cecb1d4951884869b96bd71ce36d8c00");
     }
 
     const paths = {
@@ -4233,13 +4233,13 @@ Name: count, dtype: int64</code></pre>
 <section id="upsampling-code" class="slide level2">
 <h2>Upsampling: code</h2>
 <p>Set seed</p>
-<div id="eb35226f" class="cell" data-execution_count="40">
+<div id="48bfd291" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb46-2"><a></a></span>
 <span id="cb46-3"><a></a>np.random.seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Upsample the rare class</p>
-<div id="6c79b0ac" class="cell" data-execution_count="41">
+<div id="372a75c6" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a></a>malignant_cancer <span class="op">=</span> rare_cancer[rare_cancer[<span class="st">"Class"</span>] <span class="op">==</span> <span class="st">"Malignant"</span>]</span>
 <span id="cb47-2"><a></a>benign_cancer <span class="op">=</span> rare_cancer[rare_cancer[<span class="st">"Class"</span>] <span class="op">==</span> <span class="st">"Benign"</span>]</span>
 <span id="cb47-3"><a></a>malignant_cancer_upsample <span class="op">=</span> malignant_cancer.sample(</span>
@@ -4259,27 +4259,27 @@ Name: count, dtype: int64</code></pre>
 <h2>Upsampling: Re-train KNN <code>k=7</code></h2>
 <div class="columns">
 <div class="column">
-<div id="cc8a5fb9" class="cell" data-execution_count="42">
+<div id="e0f1705d" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display" data-execution_count="42">
 
 <style>
-  #altair-viz-0ba2586039364cd5813b1d2ed96c4074.vega-embed {
+  #altair-viz-8c6f3000c75d43b49009ee5505b7869a.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-0ba2586039364cd5813b1d2ed96c4074.vega-embed details,
-  #altair-viz-0ba2586039364cd5813b1d2ed96c4074.vega-embed details summary {
+  #altair-viz-8c6f3000c75d43b49009ee5505b7869a.vega-embed details,
+  #altair-viz-8c6f3000c75d43b49009ee5505b7869a.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-0ba2586039364cd5813b1d2ed96c4074"></div>
+<div id="altair-viz-8c6f3000c75d43b49009ee5505b7869a"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-0ba2586039364cd5813b1d2ed96c4074") {
-      outputDiv = document.getElementById("altair-viz-0ba2586039364cd5813b1d2ed96c4074");
+    if (outputDiv.id !== "altair-viz-8c6f3000c75d43b49009ee5505b7869a") {
+      outputDiv = document.getElementById("altair-viz-8c6f3000c75d43b49009ee5505b7869a");
     }
 
     const paths = {
@@ -4332,27 +4332,27 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div><div class="column">
-<div id="4906faa9" class="cell" data-execution_count="43">
+<div id="b0b752e3" class="cell" data-execution_count="43">
 <div class="cell-output cell-output-display" data-execution_count="43">
 
 <style>
-  #altair-viz-7b04e55deb3846b8bc8e83bb895d84ee.vega-embed {
+  #altair-viz-f680e2892b574e44bc9fb5f0960666e0.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-7b04e55deb3846b8bc8e83bb895d84ee.vega-embed details,
-  #altair-viz-7b04e55deb3846b8bc8e83bb895d84ee.vega-embed details summary {
+  #altair-viz-f680e2892b574e44bc9fb5f0960666e0.vega-embed details,
+  #altair-viz-f680e2892b574e44bc9fb5f0960666e0.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-7b04e55deb3846b8bc8e83bb895d84ee"></div>
+<div id="altair-viz-f680e2892b574e44bc9fb5f0960666e0"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-7b04e55deb3846b8bc8e83bb895d84ee") {
-      outputDiv = document.getElementById("altair-viz-7b04e55deb3846b8bc8e83bb895d84ee");
+    if (outputDiv.id !== "altair-viz-f680e2892b574e44bc9fb5f0960666e0") {
+      outputDiv = document.getElementById("altair-viz-f680e2892b574e44bc9fb5f0960666e0");
     }
 
     const paths = {
@@ -4409,7 +4409,7 @@ Name: count, dtype: int64</code></pre>
 <section id="missing-data" class="slide level2">
 <h2>Missing data</h2>
 <p>Assume we are only looking at “randomly missing” data</p>
-<div id="40682ff3" class="cell" data-execution_count="44">
+<div id="b041783b" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a></a>missing_cancer <span class="op">=</span> pd.read_csv(<span class="st">"data/wdbc_missing.csv"</span>)[</span>
 <span id="cb49-2"><a></a>    [<span class="st">"Class"</span>, <span class="st">"Radius"</span>, <span class="st">"Texture"</span>, <span class="st">"Perimeter"</span>]</span>
 <span id="cb49-3"><a></a>]</span>
@@ -4432,7 +4432,7 @@ Name: count, dtype: int64</code></pre>
 <section id="missing-data-.dropna" class="slide level2">
 <h2>Missing data: <code>.dropna()</code></h2>
 <p>KNN computes distances across all the features, it needs complete observations</p>
-<div id="96c420b4" class="cell" data-execution_count="45">
+<div id="5224ab58" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a></a><span class="co"># drop incomplete observations</span></span>
 <span id="cb51-2"><a></a>no_missing_cancer <span class="op">=</span> missing_cancer.dropna()</span>
 <span id="cb51-3"><a></a><span class="bu">print</span>(no_missing_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4449,7 +4449,7 @@ Name: count, dtype: int64</code></pre>
 <section id="missing-data-simpleimputer" class="slide level2">
 <h2>Missing data: <code>SimpleImputer()</code></h2>
 <p>We can impute missing data (with the mean) if there’s too many missing values</p>
-<div id="d0ae3ed2" class="cell" data-execution_count="46">
+<div id="b3b5d7d7" class="cell" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb53-2"><a></a></span>
 <span id="cb53-3"><a></a>preprocessor <span class="op">=</span> make_column_transformer(</span>
@@ -5079,13 +5079,13 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="imputed-data" class="slide level2">
 <h2>Imputed data</h2>
-<div id="c5e0477a" class="cell" data-execution_count="47">
+<div id="d6411d74" class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a></a>preprocessor.fit(missing_cancer)</span>
 <span id="cb54-2"><a></a>imputed_cancer <span class="op">=</span> preprocessor.transform(missing_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="columns">
 <div class="column">
-<div id="097dcea0" class="cell" data-execution_count="48">
+<div id="df6d84e8" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a></a><span class="bu">print</span>(missing_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Class    Radius   Texture  Perimeter
@@ -5099,7 +5099,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 </div><div class="column">
-<div id="8bc23e9d" class="cell" data-execution_count="49">
+<div id="1f8c3f07" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a></a><span class="bu">print</span>(imputed_cancer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Radius   Texture  Perimeter
@@ -5116,7 +5116,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="put-it-all-together-preprocessor" class="slide level2">
 <h2>Put it all together: Preprocessor</h2>
-<div id="86cc3ef5" class="cell" data-execution_count="50">
+<div id="734f01f7" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a></a><span class="co"># load the unscaled cancer data, make Class readable</span></span>
 <span id="cb59-2"><a></a>unscaled_cancer <span class="op">=</span> pd.read_csv(<span class="st">"data/wdbc_unscaled.csv"</span>)</span>
 <span id="cb59-3"><a></a>unscaled_cancer[<span class="st">"Class"</span>] <span class="op">=</span> unscaled_cancer[<span class="st">"Class"</span>].replace(</span>
@@ -5135,7 +5135,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="put-it-all-together-pipeline" class="slide level2">
 <h2>Put it all together: Pipeline</h2>
-<div id="d39956bf" class="cell" data-execution_count="51">
+<div id="db304fcb" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
 <span id="cb60-2"><a></a></span>
 <span id="cb60-3"><a></a>knn_pipeline <span class="op">=</span> make_pipeline(preprocessor, knn)</span>
@@ -5837,7 +5837,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </section>
 <section id="put-it-all-together-predict" class="slide level2">
 <h2>Put it all together: Predict</h2>
-<div id="8eb6cba9" class="cell" data-execution_count="52">
+<div id="88bb9d24" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a></a>new_observation <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb61-2"><a></a>    {<span class="st">"Area"</span>: [<span class="dv">500</span>, <span class="dv">1500</span>], <span class="st">"Smoothness"</span>: [<span class="fl">0.075</span>, <span class="fl">0.1</span>]}</span>
 <span id="cb61-3"><a></a>)</span>
@@ -5851,27 +5851,27 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <section id="prediction-area" class="slide level2">
 <h2>Prediction Area</h2>
 <p>Model prediction area.</p>
-<div id="8a1c1c70" class="cell" data-execution_count="53">
+<div id="4a7d5129" class="cell" data-execution_count="53">
 <div class="cell-output cell-output-display" data-execution_count="53">
 
 <style>
-  #altair-viz-4e2eaa79a7be449cabeedcbfec1988d4.vega-embed {
+  #altair-viz-26f2a25b635c49cb88dcd9d562d6ce04.vega-embed {
     width: 100%;
     display: flex;
   }
 
-  #altair-viz-4e2eaa79a7be449cabeedcbfec1988d4.vega-embed details,
-  #altair-viz-4e2eaa79a7be449cabeedcbfec1988d4.vega-embed details summary {
+  #altair-viz-26f2a25b635c49cb88dcd9d562d6ce04.vega-embed details,
+  #altair-viz-26f2a25b635c49cb88dcd9d562d6ce04.vega-embed details summary {
     position: relative;
   }
 </style>
-<div id="altair-viz-4e2eaa79a7be449cabeedcbfec1988d4"></div>
+<div id="altair-viz-26f2a25b635c49cb88dcd9d562d6ce04"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4e2eaa79a7be449cabeedcbfec1988d4") {
-      outputDiv = document.getElementById("altair-viz-4e2eaa79a7be449cabeedcbfec1988d4");
+    if (outputDiv.id !== "altair-viz-26f2a25b635c49cb88dcd9d562d6ce04") {
+      outputDiv = document.getElementById("altair-viz-26f2a25b635c49cb88dcd9d562d6ce04");
     }
 
     const paths = {
@@ -5932,7 +5932,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <h2>Reference Code</h2>
 <div class="columns">
 <div class="column">
-<div id="e58d68ef" class="cell" data-execution_count="54">
+<div id="192bd9c6" class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb63-2"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb63-3"><a></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
@@ -5953,7 +5953,7 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 <span id="cb63-18"><a></a>].replace({<span class="st">"M"</span>: <span class="st">"Malignant"</span>, <span class="st">"B"</span>: <span class="st">"Benign"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
-<div id="2176936c" class="cell" data-execution_count="55">
+<div id="10ef3d71" class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a></a><span class="co"># create the K-NN model</span></span>
 <span id="cb64-2"><a></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">7</span>)</span>
 <span id="cb64-3"><a></a></span>
