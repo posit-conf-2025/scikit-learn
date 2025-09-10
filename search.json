@@ -47,19 +47,7 @@
     "href": "materials/slides/regression.html#classification-similarities-to-regression",
     "title": "Regression",
     "section": "Classification similarities to regression",
-    "text": "Classification similarities to regression\nConcepts from classification map over to the setting of regression\n\nPredict a new observation’s response variable based on past observations\nSplit the data into training and test sets\nUse cross-validation to evaluate different choices of model parameters",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Regression"
-    ]
-  },
-  {
-    "objectID": "materials/slides/regression.html#difference",
-    "href": "materials/slides/regression.html#difference",
-    "title": "Regression",
-    "section": "Difference",
-    "text": "Difference\nPredicting numerical variables instead of categorical variables",
+    "text": "Classification similarities to regression\nSimilarities:\n\nPredict a new observation’s response variable based on past observations\nSplit the data into training and test sets\nUse cross-validation to evaluate different choices of model parameters \n\nDifference:\n\nPredicting numerical variables instead of categorical variables",
     "crumbs": [
       "Home",
       "Slides",
@@ -79,11 +67,23 @@
     ]
   },
   {
-    "objectID": "materials/slides/regression.html#data-and-package-setup",
-    "href": "materials/slides/regression.html#data-and-package-setup",
+    "objectID": "materials/slides/regression.html#package-setup",
+    "href": "materials/slides/regression.html#package-setup",
     "title": "Regression",
-    "section": "Data and package setup",
-    "text": "Data and package setup\n\nimport altair as alt\nimport numpy as np\nimport pandas as pd\nimport plotly.express as px\nimport plotly.graph_objects as go\nfrom sklearn.model_selection import GridSearchCV, train_test_split\nfrom sklearn.compose import make_column_transformer\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nsacramento = pd.read_csv('data/sacramento.csv')\nprint(sacramento)\n\n                city     zip  beds  baths  sqft         type   price  \\\n0         SACRAMENTO  z95838     2    1.0   836  Residential   59222   \n1         SACRAMENTO  z95823     3    1.0  1167  Residential   68212   \n..               ...     ...   ...    ...   ...          ...     ...   \n930        ELK_GROVE  z95758     4    2.0  1685  Residential  235301   \n931  EL_DORADO_HILLS  z95762     3    2.0  1362  Residential  235738   \n\n      latitude   longitude  \n0    38.631913 -121.434879  \n1    38.478902 -121.431028  \n..         ...         ...  \n930  38.417000 -121.397424  \n931  38.655245 -121.075915  \n\n[932 rows x 9 columns]",
+    "section": "Package setup",
+    "text": "Package setup",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#data",
+    "href": "materials/slides/regression.html#data",
+    "title": "Regression",
+    "section": "Data",
+    "text": "Data",
     "crumbs": [
       "Home",
       "Slides",
@@ -107,7 +107,7 @@
     "href": "materials/slides/regression.html#sample-of-data",
     "title": "Regression",
     "section": "Sample of data",
-    "text": "Sample of data\n\n# look at a small sample of data\nnp.random.seed(10)\n\nsmall_sacramento = sacramento.sample(n=30)\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n538   ELK_GROVE  z95758     3    3.0  2503  Residential  484500  38.409689   \n304     ROCKLIN  z95765     4    2.0  2607  Residential  402000  38.805749   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n559  SACRAMENTO  z95817     2    1.0  1080  Residential   65000  38.544162   \n917  SACRAMENTO  z95834     3    2.0  1665  Residential  224000  38.631026   \n\n      longitude  \n538 -121.446059  \n304 -121.280931  \n..          ...  \n559 -121.460652  \n917 -121.501879  \n\n[30 rows x 9 columns]",
+    "text": "Sample of data",
     "crumbs": [
       "Home",
       "Slides",
@@ -119,7 +119,7 @@
     "href": "materials/slides/regression.html#sample-k-nn-example",
     "title": "Regression",
     "section": "Sample: K-NN Example",
-    "text": "Sample: K-NN Example\n\n\nHouse price of 2000\n\n\n\n\n\n\n\n\n\n5 closest neighbors",
+    "text": "Sample: K-NN Example\n\n\nHouse price of 2000\n\n\n\n\n\n\n\n5 closest neighbors",
     "crumbs": [
       "Home",
       "Slides",
@@ -131,19 +131,7 @@
     "href": "materials/slides/regression.html#make-and-visualize-prediction",
     "title": "Regression",
     "section": "Make and visualize prediction",
-    "text": "Make and visualize prediction\n\nsmall_sacramento['dist'] = (2000 - small_sacramento['sqft']).abs()\nnearest_neighbors = small_sacramento.nsmallest(5, 'dist')\nprediction = nearest_neighbors['price'].mean()\nprint(prediction)\n\n280739.2",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Regression"
-    ]
-  },
-  {
-    "objectID": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
-    "href": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
-    "title": "Regression",
-    "section": "K-NN regression in scikit-learn",
-    "text": "K-NN regression in scikit-learn\nWe won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:\n\n\n\n\n\n\n\n\nFeature\nK-NN Classification\nK-NN Regression\n\n\n\n\nTarget Type\nCategorical (e.g., ‘A’, ‘B’)\nContinuous (e.g., 3.5, 27.0)\n\n\nPrediction Logic\nMajority vote\nMean (or weighted average)\n\n\nscikit-learn Class\nKNeighborsClassifier\nKNeighborsRegressor\n\n\nOutput\nClass label\nNumeric value\n\n\nUse Case\nClassification problems\nRegression problems\n\n\nMetrics\nAccuracy, Precision, Recall etc.\nRMS(P)E (details to follow)",
+    "text": "Make and visualize prediction",
     "crumbs": [
       "Home",
       "Slides",
@@ -155,7 +143,7 @@
     "href": "materials/slides/regression.html#splitting-the-data",
     "title": "Regression",
     "section": "Splitting the data",
-    "text": "Splitting the data\n\nnp.random.seed(1)\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)\n\n\n\n\n\n\n\nNote\n\n\nWe are not specifying the stratify argument. The train_test_split() function cannot stratify on a quantitative variable",
+    "text": "Splitting the data\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nWe are not specifying the stratify argument. The train_test_split() function cannot stratify on a quantitative variable",
     "crumbs": [
       "Home",
       "Slides",
@@ -215,7 +203,7 @@
     "href": "materials/slides/regression.html#evaluating-on-the-test-set",
     "title": "Regression",
     "section": "Evaluating on the test set",
-    "text": "Evaluating on the test set\n\nThen we retrain the K-NN regression model on the entire training data set using best \\(k\\).\n\n\nfrom sklearn.metrics import mean_squared_error\n\nsacramento_test['predicted'] = sacr_gridsearch.predict(sacramento_test)\nRMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nRMSPE\n\n87498.86808211416\n\n\n\nThe code for running cross-validation to get sacr_gridsearch is included at the end of the slides for reference.",
+    "text": "Evaluating on the test set\n\nThen, as we did before, we retrain the K-NN regression model on the entire training data set using the best \\(k\\).\n\n\nThe code for running cross-validation to get sacr_gridsearch is included at the end of the slides for your reference.",
     "crumbs": [
       "Home",
       "Slides",
@@ -227,7 +215,7 @@
     "href": "materials/slides/regression.html#final-best-k-model",
     "title": "Regression",
     "section": "Final best K model",
-    "text": "Final best K model\nPredicted values of house price (orange line) for the final K-NN regression model.\n\n\n\n\n\n\n\n\n\nK-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.",
+    "text": "Final best K model\nPredicted values of house price (orange line) for the final K-NN regression model.\n\n\nK-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.",
     "crumbs": [
       "Home",
       "Slides",
@@ -240,6 +228,18 @@
     "title": "Regression",
     "section": "Strengths and limitations of K-NN regression",
     "text": "Strengths and limitations of K-NN regression\nStrengths:\n\nsimple, intuitive algorithm\nrequires few assumptions about what the data must look like\nworks well with non-linear relationships (i.e., if the relationship is not a straight line)\n\nWeaknesses:\n\nvery slow as the training data gets larger\nmay not perform well with a large number of predictors\nmay not predict well beyond the range of values input in your training data",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
+    "objectID": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
+    "href": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
+    "title": "Regression",
+    "section": "K-NN regression in scikit-learn",
+    "text": "K-NN regression in scikit-learn\nWe won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:\n\n\n\n\nFeature\nK-NN Class.\nK-NN Regr.\n\n\n\n\nTarget\nCategorical\nContinuous\n\n\nLogic\nMajority vote\nMean / w.avg\n\n\nClass\nKNeighborsClassifier\nKNeighborsRegressor\n\n\nOutput\nLabel\nValue\n\n\nUse Case\nClassification\nRegression\n\n\nMetrics\nAccuracy, Precision, Recall\nRMSE",
     "crumbs": [
       "Home",
       "Slides",
@@ -263,7 +263,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate",
     "title": "Regression",
     "section": "Sacramento real estate",
-    "text": "Sacramento real estate\n\nimport pandas as pd\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nnp.random.seed(42)\nsmall_sacramento = sacramento.sample(n=30)\n\nprint(small_sacramento)\n\n           city     zip  beds  baths  sqft         type   price   latitude  \\\n829  SACRAMENTO  z95824     3    1.0  1161  Residential  109000  38.511893   \n70    ELK_GROVE  z95624     4    2.0  1715  Residential  199500  38.440760   \n..          ...     ...   ...    ...   ...          ...     ...        ...   \n909  SACRAMENTO  z95828     3    1.0   888  Residential  216021  38.508217   \n265  SACRAMENTO  z95835     4    3.0  2030  Residential  270000  38.671807   \n\n      longitude  \n829 -121.457676  \n70  -121.385792  \n..          ...  \n909 -121.411207  \n265 -121.498274  \n\n[30 rows x 9 columns]",
+    "text": "Sacramento real estate",
     "crumbs": [
       "Home",
       "Slides",
@@ -275,7 +275,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate-best-fit-line",
     "title": "Regression",
     "section": "Sacramento real estate: best fit line",
-    "text": "Sacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house sale price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term",
+    "text": "Sacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house sale price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term",
     "crumbs": [
       "Home",
       "Slides",
@@ -323,7 +323,7 @@
     "href": "materials/slides/regression.html#least-squares",
     "title": "Regression",
     "section": "Least squares",
-    "text": "Least squares\nLeast Squares method minimizes the sum of the squares of the residuals. The residuals are the difference between the observed value of the response (\\(y_i\\)) and the predicted value of the response (\\(\\hat{y}_i\\)):\n\\[r_i = y_i-\\hat{y}_i\\]\n\n\n\n\n\n\n\n\n\nThe residuals are the vertical distances of each point to the estimated line",
+    "text": "Least squares\nLeast Squares method minimizes the sum of the squares of the residuals. The residuals are the difference between the observed value of the response (\\(y_i\\)) and the predicted value of the response (\\(\\hat{y}_i\\)):\n\\[r_i = y_i-\\hat{y}_i\\]\n\n\n\n\n\n\n\nThe residuals are the vertical distances of each point to the estimated line",
     "crumbs": [
       "Home",
       "Slides",
@@ -359,7 +359,7 @@
     "href": "materials/slides/regression.html#linear-regression-train-test-split",
     "title": "Regression",
     "section": "Linear regression: Train test split",
-    "text": "Linear regression: Train test split\n\nimport numpy as np\nimport altair as alt\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn import set_config\n\n# Output dataframes instead of arrays\nset_config(transform_output='pandas')\n\nnp.random.seed(1)\n\nsacramento = pd.read_csv('data/sacramento.csv')\n\nsacramento_train, sacramento_test = train_test_split(\n    sacramento, train_size=0.75\n)",
+    "text": "Linear regression: Train test split",
     "crumbs": [
       "Home",
       "Slides",
@@ -371,7 +371,7 @@
     "href": "materials/slides/regression.html#linear-regression-fit-the-model",
     "title": "Regression",
     "section": "Linear regression: Fit the model",
-    "text": "Linear regression: Fit the model\n\n# fit the linear regression model\nlm = LinearRegression()\nlm.fit(\n    sacramento_train[['sqft']],  # A single-column data frame\n    sacramento_train['price'],  # A series\n)\n\n# make a dataframe containing slope and intercept coefficients\nresults_df = pd.DataFrame({'slope': [lm.coef_[0]], 'intercept': [lm.intercept_]})\nprint(results_df)\n\n        slope     intercept\n0  137.285652  15642.309105\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)",
+    "text": "Linear regression: Fit the model\n\n\n\n\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)",
     "crumbs": [
       "Home",
       "Slides",
@@ -383,7 +383,7 @@
     "href": "materials/slides/regression.html#linear-regression-predictions",
     "title": "Regression",
     "section": "Linear regression: Predictions",
-    "text": "Linear regression: Predictions\n\n# make predictions\nsacramento_test[\"predicted\"] = lm.predict(sacramento_test[[\"sqft\"]])\n\n# calculate RMSPE\nRMSPE = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE\n\n85376.59691629931",
+    "text": "Linear regression: Predictions",
     "crumbs": [
       "Home",
       "Slides",
@@ -415,18 +415,6 @@
     ]
   },
   {
-    "objectID": "materials/slides/regression.html#comparing-simple-linear-and-k-nn-regression",
-    "href": "materials/slides/regression.html#comparing-simple-linear-and-k-nn-regression",
-    "title": "Regression",
-    "section": "Comparing simple linear and K-NN regression",
-    "text": "Comparing simple linear and K-NN regression",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Regression"
-    ]
-  },
-  {
     "objectID": "materials/slides/regression.html#multiple-linear-regression",
     "href": "materials/slides/regression.html#multiple-linear-regression",
     "title": "Regression",
@@ -443,7 +431,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate-2-predictors",
     "title": "Regression",
     "section": "Sacramento real estate: 2 predictors",
-    "text": "Sacramento real estate: 2 predictors\n\nmlm = LinearRegression()\nmlm.fit(sacramento_train[['sqft', 'beds']], sacramento_train['price'])\n\nsacramento_test['predicted'] = mlm.predict(sacramento_test[['sqft', 'beds']])",
+    "text": "Sacramento real estate: 2 predictors",
     "crumbs": [
       "Home",
       "Slides",
@@ -455,7 +443,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate-coefficients",
     "title": "Regression",
     "section": "Sacramento real estate: Coefficients",
-    "text": "Sacramento real estate: Coefficients\n\nmlm.coef_\n\narray([   154.59235377, -20333.43213798])\n\n\n\nmlm.intercept_\n\nnp.float64(53180.26906624224)\n\n\n\\[\\text{house sale price} = 53180.27 + 154.59\\cdot(\\text{house size}) -20333.43\\cdot(\\text{bedrooms}),\\] where:\n\nIntercept (\\(\\hat{\\beta}_0=53180.27\\)): Predicted sale price when house size = 0 and bedrooms = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=154.59\\)): Holding bedrooms constant, each extra unit of size (e.g., square foot) increases the price by $154.59 on average.\nNumber of bedrooms (\\(\\hat{\\beta}_2=-20333.43\\)): Holding size constant, each additional bedroom reduces price by about $20,333.",
+    "text": "Sacramento real estate: Coefficients\n\n\n\n\n\n\n\n\n\n\n\n\n\\[\\text{house sale price} = 53180.27 + 154.59\\cdot(\\text{house size}) -20333.43\\cdot(\\text{bedrooms}),\\] where:\n\nIntercept (\\(\\hat{\\beta}_0=53180.27\\)): Predicted sale price when house size = 0 and bedrooms = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=154.59\\)): Holding bedrooms constant, each extra unit of size (e.g., square foot) increases the price by $154.59 on average.\nNumber of bedrooms (\\(\\hat{\\beta}_2=-20333.43\\)): Holding size constant, each additional bedroom reduces price by about $20,333.",
     "crumbs": [
       "Home",
       "Slides",
@@ -479,7 +467,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate-mlm-rmspe",
     "title": "Regression",
     "section": "Sacramento real estate: mlm rmspe",
-    "text": "Sacramento real estate: mlm rmspe\n\nlm_mult_test_RMSPE = mean_squared_error(\n    y_true=sacramento_test['price'], y_pred=sacramento_test['predicted']\n) ** (1 / 2)\n\nlm_mult_test_RMSPE\n\n82331.04630202598",
+    "text": "Sacramento real estate: mlm rmspe",
     "crumbs": [
       "Home",
       "Slides",
@@ -503,7 +491,7 @@
     "href": "materials/slides/regression.html#outliers",
     "title": "Regression",
     "section": "Outliers",
-    "text": "Outliers\n\n\nSubset\n\n\n\n\n\n\n\n\n\nFull data",
+    "text": "Outliers\n\n\nSubset\n\n\n\n\n\n\n\nFull data",
     "crumbs": [
       "Home",
       "Slides",
@@ -551,7 +539,7 @@
     "href": "materials/slides/regression.html#l1-regularization-in-scikit-learn",
     "title": "Regression",
     "section": "L1-regularization in scikit-learn",
-    "text": "L1-regularization in scikit-learn\n\nfrom sklearn.linear_model import Lasso\n\n# Example: Use only numeric columns for X \nfeatures = ['beds', 'baths', 'sqft']\n\nX = sacramento_train[features]\ny = sacramento_train['price']\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2025)\n\nsacr_preprocessor = make_column_transformer(\n    (StandardScaler(), features),\n    remainder= 'drop'\n)\n\nsacr_pipeline = make_pipeline(\n    sacr_preprocessor,\n    Lasso(alpha=2000.0, max_iter=10000) # fixing alpha for now\n)\n\n# Fit the pipeline on training data\nsacr_pipeline.fit(X_train, y_train)\n\nlasso_model = sacr_pipeline.named_steps['lasso']\n\ncoefs = lasso_model.coef_\n\n# Count non-zero coefficients\nnum_selected = np.sum(coefs != 0)\nprint(f\"Number of features selected by Lasso: {num_selected}\")\n\n# List selected features\nselected_features = [feature for feature, coef in zip(features, coefs) if coef != 0]\nprint(\"Selected features:\", selected_features)\n\nNumber of features selected by Lasso: 2\nSelected features: ['beds', 'sqft']",
+    "text": "L1-regularization in scikit-learn",
     "crumbs": [
       "Home",
       "Slides",
@@ -575,19 +563,7 @@
     "href": "materials/slides/regression.html#tuning-alpha-with-cross-validation",
     "title": "Regression",
     "section": "Tuning \\(\\alpha\\) with cross-validation",
-    "text": "Tuning \\(\\alpha\\) with cross-validation\n\nJust like tuning \\(k\\) in KNN, we can select \\(\\alpha\\) by evaluating performance on validation sets.\nExample workflow with GridSearchCV:\n\n\npipeline = make_pipeline(\n    sacr_preprocessor,\n    Lasso(max_iter=10000)\n)\n\nparam_grid = {\n    'lasso__alpha': np.arange(1, 3000, 10.0)\n}\n\ngrid_search = GridSearchCV(\n    estimator=pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\ngrid_search.fit(X_train, y_train)\n\nprint(\"Best alpha:\", grid_search.best_params_['lasso__alpha'])\nprint(\"Coefficients:\", coefs)\n\nBest alpha: 1891.0\nCoefficients: [-10065.94683829      0.         103554.95899024]",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Regression"
-    ]
-  },
-  {
-    "objectID": "materials/slides/regression.html#section",
-    "href": "materials/slides/regression.html#section",
-    "title": "Regression",
-    "section": "",
-    "text": "best_model = grid_search.best_estimator_\n\n# Predict on test set\ny_pred = best_model.predict(X_test)\n\n# Show first 5 predictions\nprint(\"First 5 predictions:\", y_pred[:5])\n\n# Evaluate model\nmse = mean_squared_error(y_test, y_pred)\nrmse = mse ** (1/2)\n\nprint(f\"Test RMSE: {rmse:.2f}\")\n\nFirst 5 predictions: [175748.55398861 254020.729447   143612.96210119 181557.39623021\n 474863.85674907]\nTest RMSE: 75838.23",
+    "text": "Tuning \\(\\alpha\\) with cross-validation\n\nJust like tuning \\(k\\) in KNN, we can select \\(\\alpha\\) by evaluating performance on validation sets.\nExample workflow with GridSearchCV:",
     "crumbs": [
       "Home",
       "Slides",
@@ -635,7 +611,7 @@
     "href": "materials/slides/regression.html#code-for-cv-in-k-nn-regression",
     "title": "Regression",
     "section": "Code for CV in K-NN regression",
-    "text": "Code for CV in K-NN regression\n\nfrom sklearn.neighbors import KNeighborsRegressor\n\n# preprocess the data, make the pipeline\nsacr_preprocessor = make_column_transformer((StandardScaler(), ['sqft']))\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 201, 3),\n}\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error'\n)\n\n# fit the GridSearchCV object\nsacr_gridsearch.fit(\n    sacramento_train[['sqft']],  \n    sacramento_train['price']\n)\n\nsacr_gridsearch.best_params_\n\n# Retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n\nbest_k_sacr = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nbest_cv_RMSPE = min(sacr_results[\"mean_test_score\"])",
+    "text": "Code for CV in K-NN regression",
     "crumbs": [
       "Home",
       "Slides",
@@ -647,7 +623,7 @@
     "href": "materials/slides/regression.html#multivariable-k-nn-regression-preprocessor",
     "title": "Regression",
     "section": "Multivariable K-NN regression: Preprocessor",
-    "text": "Multivariable K-NN regression: Preprocessor\n\nsacr_preprocessor = make_column_transformer(\n    (StandardScaler(), ['sqft', 'beds'])\n)\nsacr_pipeline = make_pipeline(sacr_preprocessor, KNeighborsRegressor())",
+    "text": "Multivariable K-NN regression: Preprocessor",
     "crumbs": [
       "Home",
       "Slides",
@@ -659,7 +635,7 @@
     "href": "materials/slides/regression.html#multivariable-k-nn-regression-cv",
     "title": "Regression",
     "section": "Multivariable K-NN regression: CV",
-    "text": "Multivariable K-NN regression: CV\n\n# create the 5-fold GridSearchCV object\nparam_grid = {\n    'kneighborsregressor__n_neighbors': range(1, 50),\n}\n\nsacr_gridsearch = GridSearchCV(\n    estimator=sacr_pipeline,\n    param_grid=param_grid,\n    cv=5,\n    scoring='neg_root_mean_squared_error',\n)\n\nsacr_gridsearch.fit(\n    sacramento_train[['sqft', 'beds']], sacramento_train['price']\n)\n\nGridSearchCV(cv=5,\n             estimator=Pipeline(steps=[('columntransformer',\n                                        ColumnTransformer(transformers=[('standardscaler',\n                                                                         StandardScaler(),\n                                                                         ['sqft',\n                                                                          'beds'])])),\n                                       ('kneighborsregressor',\n                                        KNeighborsRegressor())]),\n             param_grid={'kneighborsregressor__n_neighbors': range(1, 50)},\n             scoring='neg_root_mean_squared_error')In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.GridSearchCV?Documentation for GridSearchCViFitted\n        \n            \n                Parameters\n                \n\n\n\n\nestimator \nPipeline(step...Regressor())])\n\n\n\nparam_grid \n{'kneighborsregressor__n_neighbors': range(1, 50)}\n\n\n\nscoring \n'neg_root_mean_squared_error'\n\n\n\nn_jobs \nNone\n\n\n\nrefit \nTrue\n\n\n\ncv \n5\n\n\n\nverbose \n0\n\n\n\npre_dispatch \n'2*n_jobs'\n\n\n\nerror_score \nnan\n\n\n\nreturn_train_score \nFalse\n\n\n\n\n            \n        \n    best_estimator_: Pipelinecolumntransformer: ColumnTransformer?Documentation for columntransformer: ColumnTransformer\n        \n            \n                Parameters\n                \n\n\n\n\ntransformers \n[('standardscaler', ...)]\n\n\n\nremainder \n'drop'\n\n\n\nsparse_threshold \n0.3\n\n\n\nn_jobs \nNone\n\n\n\ntransformer_weights \nNone\n\n\n\nverbose \nFalse\n\n\n\nverbose_feature_names_out \nTrue\n\n\n\nforce_int_remainder_cols \n'deprecated'\n\n\n\n\n            \n        \n    standardscaler['sqft', 'beds']StandardScaler?Documentation for StandardScaler\n        \n            \n                Parameters\n                \n\n\n\n\ncopy \nTrue\n\n\n\nwith_mean \nTrue\n\n\n\nwith_std \nTrue\n\n\n\n\n            \n        \n    KNeighborsRegressor?Documentation for KNeighborsRegressor\n        \n            \n                Parameters\n                \n\n\n\n\nn_neighbors \n29\n\n\n\nweights \n'uniform'\n\n\n\nalgorithm \n'auto'\n\n\n\nleaf_size \n30\n\n\n\np \n2\n\n\n\nmetric \n'minkowski'\n\n\n\nmetric_params \nNone\n\n\n\nn_jobs \nNone",
+    "text": "Multivariable K-NN regression: CV",
     "crumbs": [
       "Home",
       "Slides",
@@ -671,7 +647,7 @@
     "href": "materials/slides/regression.html#multivariable-k-nn-regression-best-k",
     "title": "Regression",
     "section": "Multivariable K-NN regression: Best K",
-    "text": "Multivariable K-NN regression: Best K\n\n# retrieve the CV scores\nsacr_results = pd.DataFrame(sacr_gridsearch.cv_results_)\nsacr_results['mean_test_score'] = -sacr_results['mean_test_score']\nsacr_results = sacr_results[\n    [\n        'param_kneighborsregressor__n_neighbors',\n        'mean_test_score'\n    ]\n].rename(columns={'param_kneighborsregressor__n_neighbors': 'n_neighbors'})\n\n# show only the row of minimum RMSPE\nsacr_results.nsmallest(1, 'mean_test_score')\n\n\n\n\n\n\n\n\nn_neighbors\nmean_test_score\n\n\n\n\n28\n29\n85156.027067",
+    "text": "Multivariable K-NN regression: Best K",
     "crumbs": [
       "Home",
       "Slides",
@@ -683,7 +659,7 @@
     "href": "materials/slides/regression.html#multivariable-k-nn-regression-best-model",
     "title": "Regression",
     "section": "Multivariable K-NN regression: Best model",
-    "text": "Multivariable K-NN regression: Best model\n\nbest_k_sacr_multi = sacr_results[\"n_neighbors\"][sacr_results[\"mean_test_score\"].idxmin()]\nmin_rmspe_sacr_multi = min(sacr_results[\"mean_test_score\"])\n\nBest K\n\nbest_k_sacr_multi\n\nnp.int64(29)\n\n\nBest RMSPE\n\nmin_rmspe_sacr_multi\n\n85156.02706746716",
+    "text": "Multivariable K-NN regression: Best model\n\n\n\n\n\n\nBest K\n\n\n\n\n\n\nBest RMSPE",
     "crumbs": [
       "Home",
       "Slides",
@@ -695,7 +671,7 @@
     "href": "materials/slides/regression.html#multivariable-k-nn-regression-test-data",
     "title": "Regression",
     "section": "Multivariable K-NN regression: Test data",
-    "text": "Multivariable K-NN regression: Test data\n\nsacramento_test[\"predicted\"] = sacr_gridsearch.predict(sacramento_test)\nRMSPE_mult = mean_squared_error(\n    y_true=sacramento_test[\"price\"],\n    y_pred=sacramento_test[\"predicted\"]\n)**(1/2)\n\nRMSPE_mult\n\n85083.2902421959",
+    "text": "Multivariable K-NN regression: Test data",
     "crumbs": [
       "Home",
       "Slides",
