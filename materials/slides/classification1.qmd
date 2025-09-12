@@ -181,7 +181,6 @@ cancer["Class"].unique()
 ```{pyodide}
 cancer["Class"].value_counts()
 ```
-
 :::
 
 
