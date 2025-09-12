@@ -4373,7 +4373,7 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
 <li>Run <code>fit</code> on the <code>GridSearchCV</code> object to carryout the tuning process.</li>
 <li>Use <code>pd.DataFrame</code> to convert the output to a dataframe for convenience.</li>
 </ol>
-<p>Perform the above using to run 5-fold cross validation to choose <span class="math inline">\(K\)</span> for K-nearest neighbors classification. Use the <code>fruit_preprocessor</code> object you created in question 2, and search across the values from 1 to 15 (incrementing by 1).</p>
+<p>Perform the above using to run <strong>4-fold</strong> cross validation to choose <span class="math inline">\(K\)</span> for K-nearest neighbors classification. Use the <code>fruit_preprocessor</code> object you created in question 2, and search across the values from 1 to 15 (incrementing by 1).</p>
 <p><em>Assign your final data frame to an object called <code>fruit_vfold_score</code> so you can check your work.</em></p>
 <div id="cell-22" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">2020</span>)  <span class="co"># DO NOT REMOVE</span></span>
