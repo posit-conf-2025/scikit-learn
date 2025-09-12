@@ -6,10 +6,10 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+  <meta name="generator" content="quarto-1.8.24">
 
   <title>Machine learning with scikit-learn in Python – Classification II: evaluation &amp; tuning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -96,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-70dee700f540618a3696fe2d24597c76.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-bae7157585a0062695a0c98e2c735676.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -749,8 +749,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWNjdXJhY2llc19ncmlkW1wi
 </section>
 <section id="visualize-paramter-value-selection" class="slide level2">
 <h2>Visualize paramter value selection</h2>
-<div id="8b6e478b" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>accuracy_vs_k <span class="op">=</span> (</span>
+<div id="4fef59b4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>accuracy_vs_k <span class="op">=</span> (</span>
 <span id="cb1-2"><a></a>    alt.Chart(accuracies_grid)</span>
 <span id="cb1-3"><a></a>    .mark_line(point<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb1-4"><a></a>    .encode(</span>
@@ -760,7 +760,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWNjdXJhY2llc19ncmlkW1wi
 <span id="cb1-8"><a></a>        .scale(zero<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb1-9"><a></a>        .title(<span class="st">"Accuracy estimate"</span>)</span>
 <span id="cb1-10"><a></a>    )</span>
-<span id="cb1-11"><a></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="visualize-paramter-value-selection-1" class="slide level2">
@@ -1120,7 +1120,7 @@ WyJkYXRhL2Nhbl9sYW5nLnhsc3giLCJkYXRhL0hlYXJ0LmNzdiIsImRhdGEvd2RiYy5jc3YiLCJkYXRh
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1205,13 +1205,14 @@ WyJkYXRhL2Nhbl9sYW5nLnhsc3giLCJkYXRhL0hlYXJ0LmNzdiIsImRhdGEvd2RiYy5jc3YiLCJkYXRh
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

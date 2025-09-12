@@ -6,10 +6,10 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+  <meta name="generator" content="quarto-1.8.24">
 
   <title>Machine learning with scikit-learn in Python – Regression</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-70dee700f540618a3696fe2d24597c76.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-bae7157585a0062695a0c98e2c735676.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -1133,7 +1133,7 @@ WyJkYXRhL2Nhbl9sYW5nLnhsc3giLCJkYXRhL0hlYXJ0LmNzdiIsImRhdGEvd2RiYy5jc3YiLCJkYXRh
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1218,13 +1218,14 @@ WyJkYXRhL2Nhbl9sYW5nLnhsc3giLCJkYXRhL0hlYXJ0LmNzdiIsImRhdGEvd2RiYy5jc3YiLCJkYXRh
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
