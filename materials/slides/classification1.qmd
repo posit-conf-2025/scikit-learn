@@ -179,15 +179,13 @@ cancer["Class"].unique()
 
 ::: {.column width="50%"}
 ```{pyodide}
-cancer.info()
+cancer["Class"].value_counts()
 ```
+
 :::
 
 
 ::: {.column width="50%"}
-```{pyodide}
-cancer["Class"].value_counts()
-```
 
 ```{pyodide}
 cancer["Class"].value_counts(normalize=True)
