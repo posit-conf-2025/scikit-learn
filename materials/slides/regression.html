@@ -176,11 +176,11 @@ eyJhdHRyIjp7ImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFs
 </section>
 <section id="regression-methods" class="slide level2">
 <h2>Regression Methods</h2>
-<p>In this workshop:</p>
+<p>In this session:</p>
 <ul>
 <li>K-nearest neighbors (brief overview)</li>
 <li>Linear regression</li>
-<li>L1 regularization</li>
+<li>Intro to L1-regularization (LASSO)</li>
 </ul>
 </section>
 <section id="classification-similarities-to-regression" class="slide level2">
@@ -341,10 +341,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <h2>RMSPE vs RMSE</h2>
 <p>Root Mean Square (Prediction) Error</p>
 <ul>
-<li>RMSPE: the error calculated on the non-training dataset</li>
-<li>RMSE: the error calcualted on the training dataset</li>
+<li>RMSPE: the error calculated on the test data</li>
+<li>RMSE: the error calcualted on the training data</li>
 </ul>
+<blockquote>
 <p>This notation is a statistics distinction, you will most likely see RMSPE written as RMSE.</p>
+</blockquote>
 </section>
 <section id="choosing-k" class="slide level2">
 <h2>Choosing <span class="math inline">\(k\)</span></h2>
@@ -364,7 +366,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <li>Then, as we did before, we retrain the K-NN regression model on the entire training data set using the best <span class="math inline">\(k\)</span>.</li>
 </ul>
 <blockquote>
-<p><em>The code for running cross-validation to get <code>sacr_gridsearch</code> is included at the end of the slides for your reference.</em></p>
+<p><em>Sample code for running cross-validation is included at the end of the slides for your reference.</em></p>
 </blockquote>
 </section>
 <section id="final-best-k-model" class="slide level2">
@@ -375,21 +377,6 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <p><em>K-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.</em></p>
 </blockquote>
 </section>
-<section id="strengths-and-limitations-of-k-nn-regression" class="slide level2">
-<h2>Strengths and limitations of K-NN regression</h2>
-<p>Strengths:</p>
-<ul>
-<li>simple, intuitive algorithm</li>
-<li>requires few assumptions about what the data must look like</li>
-<li>works well with non-linear relationships (i.e., if the relationship is not a straight line)</li>
-</ul>
-<p>Weaknesses:</p>
-<ul>
-<li>very slow as the training data gets larger</li>
-<li>may not perform well with a large number of predictors</li>
-<li>may not predict well beyond the range of values input in your training data</li>
-</ul>
-</section>
 <section id="k-nn-regression-in-scikit-learn" class="slide level2">
 <h2>K-NN regression in <code>scikit-learn</code></h2>
 <p>We won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:</p>
@@ -398,8 +385,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <thead>
 <tr class="header">
 <th>Feature</th>
-<th>K-NN Class.</th>
-<th>K-NN Regr.</th>
+<th>K-NN Classification</th>
+<th>K-NN Regression</th>
 </tr>
 </thead>
 <tbody>
@@ -411,7 +398,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <tr class="even">
 <td>Logic</td>
 <td>Majority vote</td>
-<td>Mean / w.avg</td>
+<td>Mean</td>
 </tr>
 <tr class="odd">
 <td>Class</td>
@@ -424,23 +411,33 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <td>Value</td>
 </tr>
 <tr class="odd">
-<td>Use Case</td>
-<td>Classification</td>
-<td>Regression</td>
-</tr>
-<tr class="even">
 <td>Metrics</td>
 <td>Accuracy, Precision, Recall</td>
-<td>RMSE</td>
+<td>RMSPE</td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
+<section id="strengths-and-limitations-of-k-nn-regression" class="slide level2">
+<h2>Strengths and limitations of K-NN regression</h2>
+<p>Strengths:</p>
+<ul>
+<li class="fragment">simple, intuitive algorithm</li>
+<li class="fragment">requires few assumptions about what the data must look like</li>
+<li class="fragment">works well with non-linear relationships (i.e., if the relationship is not a straight line)</li>
+</ul>
+<p>Weaknesses:</p>
+<ul>
+<li class="fragment">very slow as the training data gets larger</li>
+<li class="fragment">may not perform well with a large number of predictors</li>
+<li class="fragment">may not predict well beyond the range of values input in your training data</li>
+</ul>
+</section>
 <section id="linear-regression" class="slide level2">
 <h2>Linear Regression</h2>
 <ul>
-<li><p>Addresses the limitations from KNN regression</p></li>
+<li><p>Addresses some of the limitations from KNN regression</p></li>
 <li><p>Provides an interpretable mathematical equation that describes the relationship between the predictor and response variables</p></li>
 <li><p>Creates a straight line of best fit through the training data</p></li>
 </ul>
@@ -483,7 +480,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 </div>
 </div><div class="column">
 <p>The equation for the line is:</p>
-<p><span class="math display">\[\text{house sale price} = \beta_0 + \beta_1 \cdot (\text{house size})+\varepsilon,\]</span> where</p>
+<p><span class="math display">\[\text{house price} = \beta_0 + \beta_1 \cdot (\text{house size})+\varepsilon,\]</span> where</p>
 <ul>
 <li><span class="math inline">\(\beta_0\)</span> is the <em>vertical intercept</em> of the line (the price when house size is 0)</li>
 <li><span class="math inline">\(\beta_1\)</span> is the <em>slope</em> of the line (how quickly the price increases as you increase house size)</li>
@@ -519,7 +516,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <p><strong>Which of the following criteria would you choose to define “distance of a point to the line”?</strong></p>
 
 <img data-src="img/regression/dist.png" class="r-stretch"><blockquote>
-<p>Figure by Dr.&nbsp;Joel Ostblom</p>
+<p><em>Figure by Dr.&nbsp;Joel Ostblom</em></p>
 </blockquote>
 </section>
 <section id="least-squares" class="slide level2">
@@ -576,6 +573,11 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBmaXQgdGhlIGxpbmVhciBy
 </div>
 <!--TODO: numbers here are hard-coded -->
 <p><span class="math inline">\(\text{house sale price} =\)</span> 137.29 <span class="math inline">\(+\)</span> 15642.31 <span class="math inline">\(\cdot (\text{house size}).\)</span></p>
+<p>where:</p>
+<ul>
+<li><p>Intercept (<span class="math inline">\(\hat{\beta}_0=137.29\)</span>): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).</p></li>
+<li><p>House size (<span class="math inline">\(\hat{\beta}_1=15642.31\)</span>): Each extra unit of size (e.g., square foot) increases the price by $15642.31 on average.</p></li>
+</ul>
 </section>
 <section id="linear-regression-predictions" class="slide level2">
 <h2>Linear regression: Predictions</h2>
@@ -769,7 +771,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 
 </div>
 <script type="pyodide-29-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiXG5mcm9tIHNrbGVhcm4ubGluZWFyX21vZGVsIGltcG9ydCBMYXNzb1xuXG4jIEV4YW1wbGU6IFVzZSBvbmx5IG51bWVyaWMgY29sdW1ucyBmb3IgWCBcbmZlYXR1cmVzID0gWydiZWRzJywgJ2JhdGhzJywgJ3NxZnQnXVxuXG5YID0gc2FjcmFtZW50b190cmFpbltmZWF0dXJlc11cbnkgPSBzYWNyYW1lbnRvX3RyYWluWydwcmljZSddXG5cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4yLCByYW5kb21fc3RhdGU9MjAyNSlcblxuc2Fjcl9wcmVwcm9jZXNzb3IgPSBtYWtlX2NvbHVtbl90cmFuc2Zvcm1lcihcbiAgICAoU3RhbmRhcmRTY2FsZXIoKSwgZmVhdHVyZXMpLFxuICAgIHJlbWFpbmRlcj0gJ2Ryb3AnXG4pXG5cbnNhY3JfcGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKFxuICAgIHNhY3JfcHJlcHJvY2Vzc29yLFxuICAgIExhc3NvKGFscGhhPTIwMDAuMCwgbWF4X2l0ZXI9MTAwMDApICMgZml4aW5nIGFscGhhIGZvciBub3dcbilcblxuIyBGaXQgdGhlIHBpcGVsaW5lIG9uIHRyYWluaW5nIGRhdGFcbnNhY3JfcGlwZWxpbmUuZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5cbmxhc3NvX21vZGVsID0gc2Fjcl9waXBlbGluZS5uYW1lZF9zdGVwc1snbGFzc28nXVxuXG5jb2VmcyA9IGxhc3NvX21vZGVsLmNvZWZfXG5cbiMgQ291bnQgbm9uLXplcm8gY29lZmZpY2llbnRzXG5udW1fc2VsZWN0ZWQgPSBucC5zdW0oY29lZnMgIT0gMClcbnByaW50KGZcIk51bWJlciBvZiBmZWF0dXJlcyBzZWxlY3RlZCBieSBMYXNzbzoge251bV9zZWxlY3RlZH1cIilcblxuIyBMaXN0IHNlbGVjdGVkIGZlYXR1cmVzXG5zZWxlY3RlZF9mZWF0dXJlcyA9IFtmZWF0dXJlIGZvciBmZWF0dXJlLCBjb2VmIGluIHppcChmZWF0dXJlcywgY29lZnMpIGlmIGNvZWYgIT0gMF1cbnByaW50KFwiU2VsZWN0ZWQgZmVhdHVyZXM6XCIsIHNlbGVjdGVkX2ZlYXR1cmVzKSJ9
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiXG5mcm9tIHNrbGVhcm4ubGluZWFyX21vZGVsIGltcG9ydCBMYXNzb1xuXG4jIEV4YW1wbGU6IFVzZSBvbmx5IG51bWVyaWMgY29sdW1ucyBmb3IgWCBcbmZlYXR1cmVzID0gWydiZWRzJywgJ2JhdGhzJywgJ3NxZnQnXVxuXG5YID0gc2FjcmFtZW50b1tmZWF0dXJlc11cbnkgPSBzYWNyYW1lbnRvWydwcmljZSddXG5cblhfdHJhaW4sIFhfdGVzdCwgeV90cmFpbiwgeV90ZXN0ID0gdHJhaW5fdGVzdF9zcGxpdChYLCB5LCB0ZXN0X3NpemU9MC4yNSwgcmFuZG9tX3N0YXRlPTIwMjUpXG5cbnNhY3JfcHJlcHJvY2Vzc29yID0gbWFrZV9jb2x1bW5fdHJhbnNmb3JtZXIoXG4gICAgKFN0YW5kYXJkU2NhbGVyKCksIGZlYXR1cmVzKSxcbiAgICByZW1haW5kZXI9ICdkcm9wJ1xuKVxuXG5zYWNyX3BpcGVsaW5lID0gbWFrZV9waXBlbGluZShcbiAgICBzYWNyX3ByZXByb2Nlc3NvcixcbiAgICBMYXNzbyhhbHBoYT00MDAwLjAsIG1heF9pdGVyPTEwMDAwKSAjIGZpeGluZyBhbHBoYSBmb3Igbm93XG4pXG5cbiMgRml0IHRoZSBwaXBlbGluZSBvbiB0cmFpbmluZyBkYXRhXG5zYWNyX3BpcGVsaW5lLmZpdChYX3RyYWluLCB5X3RyYWluKVxuXG5sYXNzb19tb2RlbCA9IHNhY3JfcGlwZWxpbmUubmFtZWRfc3RlcHNbJ2xhc3NvJ11cblxuY29lZnMgPSBsYXNzb19tb2RlbC5jb2VmX1xuXG4jIENvdW50IG5vbi16ZXJvIGNvZWZmaWNpZW50c1xubnVtX3NlbGVjdGVkID0gbnAuc3VtKGNvZWZzICE9IDApXG5wcmludChmXCJOdW1iZXIgb2YgZmVhdHVyZXMgc2VsZWN0ZWQgYnkgTGFzc286IHtudW1fc2VsZWN0ZWR9XCIpXG5cbiMgTGlzdCBzZWxlY3RlZCBmZWF0dXJlc1xuc2VsZWN0ZWRfZmVhdHVyZXMgPSBbZmVhdHVyZSBmb3IgZmVhdHVyZSwgY29lZiBpbiB6aXAoZmVhdHVyZXMsIGNvZWZzKSBpZiBjb2VmICE9IDBdXG5wcmludChcIlNlbGVjdGVkIGZlYXR1cmVzOlwiLCBzZWxlY3RlZF9mZWF0dXJlcykifQ==
 </script>
 </div>
 </section>
@@ -795,7 +797,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiXG5mcm9tIHNrbGVhcm4ubGlu
 
 </div>
 <script type="pyodide-30-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKFxuICAgIHNhY3JfcHJlcHJvY2Vzc29yLFxuICAgIExhc3NvKG1heF9pdGVyPTEwMDAwKVxuKVxuXG5wYXJhbV9ncmlkID0ge1xuICAgICdsYXNzb19fYWxwaGEnOiBucC5hcmFuZ2UoMSwgMzAwMCwgMTAuMClcbn1cblxuZ3JpZF9zZWFyY2ggPSBHcmlkU2VhcmNoQ1YoXG4gICAgZXN0aW1hdG9yPXBpcGVsaW5lLFxuICAgIHBhcmFtX2dyaWQ9cGFyYW1fZ3JpZCxcbiAgICBjdj01LFxuICAgIHNjb3Jpbmc9J25lZ19yb290X21lYW5fc3F1YXJlZF9lcnJvcidcbilcblxuZ3JpZF9zZWFyY2guZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5cbnByaW50KFwiQmVzdCBhbHBoYTpcIiwgZ3JpZF9zZWFyY2guYmVzdF9wYXJhbXNfWydsYXNzb19fYWxwaGEnXSlcbnByaW50KFwiQ29lZmZpY2llbnRzOlwiLCBjb2VmcykifQ==
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKFxuICAgIHNhY3JfcHJlcHJvY2Vzc29yLFxuICAgIExhc3NvKG1heF9pdGVyPTEwMDAwKVxuKVxuXG5wYXJhbV9ncmlkID0ge1xuICAgICdsYXNzb19fYWxwaGEnOiBucC5hcmFuZ2UoMSwgNTAwMCwgMTAuMClcbn1cblxuZ3JpZF9zZWFyY2ggPSBHcmlkU2VhcmNoQ1YoXG4gICAgZXN0aW1hdG9yPXBpcGVsaW5lLFxuICAgIHBhcmFtX2dyaWQ9cGFyYW1fZ3JpZCxcbiAgICBjdj01LFxuICAgIHNjb3Jpbmc9J25lZ19yb290X21lYW5fc3F1YXJlZF9lcnJvcidcbilcblxuZ3JpZF9zZWFyY2guZml0KFhfdHJhaW4sIHlfdHJhaW4pXG5cbnByaW50KFwiQmVzdCBhbHBoYTpcIiwgZ3JpZF9zZWFyY2guYmVzdF9wYXJhbXNfWydsYXNzb19fYWxwaGEnXSlcbnByaW50KFwiQ29lZmZpY2llbnRzOlwiLCBjb2VmcykifQ==
 </script>
 </div>
 </section>

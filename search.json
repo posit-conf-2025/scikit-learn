@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Machine learning with scikit-learn in Python",
     "section": "",
-    "text": "Machine learning with scikit-learn in Python\n\nposit::conf(2025)\nby Tiffany Timbers and Katie Burak\n\n🗓️ September 16, 2025  ⏰ 09:00 - 17:00 🏨 ROOM TBD ✍️ pos.it/conf\n\n\n\n\nTime\nActivity\n\n\n\n\n09:00 - 10:30\nSession 1\n\n\n10:30 - 11:00\nCoffee break\n\n\n11:00 - 12:30\nSession 2\n\n\n12:30 - 13:30\nLunch break\n\n\n13:30 - 15:00\nSession 3\n\n\n15:00 - 15:30\nCoffee break\n\n\n15:30 - 17:00\nSession 4\n\n\n\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
+    "text": "Machine learning with scikit-learn in Python\n\nposit::conf(2025)\nby Tiffany Timbers and Katie Burak\n\n🗓️ September 16, 2025  ⏰ 09:00 - 17:00 🏨 Hanover B ✍️ pos.it/conf\n\n\n\n\nTime\nActivity\n\n\n\n\n09:00 - 10:30\nSession 1\n\n\n10:30 - 11:00\nCoffee break\n\n\n11:00 - 12:30\nSession 2\n\n\n12:30 - 13:30\nLunch break\n\n\n13:30 - 15:00\nSession 3\n\n\n15:00 - 15:30\nCoffee break\n\n\n15:30 - 17:00\nSession 4\n\n\n\n\n This work is licensed under a Creative Commons Attribution 4.0 International License."
   },
   {
     "objectID": "materials/slides/regression.html#session-learning-objectives",
@@ -35,7 +35,7 @@
     "href": "materials/slides/regression.html#regression-methods",
     "title": "Regression",
     "section": "Regression Methods",
-    "text": "Regression Methods\nIn this workshop:\n\nK-nearest neighbors (brief overview)\nLinear regression\nL1 regularization",
+    "text": "Regression Methods\nIn this session:\n\nK-nearest neighbors (brief overview)\nLinear regression\nIntro to L1-regularization (LASSO)",
     "crumbs": [
       "Home",
       "Slides",
@@ -179,7 +179,7 @@
     "href": "materials/slides/regression.html#rmspe-vs-rmse",
     "title": "Regression",
     "section": "RMSPE vs RMSE",
-    "text": "RMSPE vs RMSE\nRoot Mean Square (Prediction) Error\n\nRMSPE: the error calculated on the non-training dataset\nRMSE: the error calcualted on the training dataset\n\nThis notation is a statistics distinction, you will most likely see RMSPE written as RMSE.",
+    "text": "RMSPE vs RMSE\nRoot Mean Square (Prediction) Error\n\nRMSPE: the error calculated on the test data\nRMSE: the error calcualted on the training data\n\n\nThis notation is a statistics distinction, you will most likely see RMSPE written as RMSE.",
     "crumbs": [
       "Home",
       "Slides",
@@ -203,7 +203,7 @@
     "href": "materials/slides/regression.html#evaluating-on-the-test-set",
     "title": "Regression",
     "section": "Evaluating on the test set",
-    "text": "Evaluating on the test set\n\nThen, as we did before, we retrain the K-NN regression model on the entire training data set using the best \\(k\\).\n\n\nThe code for running cross-validation to get sacr_gridsearch is included at the end of the slides for your reference.",
+    "text": "Evaluating on the test set\n\nThen, as we did before, we retrain the K-NN regression model on the entire training data set using the best \\(k\\).\n\n\nSample code for running cross-validation is included at the end of the slides for your reference.",
     "crumbs": [
       "Home",
       "Slides",
@@ -223,6 +223,18 @@
     ]
   },
   {
+    "objectID": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
+    "href": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
+    "title": "Regression",
+    "section": "K-NN regression in scikit-learn",
+    "text": "K-NN regression in scikit-learn\nWe won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:\n\n\n\n\nFeature\nK-NN Classification\nK-NN Regression\n\n\n\n\nTarget\nCategorical\nContinuous\n\n\nLogic\nMajority vote\nMean\n\n\nClass\nKNeighborsClassifier\nKNeighborsRegressor\n\n\nOutput\nLabel\nValue\n\n\nMetrics\nAccuracy, Precision, Recall\nRMSPE",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Regression"
+    ]
+  },
+  {
     "objectID": "materials/slides/regression.html#strengths-and-limitations-of-k-nn-regression",
     "href": "materials/slides/regression.html#strengths-and-limitations-of-k-nn-regression",
     "title": "Regression",
@@ -235,23 +247,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
-    "href": "materials/slides/regression.html#k-nn-regression-in-scikit-learn",
-    "title": "Regression",
-    "section": "K-NN regression in scikit-learn",
-    "text": "K-NN regression in scikit-learn\nWe won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:\n\n\n\n\nFeature\nK-NN Class.\nK-NN Regr.\n\n\n\n\nTarget\nCategorical\nContinuous\n\n\nLogic\nMajority vote\nMean / w.avg\n\n\nClass\nKNeighborsClassifier\nKNeighborsRegressor\n\n\nOutput\nLabel\nValue\n\n\nUse Case\nClassification\nRegression\n\n\nMetrics\nAccuracy, Precision, Recall\nRMSE",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Regression"
-    ]
-  },
-  {
     "objectID": "materials/slides/regression.html#linear-regression",
     "href": "materials/slides/regression.html#linear-regression",
     "title": "Regression",
     "section": "Linear Regression",
-    "text": "Linear Regression\n\nAddresses the limitations from KNN regression\nProvides an interpretable mathematical equation that describes the relationship between the predictor and response variables\nCreates a straight line of best fit through the training data\n\n\n\n\n\n\n\nNote\n\n\nLogistic regression is the linear model we can use for binary classification",
+    "text": "Linear Regression\n\nAddresses some of the limitations from KNN regression\nProvides an interpretable mathematical equation that describes the relationship between the predictor and response variables\nCreates a straight line of best fit through the training data\n\n\n\n\n\n\n\nNote\n\n\nLogistic regression is the linear model we can use for binary classification",
     "crumbs": [
       "Home",
       "Slides",
@@ -275,7 +275,7 @@
     "href": "materials/slides/regression.html#sacramento-real-estate-best-fit-line",
     "title": "Regression",
     "section": "Sacramento real estate: best fit line",
-    "text": "Sacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house sale price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term",
+    "text": "Sacramento real estate: best fit line\n\n\n\n\n\n\n\n\n\nThe equation for the line is:\n\\[\\text{house price} = \\beta_0 + \\beta_1 \\cdot (\\text{house size})+\\varepsilon,\\] where\n\n\\(\\beta_0\\) is the vertical intercept of the line (the price when house size is 0)\n\\(\\beta_1\\) is the slope of the line (how quickly the price increases as you increase house size)\n\\(\\varepsilon\\) is the random error term",
     "crumbs": [
       "Home",
       "Slides",
@@ -371,7 +371,7 @@
     "href": "materials/slides/regression.html#linear-regression-fit-the-model",
     "title": "Regression",
     "section": "Linear regression: Fit the model",
-    "text": "Linear regression: Fit the model\n\n\n\n\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)",
+    "text": "Linear regression: Fit the model\n\n\n\n\n\n\n\n\\(\\text{house sale price} =\\) 137.29 \\(+\\) 15642.31 \\(\\cdot (\\text{house size}).\\)\nwhere:\n\nIntercept (\\(\\hat{\\beta}_0=137.29\\)): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=15642.31\\)): Each extra unit of size (e.g., square foot) increases the price by $15642.31 on average.",
     "crumbs": [
       "Home",
       "Slides",
@@ -1195,6 +1195,18 @@
     ]
   },
   {
+    "objectID": "materials/slides/classification1.html#housekeeping",
+    "href": "materials/slides/classification1.html#housekeeping",
+    "title": "Classification I: training & predicting",
+    "section": "Housekeeping",
+    "text": "Housekeeping\n\nGender-neutral bathrooms:\n\nLL1 (Under escalators, to the right of the Learning Center)\nLL2 (Next to Chicago A)\n\nMeditation/prayer room: LL2 - Chicago A\nMother’s/lactation room: LL2 - Chicago B\nRed lanyards = No photos\nCode of Conduct: https://posit.co/code-of-conduct. Please review carefully. You can report Code of Conduct violations in person, by email, or by phone. Please see the policy linked above for contact information.\nCoffee breaks 10:30-11 and 15-15:30\nLunch 12:30-13:30",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Classification I: training & predicting"
+    ]
+  },
+  {
     "objectID": "materials/slides/classification1.html#helpful-resources",
     "href": "materials/slides/classification1.html#helpful-resources",
     "title": "Classification I: training & predicting",
@@ -1235,7 +1247,7 @@
     "href": "materials/slides/classification1.html#training-set",
     "title": "Classification I: training & predicting",
     "section": "Training set",
-    "text": "Training set\n\nObservations with known classes that we use as a basis for prediction\n\n\nAssign an observation without a known class (e.g., a new patient)\nTo a class (e.g., diseased or healthy)\n\nHow?\n\nBy similar it is to other observations for which we do know the class\n\n(e.g., previous patients with known diseases and symptoms)",
+    "text": "Training set\n\nObservations with known classes that we use as a basis for prediction\n\n\nAssign an observation without a known class (e.g., a new patient)\nTo a class (e.g., diseased or healthy)\n\nHow?\n\nBy how similar it is to other observations for which we do know the class\n\n(e.g., previous patients with known diseases and symptoms)",
     "crumbs": [
       "Home",
       "Slides",
@@ -1259,7 +1271,19 @@
     "href": "materials/slides/classification1.html#exploring-a-data-set",
     "title": "Classification I: training & predicting",
     "section": "Exploring a data set",
-    "text": "Exploring a data set\nData:\n\ndigitized breast cancer image features, created by Dr. William H. Wolberg, W. Nick Street, and Olvi L. Mangasarian\nEach row:\n\ndiagnosis (benign or malignant)\nseveral other measurements (nucleus texture, perimeter, area, and more)\n\nDiagnosis for each image was conducted by physicians.\n\nFormulate a predictive question:\n\nCan we use the tumor image measurements available to us to predict whether a future tumor image (with unknown diagnosis) shows a benign or malignant tumor?",
+    "text": "Exploring a data set\nData:\n\ndigitized breast cancer image features, created by Dr. William H. Wolberg, W. Nick Street, and Olvi L. Mangasarian\nEach row:\n\ndiagnosis (benign or malignant)\nseveral other measurements (nucleus texture, perimeter, area, and more)\n\nDiagnosis for each image was conducted by physicians.",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Classification I: training & predicting"
+    ]
+  },
+  {
+    "objectID": "materials/slides/classification1.html#ml-question",
+    "href": "materials/slides/classification1.html#ml-question",
+    "title": "Classification I: training & predicting",
+    "section": "ML Question",
+    "text": "ML Question\n\nFormulate a predictive question:\n\nCan we use the tumor image measurements available to us to predict whether a future tumor image (with unknown diagnosis) shows a benign or malignant tumor?",
     "crumbs": [
       "Home",
       "Slides",
@@ -1351,30 +1375,6 @@
     ]
   },
   {
-    "objectID": "materials/slides/classification1.html#classification-with-k-nearest-neighbors",
-    "href": "materials/slides/classification1.html#classification-with-k-nearest-neighbors",
-    "title": "Classification I: training & predicting",
-    "section": "Classification with K-nearest neighbors",
-    "text": "Classification with K-nearest neighbors",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Classification I: training & predicting"
-    ]
-  },
-  {
-    "objectID": "materials/slides/classification1.html#distances",
-    "href": "materials/slides/classification1.html#distances",
-    "title": "Classification I: training & predicting",
-    "section": "Distances",
-    "text": "Distances\n-Compute the distance matrix between each pair from a vector array X and Y using euclidean_distances",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Classification I: training & predicting"
-    ]
-  },
-  {
     "objectID": "materials/slides/classification1.html#k-nearest-neighbors-classification",
     "href": "materials/slides/classification1.html#k-nearest-neighbors-classification",
     "title": "Classification I: training & predicting",
@@ -1452,6 +1452,30 @@
     "title": "Classification I: training & predicting",
     "section": "Distance between points: k=5",
     "text": "Distance between points: k=5\n\n3 of the 5 nearest neighbors to our new observation are malignant",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Classification I: training & predicting"
+    ]
+  },
+  {
+    "objectID": "materials/slides/classification1.html#classification-with-k-nearest-neighbors",
+    "href": "materials/slides/classification1.html#classification-with-k-nearest-neighbors",
+    "title": "Classification I: training & predicting",
+    "section": "Classification with K-nearest neighbors",
+    "text": "Classification with K-nearest neighbors",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Classification I: training & predicting"
+    ]
+  },
+  {
+    "objectID": "materials/slides/classification1.html#distances",
+    "href": "materials/slides/classification1.html#distances",
+    "title": "Classification I: training & predicting",
+    "section": "Distances",
+    "text": "Distances\n\nCompute the distance matrix between each pair from a vector array X and Y using euclidean_distances",
     "crumbs": [
       "Home",
       "Slides",
@@ -1812,18 +1836,6 @@
     "title": "Classification I: training & predicting",
     "section": "Prediction Area",
     "text": "Prediction Area\nModel prediction area.\n\n\nPoints are on original unscaled data\nArea is using the pipeline model",
-    "crumbs": [
-      "Home",
-      "Slides",
-      "Classification I: training & predicting"
-    ]
-  },
-  {
-    "objectID": "materials/slides/classification1.html#reference-code",
-    "href": "materials/slides/classification1.html#reference-code",
-    "title": "Classification I: training & predicting",
-    "section": "Reference Code",
-    "text": "Reference Code",
     "crumbs": [
       "Home",
       "Slides",
