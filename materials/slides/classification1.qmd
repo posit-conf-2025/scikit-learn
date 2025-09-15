@@ -53,7 +53,17 @@ Dept. of Statistics, UBC
 
 :::
 
+## Housekeeping 
 
+-   Gender-neutral bathrooms:
+    - LL1 (Under escalators, to the right of the Learning Center)
+    - LL2 (Next to Chicago A)
+-   Meditation/prayer room: LL2 - Chicago A 
+-   Mother's/lactation room: LL2 - Chicago B
+-   Red lanyards = No photos
+-   Code of Conduct: <https://posit.co/code-of-conduct>. Please review carefully. You can report Code of Conduct violations in person, by email, or by phone. Please see the policy linked above for contact information.
+-   Coffee breaks 10:30-11 and 15-15:30
+-   Lunch 12:30-13:30
 
 ## Helpful resources
 
