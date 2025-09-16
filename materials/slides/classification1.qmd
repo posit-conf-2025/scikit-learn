@@ -669,7 +669,7 @@ Model prediction area.
 - Points are on original unscaled data
 - Area is using the pipeline model
 
-## Clicker questions
+## Knowledge check 
 
 - [https://www.menti.com/alpi9oanfsf9](https://www.menti.com/alpi9oanfsf9)
 

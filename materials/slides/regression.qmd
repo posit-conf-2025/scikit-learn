@@ -1469,7 +1469,7 @@ rmse = mse ** (1/2)
 print(f"Test RMSE: {rmse:.2f}")
 ```
 
-## Clicker questions
+## Knowledge check 
 
 - [https://www.menti.com/algmf2xzfs8g9](https://www.menti.com/algmf2xzfs8g)
 
