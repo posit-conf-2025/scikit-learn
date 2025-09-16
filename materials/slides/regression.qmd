@@ -957,13 +957,13 @@ results_df = pd.DataFrame({'slope': [lm.coef_[0]], 'intercept': [lm.intercept_]}
 print(results_df)
 ```
 <!--TODO: numbers here are hard-coded -->
-$\text{house sale price} =$ 137.29 $+$ 15642.31 $\cdot (\text{house size}).$
+$\text{house sale price} =$ 15642.31 $+$137.29  $\cdot (\text{house size}).$
 
 where:
 
-- Intercept ($\hat{\beta}_0=137.29$): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).
+- Intercept ($\hat{\beta}_0=15642.31$): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).
 
-- House size ($\hat{\beta}_1=15642.31$): Each extra unit of size (e.g., square foot) increases the price by $15642.31 on average.
+- House size ($\hat{\beta}_1=137.29$): Each extra unit of size (e.g., square foot) increases the price by $137.29 on average.
 
 
 ## Linear regression: Predictions
