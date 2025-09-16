@@ -190,9 +190,9 @@ heart.head()
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer, make_column_selector
 
-numeric_feats = ['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak','Slope', 'Ca']
+numeric_feats = ['Age', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak','Slope', 'Ca']
 passthrough_feats = ['Sex', 'Fbs', 'ExAng']
-categorical_feats = ['ChestPain', 'Thal']
+categorical_feats = ['ChestPain', 'Thal', 'RestECG']
 
 heart_preprocessor = make_column_transformer(
     (StandardScaler(), numeric_feats),
