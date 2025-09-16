@@ -2189,7 +2189,7 @@
     "href": "materials/slides/classification2.html#data-splitting",
     "title": "Classification II: evaluation & tuning",
     "section": "Data splitting",
-    "text": "Data splitting\n\nThe trick is to split the data into a training set and test set.\nOnly the training set when building the classifier.\nTo evaluate the performance of the classifier, we first set aside the labels from the test set, and then use the classifier to predict the labels in the test set.\nIf our predictions match the actual labels for the observations in the test set, then we have some confidence that our classifier might also accurately predict the class labels for new observations without known class labels.",
+    "text": "Data splitting\n\nThe trick is to split the data into a training set and test set.\nOnly the training set is used when building the classifier.\nTo evaluate the performance of the classifier, we first set aside the labels from the test set, and then use the classifier to predict the labels in the test set.\nIf our predictions match the actual labels for the observations in the test set, then we have some confidence that our classifier might also accurately predict the class labels for new observations without known class labels.",
     "crumbs": [
       "Home",
       "Slides",

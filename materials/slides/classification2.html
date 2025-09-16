@@ -245,7 +245,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <h2>Data splitting</h2>
 <ul>
 <li class="fragment">The trick is to split the data into a <strong>training set</strong> and <strong>test set</strong>.</li>
-<li class="fragment">Only the <strong>training set</strong> when building the classifier.</li>
+<li class="fragment">Only the <strong>training set</strong> is used when building the classifier.</li>
 <li class="fragment">To evaluate the performance of the classifier, we first set aside the labels from the <strong>test set</strong>, and then use the classifier to predict the labels in the <strong>test set</strong>.</li>
 <li class="fragment">If our predictions match the actual labels for the observations in the <strong>test set</strong>, then we have some confidence that our classifier might also accurately predict the class labels for new observations without known class labels.</li>
 </ul>
@@ -749,7 +749,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYWNjdXJhY2llc19ncmlkW1wi
 </section>
 <section id="visualize-paramter-value-selection" class="slide level2">
 <h2>Visualize paramter value selection</h2>
-<div id="aa0636c4" class="cell" data-execution_count="1">
+<div id="5254ed61" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>accuracy_vs_k <span class="op">=</span> (</span>
 <span id="cb1-2"><a></a>    alt.Chart(accuracies_grid)</span>
 <span id="cb1-3"><a></a>    .mark_line(point<span class="op">=</span><span class="va">True</span>)</span>
