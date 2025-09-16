@@ -754,7 +754,7 @@ conf_matrix
 
 ![](img/classification2/scikit-learn-classifiers.png){width=75%}
 
-*`scikit-learn` classification documentation: <https://scikit-learn.org/stable/supervised_learning.html>*
+*`scikit-learn` Choosing the right estimator documentation: <https://scikit-learn.org/stable/machine_learning_map.html>*
 
 ## Knowledge check 
 
@@ -773,7 +773,7 @@ conf_matrix
 - The [`scikit-learn` website](https://scikit-learn.org/stable/) is an excellent
   reference for more details on, and advanced usage of, the functions and
   packages in the past two chapters. Aside from that, it also offers many
-  useful [tutorials](https://scikit-learn.org/stable/tutorial/index.html)
+  useful [examples](https://scikit-learn.org/stable/auto_examples/index.html)
   to get you started. 
 - [*An Introduction to Statistical Learning*](https://www.statlearning.com/) provides
   a great next stop in the process of
