@@ -190,9 +190,9 @@ heart.head()
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import make_column_transformer, make_column_selector
 
-numeric_feats = ['Age', 'RestBP', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak','Slope', 'Ca']
+numeric_feats = ['Age', 'Chol', 'RestECG', 'MaxHR', 'Oldpeak','Slope', 'Ca']
 passthrough_feats = ['Sex', 'Fbs', 'ExAng']
-categorical_feats = ['ChestPain', 'Thal']
+categorical_feats = ['ChestPain', 'Thal', 'RestECG']
 
 heart_preprocessor = make_column_transformer(
     (StandardScaler(), numeric_feats),
@@ -331,7 +331,7 @@ results
 ```{pyodide}
 from sklearn.model_selection import GridSearchCV
 
-rf_param_grid = {'randomforestclassifier__n_estimators': [200],
+rf_param_grid = {'randomforestclassifier__n_estimators': [50],
               'randomforestclassifier__max_depth': [1, 3, 5, 7, 9],
               'randomforestclassifier__max_features': [1, 2, 3, 4, 5, 6, 7]}
 
@@ -409,7 +409,7 @@ gb_tune_grid.fit(
 )
 ```
 
-## Boosted Classifiers results
+## Boosted Classifiers results {.smaller}
 
 How did the `HistGradientBoostingClassifier` compare
 against the other models we tried?
@@ -470,11 +470,13 @@ rf_tune_grid.fit(X_train, y_train)
 ```{pyodide}
 cv_results = pd.DataFrame(rf_tune_grid.cv_results_)
 
+mean_precision = cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_]
+mean_recall = cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_]
+
 results_rf_tuned = pd.DataFrame({
-    'mean': [rf_tune_grid.best_score_,
-             cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_,
-             cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_],
-}, index=['accuracy', 'precision', 'recall'])
+    'mean': [rf_tune_grid.best_score_, mean_precision, mean_recall]},
+                                index=['accuracy', 'precision', 'recall'])
+
 results_rf_tuned
 ```
 :::
