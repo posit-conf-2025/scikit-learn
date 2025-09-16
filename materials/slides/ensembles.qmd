@@ -54,28 +54,50 @@ Source: [*An Introduction to Statistical Learning with Applications in Python*](
 ## Decision trees
 
 ::: {.nonincremental}
-- [Decision Trees](https://mlu-explain.github.io/decision-tree/)
+- Excellent [decision Trees](https://mlu-explain.github.io/decision-tree/) explainer web app
   by Jared Wilber & Lucía Santamaría
+  
+![](img/ensembles/mlu-explain-dt.png){width=75%}
 :::
 
 ## Classification Decision trees
 
+::: {.nonincremental}
 - Use recursive binary splitting to grow a classification tree
   (splitting of the predictor space into $J$ distinct, non-overlapping regions).
 
--  For every observation that falls into the region $R_j$ ,
+![](img/ensembles/mlu-explain-dt.png){width=75%}
+:::
+
+## Classification Decision trees
+
+::: {.nonincremental}
+- For every observation that falls into the region $R_j$ ,
   we make the same prediction,
   which is the majority vote for the training observations in $R_j$.
 
+![](img/ensembles/mlu-explain-dt.png){width=75%}
+:::
+
+## Classification Decision trees
+
+::: {.nonincremental}
 - Where to split the predictor space is done in a top-down and greedy manner,
   and in practice for classification, the best split at any point in the algorithm
   is one that minimizes the Gini index (a measure of node purity).
 
-- Decision trees are useful because they are very interpretable.
+![](img/ensembles/mlu-explain-dt.png){width=75%}
+:::
 
-- A limitation of decision trees is that theyn tend to overfit,
+## Classification Decision trees
+
+::: {.nonincremental}
+- A limitation of decision trees is that they tend to overfit,
   so in practice we use cross-validation to tune a hyperparameter,
   $\alpha$, to find the optimal, pruned tree.
+
+![](img/ensembles/mlu-explain-dt.png){width=75%}
+:::
 
 ## Example: the heart data set
 
@@ -249,7 +271,7 @@ results
 
 - We could also try a different tree-based method!
 
-- [The Random Forest Algorithm](https://mlu-explain.github.io/random-forest/)
+- Another great explainer: [the Random Forest Algorithm](https://mlu-explain.github.io/random-forest/)
   by Jenny Yeon & Jared Wilber
 
 ## The Random Forest Algorithm
@@ -351,7 +373,7 @@ results
 - They build trees in a serial manner,
   where each tree tries to correct the mistakes of the previous one.
 
-## Tuning Boosted Classifiers with `scikit-learn`
+## Tuning Boosted Classifiers
 
 - `HistGradientBoostingClassifier` can be tuned a several important parameters, including:
 
@@ -365,7 +387,7 @@ results
 - We can use `GridSearchCV` to search for the optimal parameters for these,
   as we did for the parameters in Random Forest.
 
-## Tuning Boosted Classifiers with `scikit-learn` (cont'd) {.smaller}
+## Tuning Boosted Classifiers (cont'd) {.smaller}
 
 ```{pyodide}
 from sklearn.ensemble import HistGradientBoostingClassifier
@@ -387,7 +409,7 @@ gb_tune_grid.fit(
 )
 ```
 
-## `HistGradientBoostingClassifier` results
+## Boosted Classifiers results
 
 How did the `HistGradientBoostingClassifier` compare
 against the other models we tried?
@@ -415,7 +437,7 @@ results
 - Remember - no peaking at the test set until you choose!
   And then, you should only look at the test set for one model!
 
-## Precision and recall on the tuned random forest model {.smaller}
+## Precision and recall {.smaller}
 
 ```{pyodide}
 from sklearn.metrics import make_scorer, precision_score, recall_score
@@ -594,27 +616,30 @@ conf_matrix
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](img/frontmatter/ds-a-first-intro-cover-python.jpeg){height=50%}
+![](img/frontmatter/ds-a-first-intro-cover-python.jpeg){height=25%}
 <https://python.datasciencebook.ca/>
 :::
 
 
 ::: {.column width="50%"}
-![](img/frontmatter/ISLP_cover.png){height=50%}
+![](img/frontmatter/ISLP_cover.png){height=25%}
 <https://www.statlearning.com/>
 :::
 ::::
 
 ## Local installation
 
+::: {.nonincremental}
 1. Using Docker:
 [Data Science: A First Introduction (Python Edition) Installation Instructions](https://python.datasciencebook.ca/setup.html)
 
 2. Using conda:
 [UBC MDS Installation Instructions](https://ubc-mds.github.io/resources_pages/installation_instructions/)
+:::
 
 ## Additional resources
 
+::: {.nonincremental}
 - The [UBC DSCI 573 (Feature and Model Selection notes)](https://ubc-mds.github.io/DSCI_573_feat-model-select)
   chapter of Data Science: A First Introduction (Python Edition) by
   Varada Kolhatkar and Joel Ostblom. These notes cover classification and regression metrics,
@@ -629,11 +654,14 @@ conf_matrix
   learning about classification. Chapter 4 discusses additional basic techniques
   for classification that we do not cover, such as logistic regression, linear
   discriminant analysis, and naive Bayes.
+:::
 
 ## References
 
+::: {.nonincremental}
 Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani and Jonathan Taylor. An Introduction to Statistical Learning with Applications in Python. Springer, 1st edition, 2023. URL: https://www.statlearning.com/.
 
 Kolhatkar, V., and Ostblom, J. (2024). UBC DSCI 573: Feature and Model Selection course notes. URL: https://ubc-mds.github.io/DSCI_573_feat-model-select
 
 Pedregosa, F. et al., 2011. Scikit-learn: Machine learning in Python. Journal of machine learning research, 12(Oct), pp.2825–2830.
+:::
