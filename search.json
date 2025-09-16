@@ -719,7 +719,7 @@
     "href": "materials/slides/ensembles.html#decision-trees",
     "title": "Tree-based and ensemble models",
     "section": "Decision trees",
-    "text": "Decision trees\n\nDecision Trees by Jared Wilber & Lucía Santamaría",
+    "text": "Decision trees\n\nExcellent decision Trees explainer web app by Jared Wilber & Lucía Santamaría",
     "crumbs": [
       "Home",
       "Slides",
@@ -731,7 +731,43 @@
     "href": "materials/slides/ensembles.html#classification-decision-trees",
     "title": "Tree-based and ensemble models",
     "section": "Classification Decision trees",
-    "text": "Classification Decision trees\n\nUse recursive binary splitting to grow a classification tree (splitting of the predictor space into \\(J\\) distinct, non-overlapping regions).\nFor every observation that falls into the region \\(R_j\\) , we make the same prediction, which is the majority vote for the training observations in \\(R_j\\).\nWhere to split the predictor space is done in a top-down and greedy manner, and in practice for classification, the best split at any point in the algorithm is one that minimizes the Gini index (a measure of node purity).\nDecision trees are useful because they are very interpretable.\nA limitation of decision trees is that theyn tend to overfit, so in practice we use cross-validation to tune a hyperparameter, \\(\\alpha\\), to find the optimal, pruned tree.",
+    "text": "Classification Decision trees\n\nUse recursive binary splitting to grow a classification tree (splitting of the predictor space into \\(J\\) distinct, non-overlapping regions).",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#classification-decision-trees-1",
+    "href": "materials/slides/ensembles.html#classification-decision-trees-1",
+    "title": "Tree-based and ensemble models",
+    "section": "Classification Decision trees",
+    "text": "Classification Decision trees\n\nFor every observation that falls into the region \\(R_j\\) , we make the same prediction, which is the majority vote for the training observations in \\(R_j\\).",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#classification-decision-trees-2",
+    "href": "materials/slides/ensembles.html#classification-decision-trees-2",
+    "title": "Tree-based and ensemble models",
+    "section": "Classification Decision trees",
+    "text": "Classification Decision trees\n\nWhere to split the predictor space is done in a top-down and greedy manner, and in practice for classification, the best split at any point in the algorithm is one that minimizes the Gini index (a measure of node purity).",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#classification-decision-trees-3",
+    "href": "materials/slides/ensembles.html#classification-decision-trees-3",
+    "title": "Tree-based and ensemble models",
+    "section": "Classification Decision trees",
+    "text": "Classification Decision trees\n\nA limitation of decision trees is that they tend to overfit, so in practice we use cross-validation to tune a hyperparameter, \\(\\alpha\\), to find the optimal, pruned tree.",
     "crumbs": [
       "Home",
       "Slides",
@@ -875,7 +911,7 @@
     "href": "materials/slides/ensembles.html#can-we-do-better",
     "title": "Tree-based and ensemble models",
     "section": "Can we do better?",
-    "text": "Can we do better?\n\nWe could tune some decision tree parameters (e.g., alpha, maximum tree depth, etc)…\nWe could also try a different tree-based method!\nThe Random Forest Algorithm by Jenny Yeon & Jared Wilber",
+    "text": "Can we do better?\n\nWe could tune some decision tree parameters (e.g., alpha, maximum tree depth, etc)…\nWe could also try a different tree-based method!\nAnother great explainer: the Random Forest Algorithm by Jenny Yeon & Jared Wilber",
     "crumbs": [
       "Home",
       "Slides",
@@ -967,11 +1003,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn",
-    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn",
+    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers",
+    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers",
     "title": "Tree-based and ensemble models",
-    "section": "Tuning Boosted Classifiers with scikit-learn",
-    "text": "Tuning Boosted Classifiers with scikit-learn\n\nHistGradientBoostingClassifier can be tuned a several important parameters, including:\n\nmax_iter: number of decision trees (higher = more complexity)\nmax_depth: max depth of each decision tree (higher = more complexity)\nlearning_rate: the shrinkage parameter which controls the rate at which boosting learns. Values between 0.01 or 0.001 are typical.\n\nWe can use GridSearchCV to search for the optimal parameters for these, as we did for the parameters in Random Forest.",
+    "section": "Tuning Boosted Classifiers",
+    "text": "Tuning Boosted Classifiers\n\nHistGradientBoostingClassifier can be tuned a several important parameters, including:\n\nmax_iter: number of decision trees (higher = more complexity)\nmax_depth: max depth of each decision tree (higher = more complexity)\nlearning_rate: the shrinkage parameter which controls the rate at which boosting learns. Values between 0.01 or 0.001 are typical.\n\nWe can use GridSearchCV to search for the optimal parameters for these, as we did for the parameters in Random Forest.",
     "crumbs": [
       "Home",
       "Slides",
@@ -979,11 +1015,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn-contd",
-    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers-with-scikit-learn-contd",
+    "objectID": "materials/slides/ensembles.html#tuning-boosted-classifiers-contd",
+    "href": "materials/slides/ensembles.html#tuning-boosted-classifiers-contd",
     "title": "Tree-based and ensemble models",
-    "section": "Tuning Boosted Classifiers with scikit-learn (cont’d)",
-    "text": "Tuning Boosted Classifiers with scikit-learn (cont’d)",
+    "section": "Tuning Boosted Classifiers (cont’d)",
+    "text": "Tuning Boosted Classifiers (cont’d)",
     "crumbs": [
       "Home",
       "Slides",
@@ -991,11 +1027,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#histgradientboostingclassifier-results",
-    "href": "materials/slides/ensembles.html#histgradientboostingclassifier-results",
+    "objectID": "materials/slides/ensembles.html#boosted-classifiers-results",
+    "href": "materials/slides/ensembles.html#boosted-classifiers-results",
     "title": "Tree-based and ensemble models",
-    "section": "HistGradientBoostingClassifier results",
-    "text": "HistGradientBoostingClassifier results\nHow did the HistGradientBoostingClassifier compare against the other models we tried?",
+    "section": "Boosted Classifiers results",
+    "text": "Boosted Classifiers results\nHow did the HistGradientBoostingClassifier compare against the other models we tried?",
     "crumbs": [
       "Home",
       "Slides",
@@ -1015,11 +1051,11 @@
     ]
   },
   {
-    "objectID": "materials/slides/ensembles.html#precision-and-recall-on-the-tuned-random-forest-model",
-    "href": "materials/slides/ensembles.html#precision-and-recall-on-the-tuned-random-forest-model",
+    "objectID": "materials/slides/ensembles.html#precision-and-recall",
+    "href": "materials/slides/ensembles.html#precision-and-recall",
     "title": "Tree-based and ensemble models",
-    "section": "Precision and recall on the tuned random forest model",
-    "text": "Precision and recall on the tuned random forest model",
+    "section": "Precision and recall",
+    "text": "Precision and recall",
     "crumbs": [
       "Home",
       "Slides",

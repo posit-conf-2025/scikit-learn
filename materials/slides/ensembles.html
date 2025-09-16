@@ -169,19 +169,38 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1
 <section id="decision-trees" class="slide level2">
 <h2>Decision trees</h2>
 <ul>
-<li><a href="https://mlu-explain.github.io/decision-tree/">Decision Trees</a> by Jared Wilber &amp; Lucía Santamaría</li>
+<li>Excellent <a href="https://mlu-explain.github.io/decision-tree/">decision Trees</a> explainer web app by Jared Wilber &amp; Lucía Santamaría</li>
 </ul>
-</section>
+
+<img data-src="img/ensembles/mlu-explain-dt.png" style="width:75.0%" class="r-stretch"></section>
 <section id="classification-decision-trees" class="slide level2">
 <h2>Classification Decision trees</h2>
 <ul>
-<li class="fragment"><p>Use recursive binary splitting to grow a classification tree (splitting of the predictor space into <span class="math inline">\(J\)</span> distinct, non-overlapping regions).</p></li>
-<li class="fragment"><p>For every observation that falls into the region <span class="math inline">\(R_j\)</span> , we make the same prediction, which is the majority vote for the training observations in <span class="math inline">\(R_j\)</span>.</p></li>
-<li class="fragment"><p>Where to split the predictor space is done in a top-down and greedy manner, and in practice for classification, the best split at any point in the algorithm is one that minimizes the Gini index (a measure of node purity).</p></li>
-<li class="fragment"><p>Decision trees are useful because they are very interpretable.</p></li>
-<li class="fragment"><p>A limitation of decision trees is that theyn tend to overfit, so in practice we use cross-validation to tune a hyperparameter, <span class="math inline">\(\alpha\)</span>, to find the optimal, pruned tree.</p></li>
+<li>Use recursive binary splitting to grow a classification tree (splitting of the predictor space into <span class="math inline">\(J\)</span> distinct, non-overlapping regions).</li>
 </ul>
-</section>
+
+<img data-src="img/ensembles/mlu-explain-dt.png" style="width:75.0%" class="r-stretch"></section>
+<section id="classification-decision-trees-1" class="slide level2">
+<h2>Classification Decision trees</h2>
+<ul>
+<li>For every observation that falls into the region <span class="math inline">\(R_j\)</span> , we make the same prediction, which is the majority vote for the training observations in <span class="math inline">\(R_j\)</span>.</li>
+</ul>
+
+<img data-src="img/ensembles/mlu-explain-dt.png" style="width:75.0%" class="r-stretch"></section>
+<section id="classification-decision-trees-2" class="slide level2">
+<h2>Classification Decision trees</h2>
+<ul>
+<li>Where to split the predictor space is done in a top-down and greedy manner, and in practice for classification, the best split at any point in the algorithm is one that minimizes the Gini index (a measure of node purity).</li>
+</ul>
+
+<img data-src="img/ensembles/mlu-explain-dt.png" style="width:75.0%" class="r-stretch"></section>
+<section id="classification-decision-trees-3" class="slide level2">
+<h2>Classification Decision trees</h2>
+<ul>
+<li>A limitation of decision trees is that they tend to overfit, so in practice we use cross-validation to tune a hyperparameter, <span class="math inline">\(\alpha\)</span>, to find the optimal, pruned tree.</li>
+</ul>
+
+<img data-src="img/ensembles/mlu-explain-dt.png" style="width:75.0%" class="r-stretch"></section>
 <section id="example-the-heart-data-set" class="slide level2">
 <h2>Example: the heart data set</h2>
 <ul>
@@ -314,7 +333,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfZHRfbWV0cmljcyA9
 <ul>
 <li class="fragment"><p>We could tune some decision tree parameters (e.g., alpha, maximum tree depth, etc)…</p></li>
 <li class="fragment"><p>We could also try a different tree-based method!</p></li>
-<li class="fragment"><p><a href="https://mlu-explain.github.io/random-forest/">The Random Forest Algorithm</a> by Jenny Yeon &amp; Jared Wilber</p></li>
+<li class="fragment"><p>Another great explainer: <a href="https://mlu-explain.github.io/random-forest/">the Random Forest Algorithm</a> by Jenny Yeon &amp; Jared Wilber</p></li>
 </ul>
 </section>
 <section id="the-random-forest-algorithm" class="slide level2 scrollable">
@@ -391,8 +410,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfcmZfdHVuZWRfbWV0
 <li class="fragment"><p>They build trees in a serial manner, where each tree tries to correct the mistakes of the previous one.</p></li>
 </ul>
 </section>
-<section id="tuning-boosted-classifiers-with-scikit-learn" class="slide level2">
-<h2>Tuning Boosted Classifiers with <code>scikit-learn</code></h2>
+<section id="tuning-boosted-classifiers" class="slide level2">
+<h2>Tuning Boosted Classifiers</h2>
 <ul>
 <li class="fragment"><p><code>HistGradientBoostingClassifier</code> can be tuned a several important parameters, including:</p>
 <ul>
@@ -403,8 +422,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfcmZfdHVuZWRfbWV0
 <li class="fragment"><p>We can use <code>GridSearchCV</code> to search for the optimal parameters for these, as we did for the parameters in Random Forest.</p></li>
 </ul>
 </section>
-<section id="tuning-boosted-classifiers-with-scikit-learn-contd" class="slide level2 smaller">
-<h2>Tuning Boosted Classifiers with <code>scikit-learn</code> (cont’d)</h2>
+<section id="tuning-boosted-classifiers-contd" class="slide level2 smaller">
+<h2>Tuning Boosted Classifiers (cont’d)</h2>
 <div>
 <div id="pyodide-15" class="exercise-cell">
 
@@ -414,8 +433,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZnJvbSBza2xlYXJuLmVuc2Vt
 </script>
 </div>
 </section>
-<section id="histgradientboostingclassifier-results" class="slide level2">
-<h2><code>HistGradientBoostingClassifier</code> results</h2>
+<section id="boosted-classifiers-results" class="slide level2">
+<h2>Boosted Classifiers results</h2>
 <p>How did the <code>HistGradientBoostingClassifier</code> compare against the other models we tried?</p>
 <div>
 <div id="pyodide-16" class="exercise-cell">
@@ -435,8 +454,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY3ZfMTBfZ2JfdHVuZWRfbWV0
 <li class="fragment"><p>Remember - no peaking at the test set until you choose! And then, you should only look at the test set for one model!</p></li>
 </ul>
 </section>
-<section id="precision-and-recall-on-the-tuned-random-forest-model" class="slide level2 smaller">
-<h2>Precision and recall on the tuned random forest model</h2>
+<section id="precision-and-recall" class="slide level2 smaller">
+<h2>Precision and recall</h2>
 <div>
 <div id="pyodide-17" class="exercise-cell">
 
@@ -561,24 +580,24 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiY29uZl9tYXRyaXggPSBwZC5j
 <h2>Keep learning!</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="img/frontmatter/ds-a-first-intro-cover-python.jpeg" style="height:50.0%"> <a href="https://python.datasciencebook.ca/" class="uri">https://python.datasciencebook.ca/</a></p>
+<p><img data-src="img/frontmatter/ds-a-first-intro-cover-python.jpeg" style="height:25.0%"> <a href="https://python.datasciencebook.ca/" class="uri">https://python.datasciencebook.ca/</a></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="img/frontmatter/ISLP_cover.png" style="height:50.0%"> <a href="https://www.statlearning.com/" class="uri">https://www.statlearning.com/</a></p>
+<p><img data-src="img/frontmatter/ISLP_cover.png" style="height:25.0%"> <a href="https://www.statlearning.com/" class="uri">https://www.statlearning.com/</a></p>
 </div></div>
 </section>
 <section id="local-installation" class="slide level2 scrollable">
 <h2>Local installation</h2>
 <ol type="1">
-<li class="fragment"><p>Using Docker: <a href="https://python.datasciencebook.ca/setup.html">Data Science: A First Introduction (Python Edition) Installation Instructions</a></p></li>
-<li class="fragment"><p>Using conda: <a href="https://ubc-mds.github.io/resources_pages/installation_instructions/">UBC MDS Installation Instructions</a></p></li>
+<li><p>Using Docker: <a href="https://python.datasciencebook.ca/setup.html">Data Science: A First Introduction (Python Edition) Installation Instructions</a></p></li>
+<li><p>Using conda: <a href="https://ubc-mds.github.io/resources_pages/installation_instructions/">UBC MDS Installation Instructions</a></p></li>
 </ol>
 </section>
 <section id="additional-resources" class="slide level2">
 <h2>Additional resources</h2>
 <ul>
-<li class="fragment">The <a href="https://ubc-mds.github.io/DSCI_573_feat-model-select">UBC DSCI 573 (Feature and Model Selection notes)</a> chapter of Data Science: A First Introduction (Python Edition) by Varada Kolhatkar and Joel Ostblom. These notes cover classification and regression metrics, advanced variable selection and more on ensembles.</li>
-<li class="fragment">The <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> website</a> is an excellent reference for more details on, and advanced usage of, the functions and packages in the past two chapters. Aside from that, it also offers many useful <a href="https://scikit-learn.org/stable/tutorial/index.html">tutorials</a> to get you started.</li>
-<li class="fragment"><a href="https://www.statlearning.com/"><em>An Introduction to Statistical Learning</em></a> {cite:p}<code>james2013introduction</code> provides a great next stop in the process of learning about classification. Chapter 4 discusses additional basic techniques for classification that we do not cover, such as logistic regression, linear discriminant analysis, and naive Bayes.</li>
+<li>The <a href="https://ubc-mds.github.io/DSCI_573_feat-model-select">UBC DSCI 573 (Feature and Model Selection notes)</a> chapter of Data Science: A First Introduction (Python Edition) by Varada Kolhatkar and Joel Ostblom. These notes cover classification and regression metrics, advanced variable selection and more on ensembles.</li>
+<li>The <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code> website</a> is an excellent reference for more details on, and advanced usage of, the functions and packages in the past two chapters. Aside from that, it also offers many useful <a href="https://scikit-learn.org/stable/tutorial/index.html">tutorials</a> to get you started.</li>
+<li><a href="https://www.statlearning.com/"><em>An Introduction to Statistical Learning</em></a> {cite:p}<code>james2013introduction</code> provides a great next stop in the process of learning about classification. Chapter 4 discusses additional basic techniques for classification that we do not cover, such as logistic regression, linear discriminant analysis, and naive Bayes.</li>
 </ul>
 </section>
 <section id="references" class="slide level2">
