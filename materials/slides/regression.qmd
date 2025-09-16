@@ -46,11 +46,11 @@ Examples:
 
 ## Regression Methods
 
-In this workshop:
+In this session:
 
 - K-nearest neighbors (brief overview)
 - Linear regression
-- L1 regularization
+- Intro to L1-regularization (LASSO)
 
 ## Classification similarities to regression
 
@@ -381,11 +381,10 @@ errors_plot
 
 Root Mean Square (Prediction) Error
 
-- RMSPE: the error calculated on the non-training dataset
-- RMSE: the error calcualted on the training dataset
+- RMSPE: the error calculated on the test data
+- RMSE: the error calcualted on the training data
 
-This notation is a statistics distinction,
-you will most likely see RMSPE written as RMSE.
+> This notation is a statistics distinction, you will most likely see RMSPE written as RMSE.
 
 ## Choosing $k$
 
@@ -511,7 +510,7 @@ for i in range(len(gridvals)):
 
 - Then, as we did before, we retrain the K-NN regression model on the entire training data set using the best $k$.
 
-> *The code for running cross-validation to get `sacr_gridsearch` is included at the end of the slides for your reference.*
+> *Sample code for running cross-validation is included at the end of the slides for your reference.*
 
 ## Final best K model
 
@@ -521,8 +520,23 @@ Predicted values of house price (orange line) for the final K-NN regression mode
 
 > *K-NN regression supports multiple predictors - see the end of the slides for Python code demonstrating multivariable K-NN regression.*
 
+## K-NN regression in `scikit-learn`
+
+We won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:
+
+::: {style="font-size: 0.85em;"}
+| Feature    | K-NN Classification | K-NN Regression  |
+|------------|-------------|-------------|
+| Target     | Categorical | Continuous  |
+| Logic      | Majority vote | Mean |
+| Class      | `KNeighborsClassifier` | `KNeighborsRegressor` |
+| Output     | Label       | Value       |
+| Metrics    | Accuracy, Precision, Recall | RMSPE |
+:::
+
 ## Strengths and limitations of K-NN regression
 
+:::incremental
 Strengths:
 
 - simple, intuitive algorithm
@@ -534,26 +548,12 @@ Weaknesses:
 - very slow as the training data gets larger
 - may not perform well with a large number of predictors
 - may not predict well beyond the range of values input in your training data
-
-
-## K-NN regression in `scikit-learn`
-
-We won’t be covering K-NN regression in detail, as the process is very similar to K-NN classification. The main differences are summarized below:
-
-::: {style="font-size: 0.85em;"}
-| Feature    | K-NN Class. | K-NN Regr.  |
-|------------|-------------|-------------|
-| Target     | Categorical | Continuous  |
-| Logic      | Majority vote | Mean / w.avg |
-| Class      | `KNeighborsClassifier` | `KNeighborsRegressor` |
-| Output     | Label       | Value       |
-| Use Case   | Classification | Regression |
-| Metrics    | Accuracy, Precision, Recall | RMSE |
 :::
+
 
 ## Linear Regression
 
-- Addresses the limitations from KNN regression
+- Addresses some of the limitations from KNN regression
 - Provides an interpretable mathematical equation that describes
 the relationship between the predictor and response variables
 
@@ -668,7 +668,7 @@ small_plot
 
 The equation for the line is:
 
-$$\text{house sale price} = \beta_0 + \beta_1 \cdot (\text{house size})+\varepsilon,$$
+$$\text{house price} = \beta_0 + \beta_1 \cdot (\text{house size})+\varepsilon,$$
 where
 
 - $\beta_0$ is the *vertical intercept* of the line (the price when house size is 0)
@@ -845,7 +845,7 @@ To define the **best line** we need to know how to measure the distance of the p
 
 ![](img/regression/dist.png)
 
-> Figure by Dr. Joel Ostblom
+> *Figure by Dr. Joel Ostblom*
 
 ## Least squares
 
@@ -958,6 +958,13 @@ print(results_df)
 ```
 <!--TODO: numbers here are hard-coded -->
 $\text{house sale price} =$ 137.29 $+$ 15642.31 $\cdot (\text{house size}).$
+
+where:
+
+- Intercept ($\hat{\beta}_0=137.29$): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).
+
+- House size ($\hat{\beta}_1=15642.31$): Each extra unit of size (e.g., square foot) increases the price by $15642.31 on average.
+
 
 ## Linear regression: Predictions
 
@@ -1375,10 +1382,10 @@ from sklearn.linear_model import Lasso
 # Example: Use only numeric columns for X 
 features = ['beds', 'baths', 'sqft']
 
-X = sacramento_train[features]
-y = sacramento_train['price']
+X = sacramento[features]
+y = sacramento['price']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2025)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=2025)
 
 sacr_preprocessor = make_column_transformer(
     (StandardScaler(), features),
@@ -1387,7 +1394,7 @@ sacr_preprocessor = make_column_transformer(
 
 sacr_pipeline = make_pipeline(
     sacr_preprocessor,
-    Lasso(alpha=2000.0, max_iter=10000) # fixing alpha for now
+    Lasso(alpha=4000.0, max_iter=10000) # fixing alpha for now
 )
 
 # Fit the pipeline on training data
@@ -1428,7 +1435,7 @@ pipeline = make_pipeline(
 )
 
 param_grid = {
-    'lasso__alpha': np.arange(1, 3000, 10.0)
+    'lasso__alpha': np.arange(1, 5000, 10.0)
 }
 
 grid_search = GridSearchCV(
@@ -1462,7 +1469,7 @@ rmse = mse ** (1/2)
 print(f"Test RMSE: {rmse:.2f}")
 ```
 
-## Clicker questions
+## Knowledge check 
 
 - [https://www.menti.com/algmf2xzfs8g9](https://www.menti.com/algmf2xzfs8g)
 

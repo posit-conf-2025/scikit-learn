@@ -53,7 +53,17 @@ Dept. of Statistics, UBC
 
 :::
 
+## Housekeeping 
 
+-   Gender-neutral bathrooms:
+    - LL1 (Under escalators, to the right of the Learning Center)
+    - LL2 (Next to Chicago A)
+-   Meditation/prayer room: LL2 - Chicago A 
+-   Mother's/lactation room: LL2 - Chicago B
+-   Red lanyards = No photos
+-   Code of Conduct: <https://posit.co/code-of-conduct>. Please review carefully. You can report Code of Conduct violations in person, by email, or by phone. Please see the policy linked above for contact information.
+-   Coffee breaks 10:30-11 and 15-15:30
+-   Lunch 12:30-13:30
 
 ## Helpful resources
 
@@ -93,7 +103,7 @@ other variables (sometimes called *features*)
 
 How?
 
-- By similar it is to other observations for which we do know the class
+- By how similar it is to other observations for which we do know the class
     - (e.g., previous patients with known diseases and symptoms)
 
 ## K-nearest neighbors
@@ -117,10 +127,14 @@ created by Dr. William H. Wolberg, W. Nick Street, and Olvi L. Mangasarian
 
 - Diagnosis for each image was conducted by physicians.
 
+## ML Question
+
+<br></br>
+
 *Formulate a predictive question*:
 
-> Can we use the tumor image measurements available to us to predict whether a future tumor image
-(with unknown diagnosis) shows a benign or malignant tumor?
+> *Can we use the tumor image measurements available to us to predict whether a future tumor image
+(with unknown diagnosis) shows a benign or malignant tumor?*
 
 ## Loading the cancer data 
 
@@ -207,42 +221,6 @@ perim_concav
 - Malignant: upper right-hand corner
 - Benign: lower left-hand corner
 
-## Classification with K-nearest neighbors
-
-```{pyodide}
-new_point = [2, 4]
-attrs = ["Perimeter", "Concavity"]
-
-points_df = pd.DataFrame(
-    {"Perimeter": new_point[0], "Concavity": new_point[1], "Class": ["Unknown"]}
-)
-
-perim_concav_with_new_point_df = pd.concat((cancer, points_df), ignore_index=True)
-print(perim_concav_with_new_point_df.iloc[[-1]])
-```
-
-
-
-## Distances 
-
--Compute the distance matrix between each pair from a vector array X and Y using `euclidean_distances`
-
-```{pyodide}
-from sklearn.metrics.pairwise import euclidean_distances
-
-# distance of new point to all other points
-my_distances = euclidean_distances(perim_concav_with_new_point_df[attrs])[len(cancer)][:-1]
-```
-
-```{pyodide}
-len(my_distances)
-```
-
-```{pyodide}
-# distance of new point to all other points
-my_distances
-```
-
 
 ## K-nearest neighbors; classification
 
@@ -265,7 +243,7 @@ my_distances
 
 ## KNN Example: another new point
 
-![](img/classification1/perim_concav_with_new_point2.png){fig-align="center"}
+![](img/classification1/perim_concav_with_new_point2 .png){fig-align="center"}
 
 ## KNN: improve the prediction with `k`
 
@@ -282,6 +260,42 @@ $$\mathrm{Distance} = \sqrt{(a_x -b_x)^2 + (a_y - b_y)^2}$$
 >  3 of the 5 nearest neighbors to our new observation are malignant
 
 ![](img/classification1/3-of-5.png){fig-align="center"}
+
+
+## Classification with K-nearest neighbors
+
+```{pyodide}
+new_point = [2, 4]
+attrs = ["Perimeter", "Concavity"]
+
+points_df = pd.DataFrame(
+    {"Perimeter": new_point[0], "Concavity": new_point[1], "Class": ["Unknown"]}
+)
+
+perim_concav_with_new_point_df = pd.concat((cancer, points_df), ignore_index=True)
+print(perim_concav_with_new_point_df.iloc[[-1]])
+```
+
+
+## Distances 
+
+- Compute the distance matrix between each pair from a vector array X and Y using `euclidean_distances`
+
+```{pyodide}
+from sklearn.metrics.pairwise import euclidean_distances
+
+# distance of new point to all other points
+my_distances = euclidean_distances(perim_concav_with_new_point_df[attrs])[len(cancer)][:-1]
+```
+
+```{pyodide}
+len(my_distances)
+```
+
+```{pyodide}
+# distance of new point to all other points
+my_distances
+```
 
 ## More than two explanatory variables: distance formula
 
@@ -655,65 +669,7 @@ Model prediction area.
 - Points are on original unscaled data
 - Area is using the pipeline model
 
-## Reference Code {.smaller}
-
-::: {.columns}
-::: {.column}
-
-```{pyodide}
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.pipeline import make_pipeline
-from sklearn.compose import (
-    make_column_transformer,
-)
-
-
-# load the unscaled cancer data
-unscaled_cancer = pd.read_csv(
-    "data/wdbc_unscaled.csv"
-)
-
-# make Class readable
-unscaled_cancer["Class"] = unscaled_cancer[
-    "Class"
-].replace({"M": "Malignant", "B": "Benign"})
-
-```
-
-:::
-::: {.column}
-
-```{pyodide}
-# create the K-NN model
-knn = KNeighborsClassifier(n_neighbors=7)
-
-# create the centering / scaling preprocessor
-preprocessor = make_column_transformer(
-	(StandardScaler(), ['Area', 'Smoothness']),
-	# more column transformers here
-)
-
-knn_pipeline = make_pipeline(preprocessor, knn)
-knn_pipeline.fit(X=unscaled_cancer, y=unscaled_cancer['Class'])
-knn_pipeline
-
-new_observation = pd.DataFrame(
-	{
-		'Area': [500, 1500],
-		'Smoothness': [0.075, 0.1],
-	}
-)
-prediction = knn_pipeline.predict(new_observation)
-prediction
-
-```
-
-:::
-:::
-
-## Clicker questions
+## Knowledge check 
 
 - [https://www.menti.com/alpi9oanfsf9](https://www.menti.com/alpi9oanfsf9)
 

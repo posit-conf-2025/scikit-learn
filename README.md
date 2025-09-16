@@ -12,7 +12,7 @@ by Tiffany Timbers and Katie Burak
 
 🗓️ September 16, 2025 <br>
 ⏰ 09:00 - 17:00<br>
-🏨 ROOM TBD<br>
+🏨 Hanover B<br>
 ✍️ [pos.it/conf](http://pos.it/conf)<br>
 
 -----
