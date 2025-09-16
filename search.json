@@ -371,7 +371,7 @@
     "href": "materials/slides/regression.html#linear-regression-fit-the-model",
     "title": "Regression",
     "section": "Linear regression: Fit the model",
-    "text": "Linear regression: Fit the model\n\n\n\n\n\n\n\n\\(\\text{house sale price} =\\) 15642.31 $+$137.29 \\(\\cdot (\\text{house size}).\\)\nwhere:\n\nIntercept (\\(\\hat{\\beta}_0=15642.31\\)): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=137.29\\)): Each extra unit of size (e.g., square foot) increases the price by $137.29 on average.",
+    "text": "Linear regression: Fit the model\n\n\n\n\n\n\n\n\\(\\text{house sale price} =\\) 15642.31 + 137.29 \\(\\cdot (\\text{house size}).\\)\nwhere:\n\nIntercept (\\(\\hat{\\beta}_0=15642.31\\)): Predicted sale price when house size = 0 (not meaningful in reality, but needed for the equation).\nHouse size (\\(\\hat{\\beta}_1=137.29\\)): Each extra unit of size (e.g., square foot) increases the price by $137.29 on average.",
     "crumbs": [
       "Home",
       "Slides",
