@@ -14,7 +14,7 @@ execute:
   warning: false
 ---
 
-## Tree-based methods
+## Tree-based methods {.smaller}
 
 ```{pyodide}
 #| include: false
@@ -23,12 +23,25 @@ import pandas as pd
 pd.set_option('display.max_rows', 5)
 ```
 
-- Algorithms that stratifying or segmenting the predictor space
-  into a number of simple regions.
+::: {.nonincremental}
+- Algorithms that segment the predictor space into a number of simple regions.
+  
+- Named decision trees because they can be summarized as a tree.
 
-- We call these algorithms decision-tree methods
- because the decisions used to segment the predictor space
- can be summarized in a tree.
+:::: {.columns}
+::: {.column width="50%"}
+![](img/ensembles/decision-tree-regions.png){width=75%}
+::: 
+::: {.column width="50%"}
+![](img/ensembles/decision-tree.png){width=75%}
+:::
+::::
+
+Source: [*An Introduction to Statistical Learning with Applications in Python*](https://www.statlearning.com/) by James, Witten, Hastie, Tibshirani & Taylor
+
+:::
+
+## Tree-based methods
 
 - Decision trees on their own, are very explainable and intuitive,
   but not very powerful at predicting.

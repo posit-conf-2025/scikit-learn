@@ -756,6 +756,14 @@ conf_matrix
 
 *`scikit-learn` classification documentation: <https://scikit-learn.org/stable/supervised_learning.html>*
 
+## Knowledge check 
+
+::: {.nonincremental}
+- [https://www.menti.com/alpi9oanfsf9](https://www.menti.com/ali2bi37wtpu)
+
+![](img/classification2/classification2-mentimeter_qr_code.png){width=25%}
+:::
+
 ## Additional resources
 
 - The [Classification II: evaluation & tuning](https://python.datasciencebook.ca/classification2.html)
