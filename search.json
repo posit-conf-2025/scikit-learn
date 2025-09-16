@@ -695,7 +695,19 @@
     "href": "materials/slides/ensembles.html#tree-based-methods",
     "title": "Tree-based and ensemble models",
     "section": "Tree-based methods",
-    "text": "Tree-based methods\n\n\n\n\n\n\n\nAlgorithms that stratifying or segmenting the predictor space into a number of simple regions.\nWe call these algorithms decision-tree methods because the decisions used to segment the predictor space can be summarized in a tree.\nDecision trees on their own, are very explainable and intuitive, but not very powerful at predicting.\nHowever, there are extensions of decision trees, such as random forest and boosted trees, which are very powerful at predicting. We will demonstrate two of these in this session.",
+    "text": "Tree-based methods\n\n\n\n\n\n\n\nAlgorithms that segment the predictor space into a number of simple regions.\nNamed decision trees because they can be summarized as a tree.\n\n\n\n\n\n\n\nSource: An Introduction to Statistical Learning with Applications in Python by James, Witten, Hastie, Tibshirani & Taylor",
+    "crumbs": [
+      "Home",
+      "Slides",
+      "Tree-based and ensemble models"
+    ]
+  },
+  {
+    "objectID": "materials/slides/ensembles.html#tree-based-methods-1",
+    "href": "materials/slides/ensembles.html#tree-based-methods-1",
+    "title": "Tree-based and ensemble models",
+    "section": "Tree-based methods",
+    "text": "Tree-based methods\n\nDecision trees on their own, are very explainable and intuitive, but not very powerful at predicting.\nHowever, there are extensions of decision trees, such as random forest and boosted trees, which are very powerful at predicting. We will demonstrate two of these in this session.",
     "crumbs": [
       "Home",
       "Slides",
