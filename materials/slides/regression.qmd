@@ -957,7 +957,7 @@ results_df = pd.DataFrame({'slope': [lm.coef_[0]], 'intercept': [lm.intercept_]}
 print(results_df)
 ```
 <!--TODO: numbers here are hard-coded -->
-$\text{house sale price} =$ 15642.31 $+$137.29  $\cdot (\text{house size}).$
+$\text{house sale price} =$ 15642.31 + 137.29  $\cdot (\text{house size}).$
 
 where:
 
