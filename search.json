@@ -2841,7 +2841,7 @@
     "href": "materials/slides/classification2.html#other-classification-algorithms",
     "title": "Classification II: evaluation & tuning",
     "section": "Other classification algorithms",
-    "text": "Other classification algorithms\n\nscikit-learn classification documentation: https://scikit-learn.org/stable/supervised_learning.html",
+    "text": "Other classification algorithms\n\nscikit-learn Choosing the right estimator documentation: https://scikit-learn.org/stable/machine_learning_map.html",
     "crumbs": [
       "Home",
       "Slides",
@@ -2865,7 +2865,7 @@
     "href": "materials/slides/classification2.html#additional-resources",
     "title": "Classification II: evaluation & tuning",
     "section": "Additional resources",
-    "text": "Additional resources\n\nThe Classification II: evaluation & tuning chapter of Data Science: A First Introduction (Python Edition) by Tiffany Timbers, Trevor Campbell, Melissa Lee, Joel Ostblom, Lindsey Heagy contains all the content presented here with a detailed narrative.\nThe scikit-learn website is an excellent reference for more details on, and advanced usage of, the functions and packages in the past two chapters. Aside from that, it also offers many useful tutorials to get you started.\nAn Introduction to Statistical Learning provides a great next stop in the process of learning about classification. Chapter 4 discusses additional basic techniques for classification that we do not cover, such as logistic regression, linear discriminant analysis, and naive Bayes.",
+    "text": "Additional resources\n\nThe Classification II: evaluation & tuning chapter of Data Science: A First Introduction (Python Edition) by Tiffany Timbers, Trevor Campbell, Melissa Lee, Joel Ostblom, Lindsey Heagy contains all the content presented here with a detailed narrative.\nThe scikit-learn website is an excellent reference for more details on, and advanced usage of, the functions and packages in the past two chapters. Aside from that, it also offers many useful examples to get you started.\nAn Introduction to Statistical Learning provides a great next stop in the process of learning about classification. Chapter 4 discusses additional basic techniques for classification that we do not cover, such as logistic regression, linear discriminant analysis, and naive Bayes.",
     "crumbs": [
       "Home",
       "Slides",
