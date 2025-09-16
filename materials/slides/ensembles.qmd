@@ -409,7 +409,7 @@ gb_tune_grid.fit(
 )
 ```
 
-## Boosted Classifiers results
+## Boosted Classifiers results {.smaller}
 
 How did the `HistGradientBoostingClassifier` compare
 against the other models we tried?
