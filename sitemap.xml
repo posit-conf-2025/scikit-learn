@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/index.html</loc>
-    <lastmod>2025-09-16T11:17:08.422Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.517Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/slides/regression.html</loc>
-    <lastmod>2025-09-16T11:17:08.531Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.626Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/slides/ensembles.html</loc>
-    <lastmod>2025-09-16T11:17:08.451Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.546Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/slides/classification1.html</loc>
-    <lastmod>2025-09-16T11:17:08.430Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.526Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/worksheets/py_worksheet_classification2/py_worksheet_classification2.html</loc>
-    <lastmod>2025-09-16T11:17:08.532Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.632Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/worksheets/py_ensembles/ensembles-code.html</loc>
-    <lastmod>2025-09-16T11:17:08.531Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.629Z</lastmod>
+  </url>
+  <url>
+    <loc>https://posit-conf-2025.github.io/scikit-learn/materials/solutions/py_worksheet_classification1/py_worksheet_classification1.html</loc>
+    <lastmod>2025-09-16T15:04:55.629Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/worksheets/py_worksheet_regression/py_worksheet_regression.html</loc>
-    <lastmod>2025-09-16T11:17:08.533Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.632Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/worksheets/py_worksheet_classification1/py_worksheet_classification1.html</loc>
-    <lastmod>2025-09-16T11:17:08.532Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.631Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/slides/classification2.html</loc>
-    <lastmod>2025-09-16T11:17:08.441Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.536Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/materials/slides/intro.html</loc>
-    <lastmod>2025-09-16T11:17:08.523Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.619Z</lastmod>
   </url>
   <url>
     <loc>https://posit-conf-2025.github.io/scikit-learn/LICENSE.html</loc>
-    <lastmod>2025-09-16T11:17:08.418Z</lastmod>
+    <lastmod>2025-09-16T15:04:55.513Z</lastmod>
   </url>
 </urlset>
