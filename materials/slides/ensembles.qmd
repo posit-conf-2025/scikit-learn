@@ -462,6 +462,7 @@ rf_tune_grid.fit(X_train, y_train)
 
 ## Precision and recall cont'd {.smaller}
 
+::: {.nonincremental}
 - What do we think? Is this model ready for production in a diagnostic setting?
 
 - How could we improve it further?
@@ -476,6 +477,7 @@ results_rf_tuned = pd.DataFrame({
 }, index=['accuracy', 'precision', 'recall'])
 results_rf_tuned
 ```
+:::
 
 ## Feature importances: key points
 
@@ -665,3 +667,7 @@ Kolhatkar, V., and Ostblom, J. (2024). UBC DSCI 573: Feature and Model Selection
 
 Pedregosa, F. et al., 2011. Scikit-learn: Machine learning in Python. Journal of machine learning research, 12(Oct), pp.2825–2830.
 :::
+
+## Questions?
+
+![](img/ensembles/close-up-portrait-woman-question.jpg)
