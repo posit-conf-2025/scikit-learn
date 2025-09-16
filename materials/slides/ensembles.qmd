@@ -470,11 +470,13 @@ rf_tune_grid.fit(X_train, y_train)
 ```{pyodide}
 cv_results = pd.DataFrame(rf_tune_grid.cv_results_)
 
+mean_precision = cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_]
+mean_recall = cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_]
+
 results_rf_tuned = pd.DataFrame({
-    'mean': [rf_tune_grid.best_score_,
-             cv_results['mean_test_precision'].iloc[rf_tune_grid.best_index_,
-             cv_results['mean_test_recall'].iloc[rf_tune_grid.best_index_],
-}, index=['accuracy', 'precision', 'recall'])
+    'mean': [rf_tune_grid.best_score_, mean_precision, mean_recall]},
+                                index=['accuracy', 'precision', 'recall'])
+
 results_rf_tuned
 ```
 :::
